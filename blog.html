@@ -1,0 +1,1935 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="theme-color" content="#3b82f6">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>ESODI - Jeanskodoc | Blog & Boutique</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <!-- EmailJS pour l'envoi d'emails -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <style>
+        /* Reset et variables globales */
+        :root {
+            --primary: #3b82f6;
+            --primary-dark: #2563eb;
+            --secondary: #8b5cf6;
+            --accent: #10b981;
+            --digital: #0ea5e9;
+            --digital-light: #38bdf8;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --gray-light: #e2e8f0;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --boutique: #8B5CF6;
+            --boutique-light: #A78BFA;
+            --donation: #FF6B35;
+            --donation-light: #FF8B5C;
+            --shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            --radius: 10px;
+            --transition: all 0.3s ease;
+            --safe-area-inset-top: env(safe-area-inset-top, 0px);
+            --safe-area-inset-bottom: env(safe-area-inset-bottom, 0px);
+            --safe-area-inset-left: env(safe-area-inset-left, 0px);
+            --safe-area-inset-right: env(safe-area-inset-right, 0px);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+        }
+
+        html {
+            font-size: 16px;
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+            height: -webkit-fill-available;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.5;
+            color: var(--dark);
+            background: var(--light);
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 0 16px;
+            padding-top: var(--safe-area-inset-top);
+            padding-bottom: var(--safe-area-inset-bottom);
+            min-height: 100vh;
+            min-height: -webkit-fill-available;
+            overflow-x: hidden;
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Header Mobile Optimisé */
+        header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1.2rem 0;
+            border-bottom: 2px solid var(--primary);
+            margin-bottom: 2rem;
+            position: sticky;
+            top: 0;
+            background: var(--light);
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            width: 100%;
+            left: 0;
+            right: 0;
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 1rem;
+            width: 100%;
+        }
+
+        .logo h1 {
+            color: var(--primary);
+            font-size: 2rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
+        }
+
+        .logo .subtitle {
+            color: var(--gray);
+            font-size: 0.9rem;
+            font-weight: 400;
+            margin-top: 0.3rem;
+        }
+
+        /* Navigation Mobile */
+        .mobile-nav-toggle {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            border: none;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .mobile-nav-toggle:active {
+            transform: scale(0.95);
+        }
+
+        nav {
+            width: 100%;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        nav.active {
+            max-height: 400px;
+        }
+
+        nav ul {
+            display: flex;
+            flex-direction: column;
+            list-style: none;
+            gap: 0.5rem;
+            width: 100%;
+        }
+
+        nav li {
+            width: 100%;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 600;
+            padding: 0.8rem 1rem;
+            border-radius: var(--radius);
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.95rem;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            margin-bottom: 0.3rem;
+        }
+
+        nav a i {
+            width: 24px;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+
+        nav a:hover, nav a:active {
+            background: var(--primary);
+            color: white;
+            transform: translateX(5px);
+        }
+
+        /* Hero Section Mobile */
+        .hero {
+            text-align: center;
+            padding: 2rem 1rem;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            border-radius: var(--radius);
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+        }
+
+        .hero h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+            line-height: 1.3;
+            padding: 0 0.5rem;
+        }
+
+        .hero p {
+            font-size: 1rem;
+            color: var(--gray);
+            margin: 0 auto 1.5rem;
+            line-height: 1.5;
+            padding: 0 0.5rem;
+        }
+
+        .cta-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            align-items: center;
+            width: 100%;
+        }
+
+        .btn {
+            padding: 0.9rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            font-size: 0.95rem;
+            width: 100%;
+            max-width: 300px;
+            min-height: 48px;
+            touch-action: manipulation;
+            user-select: none;
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover, .btn-primary:active {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-donation {
+            background: linear-gradient(135deg, var(--donation), var(--donation-light));
+            color: white;
+            border: 2px solid var(--donation);
+            box-shadow: 0 3px 10px rgba(255, 107, 53, 0.2);
+        }
+
+        .btn-donation:hover, .btn-donation:active {
+            background: linear-gradient(135deg, var(--donation-light), var(--donation));
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(255, 107, 53, 0.3);
+        }
+
+        /* Articles Grid Mobile */
+        .articles-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            gap: 1rem;
+            text-align: center;
+        }
+
+        .articles-header h2 {
+            color: var(--dark);
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .articles-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .article-card {
+            background: white;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            height: auto;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid var(--gray-light);
+        }
+
+        .article-card:active {
+            transform: scale(0.99);
+        }
+
+        .article-image {
+            height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2.5rem;
+            position: relative;
+        }
+
+        .article-content {
+            padding: 1.2rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .article-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.8rem;
+            align-items: flex-start;
+        }
+
+        .article-type {
+            background: var(--primary);
+            color: white;
+            padding: 0.3rem 0.7rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .date {
+            color: var(--gray);
+            font-size: 0.8rem;
+            text-align: right;
+        }
+
+        .article-content h3 {
+            margin-bottom: 0.8rem;
+            color: var(--dark);
+            font-size: 1.2rem;
+            line-height: 1.3;
+            font-weight: 600;
+        }
+
+        .excerpt {
+            color: var(--gray);
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            line-height: 1.4;
+            flex-grow: 1;
+        }
+
+        .article-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+            padding-top: 1rem;
+            border-top: 1px solid var(--gray-light);
+        }
+
+        .author {
+            color: var(--gray);
+            font-size: 0.85rem;
+        }
+
+        .read-more {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: var(--transition);
+            font-size: 0.9rem;
+            padding: 0.5rem;
+        }
+
+        /* Section Produits Digitaux Mobile */
+        .digital-highlight {
+            background: linear-gradient(135deg, #ecfeff 0%, #cffafe 100%);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border: 2px solid var(--digital-light);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .digital-highlight::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--digital), var(--digital-light));
+        }
+
+        .digital-icon {
+            font-size: 2.5rem;
+            color: var(--digital);
+            margin-bottom: 1rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .digital-highlight h2 {
+            color: var(--digital);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .digital-products {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.2rem;
+            margin: 1.5rem 0;
+        }
+
+        .digital-product {
+            background: white;
+            padding: 1.5rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            border: 2px solid var(--gray-light);
+            transition: var(--transition);
+            text-align: center;
+        }
+
+        .digital-product:active {
+            transform: scale(0.98);
+        }
+
+        .product-icon {
+            font-size: 2rem;
+            color: var(--digital);
+            margin-bottom: 0.8rem;
+        }
+
+        .digital-product h3 {
+            color: var(--dark);
+            margin-bottom: 0.8rem;
+            font-size: 1.2rem;
+        }
+
+        .digital-product p {
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-bottom: 1.2rem;
+            line-height: 1.4;
+        }
+
+        .product-features {
+            text-align: left;
+            margin: 1.2rem 0;
+        }
+
+        .product-feature {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 0.6rem;
+            color: var(--gray);
+            font-size: 0.85rem;
+        }
+
+        .product-feature i {
+            color: var(--digital);
+            margin-top: 0.2rem;
+            flex-shrink: 0;
+        }
+
+        /* Section Donations Mobile */
+        .donation-section {
+            background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            text-align: center;
+            margin: 2rem 0;
+            border: 2px solid var(--donation-light);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .donation-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--donation), var(--donation-light));
+        }
+
+        .donation-icon {
+            font-size: 2.5rem;
+            color: var(--donation);
+            margin-bottom: 1rem;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .donation-section h2 {
+            color: var(--donation);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .donation-content {
+            max-width: 100%;
+            margin: 0 auto 1.5rem;
+        }
+
+        .donation-content p {
+            color: #9a3412;
+            font-size: 1rem;
+            line-height: 1.5;
+            margin-bottom: 1.2rem;
+        }
+
+        .donation-features {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .donation-feature {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 1.2rem;
+            border-radius: var(--radius);
+            text-align: center;
+            border: 1px solid rgba(255, 107, 53, 0.2);
+        }
+
+        .donation-feature i {
+            font-size: 1.8rem;
+            color: var(--donation);
+            margin-bottom: 0.8rem;
+        }
+
+        .donation-feature h4 {
+            color: #9a3412;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .donation-feature p {
+            color: #92400e;
+            font-size: 0.85rem;
+            margin-bottom: 0;
+        }
+
+        .donation-btn {
+            width: 100%;
+            max-width: 300px;
+            padding: 1rem 1.5rem;
+            font-size: 1.1rem;
+            margin: 1rem auto;
+            display: block;
+        }
+
+        /* Section Boutique Mobile */
+        .boutique-section {
+            background: linear-gradient(135deg, #f5f3ff 0%, #ede9fe 100%);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            text-align: center;
+            margin: 2rem 0;
+            border: 2px solid var(--boutique-light);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .boutique-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--boutique), var(--boutique-light));
+        }
+
+        .boutique-icon {
+            font-size: 2.5rem;
+            color: var(--boutique);
+            margin-bottom: 1rem;
+        }
+
+        .boutique-section h2 {
+            color: var(--boutique);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 1.5rem;
+        }
+
+        .boutique-section p {
+            color: #5b21b6;
+            max-width: 100%;
+            margin: 0 auto 1.5rem;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        .boutique-cta {
+            text-align: center;
+            padding: 1.5rem;
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            max-width: 100%;
+            width: 100%;
+            border: 2px solid var(--boutique-light);
+            margin: 0 auto;
+        }
+
+        .boutique-cta h3 {
+            color: var(--boutique);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 1.3rem;
+        }
+
+        .boutique-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: linear-gradient(135deg, var(--boutique), var(--boutique-light));
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1rem;
+            margin-top: 1rem;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(139, 92, 246, 0.3);
+            width: 100%;
+            max-width: 300px;
+        }
+
+        .boutique-btn:active {
+            transform: translateY(-2px) scale(0.98);
+        }
+
+        /* Section Commentaires Mobile */
+        .comments-section {
+            background: white;
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            box-shadow: var(--shadow);
+        }
+
+        .comments-section h2 {
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1.5rem;
+        }
+
+        .comments-list {
+            margin-bottom: 1.5rem;
+        }
+
+        .comment {
+            background: var(--light);
+            border-radius: 8px;
+            padding: 1.2rem;
+            margin-bottom: 1rem;
+            border-left: 4px solid var(--primary);
+        }
+
+        .comment-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.8rem;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .comment-author {
+            font-weight: 600;
+            color: var(--dark);
+            font-size: 0.95rem;
+        }
+
+        .comment-date {
+            color: var(--gray);
+            font-size: 0.8rem;
+        }
+
+        .comment-content {
+            color: #4b5563;
+            line-height: 1.5;
+            font-size: 0.9rem;
+        }
+
+        .comment-form {
+            background: #f8fafc;
+            padding: 1.5rem;
+            border-radius: 10px;
+            border: 2px dashed var(--gray-light);
+        }
+
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--dark);
+            font-size: 0.9rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 2px solid var(--gray-light);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: var(--transition);
+            font-family: inherit;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        textarea.form-control {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        select.form-control {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%2364748b' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            background-size: 12px;
+            padding-right: 2.5rem;
+        }
+
+        /* Footer Mobile */
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+            border-top: 1px solid var(--gray-light);
+            color: var(--gray);
+        }
+
+        .social-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.8rem;
+            margin: 1.5rem 0;
+        }
+
+        .social-links a {
+            color: var(--gray);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 0.6rem 0.8rem;
+            border-radius: 6px;
+            transition: var(--transition);
+            font-size: 0.9rem;
+            background: var(--light);
+        }
+
+        .social-links a:active {
+            transform: scale(0.95);
+        }
+
+        /* Modal Mobile */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            overflow-y: auto;
+            padding: 16px;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .modal-content {
+            background: white;
+            max-width: 100%;
+            margin: 20px auto;
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            position: relative;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: var(--gray-light);
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            z-index: 10;
+        }
+
+        .close-modal:active {
+            background: var(--danger);
+            color: white;
+        }
+
+        /* Notifications Mobile */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 16px;
+            left: 16px;
+            padding: 1rem;
+            border-radius: 8px;
+            color: white;
+            font-weight: 600;
+            z-index: 1001;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            animation: slideInMobile 0.3s ease;
+            max-width: 100%;
+        }
+
+        @keyframes slideInMobile {
+            from { transform: translateY(-100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        /* Utilitaires */
+        .hidden {
+            display: none !important;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            color: var(--gray);
+        }
+
+        /* Optimisations pour tablettes */
+        @media (min-width: 768px) and (max-width: 1024px) {
+            body {
+                padding: 0 20px;
+            }
+            
+            .logo h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero h2 {
+                font-size: 2.2rem;
+            }
+            
+            .articles-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .digital-products {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .donation-features {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .cta-buttons {
+                flex-direction: row;
+                justify-content: center;
+            }
+            
+            .btn {
+                width: auto;
+                min-width: 200px;
+            }
+            
+            nav ul {
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            nav a {
+                width: auto;
+                margin: 0 0.3rem;
+            }
+            
+            .mobile-nav-toggle {
+                display: none;
+            }
+            
+            nav {
+                max-height: none !important;
+                overflow: visible;
+            }
+        }
+
+        /* Pour écrans très petits (iPhone SE, etc.) */
+        @media (max-width: 360px) {
+            body {
+                padding: 0 12px;
+            }
+            
+            .logo h1 {
+                font-size: 1.8rem;
+            }
+            
+            .hero h2 {
+                font-size: 1.6rem;
+            }
+            
+            .btn {
+                padding: 0.8rem 1rem;
+                font-size: 0.9rem;
+            }
+            
+            .article-image {
+                height: 120px;
+            }
+            
+            .article-content h3 {
+                font-size: 1.1rem;
+            }
+            
+            .social-links {
+                gap: 0.5rem;
+            }
+            
+            .social-links a {
+                padding: 0.5rem 0.6rem;
+                font-size: 0.8rem;
+            }
+        }
+
+        /* Pour orientation paysage */
+        @media (max-height: 500px) and (orientation: landscape) {
+            header {
+                position: relative;
+                padding: 1rem 0;
+            }
+            
+            .hero {
+                padding: 1.5rem 1rem;
+            }
+            
+            .hero h2 {
+                font-size: 1.5rem;
+                margin-bottom: 0.8rem;
+            }
+            
+            .cta-buttons {
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+            
+            .btn {
+                min-height: 44px;
+                padding: 0.7rem 1rem;
+            }
+        }
+
+        /* Support pour les bords arrondis des iPhone modernes */
+        @supports (padding: max(0px)) {
+            body {
+                padding-left: max(16px, env(safe-area-inset-left));
+                padding-right: max(16px, env(safe-area-inset-right));
+                padding-bottom: max(16px, env(safe-area-inset-bottom));
+            }
+            
+            .modal-content {
+                margin: max(20px, env(safe-area-inset-top)) auto max(20px, env(safe-area-inset-bottom)) auto;
+            }
+        }
+
+        /* Amélioration de la lisibilité sur mobile */
+        p, li, .excerpt, .comment-content {
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            line-height: 1.3;
+        }
+
+        /* Optimisation des animations pour les performances */
+        .article-card, .digital-product, .donation-feature, .btn {
+            will-change: transform;
+            backface-visibility: hidden;
+            transform: translateZ(0);
+        }
+
+        /* Amélioration du scrolling sur iOS */
+        .modal, .comments-list {
+            -webkit-overflow-scrolling: touch;
+            scroll-behavior: smooth;
+        }
+
+        /* Optimisation des inputs pour mobile */
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        textarea,
+        select {
+            font-size: 16px; /* Empêche le zoom automatique sur iOS */
+        }
+
+        /* Cache le menu de navigation par défaut sur mobile */
+        @media (max-width: 767px) {
+            .mobile-nav-toggle {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            
+            nav:not(.active) {
+                display: none;
+            }
+            
+            nav.active {
+                display: block;
+            }
+        }
+
+        /* Pour les appareils avec notch */
+        @media (orientation: portrait) and (max-width: 768px) {
+            .hero, .donation-section, .boutique-section, .digital-highlight {
+                margin-left: -16px;
+                margin-right: -16px;
+                border-radius: 0;
+                padding-left: 16px;
+                padding-right: 16px;
+            }
+            
+            .hero::before,
+            .donation-section::before,
+            .boutique-section::before,
+            .digital-highlight::before {
+                border-radius: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <h1>ESODI</h1>
+            <div class="subtitle">Jeanskodoc | Créations Digitales & Blog</div>
+        </div>
+        
+        <!-- Menu de navigation mobile -->
+        <button class="mobile-nav-toggle" id="mobile-nav-toggle" aria-label="Menu navigation">
+            <i class="fas fa-bars"></i>
+        </button>
+        
+        <nav id="main-nav">
+            <ul>
+                <li><a href="#articles"><i class="fas fa-newspaper"></i> Articles</a></li>
+                <li><a href="#digital"><i class="fas fa-laptop-code"></i> Produits</a></li>
+                <li><a href="#boutique"><i class="fas fa-store"></i> Boutique</a></li>
+                <li><a href="#donations"><i class="fas fa-heart"></i> Soutenir</a></li>
+                <li><a href="#comments"><i class="fas fa-comments"></i> Commentaires</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h2>Créations Digitales Innovantes</h2>
+        <p>Découvrez mes produits digitaux exclusifs, articles techniques et soutenez mon travail créatif.</p>
+        <div class="cta-buttons">
+            <a href="#digital" class="btn btn-digital">
+                <i class="fas fa-laptop-code"></i> Voir les produits
+            </a>
+            <a href="#articles" class="btn btn-primary">
+                <i class="fas fa-book-reader"></i> Lire les articles
+            </a>
+            <a href="#donations" class="btn btn-donation">
+                <i class="fas fa-heart"></i> Faire un don
+            </a>
+        </div>
+    </section>
+
+    <!-- Section Produits Digitaux -->
+    <section id="digital" class="digital-highlight">
+        <div class="digital-icon">
+            <i class="fas fa-laptop-code"></i>
+        </div>
+        
+        <h2><i class="fas fa-rocket"></i> Mes Produits Digitaux</h2>
+        
+        <p>Découvrez une sélection de mes meilleures créations digitales. Chaque produit est conçu avec soin pour vous offrir qualité, innovation et facilité d'utilisation.</p>
+
+        <div class="digital-products">
+            <!-- Produit 1 -->
+            <div class="digital-product">
+                <div class="product-icon">
+                    <i class="fas fa-palette"></i>
+                </div>
+                <h3>Packs Design Premium</h3>
+                <p>Collections complètes de ressources graphiques pour vos projets créatifs.</p>
+                
+                <div class="product-features">
+                    <div class="product-feature">
+                        <i class="fas fa-check-circle"></i>
+                        <span>100+ templates personnalisables</span>
+                    </div>
+                    <div class="product-feature">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Icônes vectorielles HD</span>
+                    </div>
+                </div>
+                
+                <div class="product-cta">
+                    <a href="#boutique" class="btn btn-digital" style="width: 100%;">
+                        <i class="fas fa-eye"></i> Voir dans la boutique
+                    </a>
+                </div>
+            </div>
+
+            <!-- Produit 2 -->
+            <div class="digital-product">
+                <div class="product-icon">
+                    <i class="fas fa-code"></i>
+                </div>
+                <h3>Kits Développement Web</h3>
+                <p>Starter kits et templates pour accélérer vos projets de développement.</p>
+                
+                <div class="product-features">
+                    <div class="product-feature">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Templates HTML/CSS/JS</span>
+                    </div>
+                    <div class="product-feature">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Composants réutilisables</span>
+                    </div>
+                </div>
+                
+                <div class="product-cta">
+                    <a href="#boutique" class="btn btn-digital" style="width: 100%;">
+                        <i class="fas fa-eye"></i> Voir dans la boutique
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="boutique-note" style="background: rgba(14, 165, 233, 0.1); border-color: var(--digital); color: #0c4a6e;">
+            <i class="fas fa-info-circle"></i> 
+            <strong>Format des produits :</strong> Téléchargement immédiat après achat. Accès à vie aux mises à jour.
+        </div>
+    </section>
+
+    <!-- Articles Grid -->
+    <section id="articles">
+        <div class="articles-header">
+            <h2><i class="fas fa-feather-alt"></i> Derniers Articles</h2>
+            <div>
+                <button id="refresh-articles" class="btn btn-outline">
+                    <i class="fas fa-sync-alt"></i> Actualiser
+                </button>
+            </div>
+        </div>
+        
+        <div id="articles-container" class="articles-grid">
+            <!-- Les articles seront chargés ici par JavaScript -->
+        </div>
+        
+        <div style="text-align: center; margin-top: 1.5rem;">
+            <button id="load-more" class="btn btn-outline">
+                <i class="fas fa-plus"></i> Voir plus d'articles
+            </button>
+        </div>
+    </section>
+
+    <!-- Section Donations -->
+    <section id="donations" class="donation-section">
+        <div class="donation-icon">
+            <i class="fas fa-heart"></i>
+        </div>
+        
+        <h2><i class="fas fa-hands-helping"></i> Soutenez mon travail</h2>
+        
+        <div class="donation-content">
+            <p>
+                Vous appréciez mes créations ? Chaque contribution m'aide à continuer de produire du contenu de qualité et à développer de nouveaux produits.
+            </p>
+            
+            <div class="donation-features">
+                <div class="donation-feature">
+                    <i class="fas fa-bolt"></i>
+                    <h4>Impact Direct</h4>
+                    <p>Finance le développement de nouveaux produits</p>
+                </div>
+                <div class="donation-feature">
+                    <i class="fas fa-star"></i>
+                    <h4>Contenu Gratuit</h4>
+                    <p>Permet de maintenir du contenu gratuit pour tous</p>
+                </div>
+                <div class="donation-feature">
+                    <i class="fas fa-tools"></i>
+                    <h4>Améliorations</h4>
+                    <p>Finance les mises à jour des produits existants</p>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin: 1.5rem 0;">
+                <a href="https://me.fedapay.com/lmuOo1Nv" 
+                   target="_blank" 
+                   class="btn btn-donation donation-btn">
+                    <i class="fas fa-gift"></i>
+                    Faire un don via Fédapay
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+                
+                <p style="color: #92400e; font-size: 0.85rem; margin-top: 1rem; font-style: italic;">
+                    <i class="fas fa-lock"></i> Paiement sécurisé - Pas de compte requis
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Boutique -->
+    <section id="boutique" class="boutique-section">
+        <div class="boutique-icon">
+            <i class="fas fa-store"></i>
+        </div>
+        
+        <h2><i class="fas fa-shopping-bag"></i> Boutique Complète</h2>
+        
+        <p>
+            Accédez à l'ensemble de mes créations digitales. Plus de 50 produits disponibles dans diverses catégories.
+        </p>
+        
+        <div class="boutique-cta">
+            <h3><i class="fas fa-external-link-alt"></i> Visiter la boutique</h3>
+            
+            <p>Explorez toutes mes créations sur ma boutique GitHub Pages :</p>
+            
+            <a href="https://jeanskodoc.github.io/ESO/" 
+               target="_blank" 
+               class="boutique-btn"
+               id="boutique-link">
+                <i class="fas fa-external-link-alt"></i>
+                Accéder à la boutique
+                <i class="fas fa-arrow-right"></i>
+            </a>
+            
+            <div class="security-badge">
+                <i class="fas fa-shield-alt"></i>
+                Navigation sécurisée
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Commentaires -->
+    <section id="comments" class="comments-section">
+        <h2><i class="fas fa-comment-dots"></i> Commentaires Récents</h2>
+        
+        <div id="comments-container" class="comments-list">
+            <!-- Les commentaires seront chargés ici -->
+        </div>
+        
+        <div class="comment-form">
+            <h3 style="margin-bottom: 1.2rem; color: var(--dark); font-size: 1.2rem;">Ajouter un commentaire</h3>
+            <form id="comment-form">
+                <div class="form-group">
+                    <label for="comment-name">Nom *</label>
+                    <input type="text" id="comment-name" class="form-control" required placeholder="Votre nom ou pseudo">
+                </div>
+                <div class="form-group">
+                    <label for="comment-email">Email (optionnel)</label>
+                    <input type="email" id="comment-email" class="form-control" placeholder="email@exemple.com">
+                </div>
+                <div class="form-group">
+                    <label for="comment-content">Commentaire *</label>
+                    <textarea id="comment-content" class="form-control" required placeholder="Votre commentaire..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="comment-article">Article concerné *</label>
+                    <select id="comment-article" class="form-control" required>
+                        <option value="">Sélectionnez un article</option>
+                        <!-- Options chargées dynamiquement -->
+                    </select>
+                </div>
+                <div style="text-align: center; margin-top: 1.5rem;">
+                    <button type="submit" class="btn btn-primary" style="width: 100%; max-width: 300px;">
+                        <i class="fas fa-paper-plane"></i> Publier le commentaire
+                    </button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- Modal pour lire un article -->
+    <div id="article-modal" class="modal">
+        <div class="modal-content">
+            <button class="close-modal">&times;</button>
+            <div id="article-modal-content" class="article-full">
+                <!-- Contenu de l'article chargé dynamiquement -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2024 <strong>ESODI - Jeanskodoc</strong></p>
+        <div class="social-links">
+            <a href="#"><i class="fab fa-twitter"></i> Twitter</a>
+            <a href="#"><i class="fab fa-github"></i> GitHub</a>
+            <a href="mailto:esodi22@gmail.com"><i class="fas fa-envelope"></i> Email</a>
+            <a href="#donations"><i class="fas fa-heart"></i> Soutenir</a>
+        </div>
+        <p style="font-size: 0.85rem; margin-top: 1.5rem; line-height: 1.4;">
+            <i class="fas fa-code"></i> Construit avec HTML, CSS & JavaScript<br>
+            <i class="fas fa-heart" style="color: var(--donation);"></i> <a href="#donations">Soutenir mon travail</a>
+        </p>
+    </footer>
+
+    <!-- Script principal optimisé pour mobile -->
+    <script>
+        // Configuration
+        const ESODI_BLOG = {
+            name: "ESODI - Jeanskodoc",
+            version: "2.2.0",
+            storageKey: "esodi_blog_data_mobile",
+            adminEmail: "esodi22@gmail.com",
+            articles: [],
+            comments: [],
+            stats: {
+                articles: 0,
+                comments: 0,
+                visitors: 0,
+                donations: 0
+            }
+        };
+
+        // Données initiales
+        const initialData = {
+            articles: [
+                {
+                    id: 1,
+                    title: "Bienvenue sur ESODI",
+                    excerpt: "Découvrez mon espace créatif dédié aux produits digitaux innovants.",
+                    content: `# Bienvenue sur ESODI !
+
+Bienvenue sur **ESODI**, votre destination pour des produits digitaux de qualité.
+
+## 🎯 Ma Mission
+
+Fournir des produits digitaux de haute qualité qui :
+- **Simplifient** votre travail
+- **Accélèrent** vos projets
+- **Inspirent** votre créativité
+
+## 📦 Ce que vous trouverez
+
+### 1. Produits Digitaux
+- Templates et ressources design
+- Kits de développement web
+- Guides et formations
+
+### 2. Articles Techniques
+- Tutoriels détaillés
+- Conseils pratiques
+- Études de cas
+
+## 🚀 Pour commencer
+
+1. **Explorez** mes produits digitaux
+2. **Lisez** les articles
+3. **Visitez** la boutique
+4. **Soutenez** mon travail via les dons
+
+---
+
+*Merci de visiter ESODI !*
+
+**Jeanskodoc**`,
+                    author: "Jeanskodoc",
+                    category: "blog",
+                    tags: ["présentation", "digital"],
+                    date: "2024-03-20",
+                    published: true,
+                    featured: true,
+                    type: "blog"
+                }
+            ],
+            comments: [],
+            stats: {
+                articles: 1,
+                comments: 0,
+                visitors: 0,
+                donations: 0
+            }
+        };
+
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log(`${ESODI_BLOG.name} v${ESODI_BLOG.version} initialisé`);
+            
+            loadData();
+            initMobileNavigation();
+            initArticles();
+            initComments();
+            initEvents();
+            loadArticleOptions();
+            
+            // Ajouter un visiteur
+            ESODI_BLOG.stats.visitors++;
+            saveData();
+            
+            showNotification(`Bienvenue sur ${ESODI_BLOG.name} !`, 'info');
+        });
+
+        // Navigation mobile
+        function initMobileNavigation() {
+            const toggleBtn = document.getElementById('mobile-nav-toggle');
+            const nav = document.getElementById('main-nav');
+            
+            if (toggleBtn && nav) {
+                toggleBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    nav.classList.toggle('active');
+                    this.innerHTML = nav.classList.contains('active') 
+                        ? '<i class="fas fa-times"></i>' 
+                        : '<i class="fas fa-bars"></i>';
+                });
+                
+                // Fermer le menu en cliquant à l'extérieur
+                document.addEventListener('click', function(e) {
+                    if (!nav.contains(e.target) && !toggleBtn.contains(e.target)) {
+                        nav.classList.remove('active');
+                        toggleBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                    }
+                });
+                
+                // Fermer le menu après clic sur un lien
+                nav.querySelectorAll('a').forEach(link => {
+                    link.addEventListener('click', function() {
+                        nav.classList.remove('active');
+                        toggleBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                    });
+                });
+            }
+            
+            // Gestion du scroll fluide sur mobile
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    
+                    const targetElement = document.getElementById(targetId);
+                    if (targetElement) {
+                        // Fermer le menu mobile s'il est ouvert
+                        if (nav && nav.classList.contains('active')) {
+                            nav.classList.remove('active');
+                            toggleBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                        }
+                        
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        }
+
+        // Gestion des données
+        function loadData() {
+            const saved = localStorage.getItem(ESODI_BLOG.storageKey);
+            if (saved) {
+                const data = JSON.parse(saved);
+                ESODI_BLOG.articles = data.articles || [];
+                ESODI_BLOG.comments = data.comments || [];
+                ESODI_BLOG.stats = data.stats || initialData.stats;
+                ESODI_BLOG.adminEmail = data.adminEmail || "esodi22@gmail.com";
+            } else {
+                ESODI_BLOG.articles = initialData.articles;
+                ESODI_BLOG.comments = initialData.comments;
+                ESODI_BLOG.stats = initialData.stats;
+                ESODI_BLOG.adminEmail = "esodi22@gmail.com";
+                saveData();
+            }
+        }
+
+        function saveData() {
+            const data = {
+                articles: ESODI_BLOG.articles,
+                comments: ESODI_BLOG.comments,
+                stats: ESODI_BLOG.stats,
+                adminEmail: ESODI_BLOG.adminEmail,
+                lastUpdate: new Date().toISOString()
+            };
+            localStorage.setItem(ESODI_BLOG.storageKey, JSON.stringify(data));
+        }
+
+        // Système d'articles
+        function initArticles() {
+            const container = document.getElementById('articles-container');
+            if (!container) return;
+            
+            const publishedArticles = ESODI_BLOG.articles.filter(article => article.published);
+            
+            if (publishedArticles.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align: center; padding: 3rem;">
+                        <i class="fas fa-newspaper" style="font-size: 3rem; color: var(--gray); margin-bottom: 1rem;"></i>
+                        <h3 style="color: var(--gray);">Aucun contenu publié</h3>
+                        <p style="color: var(--gray-light);">Revenez bientôt !</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = publishedArticles.map(article => {
+                const typeClass = article.type || 'blog';
+                const typeLabel = getTypeLabel(article.type);
+                const typeIcon = getTypeIcon(article.type);
+                
+                return `
+                    <article class="article-card" data-id="${article.id}">
+                        <div class="article-image ${typeClass}">
+                            <i class="fas fa-${typeIcon}"></i>
+                        </div>
+                        <div class="article-content">
+                            <div class="article-header">
+                                <span class="article-type ${typeClass}">${typeLabel}</span>
+                                <span class="date">${formatDate(article.date)}</span>
+                            </div>
+                            <h3>${article.title}</h3>
+                            <p class="excerpt">${article.excerpt}</p>
+                            <div class="article-footer">
+                                <span class="author">${article.author}</span>
+                                <a href="#" class="read-more" data-article="${article.id}">
+                                    Lire <i class="fas fa-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+                `;
+            }).join('');
+        }
+
+        function getTypeLabel(type) {
+            const labels = {
+                'blog': 'Article',
+                'digital': '✨ Digital',
+                'product': 'Produit',
+                'category': 'Catégorie',
+                'donation': '❤️ Soutien'
+            };
+            return labels[type] || 'Article';
+        }
+
+        function getTypeIcon(type) {
+            const icons = {
+                'blog': 'feather-alt',
+                'digital': 'laptop-code',
+                'product': 'box',
+                'category': 'tags',
+                'donation': 'heart'
+            };
+            return icons[type] || 'newspaper';
+        }
+
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('fr-FR', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric'
+            });
+        }
+
+        function loadArticleOptions() {
+            const select = document.getElementById('comment-article');
+            if (!select) return;
+            
+            const publishedArticles = ESODI_BLOG.articles.filter(article => article.published);
+            
+            select.innerHTML = '<option value="">Sélectionnez un article</option>' +
+                publishedArticles.map(article => `
+                    <option value="${article.id}">${article.title}</option>
+                `).join('');
+        }
+
+        // Système de commentaires
+        function initComments() {
+            const container = document.getElementById('comments-container');
+            if (!container) return;
+            
+            const recentComments = [...ESODI_BLOG.comments]
+                .filter(comment => comment.approved)
+                .sort((a, b) => new Date(b.date) - new Date(a.date))
+                .slice(0, 3);
+            
+            if (recentComments.length === 0) {
+                container.innerHTML = `
+                    <div class="comment" style="text-align: center; padding: 1.5rem;">
+                        <i class="fas fa-comment-slash" style="font-size: 1.5rem; color: var(--gray-light); margin-bottom: 0.5rem;"></i>
+                        <p style="color: var(--gray); font-size: 0.9rem;">Aucun commentaire. Soyez le premier !</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = recentComments.map(comment => {
+                const article = ESODI_BLOG.articles.find(a => a.id === comment.articleId);
+                const articleTitle = article ? article.title : 'Article supprimé';
+                
+                return `
+                    <div class="comment">
+                        <div class="comment-header">
+                            <span class="comment-author">${comment.author}</span>
+                            <span class="comment-date">${formatDate(comment.date)}</span>
+                        </div>
+                        <p class="comment-content">${comment.content}</p>
+                        <p style="font-size: 0.85rem; color: var(--gray); margin-top: 0.5rem;">
+                            <i class="fas fa-newspaper"></i> "${articleTitle}"
+                        </p>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Gestion des dons
+        window.copyDonationLink = function() {
+            const link = "https://me.fedapay.com/lmuOo1Nv";
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(link)
+                    .then(() => showNotification('Lien copié !', 'donation'))
+                    .catch(() => fallbackCopy(link));
+            } else {
+                fallbackCopy(link);
+            }
+        };
+
+        function fallbackCopy(text) {
+            const textArea = document.createElement('textarea');
+            textArea.value = text;
+            textArea.style.position = 'fixed';
+            textArea.style.opacity = '0';
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            
+            try {
+                document.execCommand('copy');
+                showNotification('Lien copié !', 'donation');
+            } catch (err) {
+                showNotification('Échec de la copie', 'error');
+            }
+            
+            document.body.removeChild(textArea);
+        }
+
+        // Gestion des événements
+        function initEvents() {
+            // Formulaire de commentaire
+            const commentForm = document.getElementById('comment-form');
+            if (commentForm) {
+                commentForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const name = document.getElementById('comment-name').value;
+                    const content = document.getElementById('comment-content').value;
+                    const articleId = parseInt(document.getElementById('comment-article').value);
+                    
+                    if (!name || !content || !articleId) {
+                        showNotification('Veuillez remplir tous les champs', 'error');
+                        return;
+                    }
+                    
+                    const newComment = {
+                        id: ESODI_BLOG.comments.length + 1,
+                        articleId: articleId,
+                        author: name,
+                        email: document.getElementById('comment-email').value || '',
+                        content: content,
+                        date: new Date().toISOString().split('T')[0],
+                        approved: true,
+                        notified: false
+                    };
+                    
+                    ESODI_BLOG.comments.push(newComment);
+                    saveData();
+                    this.reset();
+                    
+                    showNotification('Commentaire publié !', 'success');
+                    ESODI_BLOG.stats.comments++;
+                    updateStats();
+                    initComments();
+                });
+            }
+            
+            // Bouton boutique
+            const boutiqueBtn = document.getElementById('boutique-link');
+            if (boutiqueBtn) {
+                boutiqueBtn.addEventListener('click', function() {
+                    showNotification('Ouverture de la boutique...', 'info');
+                });
+            }
+            
+            // Bouton actualiser articles
+            const refreshBtn = document.getElementById('refresh-articles');
+            if (refreshBtn) {
+                refreshBtn.addEventListener('click', function() {
+                    initArticles();
+                    showNotification('Articles actualisés', 'info');
+                });
+            }
+            
+            // Bouton voir plus
+            const loadMoreBtn = document.getElementById('load-more');
+            if (loadMoreBtn) {
+                loadMoreBtn.addEventListener('click', function() {
+                    showNotification('Chargement de plus d\'articles...', 'info');
+                    // Simuler un chargement
+                    setTimeout(() => {
+                        showNotification('Tous les articles sont affichés', 'info');
+                    }, 1000);
+                });
+            }
+            
+            // Ouvrir un article
+            document.addEventListener('click', function(e) {
+                if (e.target.closest('.read-more')) {
+                    e.preventDefault();
+                    const articleId = parseInt(e.target.closest('.read-more').getAttribute('data-article'));
+                    openArticle(articleId);
+                }
+                
+                // Fermer la modal
+                if (e.target.classList.contains('close-modal') || e.target.classList.contains('modal')) {
+                    closeModal();
+                }
+            });
+            
+            // Prévenir le zoom sur les inputs iOS
+            document.addEventListener('touchstart', function(e) {
+                if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT') {
+                    // Ne rien faire, laisser le comportement par défaut
+                }
+            }, { passive: true });
+        }
+
+        // Ouvrir un article
+        function openArticle(articleId) {
+            const article = ESODI_BLOG.articles.find(a => a.id === articleId);
+            if (!article) {
+                showNotification('Article non trouvé', 'error');
+                return;
+            }
+            
+            const contentHTML = marked.parse(article.content);
+            
+            const modalContent = document.getElementById('article-modal-content');
+            modalContent.innerHTML = `
+                <div style="margin-bottom: 1.5rem;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 1rem; color: var(--gray); flex-wrap: wrap; gap: 0.5rem;">
+                        <span class="article-type ${article.type}" style="display: inline-block; padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.8rem; font-weight: 600; background: ${article.type === 'digital' ? 'var(--digital)' : article.type === 'product' ? 'var(--accent)' : article.type === 'category' ? 'var(--boutique)' : article.type === 'donation' ? 'var(--donation)' : 'var(--primary)'}; color: white;">
+                            ${getTypeLabel(article.type)}
+                        </span>
+                        <span class="date">${formatDate(article.date)}</span>
+                    </div>
+                    <h1 style="color: var(--dark); margin-bottom: 1rem; font-size: 1.4rem;">${article.title}</h1>
+                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--gray-light);">
+                        <i class="fas fa-user" style="color: var(--primary);"></i>
+                        <span style="font-weight: 600; font-size: 0.95rem;">${article.author}</span>
+                    </div>
+                </div>
+                <div class="article-content" style="line-height: 1.6; font-size: 1rem;">
+                    ${contentHTML}
+                </div>
+                <div style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--gray-light);">
+                    <p style="font-style: italic; color: var(--gray); font-size: 0.9rem;">
+                        <i class="fas fa-pen"></i> Publié par ${article.author}
+                    </p>
+                </div>
+            `;
+            
+            document.getElementById('article-modal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('article-modal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Notifications
+        function showNotification(message, type = 'info') {
+            // Supprimer les notifications existantes
+            const existing = document.querySelectorAll('.notification');
+            existing.forEach(notif => notif.remove());
+            
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : type === 'donation' ? 'heart' : 'info-circle'}"></i>
+                <span>${message}</span>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideInMobile 0.3s ease reverse';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+
+        // Mise à jour des statistiques
+        function updateStats() {
+            ESODI_BLOG.stats.articles = ESODI_BLOG.articles.filter(a => a.published).length;
+            ESODI_BLOG.stats.comments = ESODI_BLOG.comments.filter(c => c.approved).length;
+            saveData();
+        }
+
+        // Gestion du clavier virtuel sur mobile
+        window.addEventListener('resize', function() {
+            // Ajuster la hauteur des modales quand le clavier apparaît
+            if (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA') {
+                setTimeout(() => {
+                    const modal = document.querySelector('.modal[style*="display: block"]');
+                    if (modal) {
+                        modal.scrollTop = 0;
+                    }
+                }, 100);
+            }
+        });
+
+        // Empêcher le défilement pendant l'édition sur iOS
+        document.addEventListener('focus', function(e) {
+            if (['INPUT', 'TEXTAREA', 'SELECT'].includes(e.target.tagName)) {
+                document.body.style.overflow = 'hidden';
+            }
+        }, true);
+
+        document.addEventListener('blur', function(e) {
+            if (['INPUT', 'TEXTAREA', 'SELECT'].includes(e.target.tagName)) {
+                document.body.style.overflow = 'auto';
+            }
+        }, true);
+    </script>
+</body>
+</html>
