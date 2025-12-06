@@ -55,6 +55,13 @@
             --donation-dark: #ea580c;
             --donation-light: #fb923c;
             
+            /* Admin - Violet profond */
+            --admin: #8b5cf6;
+            --admin-dark: #7c3aed;
+            --admin-light: #a78bfa;
+            --admin-bg: rgba(139, 92, 246, 0.08);
+            --admin-border: rgba(139, 92, 246, 0.3);
+            
             /* Couleurs neutres - Palette gris améliorée */
             --dark: #1f2937;
             --dark-soft: #374151;
@@ -97,6 +104,8 @@
             --gradient-donation: linear-gradient(135deg, var(--donation), var(--donation-light));
             --gradient-boutique: linear-gradient(135deg, var(--boutique), var(--boutique-light));
             --gradient-success: linear-gradient(135deg, var(--success), var(--success-light));
+            --gradient-admin: linear-gradient(135deg, var(--admin), var(--admin-light));
+            --gradient-admin-dark: linear-gradient(135deg, var(--admin-dark), var(--admin));
         }
 
         * {
@@ -300,6 +309,17 @@
             transform: translateX(3px);
         }
 
+        /* Style spécifique pour le lien Admin */
+        nav a[href="#admin"] i {
+            color: var(--admin);
+        }
+
+        nav a[href="#admin"]:hover, 
+        nav a[href="#admin"].active {
+            color: var(--admin-dark);
+            border-left-color: var(--admin);
+        }
+
         /* Espace pour compenser le header fixe */
         main {
             padding-top: var(--header-height);
@@ -487,6 +507,43 @@
             border-color: var(--gray-400);
         }
 
+        .btn-success {
+            background: var(--gradient-success);
+            color: white;
+            border: 2px solid var(--success);
+            box-shadow: 0 4px 20px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-success:hover {
+            box-shadow: 0 8px 30px rgba(16, 185, 129, 0.4);
+        }
+
+        /* Nouveau bouton Admin */
+        .btn-admin {
+            background: var(--gradient-admin);
+            color: white;
+            border: 2px solid var(--admin);
+            box-shadow: 0 4px 20px rgba(139, 92, 246, 0.3);
+        }
+
+        .btn-admin:hover {
+            background: var(--gradient-admin-dark);
+            box-shadow: 0 8px 30px rgba(139, 92, 246, 0.5);
+            transform: translateY(-3px);
+        }
+
+        .btn-admin-secondary {
+            background: rgba(139, 92, 246, 0.1);
+            color: var(--admin-dark);
+            border: 2px solid var(--admin-light);
+        }
+
+        .btn-admin-secondary:hover {
+            background: rgba(139, 92, 246, 0.2);
+            border-color: var(--admin);
+            color: var(--admin-dark);
+        }
+
         /* Articles Grid Responsive */
         .articles-header {
             display: flex;
@@ -629,6 +686,10 @@
         .article-type.product { background: var(--gradient-boutique); }
         .article-type.category { background: var(--gradient-success); }
         .article-type.donation { background: var(--gradient-donation); }
+        .article-type.admin { 
+            background: var(--gradient-admin); 
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
 
         .date {
             color: var(--gray-500);
@@ -707,6 +768,604 @@
 
         .read-more:hover::after {
             width: 100%;
+        }
+
+        /* Section Admin avec nouvelle palette de couleurs */
+        .admin-section {
+            background: linear-gradient(135deg, 
+                rgba(245, 243, 255, 0.95) 0%, 
+                rgba(237, 233, 254, 0.98) 100%);
+            border-radius: var(--radius-xl);
+            padding: 4rem 0;
+            margin: 3rem 0;
+            border: 2px solid var(--admin-border);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.1);
+        }
+
+        .admin-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-admin);
+            box-shadow: 0 0 25px rgba(139, 92, 246, 0.5);
+        }
+
+        .admin-section::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 80%, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(124, 58, 237, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        @media (min-width: 768px) {
+            .admin-section {
+                padding: 5rem 0;
+            }
+        }
+
+        .admin-icon {
+            font-size: 4.5rem;
+            color: var(--admin);
+            margin-bottom: 1.5rem;
+            text-align: center;
+            filter: drop-shadow(0 4px 12px rgba(139, 92, 246, 0.3));
+            animation: adminIconFloat 4s ease-in-out infinite;
+        }
+
+        @keyframes adminIconFloat {
+            0%, 100% { 
+                transform: translateY(0) rotate(0deg); 
+            }
+            50% { 
+                transform: translateY(-15px) rotate(5deg); 
+            }
+        }
+
+        .admin-section h2 {
+            color: var(--gray-900);
+            margin-bottom: 1.5rem;
+            text-align: center;
+            font-size: clamp(2rem, 4vw, 2.5rem);
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            position: relative;
+            display: inline-block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .admin-section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: var(--gradient-admin);
+            border-radius: 2px;
+        }
+
+        .admin-section > .container > p {
+            color: var(--gray-700);
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            text-align: center;
+            font-size: 1.2rem;
+            line-height: 1.7;
+            position: relative;
+            z-index: 1;
+        }
+
+        .admin-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 3rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .admin-form {
+            background: white;
+            padding: 3rem;
+            border-radius: var(--radius-xl);
+            box-shadow: 0 20px 40px rgba(139, 92, 246, 0.1);
+            margin-top: 2rem;
+            border: 2px solid var(--admin-border);
+            position: relative;
+            overflow: hidden;
+            transition: all var(--transition);
+        }
+
+        .admin-form::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-admin);
+        }
+
+        .admin-form:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 50px rgba(139, 92, 246, 0.15);
+            border-color: var(--admin);
+        }
+
+        .admin-form h3 {
+            margin-bottom: 2rem;
+            color: var(--admin-dark);
+            font-size: 1.8rem;
+            font-weight: 800;
+            text-align: center;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .admin-form h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 3px;
+            background: var(--gradient-admin);
+            border-radius: 1.5px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .form-row {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .form-group {
+            margin-bottom: 2rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.8rem;
+            font-weight: 700;
+            color: var(--admin-dark);
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .form-group label i {
+            color: var(--admin);
+            font-size: 1.1rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 1.2rem 1.5rem;
+            border: 2px solid var(--gray-300);
+            border-radius: var(--radius);
+            font-size: 1rem;
+            transition: all var(--transition);
+            font-family: inherit;
+            -webkit-appearance: none;
+            appearance: none;
+            background: white;
+            color: var(--gray-900);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--admin);
+            box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.1);
+            background: white;
+        }
+
+        .form-control:hover {
+            border-color: var(--admin-light);
+        }
+
+        textarea.form-control {
+            min-height: 160px;
+            resize: vertical;
+            line-height: 1.6;
+        }
+
+        select.form-control {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%238b5cf6' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1.5rem center;
+            background-size: 14px;
+            padding-right: 3.5rem;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+            border: 2px solid var(--admin);
+            appearance: none;
+            cursor: pointer;
+            position: relative;
+            transition: all var(--transition);
+        }
+
+        .checkbox-group input[type="checkbox"]:checked {
+            background: var(--admin);
+            border-color: var(--admin);
+        }
+
+        .checkbox-group input[type="checkbox"]:checked::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-weight: bold;
+            font-size: 12px;
+        }
+
+        .checkbox-group label {
+            margin: 0;
+            font-weight: 600;
+            color: var(--gray-700);
+            cursor: pointer;
+        }
+
+        .article-preview {
+            background: var(--admin-bg);
+            padding: 2.5rem;
+            border-radius: var(--radius-lg);
+            margin-top: 2rem;
+            border: 2px dashed var(--admin-border);
+            transition: all var(--transition);
+        }
+
+        .article-preview:hover {
+            border-style: solid;
+            border-color: var(--admin);
+            background: rgba(139, 92, 246, 0.12);
+        }
+
+        .article-preview h4 {
+            color: var(--admin-dark);
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .article-preview h4 i {
+            color: var(--admin);
+        }
+
+        .article-preview-content {
+            max-height: 300px;
+            overflow-y: auto;
+            padding: 1.5rem;
+            background: white;
+            border-radius: var(--radius);
+            border: 1px solid var(--gray-200);
+            line-height: 1.7;
+        }
+
+        .article-preview-content::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .article-preview-content::-webkit-scrollbar-track {
+            background: var(--gray-100);
+            border-radius: 4px;
+        }
+
+        .article-preview-content::-webkit-scrollbar-thumb {
+            background: var(--admin);
+            border-radius: 4px;
+        }
+
+        .article-preview-content::-webkit-scrollbar-thumb:hover {
+            background: var(--admin-dark);
+        }
+
+        .articles-added {
+            margin-top: 4rem;
+            padding-top: 3rem;
+            border-top: 2px solid var(--admin-border);
+            position: relative;
+            z-index: 1;
+        }
+
+        .articles-added h3 {
+            color: var(--admin-dark);
+            margin-bottom: 2rem;
+            font-size: 1.8rem;
+            font-weight: 800;
+            text-align: center;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .articles-added h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 3px;
+            background: var(--gradient-admin);
+            border-radius: 1.5px;
+        }
+
+        .added-articles-list {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .added-articles-list {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .added-articles-list {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .added-article-item {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            border: 2px solid var(--admin-border);
+            transition: all var(--transition);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(139, 92, 246, 0.05);
+        }
+
+        .added-article-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-admin);
+            transform: scaleX(0);
+            transition: transform var(--transition);
+        }
+
+        .added-article-item:hover {
+            transform: translateY(-5px);
+            border-color: var(--admin);
+            box-shadow: 0 15px 30px rgba(139, 92, 246, 0.1);
+        }
+
+        .added-article-item:hover::before {
+            transform: scaleX(1);
+        }
+
+        .added-article-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        .added-article-title {
+            font-weight: 800;
+            color: var(--gray-900);
+            font-size: 1.2rem;
+            line-height: 1.4;
+            flex: 1;
+        }
+
+        .added-article-date {
+            color: var(--admin);
+            font-size: 0.9rem;
+            font-weight: 600;
+            background: var(--admin-bg);
+            padding: 0.3rem 0.8rem;
+            border-radius: var(--radius-full);
+            white-space: nowrap;
+        }
+
+        .added-article-excerpt {
+            color: var(--gray-600);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .added-article-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--gray-200);
+        }
+
+        .added-article-author {
+            color: var(--gray-600);
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .added-article-author i {
+            color: var(--admin);
+        }
+
+        .added-article-status {
+            padding: 0.4rem 1rem;
+            border-radius: var(--radius-full);
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border: 1px solid transparent;
+        }
+
+        .status-published {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(16, 185, 129, 0.2));
+            color: var(--success-dark);
+            border-color: rgba(16, 185, 129, 0.3);
+        }
+
+        .status-draft {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(245, 158, 11, 0.2));
+            color: var(--warning-dark);
+            border-color: rgba(245, 158, 11, 0.3);
+        }
+
+        .article-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .article-action-btn {
+            padding: 0.6rem 1rem;
+            border-radius: var(--radius);
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            min-width: 80px;
+            justify-content: center;
+        }
+
+        .article-action-btn.edit {
+            background: linear-gradient(135deg, var(--admin-light), var(--admin));
+            color: white;
+            border: 1px solid var(--admin);
+        }
+
+        .article-action-btn.delete {
+            background: linear-gradient(135deg, var(--danger-light), var(--danger));
+            color: white;
+            border: 1px solid var(--danger);
+        }
+
+        .article-action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .article-action-btn:active {
+            transform: translateY(0);
+        }
+
+        .article-action-btn.edit:hover {
+            background: linear-gradient(135deg, var(--admin), var(--admin-dark));
+            box-shadow: 0 5px 15px rgba(139, 92, 246, 0.3);
+        }
+
+        .article-action-btn.delete:hover {
+            background: linear-gradient(135deg, var(--danger), var(--danger-dark));
+            box-shadow: 0 5px 15px rgba(239, 68, 68, 0.3);
+        }
+
+        /* Badge pour la section admin */
+        .admin-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--gradient-admin);
+            color: white;
+            padding: 0.5rem 1.2rem;
+            border-radius: var(--radius-full);
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .admin-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .admin-stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: var(--radius-lg);
+            text-align: center;
+            border: 2px solid var(--admin-border);
+            transition: all var(--transition);
+        }
+
+        .admin-stat-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--admin);
+            box-shadow: 0 10px 25px rgba(139, 92, 246, 0.1);
+        }
+
+        .admin-stat-icon {
+            font-size: 2rem;
+            color: var(--admin);
+            margin-bottom: 1rem;
+        }
+
+        .admin-stat-number {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--admin-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .admin-stat-label {
+            color: var(--gray-600);
+            font-size: 0.9rem;
+            font-weight: 600;
         }
 
         /* Section Produits Digitaux Responsive */
@@ -1360,57 +2019,6 @@
             text-align: center;
         }
 
-        .form-group {
-            margin-bottom: 2rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.8rem;
-            font-weight: 700;
-            color: var(--gray-800);
-            font-size: 1rem;
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 1.2rem 1.5rem;
-            border: 2px solid var(--gray-300);
-            border-radius: var(--radius);
-            font-size: 1rem;
-            transition: all var(--transition);
-            font-family: inherit;
-            -webkit-appearance: none;
-            appearance: none;
-            background: white;
-            color: var(--gray-900);
-        }
-
-        .form-control:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
-            background: white;
-        }
-
-        .form-control:hover {
-            border-color: var(--gray-400);
-        }
-
-        textarea.form-control {
-            min-height: 160px;
-            resize: vertical;
-            line-height: 1.6;
-        }
-
-        select.form-control {
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%236b7280' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 1.5rem center;
-            background-size: 14px;
-            padding-right: 3.5rem;
-        }
-
         /* Modal Mobile Responsive */
         .modal {
             display: none;
@@ -1636,6 +2244,11 @@
             border-left: 5px solid var(--donation-light);
         }
 
+        .notification.admin {
+            background: linear-gradient(135deg, var(--admin), var(--admin-dark));
+            border-left: 5px solid var(--admin-light);
+        }
+
         @keyframes slideInMobile {
             from { transform: translateY(-30px) scale(0.95); opacity: 0; }
             to { transform: translateY(0) scale(1); opacity: 1; }
@@ -1688,6 +2301,14 @@
             .comment-form {
                 padding: 2rem;
             }
+            
+            .admin-form {
+                padding: 2rem;
+            }
+            
+            .added-article-item {
+                padding: 1.5rem;
+            }
         }
 
         /* Support pour les bords arrondis et notch */
@@ -1725,7 +2346,7 @@
         }
 
         /* Optimisation des performances */
-        .article-card, .digital-product, .donation-feature, .btn, .comment {
+        .article-card, .digital-product, .donation-feature, .btn, .comment, .added-article-item {
             will-change: transform;
             backface-visibility: hidden;
             transform: translateZ(0);
@@ -1797,6 +2418,9 @@
                 --gray-700: #e2e8f0;
                 --gray-800: #f1f5f9;
                 --gray-900: #f8fafc;
+                
+                --admin-bg: rgba(139, 92, 246, 0.12);
+                --admin-border: rgba(139, 92, 246, 0.4);
             }
             
             body {
@@ -1804,7 +2428,7 @@
                 color: var(--gray-800);
             }
             
-            .article-card, .digital-product, .donation-feature, .boutique-cta, .comment-form, .modal-content {
+            .article-card, .digital-product, .donation-feature, .boutique-cta, .comment-form, .modal-content, .admin-form, .added-article-item {
                 background: var(--gray-100);
                 border-color: var(--gray-300);
             }
@@ -1838,6 +2462,12 @@
                     rgba(51, 65, 85, 0.9) 100%);
             }
             
+            .admin-section {
+                background: linear-gradient(135deg, 
+                    rgba(30, 41, 59, 0.9) 0%, 
+                    rgba(51, 65, 85, 0.95) 100%);
+            }
+            
             .hero {
                 background: linear-gradient(135deg, 
                     rgba(15, 23, 42, 0.8) 0%, 
@@ -1869,6 +2499,11 @@
             
             nav a {
                 color: var(--gray-700);
+            }
+            
+            .article-preview-content {
+                background: var(--gray-50);
+                border-color: var(--gray-300);
             }
         }
 
@@ -1924,7 +2559,10 @@
             .article-card:hover,
             .digital-product:hover,
             .donation-feature:hover,
-            .comment:hover {
+            .comment:hover,
+            .added-article-item:hover,
+            .admin-form:hover,
+            .admin-stat-card:hover {
                 transform: none;
             }
             
@@ -1962,6 +2600,7 @@
                     <li><a href="#boutique"><i class="fas fa-store"></i> Boutique</a></li>
                     <li><a href="#donations"><i class="fas fa-heart"></i> Soutenir</a></li>
                     <li><a href="#comments"><i class="fas fa-comments"></i> Commentaires</a></li>
+                    <li><a href="#admin"><i class="fas fa-user-cog"></i> Admin</a></li>
                 </ul>
             </nav>
         </div>
@@ -2112,6 +2751,170 @@
                     <button id="load-more" class="btn btn-outline">
                         <i class="fas fa-plus"></i> Voir plus d'articles
                     </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Admin améliorée avec nouvelle palette de couleurs -->
+        <section id="admin" class="admin-section">
+            <div class="container">
+                <div class="admin-icon">
+                    <i class="fas fa-user-cog"></i>
+                </div>
+                
+                <h2>Administration des Articles</h2>
+                
+                <div class="admin-badge" style="display: inline-block; margin: 0 auto;">
+                    <i class="fas fa-shield-alt"></i> Section réservée à l'administrateur
+                </div>
+                
+                <p>Gérez facilement tous vos articles : ajoutez, modifiez ou supprimez du contenu en temps réel.</p>
+
+                <!-- Statistiques admin -->
+                <div class="admin-stats" id="admin-stats">
+                    <!-- Les statistiques seront chargées dynamiquement -->
+                </div>
+
+                <div class="admin-actions">
+                    <button id="show-add-article-form" class="btn btn-admin">
+                        <i class="fas fa-plus-circle"></i> Ajouter un article
+                    </button>
+                    <button id="show-added-articles" class="btn btn-admin-secondary">
+                        <i class="fas fa-list"></i> Voir les articles ajoutés
+                    </button>
+                    <button id="refresh-admin" class="btn btn-outline">
+                        <i class="fas fa-sync-alt"></i> Actualiser
+                    </button>
+                </div>
+
+                <!-- Formulaire pour ajouter un article -->
+                <div id="add-article-form" class="admin-form hidden">
+                    <h3><i class="fas fa-edit"></i> Ajouter un nouvel article</h3>
+                    <form id="article-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="article-title">
+                                    <i class="fas fa-heading"></i> Titre de l'article *
+                                </label>
+                                <input type="text" id="article-title" class="form-control" required 
+                                       placeholder="Ex: Mon nouvel article révolutionnaire">
+                            </div>
+                            <div class="form-group">
+                                <label for="article-author">
+                                    <i class="fas fa-user"></i> Auteur *
+                                </label>
+                                <input type="text" id="article-author" class="form-control" required 
+                                       value="Jeanskodoc" placeholder="Ex: Jeanskodoc">
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="article-category">
+                                    <i class="fas fa-folder"></i> Catégorie *
+                                </label>
+                                <select id="article-category" class="form-control" required>
+                                    <option value="">Sélectionnez une catégorie</option>
+                                    <option value="présentation">Présentation</option>
+                                    <option value="produits">Produits</option>
+                                    <option value="tutoriel">Tutoriel</option>
+                                    <option value="technique">Technique</option>
+                                    <option value="actualité">Actualité</option>
+                                    <option value="design">Design</option>
+                                    <option value="développement">Développement</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="article-type">
+                                    <i class="fas fa-tag"></i> Type d'article *
+                                </label>
+                                <select id="article-type" class="form-control" required>
+                                    <option value="">Sélectionnez un type</option>
+                                    <option value="blog">📝 Article blog</option>
+                                    <option value="digital">✨ Produit digital</option>
+                                    <option value="product">🛍️ Produit boutique</option>
+                                    <option value="category">🏷️ Catégorie</option>
+                                    <option value="donation">❤️ Soutien</option>
+                                    <option value="admin">⚙️ Article admin</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="article-tags">
+                                    <i class="fas fa-hashtag"></i> Tags (séparés par des virgules)
+                                </label>
+                                <input type="text" id="article-tags" class="form-control" 
+                                       placeholder="Ex: design, web, développement, tutoriel">
+                            </div>
+                            <div class="form-group">
+                                <label for="article-read-time">
+                                    <i class="fas fa-clock"></i> Temps de lecture
+                                </label>
+                                <input type="text" id="article-read-time" class="form-control" 
+                                       placeholder="Ex: 5 min" value="5 min">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="article-excerpt">
+                                <i class="fas fa-align-left"></i> Extrait *
+                            </label>
+                            <textarea id="article-excerpt" class="form-control" required 
+                                      placeholder="Brève description de l'article (apparaîtra dans la liste)" rows="3"></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="article-content">
+                                <i class="fas fa-file-alt"></i> Contenu (Markdown supporté) *
+                            </label>
+                            <textarea id="article-content" class="form-control" required 
+                                      placeholder="Contenu complet de l'article en Markdown..." rows="10"></textarea>
+                            <small style="color: var(--admin); margin-top: 0.5rem; display: block; font-weight: 600;">
+                                <i class="fas fa-info-circle"></i> Support Markdown : # Titre, ## Sous-titre, **gras**, *italique*, ```code```, - listes
+                            </small>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="article-published" checked>
+                                <label for="article-published">Publier immédiatement</label>
+                            </div>
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="article-featured">
+                                <label for="article-featured">Mettre en avant (featured)</label>
+                            </div>
+                        </div>
+                        
+                        <div style="text-align: center; margin-top: 2rem;">
+                            <button type="submit" class="btn btn-admin" style="min-width: 200px;">
+                                <i class="fas fa-paper-plane"></i> Publier l'article
+                            </button>
+                            <button type="button" id="preview-article" class="btn btn-admin-secondary" style="min-width: 200px; margin-left: 1rem;">
+                                <i class="fas fa-eye"></i> Prévisualiser
+                            </button>
+                            <button type="button" id="reset-form" class="btn btn-outline" style="min-width: 200px; margin-left: 1rem;">
+                                <i class="fas fa-redo"></i> Réinitialiser
+                            </button>
+                        </div>
+                    </form>
+                    
+                    <!-- Prévisualisation -->
+                    <div id="article-preview" class="article-preview hidden">
+                        <h4><i class="fas fa-search"></i> Prévisualisation</h4>
+                        <div class="article-preview-content" id="preview-content">
+                            <!-- La prévisualisation sera insérée ici -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Liste des articles ajoutés -->
+                <div id="added-articles-section" class="articles-added hidden">
+                    <h3><i class="fas fa-newspaper"></i> Articles Ajoutés</h3>
+                    <div class="added-articles-list" id="added-articles-container">
+                        <!-- Les articles ajoutés seront affichés ici -->
+                    </div>
                 </div>
             </div>
         </section>
@@ -2275,9 +3078,10 @@
         // Configuration améliorée
         const ESODI_BLOG = {
             name: "ESODI - Jeanskodoc",
-            version: "2.5.0",
-            storageKey: "esodi_blog_data_v2",
+            version: "3.1.0",
+            storageKey: "esodi_blog_data_v3_1",
             adminEmail: "esodi22@gmail.com",
+            whatsappPhone: "92871605",
             articles: [],
             comments: [],
             stats: {
@@ -2753,12 +3557,438 @@ add_header X-Content-Type-Options "nosniff";
             loadArticleOptions();
             initScrollEffects();
             initThemeDetection();
+            initAdminSection();
+            updateAdminStats();
             
             // Détecter si c'est un appareil mobile
             if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
                 document.body.classList.add('mobile-device');
             }
         }
+
+        // Initialisation de la section admin améliorée
+        function initAdminSection() {
+            const showAddArticleBtn = document.getElementById('show-add-article-form');
+            const showAddedArticlesBtn = document.getElementById('show-added-articles');
+            const refreshAdminBtn = document.getElementById('refresh-admin');
+            const addArticleForm = document.getElementById('add-article-form');
+            const addedArticlesSection = document.getElementById('added-articles-section');
+            const previewBtn = document.getElementById('preview-article');
+            const resetFormBtn = document.getElementById('reset-form');
+            const articleForm = document.getElementById('article-form');
+            
+            // Initialiser les statistiques admin
+            updateAdminStats();
+            
+            if (showAddArticleBtn) {
+                showAddArticleBtn.addEventListener('click', function() {
+                    addArticleForm.classList.remove('hidden');
+                    addedArticlesSection.classList.add('hidden');
+                    
+                    // Reset du formulaire si on édite un article
+                    const submitBtn = document.querySelector('#article-form button[type="submit"]');
+                    submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Publier l\'article';
+                    delete submitBtn.dataset.editing;
+                    
+                    // Scroll vers le formulaire
+                    setTimeout(() => {
+                        addArticleForm.scrollIntoView({ 
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }, 100);
+                    
+                    showNotification('Formulaire d\'ajout d\'article ouvert ✍️', 'admin');
+                });
+            }
+            
+            if (showAddedArticlesBtn) {
+                showAddedArticlesBtn.addEventListener('click', function() {
+                    addedArticlesSection.classList.remove('hidden');
+                    addArticleForm.classList.add('hidden');
+                    
+                    // Charger les articles ajoutés
+                    loadAddedArticles();
+                    
+                    // Scroll vers la section
+                    setTimeout(() => {
+                        addedArticlesSection.scrollIntoView({ 
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }, 100);
+                    
+                    showNotification('Affichage des articles ajoutés 📋', 'admin');
+                });
+            }
+            
+            if (refreshAdminBtn) {
+                refreshAdminBtn.addEventListener('click', function() {
+                    this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Actualisation...';
+                    
+                    setTimeout(() => {
+                        loadAddedArticles();
+                        updateAdminStats();
+                        this.innerHTML = '<i class="fas fa-sync-alt"></i> Actualiser';
+                        showNotification('Section admin actualisée 🔄', 'admin');
+                    }, 800);
+                });
+            }
+            
+            if (previewBtn) {
+                previewBtn.addEventListener('click', function() {
+                    const title = document.getElementById('article-title').value;
+                    const content = document.getElementById('article-content').value;
+                    
+                    if (!title || !content) {
+                        showNotification('Veuillez remplir le titre et le contenu pour prévisualiser', 'error');
+                        return;
+                    }
+                    
+                    const previewContent = document.getElementById('preview-content');
+                    const previewContainer = document.getElementById('article-preview');
+                    
+                    // Générer la prévisualisation avec mise en forme
+                    const previewHTML = marked.parse(content);
+                    previewContent.innerHTML = `
+                        <div style="margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 2px solid var(--admin-border);">
+                            <h3 style="color: var(--admin-dark); margin-bottom: 0.5rem;">${title}</h3>
+                            <small style="color: var(--gray-500);">Prévisualisation</small>
+                        </div>
+                        ${previewHTML}
+                    `;
+                    
+                    previewContainer.classList.remove('hidden');
+                    
+                    // Scroll vers la prévisualisation
+                    previewContainer.scrollIntoView({ 
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    
+                    showNotification('Prévisualisation générée 👁️', 'admin');
+                });
+            }
+            
+            if (resetFormBtn) {
+                resetFormBtn.addEventListener('click', function() {
+                    if (confirm('Voulez-vous réinitialiser le formulaire ? Toutes les modifications seront perdues.')) {
+                        articleForm.reset();
+                        document.getElementById('article-author').value = "Jeanskodoc";
+                        document.getElementById('article-read-time').value = "5 min";
+                        document.getElementById('article-published').checked = true;
+                        document.getElementById('article-preview').classList.add('hidden');
+                        
+                        // Reset du bouton de soumission si on édite
+                        const submitBtn = document.querySelector('#article-form button[type="submit"]');
+                        submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Publier l\'article';
+                        delete submitBtn.dataset.editing;
+                        
+                        showNotification('Formulaire réinitialisé 🔄', 'admin');
+                    }
+                });
+            }
+            
+            if (articleForm) {
+                articleForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const title = document.getElementById('article-title').value.trim();
+                    const author = document.getElementById('article-author').value.trim();
+                    const category = document.getElementById('article-category').value;
+                    const type = document.getElementById('article-type').value;
+                    const tags = document.getElementById('article-tags').value.trim();
+                    const readTime = document.getElementById('article-read-time').value.trim() || '5 min';
+                    const excerpt = document.getElementById('article-excerpt').value.trim();
+                    const content = document.getElementById('article-content').value.trim();
+                    const published = document.getElementById('article-published').checked;
+                    const featured = document.getElementById('article-featured').checked;
+                    
+                    // Validation
+                    if (!title || !author || !category || !type || !excerpt || !content) {
+                        showNotification('Veuillez remplir tous les champs obligatoires', 'error');
+                        return;
+                    }
+                    
+                    // Préparer les tags
+                    const tagsArray = tags ? tags.split(',').map(tag => tag.trim()).filter(tag => tag) : [];
+                    
+                    // Vérifier si on est en mode édition
+                    const submitBtn = this.querySelector('button[type="submit"]');
+                    const isEditing = submitBtn.dataset.editing;
+                    
+                    if (isEditing) {
+                        // Mise à jour d'un article existant
+                        const articleId = parseInt(isEditing);
+                        const articleIndex = ESODI_BLOG.articles.findIndex(a => a.id === articleId);
+                        
+                        if (articleIndex !== -1) {
+                            ESODI_BLOG.articles[articleIndex] = {
+                                ...ESODI_BLOG.articles[articleIndex],
+                                title,
+                                author,
+                                category,
+                                type,
+                                tags: tagsArray,
+                                readTime,
+                                excerpt,
+                                content,
+                                published,
+                                featured,
+                                date: new Date().toISOString().split('T')[0] // Mettre à jour la date
+                            };
+                            
+                            saveData();
+                            
+                            // Réinitialiser le formulaire
+                            this.reset();
+                            document.getElementById('article-author').value = "Jeanskodoc";
+                            document.getElementById('article-read-time').value = "5 min";
+                            document.getElementById('article-published').checked = true;
+                            document.getElementById('article-preview').classList.add('hidden');
+                            submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Publier l\'article';
+                            delete submitBtn.dataset.editing;
+                            
+                            // Mettre à jour les statistiques
+                            updateStats();
+                            
+                            // Recharger les articles
+                            initArticles();
+                            loadArticleOptions();
+                            
+                            // Afficher la confirmation
+                            showNotification(`Article "${title}" mis à jour avec succès ! ✏️`, 'admin');
+                            
+                            // Afficher les articles ajoutés
+                            addedArticlesSection.classList.remove('hidden');
+                            addArticleForm.classList.add('hidden');
+                            loadAddedArticles();
+                            updateAdminStats();
+                        }
+                    } else {
+                        // Créer le nouvel article
+                        const newArticle = {
+                            id: ESODI_BLOG.articles.length > 0 ? Math.max(...ESODI_BLOG.articles.map(a => a.id)) + 1 : 1,
+                            title: title,
+                            author: author,
+                            category: category,
+                            type: type,
+                            tags: tagsArray,
+                            readTime: readTime,
+                            excerpt: excerpt,
+                            content: content,
+                            date: new Date().toISOString().split('T')[0],
+                            published: published,
+                            featured: featured
+                        };
+                        
+                        // Ajouter l'article
+                        ESODI_BLOG.articles.push(newArticle);
+                        saveData();
+                        
+                        // Réinitialiser le formulaire
+                        this.reset();
+                        document.getElementById('article-author').value = "Jeanskodoc";
+                        document.getElementById('article-read-time').value = "5 min";
+                        document.getElementById('article-published').checked = true;
+                        document.getElementById('article-preview').classList.add('hidden');
+                        
+                        // Mettre à jour les statistiques
+                        ESODI_BLOG.stats.articles++;
+                        updateStats();
+                        
+                        // Recharger les articles
+                        initArticles();
+                        loadArticleOptions();
+                        
+                        // Afficher la confirmation
+                        showNotification(`Article "${title}" ajouté avec succès ! 📝`, 'admin');
+                        
+                        // Afficher les articles ajoutés
+                        addedArticlesSection.classList.remove('hidden');
+                        addArticleForm.classList.add('hidden');
+                        loadAddedArticles();
+                        updateAdminStats();
+                    }
+                });
+            }
+        }
+
+        // Mettre à jour les statistiques admin
+        function updateAdminStats() {
+            const statsContainer = document.getElementById('admin-stats');
+            if (!statsContainer) return;
+            
+            const totalArticles = ESODI_BLOG.articles.length;
+            const publishedArticles = ESODI_BLOG.articles.filter(a => a.published).length;
+            const draftArticles = totalArticles - publishedArticles;
+            const featuredArticles = ESODI_BLOG.articles.filter(a => a.featured).length;
+            
+            statsContainer.innerHTML = `
+                <div class="admin-stat-card">
+                    <div class="admin-stat-icon">
+                        <i class="fas fa-newspaper"></i>
+                    </div>
+                    <div class="admin-stat-number">${totalArticles}</div>
+                    <div class="admin-stat-label">Articles totaux</div>
+                </div>
+                <div class="admin-stat-card">
+                    <div class="admin-stat-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="admin-stat-number">${publishedArticles}</div>
+                    <div class="admin-stat-label">Articles publiés</div>
+                </div>
+                <div class="admin-stat-card">
+                    <div class="admin-stat-icon">
+                        <i class="fas fa-edit"></i>
+                    </div>
+                    <div class="admin-stat-number">${draftArticles}</div>
+                    <div class="admin-stat-label">Brouillons</div>
+                </div>
+                <div class="admin-stat-card">
+                    <div class="admin-stat-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="admin-stat-number">${featuredArticles}</div>
+                    <div class="admin-stat-label">Articles en vedette</div>
+                </div>
+            `;
+        }
+
+        // Charger les articles ajoutés
+        function loadAddedArticles() {
+            const container = document.getElementById('added-articles-container');
+            if (!container) return;
+            
+            // Trier par date (du plus récent au plus ancien)
+            const sortedArticles = [...ESODI_BLOG.articles]
+                .sort((a, b) => new Date(b.date) - new Date(a.date));
+            
+            if (sortedArticles.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align: center; padding: 3rem; grid-column: 1 / -1;">
+                        <i class="fas fa-newspaper" style="font-size: 3rem; color: var(--admin); margin-bottom: 1rem;"></i>
+                        <h4 style="color: var(--admin-dark); margin-bottom: 0.5rem;">Aucun article ajouté</h4>
+                        <p style="color: var(--gray-500);">
+                            Commencez par ajouter votre premier article !
+                        </p>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = sortedArticles.map(article => {
+                const statusClass = article.published ? 'status-published' : 'status-draft';
+                const statusText = article.published ? 'Publié' : 'Brouillon';
+                const typeLabel = getTypeLabel(article.type);
+                
+                return `
+                    <div class="added-article-item">
+                        <div class="added-article-header">
+                            <div class="added-article-title">${article.title}</div>
+                            <div class="added-article-date">${formatDate(article.date)}</div>
+                        </div>
+                        <div class="added-article-excerpt">
+                            ${article.excerpt}
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap;">
+                            <span class="article-type ${article.type}" style="font-size: 0.8rem; padding: 0.3rem 0.8rem;">
+                                ${typeLabel}
+                            </span>
+                            <span class="added-article-status ${statusClass}">
+                                ${statusText}
+                            </span>
+                            ${article.featured ? '<span style="background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(245, 158, 11, 0.2)); color: var(--warning-dark); padding: 0.3rem 0.8rem; border-radius: var(--radius-full); font-size: 0.8rem; font-weight: 700;">⭐ En vedette</span>' : ''}
+                        </div>
+                        <div class="added-article-footer">
+                            <div class="added-article-author">
+                                <i class="fas fa-user"></i> ${article.author}
+                            </div>
+                            <div class="article-actions">
+                                <button class="article-action-btn edit" onclick="editArticle(${article.id})">
+                                    <i class="fas fa-edit"></i> Éditer
+                                </button>
+                                <button class="article-action-btn delete" onclick="deleteArticle(${article.id})">
+                                    <i class="fas fa-trash"></i> Supprimer
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Éditer un article
+        window.editArticle = function(articleId) {
+            const article = ESODI_BLOG.articles.find(a => a.id === articleId);
+            if (!article) {
+                showNotification('Article non trouvé', 'error');
+                return;
+            }
+            
+            // Remplir le formulaire avec les données de l'article
+            document.getElementById('article-title').value = article.title;
+            document.getElementById('article-author').value = article.author;
+            document.getElementById('article-category').value = article.category;
+            document.getElementById('article-type').value = article.type;
+            document.getElementById('article-tags').value = article.tags ? article.tags.join(', ') : '';
+            document.getElementById('article-read-time').value = article.readTime || '5 min';
+            document.getElementById('article-excerpt').value = article.excerpt;
+            document.getElementById('article-content').value = article.content;
+            document.getElementById('article-published').checked = article.published;
+            document.getElementById('article-featured').checked = article.featured || false;
+            
+            // Afficher le formulaire
+            document.getElementById('add-article-form').classList.remove('hidden');
+            document.getElementById('added-articles-section').classList.add('hidden');
+            
+            // Changer le texte du bouton de soumission
+            const submitBtn = document.querySelector('#article-form button[type="submit"]');
+            submitBtn.innerHTML = '<i class="fas fa-save"></i> Mettre à jour';
+            submitBtn.dataset.editing = articleId;
+            
+            // Scroll vers le formulaire
+            setTimeout(() => {
+                document.getElementById('add-article-form').scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }, 100);
+            
+            showNotification(`Édition de l'article "${article.title}" ✏️`, 'admin');
+        };
+
+        // Supprimer un article
+        window.deleteArticle = function(articleId) {
+            if (!confirm('Êtes-vous sûr de vouloir supprimer cet article ? Cette action est irréversible.')) {
+                return;
+            }
+            
+            const articleIndex = ESODI_BLOG.articles.findIndex(a => a.id === articleId);
+            if (articleIndex === -1) {
+                showNotification('Article non trouvé', 'error');
+                return;
+            }
+            
+            const articleTitle = ESODI_BLOG.articles[articleIndex].title;
+            
+            // Supprimer l'article
+            ESODI_BLOG.articles.splice(articleIndex, 1);
+            saveData();
+            
+            // Mettre à jour les statistiques
+            ESODI_BLOG.stats.articles = ESODI_BLOG.articles.filter(a => a.published).length;
+            updateStats();
+            
+            // Recharger les articles
+            initArticles();
+            loadArticleOptions();
+            loadAddedArticles();
+            updateAdminStats();
+            
+            showNotification(`Article "${articleTitle}" supprimé avec succès 🗑️`, 'admin');
+        };
 
         // Effets de scroll améliorés
         function initScrollEffects() {
@@ -2997,7 +4227,8 @@ add_header X-Content-Type-Options "nosniff";
                 'digital': '✨ Digital',
                 'product': '🛍️ Produit',
                 'category': '🏷️ Catégorie',
-                'donation': '❤️ Soutien'
+                'donation': '❤️ Soutien',
+                'admin': '⚙️ Admin'
             };
             return labels[type] || '📄 Article';
         }
@@ -3008,7 +4239,8 @@ add_header X-Content-Type-Options "nosniff";
                 'digital': 'laptop-code',
                 'product': 'box-open',
                 'category': 'tags',
-                'donation': 'heart'
+                'donation': 'heart',
+                'admin': 'user-cog'
             };
             return icons[type] || 'newspaper';
         }
@@ -3166,6 +4398,10 @@ add_header X-Content-Type-Options "nosniff";
                     setTimeout(() => {
                         ESODI_BLOG.comments.push(newComment);
                         saveData();
+                        
+                        // Envoyer le commentaire par WhatsApp
+                        sendWhatsAppNotification(newComment);
+                        
                         this.reset();
                         
                         submitBtn.innerHTML = originalText;
@@ -3174,6 +4410,7 @@ add_header X-Content-Type-Options "nosniff";
                         showNotification('Commentaire publié avec succès ! ✨', 'success');
                         ESODI_BLOG.stats.comments++;
                         updateStats();
+                        updateAdminStats();
                         initComments();
                     }, 1000);
                 });
@@ -3256,6 +4493,48 @@ add_header X-Content-Type-Options "nosniff";
                     closeModal();
                 }
             });
+        }
+
+        // Fonction pour envoyer une notification WhatsApp
+        function sendWhatsAppNotification(comment) {
+            try {
+                // Trouver l'article correspondant
+                const article = ESODI_BLOG.articles.find(a => a.id === comment.articleId);
+                const articleTitle = article ? article.title : 'Article inconnu';
+                
+                // Formater le message WhatsApp
+                const whatsappMessage = `📝 Nouveau commentaire sur ESODI Blog :
+
+👤 Auteur : ${comment.author}
+📰 Article : ${articleTitle}
+🗓️ Date : ${formatDate(comment.date)}
+💬 Commentaire : ${comment.content}
+
+${comment.email ? `📧 Email : ${comment.email}` : ''}
+
+--
+ESODI Blog - ${ESODI_BLOG.name}`;
+                
+                // Encoder le message pour URL
+                const encodedMessage = encodeURIComponent(whatsappMessage);
+                
+                // Créer l'URL WhatsApp (avec le numéro international pour le Togo)
+                const whatsappUrl = `https://wa.me/228${ESODI_BLOG.whatsappPhone}?text=${encodedMessage}`;
+                
+                // Ouvrir WhatsApp dans un nouvel onglet
+                window.open(whatsappUrl, '_blank');
+                
+                // Marquer le commentaire comme notifié
+                comment.notified = true;
+                saveData();
+                
+                console.log('Notification WhatsApp envoyée avec succès');
+                showNotification('Notification envoyée par WhatsApp 📱', 'success');
+                
+            } catch (error) {
+                console.error('Erreur lors de l\'envoi de la notification WhatsApp:', error);
+                showNotification('Erreur d\'envoi WhatsApp', 'error');
+            }
         }
 
         // Ouvrir un article amélioré
@@ -3412,8 +4691,12 @@ add_header X-Content-Type-Options "nosniff";
             
             const notification = document.createElement('div');
             notification.className = `notification ${type}`;
+            
+            // Icône spécifique pour admin
+            const icon = type === 'admin' ? 'user-cog' : getNotificationIcon(type);
+            
             notification.innerHTML = `
-                <i class="fas fa-${getNotificationIcon(type)}"></i>
+                <i class="fas fa-${icon}"></i>
                 <span>${message}</span>
             `;
             
@@ -3421,7 +4704,7 @@ add_header X-Content-Type-Options "nosniff";
             
             setTimeout(() => {
                 notification.style.animation = 'slideInMobile 0.3s ease reverse';
-                setTimeout(() => notification.remove(), 300);
+                setTimeout(() => notification.remove(), 4000);
             }, 4000);
             
             // Ajouter un son de notification sur mobile
@@ -3441,7 +4724,8 @@ add_header X-Content-Type-Options "nosniff";
                 'success': 'check-circle',
                 'error': 'exclamation-triangle',
                 'donation': 'gift',
-                'info': 'info-circle'
+                'info': 'info-circle',
+                'admin': 'user-cog'
             };
             return icons[type] || 'info-circle';
         }
@@ -3511,6 +4795,30 @@ add_header X-Content-Type-Options "nosniff";
             makeDonation: function() {
                 window.open('https://me.fedapay.com/lmuOo1Nv', '_blank');
                 showNotification('Merci pour votre soutien ! ❤️', 'donation');
+            },
+            addArticle: function(articleData) {
+                // API pour ajouter un article depuis l'extérieur
+                const newArticle = {
+                    id: ESODI_BLOG.articles.length > 0 ? Math.max(...ESODI_BLOG.articles.map(a => a.id)) + 1 : 1,
+                    ...articleData,
+                    date: new Date().toISOString().split('T')[0]
+                };
+                
+                ESODI_BLOG.articles.push(newArticle);
+                saveData();
+                initArticles();
+                loadArticleOptions();
+                loadAddedArticles();
+                updateAdminStats();
+                
+                showNotification(`Article "${newArticle.title}" ajouté avec succès !`, 'admin');
+                return newArticle;
+            },
+            getArticles: function() {
+                return ESODI_BLOG.articles;
+            },
+            getStats: function() {
+                return ESODI_BLOG.stats;
             }
         };
 
@@ -3527,7 +4835,7 @@ add_header X-Content-Type-Options "nosniff";
                 rootMargin: '0px 0px -50px 0px'
             });
             
-            document.querySelectorAll('.article-card, .digital-product, .donation-feature').forEach(el => {
+            document.querySelectorAll('.article-card, .digital-product, .donation-feature, .added-article-item').forEach(el => {
                 observer.observe(el);
             });
         }
