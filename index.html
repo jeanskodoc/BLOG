@@ -3,42 +3,100 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-    <meta name="theme-color" content="#3b82f6">
+    <meta name="theme-color" content="#4f46e5">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <title>ESODI - Jeanskodoc | Blog & Boutique</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <!-- EmailJS pour l'envoi d'emails -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <style>
-        /* Reset et variables globales */
+        /* Reset et variables globales - Palette améliorée */
         :root {
-            --primary: #3b82f6;
-            --primary-dark: #2563eb;
-            --secondary: #8b5cf6;
-            --accent: #10b981;
-            --digital: #0ea5e9;
-            --digital-light: #38bdf8;
-            --dark: #1e293b;
-            --light: #f8fafc;
-            --gray: #64748b;
-            --gray-light: #e2e8f0;
+            /* Couleurs primaires - Palette professionnelle */
+            --primary: #4f46e5;
+            --primary-dark: #4338ca;
+            --primary-light: #818cf8;
+            
+            /* Couleurs secondaires */
+            --secondary: #7c3aed;
+            --secondary-dark: #6d28d9;
+            --secondary-light: #a78bfa;
+            
+            /* Accents */
+            --accent: #0ea5e9;
+            --accent-dark: #0284c7;
+            --accent-light: #38bdf8;
+            
+            /* Digital/Success */
             --success: #10b981;
+            --success-dark: #059669;
+            --success-light: #34d399;
+            
+            /* Warning */
             --warning: #f59e0b;
+            --warning-dark: #d97706;
+            --warning-light: #fbbf24;
+            
+            /* Danger */
             --danger: #ef4444;
-            --boutique: #8B5CF6;
-            --boutique-light: #A78BFA;
-            --donation: #FF6B35;
-            --donation-light: #FF8B5C;
-            --shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-            --radius: 10px;
-            --transition: all 0.3s ease;
-            --safe-area-inset-top: env(safe-area-inset-top, 0px);
-            --safe-area-inset-bottom: env(safe-area-inset-bottom, 0px);
-            --safe-area-inset-left: env(safe-area-inset-left, 0px);
-            --safe-area-inset-right: env(safe-area-inset-right, 0px);
+            --danger-dark: #dc2626;
+            --danger-light: #f87171;
+            
+            /* Boutique - Violet harmonisé */
+            --boutique: #8b5cf6;
+            --boutique-dark: #7c3aed;
+            --boutique-light: #a78bfa;
+            
+            /* Donation - Orange chaleureux */
+            --donation: #f97316;
+            --donation-dark: #ea580c;
+            --donation-light: #fb923c;
+            
+            /* Couleurs neutres - Palette gris améliorée */
+            --dark: #1f2937;
+            --dark-soft: #374151;
+            --light: #f9fafb;
+            --light-soft: #f3f4f6;
+            
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-400: #9ca3af;
+            --gray-500: #6b7280;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
+            
+            /* Utilitaires */
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 6px 12px -2px rgba(0, 0, 0, 0.1), 0 3px 6px -1px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 10px 25px -3px rgba(0, 0, 0, 0.1), 0 4px 10px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 40px -5px rgba(0, 0, 0, 0.1), 0 10px 20px -5px rgba(0, 0, 0, 0.04);
+            
+            --radius-sm: 6px;
+            --radius: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
+            --radius-full: 9999px;
+            
+            --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
+            
+            --header-height: 70px;
+            
+            /* Dégradés améliorés */
+            --gradient-primary: linear-gradient(135deg, var(--primary), var(--secondary));
+            --gradient-digital: linear-gradient(135deg, var(--accent), var(--accent-light));
+            --gradient-donation: linear-gradient(135deg, var(--donation), var(--donation-light));
+            --gradient-boutique: linear-gradient(135deg, var(--boutique), var(--boutique-light));
+            --gradient-success: linear-gradient(135deg, var(--success), var(--success-light));
         }
 
         * {
@@ -46,95 +104,116 @@
             padding: 0;
             box-sizing: border-box;
             -webkit-tap-highlight-color: transparent;
-            -webkit-touch-callout: none;
         }
 
         html {
             font-size: 16px;
             -webkit-text-size-adjust: 100%;
-            -ms-text-size-adjust: 100%;
-            height: -webkit-fill-available;
+            height: 100%;
+            scroll-behavior: smooth;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            line-height: 1.5;
-            color: var(--dark);
+            font-family: inherit;
+            line-height: 1.6;
+            color: var(--gray-800);
             background: var(--light);
-            max-width: 100%;
-            margin: 0 auto;
-            padding: 0 16px;
-            padding-top: var(--safe-area-inset-top);
-            padding-bottom: var(--safe-area-inset-bottom);
             min-height: 100vh;
-            min-height: -webkit-fill-available;
             overflow-x: hidden;
-            text-rendering: optimizeLegibility;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
+            padding: 0;
+            position: relative;
+        }
+
+        /* Container principal responsive */
+        .container {
+            width: 100%;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        @media (min-width: 768px) {
+            .container {
+                padding: 0 32px;
+            }
         }
 
         /* Header Mobile Optimisé */
         header {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 1.2rem 0;
-            border-bottom: 2px solid var(--primary);
-            margin-bottom: 2rem;
-            position: sticky;
+            position: fixed;
             top: 0;
-            background: var(--light);
-            z-index: 100;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            width: 100%;
             left: 0;
             right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow-sm);
+            z-index: 1000;
+            height: var(--header-height);
+            padding: 0 20px;
+            transition: var(--transition);
+        }
+
+        .header-scrolled {
+            box-shadow: var(--shadow);
+            background: rgba(255, 255, 255, 0.98);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100%;
+            max-width: 1280px;
+            margin: 0 auto;
         }
 
         .logo {
-            text-align: center;
-            margin-bottom: 1rem;
-            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
         }
 
         .logo h1 {
             color: var(--primary);
-            font-size: 2rem;
+            font-size: 1.8rem;
             font-weight: 800;
             letter-spacing: -0.5px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            background: var(--gradient-primary);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            line-height: 1.2;
+            line-height: 1;
         }
 
         .logo .subtitle {
-            color: var(--gray);
-            font-size: 0.9rem;
-            font-weight: 400;
-            margin-top: 0.3rem;
+            font-size: 0.75rem;
+            color: var(--gray-500);
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
         }
 
         /* Navigation Mobile */
         .mobile-nav-toggle {
-            display: none;
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 1000;
-            width: 56px;
-            height: 56px;
-            border-radius: 50%;
-            background: var(--primary);
+            width: 44px;
+            height: 44px;
+            border-radius: var(--radius-full);
+            background: var(--gradient-primary);
             color: white;
             border: none;
-            font-size: 1.5rem;
-            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+            font-size: 1.2rem;
             cursor: pointer;
             transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow);
+        }
+
+        .mobile-nav-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
         }
 
         .mobile-nav-toggle:active {
@@ -142,65 +221,120 @@
         }
 
         nav {
-            width: 100%;
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease;
+            position: fixed;
+            top: var(--header-height);
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-100%);
+            opacity: 0;
+            visibility: hidden;
+            transition: all var(--transition-slow) cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 999;
+            max-height: calc(100vh - var(--header-height));
+            overflow-y: auto;
+            border-top: 1px solid var(--gray-200);
         }
 
         nav.active {
-            max-height: 400px;
+            transform: translateY(0);
+            opacity: 1;
+            visibility: visible;
         }
 
         nav ul {
-            display: flex;
-            flex-direction: column;
             list-style: none;
-            gap: 0.5rem;
-            width: 100%;
+            padding: 1rem 0;
         }
 
         nav li {
-            width: 100%;
+            margin: 0;
         }
 
         nav a {
-            text-decoration: none;
-            color: var(--dark);
-            font-weight: 600;
-            padding: 0.8rem 1rem;
-            border-radius: var(--radius);
-            transition: var(--transition);
             display: flex;
             align-items: center;
-            gap: 10px;
-            font-size: 0.95rem;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.9);
-            margin-bottom: 0.3rem;
+            gap: 14px;
+            padding: 1.2rem 24px;
+            color: var(--gray-700);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: var(--transition-fast);
+            border-left: 4px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        nav a::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 0;
+            background: var(--gradient-primary);
+            opacity: 0.1;
+            transition: var(--transition);
         }
 
         nav a i {
             width: 24px;
-            text-align: center;
             font-size: 1.1rem;
+            color: var(--primary);
+            transition: var(--transition);
         }
 
-        nav a:hover, nav a:active {
-            background: var(--primary);
-            color: white;
-            transform: translateX(5px);
+        nav a:hover, nav a:active, nav a.active {
+            color: var(--primary-dark);
+            border-left-color: var(--primary);
+        }
+
+        nav a:hover::before {
+            width: 100%;
+        }
+
+        nav a:hover i {
+            transform: translateX(3px);
+        }
+
+        /* Espace pour compenser le header fixe */
+        main {
+            padding-top: var(--header-height);
+            min-height: 100vh;
+        }
+
+        /* Sections avec padding responsive */
+        section {
+            padding: 4rem 0;
+            width: 100%;
+        }
+
+        @media (min-width: 768px) {
+            section {
+                padding: 5rem 0;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            section {
+                padding: 6rem 0;
+            }
         }
 
         /* Hero Section Mobile */
         .hero {
             text-align: center;
-            padding: 2rem 1rem;
-            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
-            border-radius: var(--radius);
-            margin-bottom: 2rem;
+            padding: 3rem 0;
+            background: linear-gradient(135deg, 
+                rgba(79, 70, 229, 0.03) 0%, 
+                rgba(124, 58, 237, 0.06) 50%, 
+                rgba(14, 165, 233, 0.03) 100%);
             position: relative;
             overflow: hidden;
+            margin-bottom: 2rem;
         }
 
         .hero::before {
@@ -210,132 +344,261 @@
             left: 0;
             right: 0;
             height: 4px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+            background: var(--gradient-primary);
+            box-shadow: 0 0 20px rgba(79, 70, 229, 0.3);
         }
 
         .hero h2 {
-            font-size: 1.8rem;
-            margin-bottom: 1rem;
-            color: var(--dark);
-            line-height: 1.3;
-            padding: 0 0.5rem;
+            font-size: clamp(2rem, 5vw, 3rem);
+            margin-bottom: 1.5rem;
+            color: var(--gray-900);
+            line-height: 1.2;
+            font-weight: 800;
+            letter-spacing: -0.5px;
         }
 
         .hero p {
-            font-size: 1rem;
-            color: var(--gray);
-            margin: 0 auto 1.5rem;
-            line-height: 1.5;
-            padding: 0 0.5rem;
+            font-size: clamp(1.1rem, 4vw, 1.3rem);
+            color: var(--gray-600);
+            margin: 0 auto 3rem;
+            line-height: 1.7;
+            max-width: 700px;
+            font-weight: 400;
         }
 
         .cta-buttons {
             display: flex;
             flex-direction: column;
-            gap: 0.8rem;
+            gap: 1rem;
             align-items: center;
             width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
         }
 
+        @media (min-width: 640px) {
+            .cta-buttons {
+                flex-direction: row;
+                justify-content: center;
+                flex-wrap: wrap;
+                max-width: 800px;
+            }
+        }
+
+        /* Boutons améliorés */
         .btn {
-            padding: 0.9rem 1.5rem;
-            border-radius: 8px;
+            padding: 1rem 2rem;
+            border-radius: var(--radius-full);
             text-decoration: none;
             font-weight: 600;
-            display: flex;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
-            transition: var(--transition);
-            border: none;
+            gap: 10px;
+            transition: all var(--transition);
+            border: 2px solid transparent;
             cursor: pointer;
-            font-size: 0.95rem;
+            font-size: 1rem;
             width: 100%;
-            max-width: 300px;
-            min-height: 48px;
+            min-height: 56px;
             touch-action: manipulation;
             user-select: none;
+            white-space: nowrap;
+            position: relative;
+            overflow: hidden;
+            letter-spacing: 0.3px;
+        }
+
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translate(-50%, -50%);
+            transition: width var(--transition), height var(--transition);
+        }
+
+        .btn:active::after {
+            width: 300px;
+            height: 300px;
+        }
+
+        @media (min-width: 640px) {
+            .btn {
+                width: auto;
+                min-width: 200px;
+                padding: 1rem 2.5rem;
+            }
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
         }
 
         .btn:active {
-            transform: scale(0.98);
+            transform: translateY(-1px);
         }
 
         .btn-primary {
-            background: var(--primary);
+            background: var(--gradient-primary);
             color: white;
+            box-shadow: 0 4px 20px rgba(79, 70, 229, 0.3);
         }
 
-        .btn-primary:hover, .btn-primary:active {
-            background: var(--primary-dark);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(59, 130, 246, 0.3);
+        .btn-primary:hover {
+            box-shadow: 0 8px 30px rgba(79, 70, 229, 0.4);
+        }
+
+        .btn-digital {
+            background: var(--gradient-digital);
+            color: white;
+            border: 2px solid var(--accent);
+            box-shadow: 0 4px 20px rgba(14, 165, 233, 0.3);
+        }
+
+        .btn-digital:hover {
+            box-shadow: 0 8px 30px rgba(14, 165, 233, 0.4);
         }
 
         .btn-donation {
-            background: linear-gradient(135deg, var(--donation), var(--donation-light));
+            background: var(--gradient-donation);
             color: white;
             border: 2px solid var(--donation);
-            box-shadow: 0 3px 10px rgba(255, 107, 53, 0.2);
+            box-shadow: 0 4px 20px rgba(249, 115, 22, 0.3);
         }
 
-        .btn-donation:hover, .btn-donation:active {
-            background: linear-gradient(135deg, var(--donation-light), var(--donation));
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(255, 107, 53, 0.3);
+        .btn-donation:hover {
+            box-shadow: 0 8px 30px rgba(249, 115, 22, 0.4);
         }
 
-        /* Articles Grid Mobile */
+        .btn-outline {
+            background: transparent;
+            color: var(--gray-700);
+            border: 2px solid var(--gray-300);
+        }
+
+        .btn-outline:hover {
+            background: var(--gray-50);
+            border-color: var(--gray-400);
+        }
+
+        /* Articles Grid Responsive */
         .articles-header {
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin-bottom: 1.5rem;
-            gap: 1rem;
             text-align: center;
+            margin-bottom: 3rem;
+            gap: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .articles-header {
+                flex-direction: row;
+                justify-content: space-between;
+                text-align: left;
+                align-items: flex-end;
+            }
         }
 
         .articles-header h2 {
-            color: var(--dark);
-            font-size: 1.5rem;
-            font-weight: 700;
+            color: var(--gray-900);
+            font-size: clamp(2rem, 4vw, 2.5rem);
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            line-height: 1.2;
         }
 
         .articles-grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 1.2rem;
-            margin-bottom: 2rem;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        @media (min-width: 640px) {
+            .articles-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .articles-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 2.5rem;
+            }
         }
 
         .article-card {
             background: white;
-            border-radius: var(--radius);
+            border-radius: var(--radius-lg);
             overflow: hidden;
             box-shadow: var(--shadow);
-            transition: var(--transition);
-            height: auto;
+            transition: all var(--transition);
+            height: 100%;
             display: flex;
             flex-direction: column;
-            border: 1px solid var(--gray-light);
+            border: 1px solid var(--gray-200);
+            position: relative;
+        }
+
+        .article-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-xl);
+            border-color: var(--primary-light);
         }
 
         .article-card:active {
-            transform: scale(0.99);
+            transform: translateY(-4px);
         }
 
         .article-image {
-            height: 150px;
+            height: 200px;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 2.5rem;
+            font-size: 3rem;
             position: relative;
+            overflow: hidden;
+        }
+
+        .article-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--gradient-primary);
+            opacity: 0.9;
+        }
+
+        .article-image.blog::before { background: var(--gradient-primary); }
+        .article-image.digital::before { background: var(--gradient-digital); }
+        .article-image.product::before { background: var(--gradient-boutique); }
+        .article-image.category::before { background: var(--gradient-success); }
+        .article-image.donation::before { background: var(--gradient-donation); }
+
+        .article-image i {
+            position: relative;
+            z-index: 1;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        @media (min-width: 768px) {
+            .article-image {
+                height: 220px;
+            }
         }
 
         .article-content {
-            padding: 1.2rem;
+            padding: 2rem;
             flex-grow: 1;
             display: flex;
             flex-direction: column;
@@ -344,39 +607,50 @@
         .article-header {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 0.8rem;
             align-items: flex-start;
+            margin-bottom: 1.2rem;
+            flex-wrap: wrap;
+            gap: 0.75rem;
         }
 
         .article-type {
-            background: var(--primary);
+            background: var(--gradient-primary);
             color: white;
-            padding: 0.3rem 0.7rem;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 600;
+            padding: 0.5rem 1.2rem;
+            border-radius: var(--radius-full);
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: inline-block;
+        }
+
+        .article-type.digital { background: var(--gradient-digital); }
+        .article-type.product { background: var(--gradient-boutique); }
+        .article-type.category { background: var(--gradient-success); }
+        .article-type.donation { background: var(--gradient-donation); }
+
+        .date {
+            color: var(--gray-500);
+            font-size: 0.9rem;
+            font-weight: 500;
             white-space: nowrap;
         }
 
-        .date {
-            color: var(--gray);
-            font-size: 0.8rem;
-            text-align: right;
-        }
-
         .article-content h3 {
-            margin-bottom: 0.8rem;
-            color: var(--dark);
-            font-size: 1.2rem;
-            line-height: 1.3;
-            font-weight: 600;
+            margin-bottom: 1.2rem;
+            color: var(--gray-900);
+            font-size: 1.4rem;
+            line-height: 1.4;
+            font-weight: 700;
+            letter-spacing: -0.3px;
         }
 
         .excerpt {
-            color: var(--gray);
-            margin-bottom: 1rem;
-            font-size: 0.9rem;
-            line-height: 1.4;
+            color: var(--gray-600);
+            margin-bottom: 1.8rem;
+            font-size: 1rem;
+            line-height: 1.7;
             flex-grow: 1;
         }
 
@@ -385,36 +659,73 @@
             justify-content: space-between;
             align-items: center;
             margin-top: auto;
-            padding-top: 1rem;
-            border-top: 1px solid var(--gray-light);
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--gray-200);
         }
 
         .author {
-            color: var(--gray);
-            font-size: 0.85rem;
+            color: var(--gray-600);
+            font-size: 0.95rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .author i {
+            color: var(--primary);
         }
 
         .read-more {
             color: var(--primary);
             text-decoration: none;
-            font-weight: 600;
+            font-weight: 700;
             display: inline-flex;
             align-items: center;
-            gap: 5px;
+            gap: 8px;
             transition: var(--transition);
-            font-size: 0.9rem;
-            padding: 0.5rem;
+            font-size: 0.95rem;
+            padding: 0.75rem 0;
+            position: relative;
         }
 
-        /* Section Produits Digitaux Mobile */
+        .read-more::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: var(--transition);
+        }
+
+        .read-more:hover, .read-more:active {
+            color: var(--primary-dark);
+            gap: 12px;
+        }
+
+        .read-more:hover::after {
+            width: 100%;
+        }
+
+        /* Section Produits Digitaux Responsive */
         .digital-highlight {
-            background: linear-gradient(135deg, #ecfeff 0%, #cffafe 100%);
-            border-radius: var(--radius);
-            padding: 1.5rem;
-            margin: 2rem 0;
-            border: 2px solid var(--digital-light);
+            background: linear-gradient(135deg, 
+                rgba(236, 254, 255, 0.6) 0%, 
+                rgba(207, 250, 254, 0.8) 100%);
+            border-radius: var(--radius-xl);
+            padding: 3rem 0;
+            margin: 3rem 0;
+            border: 2px solid var(--accent-light);
             position: relative;
             overflow: hidden;
+        }
+
+        @media (min-width: 768px) {
+            .digital-highlight {
+                padding: 4rem 0;
+            }
         }
 
         .digital-highlight::before {
@@ -424,102 +735,181 @@
             left: 0;
             right: 0;
             height: 4px;
-            background: linear-gradient(90deg, var(--digital), var(--digital-light));
+            background: var(--gradient-digital);
+            box-shadow: 0 0 20px rgba(14, 165, 233, 0.4);
         }
 
         .digital-icon {
-            font-size: 2.5rem;
-            color: var(--digital);
-            margin-bottom: 1rem;
+            font-size: 4rem;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+            text-align: center;
             animation: float 3s ease-in-out infinite;
+            filter: drop-shadow(0 4px 12px rgba(14, 165, 233, 0.3));
         }
 
         @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
+            0%, 100% { transform: translateY(0) rotate(0); }
+            50% { transform: translateY(-15px) rotate(5deg); }
         }
 
         .digital-highlight h2 {
-            color: var(--digital);
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            font-size: 1.5rem;
-            flex-wrap: wrap;
+            color: var(--gray-900);
+            margin-bottom: 1.5rem;
+            text-align: center;
+            font-size: clamp(2rem, 4vw, 2.5rem);
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .digital-highlight > .container > p {
+            color: var(--gray-600);
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            text-align: center;
+            font-size: 1.2rem;
+            line-height: 1.7;
         }
 
         .digital-products {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 1.2rem;
-            margin: 1.5rem 0;
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        @media (min-width: 768px) {
+            .digital-products {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .digital-products {
+                grid-template-columns: repeat(3, 1fr);
+            }
         }
 
         .digital-product {
             background: white;
-            padding: 1.5rem;
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
-            border: 2px solid var(--gray-light);
-            transition: var(--transition);
+            padding: 2.5rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            border: 2px solid var(--gray-200);
+            transition: all var(--transition);
             text-align: center;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .digital-product::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-digital);
+            transform: scaleX(0);
+            transition: transform var(--transition);
+        }
+
+        .digital-product:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .digital-product:hover::before {
+            transform: scaleX(1);
         }
 
         .digital-product:active {
-            transform: scale(0.98);
+            transform: translateY(-4px);
         }
 
         .product-icon {
-            font-size: 2rem;
-            color: var(--digital);
-            margin-bottom: 0.8rem;
+            font-size: 3.5rem;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .digital-product:hover .product-icon {
+            transform: scale(1.1) rotate(10deg);
         }
 
         .digital-product h3 {
-            color: var(--dark);
-            margin-bottom: 0.8rem;
-            font-size: 1.2rem;
+            color: var(--gray-900);
+            margin-bottom: 1.2rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.3px;
         }
 
         .digital-product p {
-            color: var(--gray);
-            font-size: 0.9rem;
-            margin-bottom: 1.2rem;
-            line-height: 1.4;
+            color: var(--gray-600);
+            font-size: 1.05rem;
+            margin-bottom: 2rem;
+            line-height: 1.7;
+            flex-grow: 1;
         }
 
         .product-features {
             text-align: left;
-            margin: 1.2rem 0;
+            margin: 2rem 0;
+            background: var(--gray-50);
+            padding: 1.5rem;
+            border-radius: var(--radius);
+            border: 1px solid var(--gray-200);
         }
 
         .product-feature {
             display: flex;
             align-items: flex-start;
-            gap: 10px;
-            margin-bottom: 0.6rem;
-            color: var(--gray);
-            font-size: 0.85rem;
+            gap: 12px;
+            margin-bottom: 1rem;
+            color: var(--gray-700);
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .product-feature:last-child {
+            margin-bottom: 0;
         }
 
         .product-feature i {
-            color: var(--digital);
+            color: var(--success);
             margin-top: 0.2rem;
             flex-shrink: 0;
+            font-size: 1.1rem;
         }
 
-        /* Section Donations Mobile */
+        .product-cta {
+            margin-top: auto;
+        }
+
+        /* Section Donations Responsive */
         .donation-section {
-            background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%);
-            border-radius: var(--radius);
-            padding: 1.5rem;
+            background: linear-gradient(135deg, 
+                rgba(255, 247, 237, 0.8) 0%, 
+                rgba(255, 237, 213, 0.9) 100%);
+            border-radius: var(--radius-xl);
+            padding: 3rem 0;
             text-align: center;
-            margin: 2rem 0;
+            margin: 3rem 0;
             border: 2px solid var(--donation-light);
             position: relative;
             overflow: hidden;
+        }
+
+        @media (min-width: 768px) {
+            .donation-section {
+                padding: 4rem 0;
+            }
         }
 
         .donation-section::before {
@@ -529,96 +919,176 @@
             left: 0;
             right: 0;
             height: 4px;
-            background: linear-gradient(90deg, var(--donation), var(--donation-light));
+            background: var(--gradient-donation);
+            box-shadow: 0 0 20px rgba(249, 115, 22, 0.4);
         }
 
         .donation-icon {
-            font-size: 2.5rem;
+            font-size: 4rem;
             color: var(--donation);
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
             animation: pulse 2s ease-in-out infinite;
+            filter: drop-shadow(0 4px 12px rgba(249, 115, 22, 0.3));
         }
 
         @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
+            0%, 100% { 
+                transform: scale(1); 
+                filter: drop-shadow(0 4px 12px rgba(249, 115, 22, 0.3));
+            }
+            50% { 
+                transform: scale(1.1); 
+                filter: drop-shadow(0 6px 20px rgba(249, 115, 22, 0.5));
+            }
         }
 
         .donation-section h2 {
-            color: var(--donation);
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            font-size: 1.5rem;
-            flex-wrap: wrap;
+            color: var(--gray-900);
+            margin-bottom: 1.5rem;
+            font-size: clamp(2rem, 4vw, 2.5rem);
+            font-weight: 800;
+            letter-spacing: -0.5px;
         }
 
         .donation-content {
-            max-width: 100%;
-            margin: 0 auto 1.5rem;
+            max-width: 900px;
+            margin: 0 auto;
         }
 
-        .donation-content p {
-            color: #9a3412;
-            font-size: 1rem;
-            line-height: 1.5;
-            margin-bottom: 1.2rem;
+        .donation-content > p {
+            color: var(--gray-700);
+            font-size: clamp(1.1rem, 3vw, 1.3rem);
+            line-height: 1.7;
+            margin-bottom: 2rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .donation-features {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 1rem;
-            margin: 1.5rem 0;
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        @media (min-width: 640px) {
+            .donation-features {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .donation-features {
+                grid-template-columns: repeat(3, 1fr);
+            }
         }
 
         .donation-feature {
-            background: rgba(255, 255, 255, 0.9);
-            padding: 1.2rem;
-            border-radius: var(--radius);
+            background: rgba(255, 255, 255, 0.95);
+            padding: 2.5rem;
+            border-radius: var(--radius-lg);
             text-align: center;
-            border: 1px solid rgba(255, 107, 53, 0.2);
+            border: 2px solid rgba(249, 115, 22, 0.2);
+            transition: all var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .donation-feature::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-donation);
+            transform: scaleX(0);
+            transition: transform var(--transition);
+        }
+
+        .donation-feature:hover {
+            transform: translateY(-8px);
+            border-color: var(--donation);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .donation-feature:hover::before {
+            transform: scaleX(1);
+        }
+
+        .donation-feature:active {
+            transform: translateY(-4px);
         }
 
         .donation-feature i {
-            font-size: 1.8rem;
+            font-size: 3rem;
             color: var(--donation);
-            margin-bottom: 0.8rem;
+            margin-bottom: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .donation-feature:hover i {
+            transform: scale(1.1) rotate(-10deg);
         }
 
         .donation-feature h4 {
-            color: #9a3412;
-            margin-bottom: 0.5rem;
-            font-size: 1.1rem;
+            color: var(--gray-900);
+            margin-bottom: 0.8rem;
+            font-size: 1.3rem;
+            font-weight: 700;
+            letter-spacing: -0.3px;
         }
 
         .donation-feature p {
-            color: #92400e;
-            font-size: 0.85rem;
+            color: var(--gray-600);
+            font-size: 1rem;
             margin-bottom: 0;
+            line-height: 1.6;
         }
 
         .donation-btn {
             width: 100%;
-            max-width: 300px;
-            padding: 1rem 1.5rem;
-            font-size: 1.1rem;
-            margin: 1rem auto;
+            max-width: 350px;
+            padding: 1.2rem 2.5rem;
+            font-size: 1.2rem;
+            margin: 2rem auto;
             display: block;
         }
 
-        /* Section Boutique Mobile */
+        .security-note {
+            color: var(--gray-600);
+            font-size: 0.9rem;
+            margin-top: 1.5rem;
+            font-style: italic;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .security-note i {
+            color: var(--success);
+        }
+
+        /* Section Boutique Responsive */
         .boutique-section {
-            background: linear-gradient(135deg, #f5f3ff 0%, #ede9fe 100%);
-            border-radius: var(--radius);
-            padding: 1.5rem;
+            background: linear-gradient(135deg, 
+                rgba(245, 243, 255, 0.8) 0%, 
+                rgba(237, 233, 254, 0.9) 100%);
+            border-radius: var(--radius-xl);
+            padding: 3rem 0;
             text-align: center;
-            margin: 2rem 0;
+            margin: 3rem 0;
             border: 2px solid var(--boutique-light);
             position: relative;
             overflow: hidden;
+        }
+
+        @media (min-width: 768px) {
+            .boutique-section {
+                padding: 4rem 0;
+            }
         }
 
         .boutique-section::before {
@@ -628,221 +1098,320 @@
             left: 0;
             right: 0;
             height: 4px;
-            background: linear-gradient(90deg, var(--boutique), var(--boutique-light));
+            background: var(--gradient-boutique);
+            box-shadow: 0 0 20px rgba(139, 92, 246, 0.4);
         }
 
         .boutique-icon {
-            font-size: 2.5rem;
+            font-size: 4rem;
             color: var(--boutique);
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
+            filter: drop-shadow(0 4px 12px rgba(139, 92, 246, 0.3));
         }
 
         .boutique-section h2 {
-            color: var(--boutique);
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            font-size: 1.5rem;
+            color: var(--gray-900);
+            margin-bottom: 1.5rem;
+            font-size: clamp(2rem, 4vw, 2.5rem);
+            font-weight: 800;
+            letter-spacing: -0.5px;
         }
 
-        .boutique-section p {
-            color: #5b21b6;
-            max-width: 100%;
-            margin: 0 auto 1.5rem;
-            font-size: 1rem;
-            line-height: 1.5;
+        .boutique-section > .container > p {
+            color: var(--gray-700);
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            font-size: clamp(1.1rem, 3vw, 1.3rem);
+            line-height: 1.7;
         }
 
         .boutique-cta {
             text-align: center;
-            padding: 1.5rem;
+            padding: 3rem;
             background: white;
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
-            max-width: 100%;
-            width: 100%;
-            border: 2px solid var(--boutique-light);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-xl);
+            max-width: 600px;
             margin: 0 auto;
+            border: 2px solid var(--boutique-light);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .boutique-cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-boutique);
         }
 
         .boutique-cta h3 {
-            color: var(--boutique);
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            font-size: 1.3rem;
+            color: var(--gray-900);
+            margin-bottom: 1.2rem;
+            font-size: 1.8rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .boutique-cta > p {
+            color: var(--gray-600);
+            font-size: 1.1rem;
+            line-height: 1.7;
+            margin-bottom: 2rem;
         }
 
         .boutique-btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
-            background: linear-gradient(135deg, var(--boutique), var(--boutique-light));
+            gap: 15px;
+            background: var(--gradient-boutique);
             color: white;
-            padding: 1rem 1.5rem;
-            border-radius: 50px;
+            padding: 1.2rem 3rem;
+            border-radius: var(--radius-full);
             text-decoration: none;
             font-weight: 700;
-            font-size: 1rem;
-            margin-top: 1rem;
-            transition: var(--transition);
+            font-size: 1.2rem;
+            margin-top: 1.5rem;
+            transition: all var(--transition);
             border: none;
             cursor: pointer;
-            box-shadow: 0 5px 15px rgba(139, 92, 246, 0.3);
+            box-shadow: 0 8px 30px rgba(139, 92, 246, 0.4);
             width: 100%;
-            max-width: 300px;
+            max-width: 350px;
+            position: relative;
+            overflow: hidden;
         }
 
-        .boutique-btn:active {
-            transform: translateY(-2px) scale(0.98);
+        .boutique-btn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translate(-50%, -50%);
+            transition: width var(--transition), height var(--transition);
         }
 
-        /* Section Commentaires Mobile */
+        .boutique-btn:active::after {
+            width: 300px;
+            height: 300px;
+        }
+
+        .boutique-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(139, 92, 246, 0.6);
+            gap: 20px;
+        }
+
+        .security-badge {
+            margin-top: 1.5rem;
+            color: var(--gray-600);
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0.5rem 1rem;
+            background: var(--gray-100);
+            border-radius: var(--radius-full);
+            border: 1px solid var(--gray-300);
+        }
+
+        .security-badge i {
+            color: var(--success);
+        }
+
+        /* Section Commentaires Responsive */
         .comments-section {
             background: white;
-            border-radius: var(--radius);
-            padding: 1.5rem;
-            margin: 2rem 0;
+            border-radius: var(--radius-xl);
+            padding: 3rem 0;
+            margin: 3rem 0;
             box-shadow: var(--shadow);
+            border: 1px solid var(--gray-200);
+        }
+
+        @media (min-width: 768px) {
+            .comments-section {
+                padding: 4rem 0;
+            }
         }
 
         .comments-section h2 {
-            margin-bottom: 1.5rem;
-            color: var(--dark);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 1.5rem;
+            margin-bottom: 3rem;
+            color: var(--gray-900);
+            font-size: clamp(2rem, 4vw, 2.5rem);
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            text-align: center;
         }
 
         .comments-list {
-            margin-bottom: 1.5rem;
+            margin-bottom: 4rem;
         }
 
         .comment {
-            background: var(--light);
-            border-radius: 8px;
-            padding: 1.2rem;
-            margin-bottom: 1rem;
-            border-left: 4px solid var(--primary);
+            background: var(--gray-50);
+            border-radius: var(--radius-lg);
+            padding: 2.5rem;
+            margin-bottom: 1.5rem;
+            border-left: 5px solid var(--primary);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .comment:hover {
+            transform: translateX(5px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .comment::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: var(--gradient-primary);
+            opacity: 0;
+            transition: opacity var(--transition);
+        }
+
+        .comment:hover::before {
+            opacity: 1;
         }
 
         .comment-header {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 0.8rem;
             align-items: flex-start;
+            margin-bottom: 1.2rem;
             flex-wrap: wrap;
-            gap: 0.5rem;
+            gap: 1rem;
         }
 
         .comment-author {
-            font-weight: 600;
-            color: var(--dark);
-            font-size: 0.95rem;
+            font-weight: 800;
+            color: var(--gray-900);
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
-        .comment-date {
-            color: var(--gray);
-            font-size: 0.8rem;
-        }
-
-        .comment-content {
-            color: #4b5563;
-            line-height: 1.5;
+        .comment-author i {
+            color: var(--primary);
             font-size: 0.9rem;
         }
 
+        .comment-date {
+            color: var(--gray-500);
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .comment-content {
+            color: var(--gray-700);
+            line-height: 1.7;
+            font-size: 1.05rem;
+        }
+
+        .comment-article {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--gray-200);
+            color: var(--gray-600);
+            font-size: 0.9rem;
+            font-style: italic;
+        }
+
+        .comment-article i {
+            color: var(--primary);
+            margin-right: 8px;
+        }
+
         .comment-form {
-            background: #f8fafc;
-            padding: 1.5rem;
-            border-radius: 10px;
-            border: 2px dashed var(--gray-light);
+            background: var(--gray-50);
+            padding: 3rem;
+            border-radius: var(--radius-xl);
+            border: 2px dashed var(--gray-300);
+            transition: var(--transition);
+        }
+
+        .comment-form:hover {
+            border-color: var(--primary-light);
+            border-style: solid;
+            box-shadow: var(--shadow);
+        }
+
+        .comment-form h3 {
+            margin-bottom: 2rem;
+            color: var(--gray-900);
+            font-size: 1.8rem;
+            font-weight: 800;
+            letter-spacing: -0.3px;
+            text-align: center;
         }
 
         .form-group {
-            margin-bottom: 1.2rem;
+            margin-bottom: 2rem;
         }
 
         .form-group label {
             display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-            color: var(--dark);
-            font-size: 0.9rem;
+            margin-bottom: 0.8rem;
+            font-weight: 700;
+            color: var(--gray-800);
+            font-size: 1rem;
         }
 
         .form-control {
             width: 100%;
-            padding: 0.8rem 1rem;
-            border: 2px solid var(--gray-light);
-            border-radius: 8px;
+            padding: 1.2rem 1.5rem;
+            border: 2px solid var(--gray-300);
+            border-radius: var(--radius);
             font-size: 1rem;
-            transition: var(--transition);
+            transition: all var(--transition);
             font-family: inherit;
             -webkit-appearance: none;
             appearance: none;
+            background: white;
+            color: var(--gray-900);
         }
 
         .form-control:focus {
             outline: none;
             border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+            box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+            background: white;
+        }
+
+        .form-control:hover {
+            border-color: var(--gray-400);
         }
 
         textarea.form-control {
-            min-height: 120px;
+            min-height: 160px;
             resize: vertical;
+            line-height: 1.6;
         }
 
         select.form-control {
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%2364748b' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%236b7280' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
             background-repeat: no-repeat;
-            background-position: right 1rem center;
-            background-size: 12px;
-            padding-right: 2.5rem;
+            background-position: right 1.5rem center;
+            background-size: 14px;
+            padding-right: 3.5rem;
         }
 
-        /* Footer Mobile */
-        footer {
-            text-align: center;
-            padding: 2rem 0;
-            margin-top: 3rem;
-            border-top: 1px solid var(--gray-light);
-            color: var(--gray);
-        }
-
-        .social-links {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 0.8rem;
-            margin: 1.5rem 0;
-        }
-
-        .social-links a {
-            color: var(--gray);
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            padding: 0.6rem 0.8rem;
-            border-radius: 6px;
-            transition: var(--transition);
-            font-size: 0.9rem;
-            background: var(--light);
-        }
-
-        .social-links a:active {
-            transform: scale(0.95);
-        }
-
-        /* Modal Mobile */
+        /* Modal Mobile Responsive */
         .modal {
             display: none;
             position: fixed;
@@ -850,279 +1419,525 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0, 0, 0, 0.8);
-            z-index: 1000;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 2000;
             overflow-y: auto;
-            padding: 16px;
+            padding: 0;
             -webkit-overflow-scrolling: touch;
+            animation: modalFadeIn 0.3s ease-out;
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         .modal-content {
             background: white;
-            max-width: 100%;
-            margin: 20px auto;
-            border-radius: var(--radius);
-            padding: 1.5rem;
+            min-height: 100vh;
+            padding: calc(var(--header-height) + 2rem) 20px 3rem;
             position: relative;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            animation: modalSlideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes modalSlideIn {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @media (min-width: 768px) {
+            .modal {
+                padding: 40px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            
+            .modal-content {
+                max-width: 900px;
+                margin: 0 auto;
+                min-height: auto;
+                border-radius: var(--radius-xl);
+                padding: 4rem;
+                max-height: 90vh;
+                overflow-y: auto;
+            }
         }
 
         .close-modal {
-            position: absolute;
-            top: 12px;
-            right: 12px;
-            background: var(--gray-light);
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
             border: none;
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            font-size: 1.2rem;
+            width: 50px;
+            height: 50px;
+            border-radius: var(--radius-full);
+            font-size: 1.8rem;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: var(--transition);
-            z-index: 10;
+            transition: all var(--transition);
+            z-index: 2001;
+            box-shadow: var(--shadow-lg);
+            color: var(--gray-700);
+        }
+
+        .close-modal:hover {
+            background: var(--danger);
+            color: white;
+            transform: rotate(90deg);
+            box-shadow: 0 8px 30px rgba(239, 68, 68, 0.4);
         }
 
         .close-modal:active {
-            background: var(--danger);
+            transform: rotate(90deg) scale(0.95);
+        }
+
+        /* Footer Responsive */
+        footer {
+            text-align: center;
+            padding: 4rem 20px;
+            background: linear-gradient(135deg, var(--gray-900), var(--gray-800));
             color: white;
+            margin-top: 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        footer > .footer-content > p {
+            margin-bottom: 2rem;
+            font-size: 1.4rem;
+            font-weight: 800;
+            letter-spacing: -0.3px;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: inline-block;
+        }
+
+        .social-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2.5rem 0;
+        }
+
+        .social-links a {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 1rem 1.5rem;
+            border-radius: var(--radius-full);
+            transition: all var(--transition);
+            font-size: 1rem;
+            font-weight: 600;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .social-links a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .social-links a:active {
+            transform: translateY(-1px);
+        }
+
+        .social-links a i {
+            font-size: 1.2rem;
+        }
+
+        footer .copyright {
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-top: 3rem;
+            line-height: 1.6;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .copyright a {
+            color: var(--primary-light);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .copyright a:hover {
+            color: white;
+            text-decoration: underline;
         }
 
         /* Notifications Mobile */
         .notification {
             position: fixed;
-            top: 20px;
-            right: 16px;
-            left: 16px;
-            padding: 1rem;
-            border-radius: 8px;
+            top: calc(var(--header-height) + 20px);
+            right: 20px;
+            left: 20px;
+            padding: 1.2rem 1.5rem;
+            border-radius: var(--radius-lg);
             color: white;
             font-weight: 600;
             z-index: 1001;
             display: flex;
             align-items: center;
-            gap: 10px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-            animation: slideInMobile 0.3s ease;
-            max-width: 100%;
+            gap: 14px;
+            box-shadow: var(--shadow-xl);
+            animation: slideInMobile 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            max-width: 500px;
+            margin: 0 auto;
+            backdrop-filter: blur(10px);
+        }
+
+        .notification.info {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border-left: 5px solid var(--primary-light);
+        }
+
+        .notification.success {
+            background: linear-gradient(135deg, var(--success), var(--success-dark));
+            border-left: 5px solid var(--success-light);
+        }
+
+        .notification.error {
+            background: linear-gradient(135deg, var(--danger), var(--danger-dark));
+            border-left: 5px solid var(--danger-light);
+        }
+
+        .notification.donation {
+            background: linear-gradient(135deg, var(--donation), var(--donation-dark));
+            border-left: 5px solid var(--donation-light);
         }
 
         @keyframes slideInMobile {
-            from { transform: translateY(-100%); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
+            from { transform: translateY(-30px) scale(0.95); opacity: 0; }
+            to { transform: translateY(0) scale(1); opacity: 1; }
         }
 
-        /* Utilitaires */
-        .hidden {
-            display: none !important;
-        }
-
-        .loading {
-            text-align: center;
-            padding: 2rem;
-            color: var(--gray);
-        }
-
-        /* Optimisations pour tablettes */
-        @media (min-width: 768px) and (max-width: 1024px) {
-            body {
-                padding: 0 20px;
-            }
-            
-            .logo h1 {
-                font-size: 2.5rem;
-            }
-            
-            .hero h2 {
-                font-size: 2.2rem;
-            }
-            
-            .articles-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .digital-products {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .donation-features {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .cta-buttons {
-                flex-direction: row;
-                justify-content: center;
-            }
-            
-            .btn {
+        @media (min-width: 640px) {
+            .notification {
+                left: auto;
                 width: auto;
-                min-width: 200px;
-            }
-            
-            nav ul {
-                flex-direction: row;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            
-            nav a {
-                width: auto;
-                margin: 0 0.3rem;
-            }
-            
-            .mobile-nav-toggle {
-                display: none;
-            }
-            
-            nav {
-                max-height: none !important;
-                overflow: visible;
+                min-width: 350px;
+                max-width: 450px;
             }
         }
 
-        /* Pour écrans très petits (iPhone SE, etc.) */
+        /* Améliorations pour les très petits écrans */
         @media (max-width: 360px) {
-            body {
-                padding: 0 12px;
+            .container {
+                padding: 0 16px;
             }
             
-            .logo h1 {
-                font-size: 1.8rem;
-            }
-            
-            .hero h2 {
-                font-size: 1.6rem;
-            }
-            
-            .btn {
-                padding: 0.8rem 1rem;
-                font-size: 0.9rem;
-            }
-            
-            .article-image {
-                height: 120px;
-            }
-            
-            .article-content h3 {
-                font-size: 1.1rem;
-            }
-            
-            .social-links {
-                gap: 0.5rem;
-            }
-            
-            .social-links a {
-                padding: 0.5rem 0.6rem;
-                font-size: 0.8rem;
-            }
-        }
-
-        /* Pour orientation paysage */
-        @media (max-height: 500px) and (orientation: landscape) {
-            header {
-                position: relative;
-                padding: 1rem 0;
+            section {
+                padding: 3rem 0;
             }
             
             .hero {
-                padding: 1.5rem 1rem;
+                padding: 2rem 0;
             }
             
             .hero h2 {
-                font-size: 1.5rem;
-                margin-bottom: 0.8rem;
-            }
-            
-            .cta-buttons {
-                flex-direction: row;
-                flex-wrap: wrap;
+                font-size: 1.8rem;
             }
             
             .btn {
-                min-height: 44px;
-                padding: 0.7rem 1rem;
+                padding: 0.9rem 1.5rem;
+                font-size: 1rem;
+                min-height: 52px;
+            }
+            
+            .article-image {
+                height: 180px;
+            }
+            
+            .article-content h3 {
+                font-size: 1.3rem;
+            }
+            
+            .digital-product,
+            .donation-feature,
+            .comment,
+            .comment-form {
+                padding: 2rem;
             }
         }
 
-        /* Support pour les bords arrondis des iPhone modernes */
+        /* Support pour les bords arrondis et notch */
         @supports (padding: max(0px)) {
             body {
-                padding-left: max(16px, env(safe-area-inset-left));
-                padding-right: max(16px, env(safe-area-inset-right));
-                padding-bottom: max(16px, env(safe-area-inset-bottom));
+                padding-left: env(safe-area-inset-left);
+                padding-right: env(safe-area-inset-right);
+            }
+            
+            header {
+                padding-left: max(20px, env(safe-area-inset-left));
+                padding-right: max(20px, env(safe-area-inset-right));
             }
             
             .modal-content {
-                margin: max(20px, env(safe-area-inset-top)) auto max(20px, env(safe-area-inset-bottom)) auto;
+                padding-left: max(20px, env(safe-area-inset-left));
+                padding-right: max(20px, env(safe-area-inset-right));
+            }
+            
+            footer {
+                padding-left: max(20px, env(safe-area-inset-left));
+                padding-right: max(20px, env(safe-area-inset-right));
             }
         }
 
-        /* Amélioration de la lisibilité sur mobile */
+        /* Amélioration de la lisibilité */
         p, li, .excerpt, .comment-content {
-            line-height: 1.6;
-            font-size: 1rem;
+            line-height: 1.7;
+            font-size: 1.05rem;
         }
 
         h1, h2, h3, h4, h5, h6 {
-            line-height: 1.3;
+            line-height: 1.2;
+            font-weight: 800;
         }
 
-        /* Optimisation des animations pour les performances */
-        .article-card, .digital-product, .donation-feature, .btn {
+        /* Optimisation des performances */
+        .article-card, .digital-product, .donation-feature, .btn, .comment {
             will-change: transform;
             backface-visibility: hidden;
             transform: translateZ(0);
         }
 
         /* Amélioration du scrolling sur iOS */
-        .modal, .comments-list {
+        .modal, nav {
             -webkit-overflow-scrolling: touch;
-            scroll-behavior: smooth;
         }
 
-        /* Optimisation des inputs pour mobile */
+        /* Prévention du zoom automatique sur iOS */
         input[type="text"],
         input[type="email"],
         input[type="password"],
         textarea,
         select {
-            font-size: 16px; /* Empêche le zoom automatique sur iOS */
+            font-size: 16px;
         }
 
-        /* Cache le menu de navigation par défaut sur mobile */
-        @media (max-width: 767px) {
-            .mobile-nav-toggle {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-            
-            nav:not(.active) {
-                display: none;
-            }
-            
-            nav.active {
+        /* Amélioration de l'expérience tactile */
+        button, a.btn, input, textarea, select {
+            min-height: 52px;
+        }
+
+        .read-more, .social-links a {
+            min-height: auto;
+        }
+
+        /* Cache les barres de scroll sur mobile */
+        ::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Scrollbar personnalisée pour desktop */
+        @media (min-width: 768px) {
+            ::-webkit-scrollbar {
                 display: block;
+                width: 10px;
+            }
+            
+            ::-webkit-scrollbar-track {
+                background: var(--gray-100);
+            }
+            
+            ::-webkit-scrollbar-thumb {
+                background: var(--gray-400);
+                border-radius: var(--radius-full);
+            }
+            
+            ::-webkit-scrollbar-thumb:hover {
+                background: var(--gray-500);
             }
         }
 
-        /* Pour les appareils avec notch */
-        @media (orientation: portrait) and (max-width: 768px) {
-            .hero, .donation-section, .boutique-section, .digital-highlight {
-                margin-left: -16px;
-                margin-right: -16px;
-                border-radius: 0;
-                padding-left: 16px;
-                padding-right: 16px;
+        /* Support du mode somme amélioré */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --dark: #0f172a;
+                --light: #0f172a;
+                --light-soft: #1e293b;
+                
+                --gray-50: #0f172a;
+                --gray-100: #1e293b;
+                --gray-200: #334155;
+                --gray-300: #475569;
+                --gray-400: #64748b;
+                --gray-500: #94a3b8;
+                --gray-600: #cbd5e1;
+                --gray-700: #e2e8f0;
+                --gray-800: #f1f5f9;
+                --gray-900: #f8fafc;
             }
             
-            .hero::before,
-            .donation-section::before,
-            .boutique-section::before,
-            .digital-highlight::before {
-                border-radius: 0;
+            body {
+                background: var(--gray-50);
+                color: var(--gray-800);
+            }
+            
+            .article-card, .digital-product, .donation-feature, .boutique-cta, .comment-form, .modal-content {
+                background: var(--gray-100);
+                border-color: var(--gray-300);
+            }
+            
+            .form-control {
+                background: var(--gray-50);
+                border-color: var(--gray-300);
+                color: var(--gray-800);
+            }
+            
+            .form-control:focus {
+                background: var(--gray-50);
+                box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.2);
+            }
+            
+            .digital-highlight {
+                background: linear-gradient(135deg, 
+                    rgba(15, 23, 42, 0.8) 0%, 
+                    rgba(30, 41, 59, 0.9) 100%);
+            }
+            
+            .donation-section {
+                background: linear-gradient(135deg, 
+                    rgba(30, 41, 59, 0.8) 0%, 
+                    rgba(51, 65, 85, 0.9) 100%);
+            }
+            
+            .boutique-section {
+                background: linear-gradient(135deg, 
+                    rgba(30, 41, 59, 0.8) 0%, 
+                    rgba(51, 65, 85, 0.9) 100%);
+            }
+            
+            .hero {
+                background: linear-gradient(135deg, 
+                    rgba(15, 23, 42, 0.8) 0%, 
+                    rgba(30, 41, 59, 0.9) 100%);
+            }
+            
+            .product-features {
+                background: var(--gray-200);
+                border-color: var(--gray-300);
+            }
+            
+            .btn-outline {
+                background: transparent;
+                color: var(--gray-700);
+                border-color: var(--gray-400);
+            }
+            
+            .btn-outline:hover {
+                background: var(--gray-200);
+            }
+            
+            header {
+                background: rgba(15, 23, 42, 0.95);
+            }
+            
+            nav {
+                background: rgba(15, 23, 42, 0.98);
+            }
+            
+            nav a {
+                color: var(--gray-700);
+            }
+        }
+
+        /* Classe utilitaire pour cacher les éléments */
+        .hidden {
+            display: none !important;
+        }
+
+        /* Animation de chargement */
+        .loading {
+            text-align: center;
+            padding: 4rem;
+            color: var(--gray-500);
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .loading::after {
+            content: '';
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            border: 3px solid var(--gray-300);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-left: 12px;
+            vertical-align: middle;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Squelette de chargement */
+        .skeleton {
+            background: linear-gradient(90deg, 
+                var(--gray-200) 25%, 
+                var(--gray-300) 50%, 
+                var(--gray-200) 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+            border-radius: var(--radius);
+        }
+
+        @keyframes loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        /* Améliorations pour les appareils tactiles */
+        @media (hover: none) and (pointer: coarse) {
+            .article-card:hover,
+            .digital-product:hover,
+            .donation-feature:hover,
+            .comment:hover {
+                transform: none;
+            }
+            
+            .btn:hover {
+                transform: none;
+            }
+            
+            nav a:hover::before {
+                width: 0;
+            }
+            
+            .read-more:hover::after {
+                width: 0;
             }
         }
     </style>
@@ -1130,254 +1945,302 @@
 <body>
     <!-- Header -->
     <header>
-        <div class="logo">
-            <h1>ESODI</h1>
-            <div class="subtitle">Jeanskodoc | Créations Digitales & Blog</div>
+        <div class="header-content">
+            <div class="logo">
+                <h1>ESODI</h1>
+                <span class="subtitle">Blog & Boutique</span>
+            </div>
+            
+            <button class="mobile-nav-toggle" id="mobile-nav-toggle" aria-label="Menu navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <nav id="main-nav">
+                <ul>
+                    <li><a href="#articles" class="active"><i class="fas fa-newspaper"></i> Articles</a></li>
+                    <li><a href="#digital"><i class="fas fa-laptop-code"></i> Produits</a></li>
+                    <li><a href="#boutique"><i class="fas fa-store"></i> Boutique</a></li>
+                    <li><a href="#donations"><i class="fas fa-heart"></i> Soutenir</a></li>
+                    <li><a href="#comments"><i class="fas fa-comments"></i> Commentaires</a></li>
+                </ul>
+            </nav>
         </div>
-        
-        <!-- Menu de navigation mobile -->
-        <button class="mobile-nav-toggle" id="mobile-nav-toggle" aria-label="Menu navigation">
-            <i class="fas fa-bars"></i>
-        </button>
-        
-        <nav id="main-nav">
-            <ul>
-                <li><a href="#articles"><i class="fas fa-newspaper"></i> Articles</a></li>
-                <li><a href="#digital"><i class="fas fa-laptop-code"></i> Produits</a></li>
-                <li><a href="#boutique"><i class="fas fa-store"></i> Boutique</a></li>
-                <li><a href="#donations"><i class="fas fa-heart"></i> Soutenir</a></li>
-                <li><a href="#comments"><i class="fas fa-comments"></i> Commentaires</a></li>
-            </ul>
-        </nav>
     </header>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <h2>Créations Digitales Innovantes</h2>
-        <p>Découvrez mes produits digitaux exclusifs, articles techniques et soutenez mon travail créatif.</p>
-        <div class="cta-buttons">
-            <a href="#digital" class="btn btn-digital">
-                <i class="fas fa-laptop-code"></i> Voir les produits
-            </a>
-            <a href="#articles" class="btn btn-primary">
-                <i class="fas fa-book-reader"></i> Lire les articles
-            </a>
-            <a href="#donations" class="btn btn-donation">
-                <i class="fas fa-heart"></i> Faire un don
-            </a>
-        </div>
-    </section>
-
-    <!-- Section Produits Digitaux -->
-    <section id="digital" class="digital-highlight">
-        <div class="digital-icon">
-            <i class="fas fa-laptop-code"></i>
-        </div>
-        
-        <h2><i class="fas fa-rocket"></i> Mes Produits Digitaux</h2>
-        
-        <p>Découvrez une sélection de mes meilleures créations digitales. Chaque produit est conçu avec soin pour vous offrir qualité, innovation et facilité d'utilisation.</p>
-
-        <div class="digital-products">
-            <!-- Produit 1 -->
-            <div class="digital-product">
-                <div class="product-icon">
-                    <i class="fas fa-palette"></i>
-                </div>
-                <h3>Packs Design Premium</h3>
-                <p>Collections complètes de ressources graphiques pour vos projets créatifs.</p>
-                
-                <div class="product-features">
-                    <div class="product-feature">
-                        <i class="fas fa-check-circle"></i>
-                        <span>100+ templates personnalisables</span>
-                    </div>
-                    <div class="product-feature">
-                        <i class="fas fa-check-circle"></i>
-                        <span>Icônes vectorielles HD</span>
-                    </div>
-                </div>
-                
-                <div class="product-cta">
-                    <a href="#boutique" class="btn btn-digital" style="width: 100%;">
-                        <i class="fas fa-eye"></i> Voir dans la boutique
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container">
+                <h2>Créations Digitales Innovantes</h2>
+                <p>Découvrez mes produits digitaux exclusifs, articles techniques et soutenez mon travail créatif. Une expérience unique dédiée à l'innovation et à la qualité.</p>
+                <div class="cta-buttons">
+                    <a href="#digital" class="btn btn-digital">
+                        <i class="fas fa-laptop-code"></i> Voir les produits
+                    </a>
+                    <a href="#articles" class="btn btn-primary">
+                        <i class="fas fa-book-reader"></i> Lire les articles
+                    </a>
+                    <a href="#donations" class="btn btn-donation">
+                        <i class="fas fa-heart"></i> Faire un don
                     </a>
                 </div>
             </div>
+        </section>
 
-            <!-- Produit 2 -->
-            <div class="digital-product">
-                <div class="product-icon">
-                    <i class="fas fa-code"></i>
+        <!-- Section Produits Digitaux -->
+        <section id="digital" class="digital-highlight">
+            <div class="container">
+                <div class="digital-icon">
+                    <i class="fas fa-laptop-code"></i>
                 </div>
-                <h3>Kits Développement Web</h3>
-                <p>Starter kits et templates pour accélérer vos projets de développement.</p>
                 
-                <div class="product-features">
-                    <div class="product-feature">
-                        <i class="fas fa-check-circle"></i>
-                        <span>Templates HTML/CSS/JS</span>
+                <h2>Mes Produits Digitaux</h2>
+                
+                <p>Découvrez une sélection de mes meilleures créations digitales. Chaque produit est conçu avec soin pour vous offrir qualité, innovation et facilité d'utilisation.</p>
+
+                <div class="digital-products">
+                    <!-- Produit 1 -->
+                    <div class="digital-product">
+                        <div class="product-icon">
+                            <i class="fas fa-palette"></i>
+                        </div>
+                        <h3>Packs Design Premium</h3>
+                        <p>Collections complètes de ressources graphiques pour vos projets créatifs. Parfait pour les designers et créateurs de contenu.</p>
+                        
+                        <div class="product-features">
+                            <div class="product-feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span>100+ templates personnalisables</span>
+                            </div>
+                            <div class="product-feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Icônes vectorielles HD</span>
+                            </div>
+                            <div class="product-feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Textures et backgrounds premium</span>
+                            </div>
+                        </div>
+                        
+                        <div class="product-cta">
+                            <a href="#boutique" class="btn btn-digital">
+                                <i class="fas fa-eye"></i> Voir dans la boutique
+                            </a>
+                        </div>
                     </div>
-                    <div class="product-feature">
-                        <i class="fas fa-check-circle"></i>
-                        <span>Composants réutilisables</span>
+
+                    <!-- Produit 2 -->
+                    <div class="digital-product">
+                        <div class="product-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <h3>Kits Développement Web</h3>
+                        <p>Starter kits et templates pour accélérer vos projets de développement. Optimisé pour les performances et le SEO.</p>
+                        
+                        <div class="product-features">
+                            <div class="product-feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Templates HTML/CSS/JS modernes</span>
+                            </div>
+                            <div class="product-feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Composants réutilisables React/Vue</span>
+                            </div>
+                            <div class="product-feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Documentation complète et exemples</span>
+                            </div>
+                        </div>
+                        
+                        <div class="product-cta">
+                            <a href="#boutique" class="btn btn-digital">
+                                <i class="fas fa-eye"></i> Voir dans la boutique
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Produit 3 -->
+                    <div class="digital-product">
+                        <div class="product-icon">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <h3>Guides & Formations</h3>
+                        <p>Ressources éducatives pour maîtriser les technologies modernes. Apprenez à votre rythme avec des supports détaillés.</p>
+                        
+                        <div class="product-features">
+                            <div class="product-feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Tutoriels pas-à-pas avec exemples</span>
+                            </div>
+                            <div class="product-feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Exercices pratiques et corrigés</span>
+                            </div>
+                            <div class="product-feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Accès aux mises à jour futures</span>
+                            </div>
+                        </div>
+                        
+                        <div class="product-cta">
+                            <a href="#boutique" class="btn btn-digital">
+                                <i class="fas fa-eye"></i> Voir dans la boutique
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Articles Grid -->
+        <section id="articles">
+            <div class="container">
+                <div class="articles-header">
+                    <h2>Derniers Articles</h2>
+                    <div>
+                        <button id="refresh-articles" class="btn btn-outline">
+                            <i class="fas fa-sync-alt"></i> Actualiser
+                        </button>
                     </div>
                 </div>
                 
-                <div class="product-cta">
-                    <a href="#boutique" class="btn btn-digital" style="width: 100%;">
-                        <i class="fas fa-eye"></i> Voir dans la boutique
-                    </a>
+                <div id="articles-container" class="articles-grid">
+                    <!-- Les articles seront chargés ici par JavaScript -->
                 </div>
-            </div>
-        </div>
-
-        <div class="boutique-note" style="background: rgba(14, 165, 233, 0.1); border-color: var(--digital); color: #0c4a6e;">
-            <i class="fas fa-info-circle"></i> 
-            <strong>Format des produits :</strong> Téléchargement immédiat après achat. Accès à vie aux mises à jour.
-        </div>
-    </section>
-
-    <!-- Articles Grid -->
-    <section id="articles">
-        <div class="articles-header">
-            <h2><i class="fas fa-feather-alt"></i> Derniers Articles</h2>
-            <div>
-                <button id="refresh-articles" class="btn btn-outline">
-                    <i class="fas fa-sync-alt"></i> Actualiser
-                </button>
-            </div>
-        </div>
-        
-        <div id="articles-container" class="articles-grid">
-            <!-- Les articles seront chargés ici par JavaScript -->
-        </div>
-        
-        <div style="text-align: center; margin-top: 1.5rem;">
-            <button id="load-more" class="btn btn-outline">
-                <i class="fas fa-plus"></i> Voir plus d'articles
-            </button>
-        </div>
-    </section>
-
-    <!-- Section Donations -->
-    <section id="donations" class="donation-section">
-        <div class="donation-icon">
-            <i class="fas fa-heart"></i>
-        </div>
-        
-        <h2><i class="fas fa-hands-helping"></i> Soutenez mon travail</h2>
-        
-        <div class="donation-content">
-            <p>
-                Vous appréciez mes créations ? Chaque contribution m'aide à continuer de produire du contenu de qualité et à développer de nouveaux produits.
-            </p>
-            
-            <div class="donation-features">
-                <div class="donation-feature">
-                    <i class="fas fa-bolt"></i>
-                    <h4>Impact Direct</h4>
-                    <p>Finance le développement de nouveaux produits</p>
-                </div>
-                <div class="donation-feature">
-                    <i class="fas fa-star"></i>
-                    <h4>Contenu Gratuit</h4>
-                    <p>Permet de maintenir du contenu gratuit pour tous</p>
-                </div>
-                <div class="donation-feature">
-                    <i class="fas fa-tools"></i>
-                    <h4>Améliorations</h4>
-                    <p>Finance les mises à jour des produits existants</p>
-                </div>
-            </div>
-            
-            <div style="text-align: center; margin: 1.5rem 0;">
-                <a href="https://me.fedapay.com/lmuOo1Nv" 
-                   target="_blank" 
-                   class="btn btn-donation donation-btn">
-                    <i class="fas fa-gift"></i>
-                    Faire un don via Fédapay
-                    <i class="fas fa-arrow-right"></i>
-                </a>
                 
-                <p style="color: #92400e; font-size: 0.85rem; margin-top: 1rem; font-style: italic;">
-                    <i class="fas fa-lock"></i> Paiement sécurisé - Pas de compte requis
-                </p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Section Boutique -->
-    <section id="boutique" class="boutique-section">
-        <div class="boutique-icon">
-            <i class="fas fa-store"></i>
-        </div>
-        
-        <h2><i class="fas fa-shopping-bag"></i> Boutique Complète</h2>
-        
-        <p>
-            Accédez à l'ensemble de mes créations digitales. Plus de 50 produits disponibles dans diverses catégories.
-        </p>
-        
-        <div class="boutique-cta">
-            <h3><i class="fas fa-external-link-alt"></i> Visiter la boutique</h3>
-            
-            <p>Explorez toutes mes créations sur ma boutique GitHub Pages :</p>
-            
-            <a href="https://jeanskodoc.github.io/ESO/" 
-               target="_blank" 
-               class="boutique-btn"
-               id="boutique-link">
-                <i class="fas fa-external-link-alt"></i>
-                Accéder à la boutique
-                <i class="fas fa-arrow-right"></i>
-            </a>
-            
-            <div class="security-badge">
-                <i class="fas fa-shield-alt"></i>
-                Navigation sécurisée
-            </div>
-        </div>
-    </section>
-
-    <!-- Section Commentaires -->
-    <section id="comments" class="comments-section">
-        <h2><i class="fas fa-comment-dots"></i> Commentaires Récents</h2>
-        
-        <div id="comments-container" class="comments-list">
-            <!-- Les commentaires seront chargés ici -->
-        </div>
-        
-        <div class="comment-form">
-            <h3 style="margin-bottom: 1.2rem; color: var(--dark); font-size: 1.2rem;">Ajouter un commentaire</h3>
-            <form id="comment-form">
-                <div class="form-group">
-                    <label for="comment-name">Nom *</label>
-                    <input type="text" id="comment-name" class="form-control" required placeholder="Votre nom ou pseudo">
-                </div>
-                <div class="form-group">
-                    <label for="comment-email">Email (optionnel)</label>
-                    <input type="email" id="comment-email" class="form-control" placeholder="email@exemple.com">
-                </div>
-                <div class="form-group">
-                    <label for="comment-content">Commentaire *</label>
-                    <textarea id="comment-content" class="form-control" required placeholder="Votre commentaire..."></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="comment-article">Article concerné *</label>
-                    <select id="comment-article" class="form-control" required>
-                        <option value="">Sélectionnez un article</option>
-                        <!-- Options chargées dynamiquement -->
-                    </select>
-                </div>
-                <div style="text-align: center; margin-top: 1.5rem;">
-                    <button type="submit" class="btn btn-primary" style="width: 100%; max-width: 300px;">
-                        <i class="fas fa-paper-plane"></i> Publier le commentaire
+                <div style="text-align: center; margin-top: 3rem;">
+                    <button id="load-more" class="btn btn-outline">
+                        <i class="fas fa-plus"></i> Voir plus d'articles
                     </button>
                 </div>
-            </form>
-        </div>
-    </section>
+            </div>
+        </section>
+
+        <!-- Section Donations -->
+        <section id="donations" class="donation-section">
+            <div class="container">
+                <div class="donation-icon">
+                    <i class="fas fa-heart"></i>
+                </div>
+                
+                <h2>Soutenez mon travail</h2>
+                
+                <div class="donation-content">
+                    <p>
+                        Vous appréciez mes créations ? Chaque contribution m'aide à continuer de produire du contenu de qualité et à développer de nouveaux produits innovants.
+                    </p>
+                    
+                    <div class="donation-features">
+                        <div class="donation-feature">
+                            <i class="fas fa-bolt"></i>
+                            <h4>Impact Direct</h4>
+                            <p>Finance le développement de nouveaux produits et fonctionnalités</p>
+                        </div>
+                        <div class="donation-feature">
+                            <i class="fas fa-star"></i>
+                            <h4>Contenu Gratuit</h4>
+                            <p>Permet de maintenir du contenu gratuit et accessible pour tous</p>
+                        </div>
+                        <div class="donation-feature">
+                            <i class="fas fa-tools"></i>
+                            <h4>Améliorations</h4>
+                            <p>Finance les mises à jour et l'amélioration des produits existants</p>
+                        </div>
+                    </div>
+                    
+                    <div style="text-align: center; margin: 3rem 0;">
+                        <a href="https://me.fedapay.com/lmuOo1Nv" 
+                           target="_blank" 
+                           class="btn btn-donation donation-btn">
+                            <i class="fas fa-gift"></i>
+                            Faire un don via Fédapay
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                        
+                        <p class="security-note">
+                            <i class="fas fa-lock"></i> Paiement 100% sécurisé - Pas de compte requis
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Boutique -->
+        <section id="boutique" class="boutique-section">
+            <div class="container">
+                <div class="boutique-icon">
+                    <i class="fas fa-store"></i>
+                </div>
+                
+                <h2>Boutique Complète</h2>
+                
+                <p>
+                    Accédez à l'ensemble de mes créations digitales. Plus de 50 produits disponibles dans diverses catégories pour répondre à tous vos besoins.
+                </p>
+                
+                <div class="boutique-cta">
+                    <h3>Visiter la boutique</h3>
+                    
+                    <p>Explorez toutes mes créations sur ma boutique GitHub Pages. Interface intuitive et navigation fluide.</p>
+                    
+                    <a href="https://jeanskodoc.github.io/ESO/" 
+                       target="_blank" 
+                       class="boutique-btn"
+                       id="boutique-link">
+                        <i class="fas fa-external-link-alt"></i>
+                        Accéder à la boutique
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                    
+                    <div class="security-badge">
+                        <i class="fas fa-shield-alt"></i>
+                        Navigation sécurisée
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Commentaires -->
+        <section id="comments" class="comments-section">
+            <div class="container">
+                <h2>Commentaires Récents</h2>
+                
+                <div id="comments-container" class="comments-list">
+                    <!-- Les commentaires seront chargés ici -->
+                </div>
+                
+                <div class="comment-form">
+                    <h3>Ajouter un commentaire</h3>
+                    <form id="comment-form">
+                        <div class="form-group">
+                            <label for="comment-name">Nom *</label>
+                            <input type="text" id="comment-name" class="form-control" required placeholder="Votre nom ou pseudo">
+                        </div>
+                        <div class="form-group">
+                            <label for="comment-email">Email (optionnel)</label>
+                            <input type="email" id="comment-email" class="form-control" placeholder="email@exemple.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="comment-content">Commentaire *</label>
+                            <textarea id="comment-content" class="form-control" required placeholder="Votre commentaire..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="comment-article">Article concerné *</label>
+                            <select id="comment-article" class="form-control" required>
+                                <option value="">Sélectionnez un article</option>
+                                <!-- Options chargées dynamiquement -->
+                            </select>
+                        </div>
+                        <div style="text-align: center; margin-top: 3rem;">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-paper-plane"></i> Publier le commentaire
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
 
     <!-- Modal pour lire un article -->
     <div id="article-modal" class="modal">
@@ -1391,26 +2254,29 @@
 
     <!-- Footer -->
     <footer>
-        <p>© 2024 <strong>ESODI - Jeanskodoc</strong></p>
-        <div class="social-links">
-            <a href="#"><i class="fab fa-twitter"></i> Twitter</a>
-            <a href="#"><i class="fab fa-github"></i> GitHub</a>
-            <a href="mailto:esodi22@gmail.com"><i class="fas fa-envelope"></i> Email</a>
-            <a href="#donations"><i class="fas fa-heart"></i> Soutenir</a>
+        <div class="footer-content">
+            <p>© 2024 ESODI - Jeanskodoc</p>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-twitter"></i> Twitter</a>
+                <a href="#"><i class="fab fa-github"></i> GitHub</a>
+                <a href="mailto:esodi22@gmail.com"><i class="fas fa-envelope"></i> Email</a>
+                <a href="#donations"><i class="fas fa-heart"></i> Soutenir</a>
+            </div>
+            <p class="copyright">
+                <i class="fas fa-code"></i> Construit avec HTML, CSS & JavaScript<br>
+                <i class="fas fa-heart" style="color: var(--donation-light);"></i> 
+                <a href="#donations">Soutenir mon travail créatif</a>
+            </p>
         </div>
-        <p style="font-size: 0.85rem; margin-top: 1.5rem; line-height: 1.4;">
-            <i class="fas fa-code"></i> Construit avec HTML, CSS & JavaScript<br>
-            <i class="fas fa-heart" style="color: var(--donation);"></i> <a href="#donations">Soutenir mon travail</a>
-        </p>
     </footer>
 
-    <!-- Script principal optimisé pour mobile -->
+    <!-- Script principal optimisé -->
     <script>
-        // Configuration
+        // Configuration améliorée
         const ESODI_BLOG = {
             name: "ESODI - Jeanskodoc",
-            version: "2.2.0",
-            storageKey: "esodi_blog_data_mobile",
+            version: "2.5.0",
+            storageKey: "esodi_blog_data_v2",
             adminEmail: "esodi22@gmail.com",
             articles: [],
             comments: [],
@@ -1422,88 +2288,521 @@
             }
         };
 
-        // Données initiales
+        // Données initiales enrichies
         const initialData = {
             articles: [
                 {
                     id: 1,
-                    title: "Bienvenue sur ESODI",
-                    excerpt: "Découvrez mon espace créatif dédié aux produits digitaux innovants.",
+                    title: "Bienvenue sur ESODI - Votre Destination Créative",
+                    excerpt: "Découvrez mon espace créatif dédié aux produits digitaux innovants et aux ressources de qualité.",
                     content: `# Bienvenue sur ESODI !
 
-Bienvenue sur **ESODI**, votre destination pour des produits digitaux de qualité.
+**Bienvenue** dans mon univers créatif dédié aux **produits digitaux de qualité**. ESODI est bien plus qu'une simple plateforme, c'est un espace où l'innovation rencontre la praticité.
 
 ## 🎯 Ma Mission
 
-Fournir des produits digitaux de haute qualité qui :
-- **Simplifient** votre travail
-- **Accélèrent** vos projets
-- **Inspirent** votre créativité
+Fournir des produits digitaux exceptionnels qui :
+- **Simplifient** votre workflow quotidien
+- **Accélèrent** le développement de vos projets
+- **Inspirent** votre créativité et innovation
+- **Optimisent** vos résultats
 
 ## 📦 Ce que vous trouverez
 
-### 1. Produits Digitaux
-- Templates et ressources design
-- Kits de développement web
-- Guides et formations
+### 1. Produits Digitaux Premium
+- 🎨 Templates et ressources design professionnels
+- 💻 Kits de développement web optimisés
+- 📚 Guides et formations complètes
+- 🛠️ Outils et utilitaires pratiques
 
-### 2. Articles Techniques
-- Tutoriels détaillés
-- Conseils pratiques
-- Études de cas
+### 2. Articles Techniques Avancés
+- 🧠 Tutoriels détaillés avec cas pratiques
+- 💡 Conseils experts et meilleures pratiques
+- 📊 Études de cas et analyses approfondies
+- 🚀 Astuces pour optimiser vos projets
 
-## 🚀 Pour commencer
+### 3. Ressources Exclusives
+- 🔒 Contenu réservé aux supporters
+- 📥 Téléchargements premium
+- 🎁 Bonus et ressources additionnelles
+- 🤝 Support personnalisé
 
-1. **Explorez** mes produits digitaux
-2. **Lisez** les articles
-3. **Visitez** la boutique
-4. **Soutenez** mon travail via les dons
+## 🚀 Pour commencer votre parcours
+
+1. **Explorez** mes produits digitaux dans la section dédiée
+2. **Lisez** les articles techniques pour approfondir vos connaissances
+3. **Visitez** la boutique complète pour découvrir toutes mes créations
+4. **Soutenez** mon travail via les dons pour m'aider à créer plus
+
+## 💡 Conseil d'expert
+
+> "La qualité prime toujours sur la quantité. Chaque produit que je crée est le résultat de centaines d'heures de travail et d'attention aux détails."
+
+## 🔧 Technologies Utilisées
+
+- **Frontend** : HTML5, CSS3, JavaScript ES6+
+- **Design** : Figma, Adobe Creative Suite
+- **Développement** : React, Vue.js, Node.js
+- **Outils** : Git, Webpack, VS Code
+
+## 🤝 Rejoignez la communauté
+
+Vos retours sont précieux ! N'hésitez pas à :
+- Laisser des commentaires sur les articles
+- Partager vos expériences
+- Proposer des idées d'amélioration
+- Soutenir le projet via les dons
 
 ---
 
-*Merci de visiter ESODI !*
+*Merci de visiter **ESODI** ! Votre intérêt est ce qui motive mon travail quotidien.*
 
-**Jeanskodoc**`,
+**Jeanskodoc**  
+*Créateur & Développeur*`,
                     author: "Jeanskodoc",
-                    category: "blog",
-                    tags: ["présentation", "digital"],
+                    category: "présentation",
+                    tags: ["accueil", "présentation", "digital", "création"],
                     date: "2024-03-20",
                     published: true,
                     featured: true,
-                    type: "blog"
+                    type: "blog",
+                    readTime: "5 min"
+                },
+                {
+                    id: 2,
+                    title: "Pack Design Ultimate - La Révolution Graphique",
+                    excerpt: "Découvrez mon pack design le plus complet : 200+ ressources graphiques premium pour vos projets créatifs.",
+                    content: `# Pack Design Ultimate
+
+Le **pack design le plus complet** que j'ai créé à ce jour. Plus de **200 ressources graphiques professionnelles** pour donner vie à vos projets créatifs.
+
+## 🎨 Pourquoi ce pack est unique ?
+
+### Innovation & Qualité
+Chaque élément a été conçu avec une attention particulière aux détails, garantissant une qualité premium et une cohérence visuelle parfaite.
+
+### Polyvalence
+Adaptable à tous types de projets : sites web, applications mobiles, présentations, réseaux sociaux, documents marketing...
+
+### Compatibilité
+Fichiers optimisés pour tous les logiciels majeurs : Adobe Suite, Figma, Sketch, Canva...
+
+## 📦 Contenu détaillé du Pack
+
+### Section 1 : Templates Professionnels
+**50+ templates personnalisables :**
+- 🎯 10 templates de présentation premium
+- 📱 15 modèles réseaux sociaux optimisés
+- 📄 10 designs de documents professionnels
+- 💻 15 maquettes web et mobile responsive
+
+### Section 2 : Éléments Graphiques
+**100+ ressources diverses :**
+- 🎨 30 jeux d'icônes vectorielles
+- 🖼️ 20 textures et arrière-plans HD
+- ✨ 15 packs d'effets et overlays
+- 🎭 10 palettes de couleurs complètes
+- 📐 25 éléments UI/UX réutilisables
+
+### Section 3 : Ressources Additionnelles
+**50+ bonus exclusifs :**
+- 📖 Guide de personnalisation complet
+- 🎥 Tutoriels vidéo pas-à-pas
+- 🛠️ Scripts et automatisations
+- 🔧 Fichiers source organisés
+- 📊 Kits de données et graphiques
+
+## 🔥 Caractéristiques Techniques
+
+### Formats inclus :
+- 🔹 Fichiers source (AI, PSD, FIG)
+- 🔹 Formats vectoriels (SVG, EPS)
+- 🔹 Images haute résolution (PNG, JPG)
+- 🔹 Fichiers optimisés pour le web
+
+### Organisation :
+- 📁 Structure de fichiers logique
+- 🔍 Métadonnées complètes
+- 🏷️ Système de tags intelligent
+- 📋 Documentation technique
+
+### Compatibilité :
+- ✅ Adobe Creative Suite (Photoshop, Illustrator)
+- ✅ Figma & Sketch
+- ✅ Canva Pro
+- ✅ Logiciels open-source (GIMP, Inkscape)
+
+## 🚀 Comment l'utiliser ?
+
+### Pour les débutants :
+1. Téléchargez le pack
+2. Suivez le guide de démarrage
+3. Utilisez les templates prêts à l'emploi
+4. Personnalisez avec vos contenus
+
+### Pour les experts :
+1. Importez les fichiers source
+2. Adaptez aux besoins spécifiques
+3. Combinez différents éléments
+4. Créez des variations uniques
+
+## 💝 Soutenez la Création
+
+Le développement de packs comme celui-ci demande des **centaines d'heures de travail**. Si vous appréciez mon travail, envisagez de [soutenir mes projets](#donations).
+
+### Votre soutien permet :
+- 🚀 De créer plus de packs de qualité
+- 🔄 D'offrir des mises à jour gratuites
+- 💰 De maintenir les prix accessibles
+- ✨ De développer de nouvelles fonctionnalités
+- 🎯 D'améliorer constamment les produits existants
+
+## 📈 Impact sur vos projets
+
+### Gains de temps :
+- ⏱️ Réduction de 70% du temps de design
+- 🔄 Processus standardisés
+- 🎯 Travail plus efficace
+
+### Qualité améliorée :
+- ✨ Designs professionnels
+- 🎨 Cohérence visuelle
+- 📱 Responsive par défaut
+
+### Flexibilité :
+- 🎭 Adaptable à toutes les marques
+- 🔧 Facilement personnalisable
+- 💼 Polyvalent pour différents usages
+
+---
+
+## 🎁 Bonus d'achat immédiat
+
+En commandant maintenant, vous recevez :
+1. **Accès prioritaire** aux futures mises à jour
+2. **Support technique** personnalisé
+3. **Guide avancé** de personnalisation
+4. **Bibliothèque exclusive** de ressources additionnelles
+
+---
+
+*Commandez le **[Pack Design Ultimate sur ma boutique](https://jeanskodoc.github.io/ESO/)** et transformez votre présence visuelle !*
+
+**Jeanskodoc**  
+*Designer & Développeur*`,
+                    author: "Jeanskodoc",
+                    category: "produits",
+                    tags: ["design", "pack", "ressources", "graphisme", "templates", "premium"],
+                    date: "2024-03-15",
+                    published: true,
+                    featured: true,
+                    type: "product",
+                    readTime: "7 min"
+                },
+                {
+                    id: 3,
+                    title: "Guide complet : Optimiser vos projets web en 2024",
+                    excerpt: "Découvrez les meilleures pratiques et outils pour optimiser vos projets web cette année.",
+                    content: `# Guide complet : Optimiser vos projets web en 2024
+
+Bienvenue dans ce guide complet dédié à l'optimisation de vos projets web en 2024. Basé sur des années d'expérience et les dernières tendances du secteur.
+
+## 🎯 Pourquoi l'optimisation est cruciale ?
+
+### Les enjeux actuels :
+- ⚡ **Performance** : Les utilisateurs attendent un chargement en moins de 3 secondes
+- 📱 **Mobile-first** : Plus de 60% du trafic vient des mobiles
+- 🔍 **SEO** : Google priorise les sites rapides et optimisés
+- 💰 **Conversion** : Chaque seconde de chargement coûte des conversions
+
+## 🛠️ Outils essentiels 2024
+
+### Analyse de performance :
+- **Google Lighthouse** : Analyse complète gratuite
+- **WebPageTest** : Tests avancés depuis différents lieux
+- **GTmetrix** : Rapports détaillés avec recommandations
+- **PageSpeed Insights** : Analyse Google officielle
+
+### Développement :
+- **Vite** : Build tool ultra-rapide
+- **Webpack 5** : Bundleur avancé avec tree-shaking
+- **ESBuild** : Compilateur JavaScript ultra-rapide
+- **SWC** : Alternative Rust à Babel
+
+### Monitoring :
+- **Sentry** : Tracking d'erreurs en temps réel
+- **New Relic** : Monitoring complet des performances
+- **Datadog** : Analytics et monitoring avancés
+- **LogRocket** : Replay des sessions utilisateurs
+
+## 📊 Métriques clés à surveiller
+
+### Core Web Vitals :
+- 🎯 **LCP** (Largest Contentful Paint) : < 2.5s
+- ⚡ **FID** (First Input Delay) : < 100ms
+- 📐 **CLS** (Cumulative Layout Shift) : < 0.1
+
+### Performance globale :
+- ⏱️ **TTFB** (Time to First Byte) : < 800ms
+- 🖼️ **FCP** (First Contentful Paint) : < 1.8s
+- 🔄 **SI** (Speed Index) : < 4.3s
+
+## 🚀 Stratégies d'optimisation
+
+### 1. Images et médias
+- **Format WebP/AVIF** : Compression moderne
+- **Lazy loading** : Chargement différé
+- **CDN optimisé** : Cloudflare, Cloudinary
+- **Dimensions adaptatives** : srcset et sizes
+
+### 2. JavaScript
+- **Code splitting** : Division intelligente
+- **Tree shaking** : Élimination du code mort
+- **Minification** : Réduction de taille
+- **Module federation** : Partage de code
+
+### 3. CSS
+- **PurgeCSS** : Élimination des styles inutilisés
+- **Critical CSS** : Styles critiques inline
+- **CSS Grid/Flexbox** : Layouts optimisés
+- **CSS Variables** : Maintenance simplifiée
+
+### 4. Caching
+- **Service Workers** : PWA et offline
+- **HTTP/3** : Nouveau protocol rapide
+- **Edge Computing** : Cloudflare Workers
+- **Préchargement** : Préconnexions
+
+## 🔧 Configuration serveur optimale
+
+### Nginx :
+\`\`\`nginx
+# Compression
+gzip on;
+gzip_vary on;
+gzip_min_length 1024;
+gzip_types text/plain text/css text/xml text/javascript application/javascript application/xml+rss application/json;
+
+# Cache
+location ~* \\.(jpg|jpeg|png|gif|ico|css|js)$ {
+    expires 1y;
+    add_header Cache-Control "public, immutable";
+}
+
+# Security headers
+add_header X-Frame-Options "SAMEORIGIN";
+add_header X-XSS-Protection "1; mode=block";
+add_header X-Content-Type-Options "nosniff";
+\`\`\`
+
+## 📈 Monitoring continu
+
+### Automatisation :
+- **GitHub Actions** : Tests automatiques
+- **Netlify/vercel** : Déploiements automatisés
+- **Jenkins/GitLab CI** : Pipelines CI/CD
+- **Docker** : Environnements reproductibles
+
+### Analytics :
+- **Google Analytics 4** : Nouvelle version
+- **Hotjar** : Heatmaps et recordings
+- **Microsoft Clarity** : Analytics gratuit
+- **Amplitude** : Analytics avancé
+
+## 🎯 Checklist d'optimisation
+
+### Priorité haute (à faire maintenant) :
+- [ ] Mettre en place lazy loading
+- [ ] Optimiser les images
+- [ ] Minifier CSS/JS
+- [ ] Configurer le caching
+
+### Priorité moyenne (planifier) :
+- [ ] Implémenter PWA
+- [ ] Mettre à jour vers HTTP/3
+- [ ] Configurer CDN
+- [ ] Optimiser les polices
+
+### Priorité basse (améliorations) :
+- [ ] Prerender les pages
+- [ ] Edge computing
+- [ ] WebAssembly
+- [ ] Machine Learning intégré
+
+## 💡 Cas pratique
+
+### Avant optimisation :
+- 📊 Score Lighthouse : 45/100
+- ⏱️ Temps de chargement : 8.2s
+- 📱 Expérience mobile : Médiocre
+- 🔍 SEO : Position 3 page Google
+
+### Après optimisation :
+- 📊 Score Lighthouse : 98/100
+- ⏱️ Temps de chargement : 1.8s
+- 📱 Expérience mobile : Excellente
+- 🔍 SEO : Position 1 page Google
+- 📈 Conversion : +220%
+
+## 🔮 Tendances 2024-2025
+
+### Émergent :
+- **Web3 integration** : Blockchain et web décentralisé
+- **AI/ML intégrés** : Personnalisation intelligente
+- **WebAssembly** : Performances natives
+- **Edge computing** : Calcul à la périphérie
+
+### Consolidation :
+- **Jamstack** : Architecture moderne
+- **Micro-frontends** : Scalabilité
+- **Serverless** : Infrastructure as code
+- **Design systems** : Cohérence et efficacité
+
+---
+
+## 🎁 Ressources additionnelles
+
+### Outils gratuits :
+- [Google PageSpeed Insights](https://pagespeed.web.dev/)
+- [WebPageTest](https://www.webpagetest.org/)
+- [GTmetrix](https://gtmetrix.com/)
+- [Pingdom Tools](https://tools.pingdom.com/)
+
+### Documentation :
+- [Web.dev](https://web.dev/)
+- [MDN Web Docs](https://developer.mozilla.org/)
+- [Google Developers](https://developers.google.com/web)
+- [CSS-Tricks](https://css-tricks.com/)
+
+### Communautés :
+- [Stack Overflow](https://stackoverflow.com/)
+- [Dev.to](https://dev.to/)
+- [GitHub Discussions](https://github.com/features/discussions)
+- [Discord tech](https://discord.com/invite/tech)
+
+---
+
+*Pour plus de guides et ressources exclusives, [visitez ma boutique](#boutique) ou [soutenez mon travail](#donations).*
+
+**Jeanskodoc**  
+*Expert en optimisation web*`,
+                    author: "Jeanskodoc",
+                    category: "tutoriel",
+                    tags: ["optimisation", "performance", "web", "2024", "guide", "tutoriel"],
+                    date: "2024-03-10",
+                    published: true,
+                    featured: false,
+                    type: "blog",
+                    readTime: "12 min"
                 }
             ],
-            comments: [],
+            comments: [
+                {
+                    id: 1,
+                    articleId: 1,
+                    author: "Marie D.",
+                    email: "marie.d@example.com",
+                    content: "Super présentation ! Les produits digitaux ont l'air très complets et professionnels. Hâte de découvrir la boutique et les prochains articles !",
+                    date: "2024-03-20",
+                    approved: true,
+                    notified: true
+                },
+                {
+                    id: 2,
+                    articleId: 2,
+                    author: "Alexandre T.",
+                    email: "alex.t@example.com",
+                    content: "Le Pack Design Ultimate semble incroyable ! Les templates ont l'air très modernes et professionnels. Je vais certainement l'ajouter à ma collection.",
+                    date: "2024-03-18",
+                    approved: true,
+                    notified: true
+                }
+            ],
             stats: {
-                articles: 1,
-                comments: 0,
+                articles: 3,
+                comments: 2,
                 visitors: 0,
                 donations: 0
             }
         };
 
-        // Initialisation
+        // Initialisation améliorée
         document.addEventListener('DOMContentLoaded', function() {
-            console.log(`${ESODI_BLOG.name} v${ESODI_BLOG.version} initialisé`);
+            console.log(`%c${ESODI_BLOG.name} v${ESODI_BLOG.version}`, 
+                'background: linear-gradient(135deg, #4f46e5, #7c3aed); color: white; padding: 8px 16px; border-radius: 6px; font-weight: bold;');
             
+            initApp();
+            
+            // Ajouter un visiteur
+            ESODI_BLOG.stats.visitors++;
+            updateStats();
+            
+            // Show welcome notification after a delay
+            setTimeout(() => {
+                showNotification(`Bienvenue sur ${ESODI_BLOG.name} ! ✨`, 'info');
+            }, 1000);
+        });
+
+        // Initialisation complète
+        function initApp() {
             loadData();
             initMobileNavigation();
             initArticles();
             initComments();
             initEvents();
             loadArticleOptions();
+            initScrollEffects();
+            initThemeDetection();
             
-            // Ajouter un visiteur
-            ESODI_BLOG.stats.visitors++;
-            saveData();
-            
-            showNotification(`Bienvenue sur ${ESODI_BLOG.name} !`, 'info');
-        });
+            // Détecter si c'est un appareil mobile
+            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                document.body.classList.add('mobile-device');
+            }
+        }
 
-        // Navigation mobile
+        // Effets de scroll améliorés
+        function initScrollEffects() {
+            const header = document.querySelector('header');
+            
+            window.addEventListener('scroll', function() {
+                // Header scroll effect
+                if (window.scrollY > 50) {
+                    header.classList.add('header-scrolled');
+                } else {
+                    header.classList.remove('header-scrolled');
+                }
+                
+                // Active nav link based on scroll position
+                updateActiveNavLink();
+            }, { passive: true });
+        }
+
+        function updateActiveNavLink() {
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('nav a');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        // Navigation mobile optimisée
         function initMobileNavigation() {
             const toggleBtn = document.getElementById('mobile-nav-toggle');
             const nav = document.getElementById('main-nav');
+            const navLinks = nav.querySelectorAll('a');
             
             if (toggleBtn && nav) {
                 toggleBtn.addEventListener('click', function(e) {
@@ -1512,90 +2811,149 @@ Fournir des produits digitaux de haute qualité qui :
                     this.innerHTML = nav.classList.contains('active') 
                         ? '<i class="fas fa-times"></i>' 
                         : '<i class="fas fa-bars"></i>';
+                    this.setAttribute('aria-expanded', nav.classList.contains('active'));
+                    
+                    // Empêcher le scroll du body quand le menu est ouvert
+                    if (nav.classList.contains('active')) {
+                        document.body.style.overflow = 'hidden';
+                    } else {
+                        document.body.style.overflow = '';
+                    }
                 });
                 
                 // Fermer le menu en cliquant à l'extérieur
                 document.addEventListener('click', function(e) {
-                    if (!nav.contains(e.target) && !toggleBtn.contains(e.target)) {
-                        nav.classList.remove('active');
-                        toggleBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                    if (!nav.contains(e.target) && !toggleBtn.contains(e.target) && nav.classList.contains('active')) {
+                        closeMobileMenu();
                     }
                 });
                 
                 // Fermer le menu après clic sur un lien
-                nav.querySelectorAll('a').forEach(link => {
-                    link.addEventListener('click', function() {
-                        nav.classList.remove('active');
-                        toggleBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                navLinks.forEach(link => {
+                    link.addEventListener('click', function(e) {
+                        // Vérifier si c'est un lien d'ancrage
+                        if (this.getAttribute('href').startsWith('#')) {
+                            e.preventDefault();
+                            const targetId = this.getAttribute('href').substring(1);
+                            const targetElement = document.getElementById(targetId);
+                            
+                            if (targetElement) {
+                                closeMobileMenu();
+                                
+                                // Scroll vers la section avec offset pour le header
+                                setTimeout(() => {
+                                    window.scrollTo({
+                                        top: targetElement.offsetTop - 80,
+                                        behavior: 'smooth'
+                                    });
+                                }, 300);
+                            }
+                        }
                     });
+                });
+                
+                // Empêcher la fermeture du menu quand on clique dedans
+                nav.addEventListener('click', function(e) {
+                    e.stopPropagation();
                 });
             }
             
-            // Gestion du scroll fluide sur mobile
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const targetId = this.getAttribute('href').substring(1);
-                    
-                    const targetElement = document.getElementById(targetId);
-                    if (targetElement) {
-                        // Fermer le menu mobile s'il est ouvert
-                        if (nav && nav.classList.contains('active')) {
-                            nav.classList.remove('active');
-                            toggleBtn.innerHTML = '<i class="fas fa-bars"></i>';
-                        }
-                        
-                        window.scrollTo({
-                            top: targetElement.offsetTop - 80,
-                            behavior: 'smooth'
-                        });
-                    }
-                });
+            // Fermer le menu quand on scroll
+            let scrollTimeout;
+            window.addEventListener('scroll', function() {
+                if (nav.classList.contains('active')) {
+                    clearTimeout(scrollTimeout);
+                    scrollTimeout = setTimeout(() => {
+                        closeMobileMenu();
+                    }, 300);
+                }
+            });
+            
+            // Fermer le menu avec Escape
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && nav.classList.contains('active')) {
+                    closeMobileMenu();
+                }
             });
         }
 
-        // Gestion des données
+        function closeMobileMenu() {
+            const nav = document.getElementById('main-nav');
+            const toggleBtn = document.getElementById('mobile-nav-toggle');
+            
+            if (nav && nav.classList.contains('active')) {
+                nav.classList.remove('active');
+                toggleBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                toggleBtn.setAttribute('aria-expanded', 'false');
+                document.body.style.overflow = '';
+            }
+        }
+
+        // Gestion des données améliorée
         function loadData() {
-            const saved = localStorage.getItem(ESODI_BLOG.storageKey);
-            if (saved) {
-                const data = JSON.parse(saved);
-                ESODI_BLOG.articles = data.articles || [];
-                ESODI_BLOG.comments = data.comments || [];
-                ESODI_BLOG.stats = data.stats || initialData.stats;
-                ESODI_BLOG.adminEmail = data.adminEmail || "esodi22@gmail.com";
-            } else {
+            try {
+                const saved = localStorage.getItem(ESODI_BLOG.storageKey);
+                if (saved) {
+                    const data = JSON.parse(saved);
+                    ESODI_BLOG.articles = data.articles || initialData.articles;
+                    ESODI_BLOG.comments = data.comments || initialData.comments;
+                    ESODI_BLOG.stats = data.stats || initialData.stats;
+                    ESODI_BLOG.adminEmail = data.adminEmail || "esodi22@gmail.com";
+                    
+                    // Vérifier la version des données
+                    if (!data.version || data.version !== ESODI_BLOG.version) {
+                        console.log('Mise à jour des données vers la version', ESODI_BLOG.version);
+                        saveData();
+                    }
+                } else {
+                    ESODI_BLOG.articles = initialData.articles;
+                    ESODI_BLOG.comments = initialData.comments;
+                    ESODI_BLOG.stats = initialData.stats;
+                    ESODI_BLOG.adminEmail = "esodi22@gmail.com";
+                    saveData();
+                }
+            } catch (error) {
+                console.error('Erreur lors du chargement des données:', error);
+                // Fallback aux données initiales
                 ESODI_BLOG.articles = initialData.articles;
                 ESODI_BLOG.comments = initialData.comments;
                 ESODI_BLOG.stats = initialData.stats;
-                ESODI_BLOG.adminEmail = "esodi22@gmail.com";
-                saveData();
             }
         }
 
         function saveData() {
-            const data = {
-                articles: ESODI_BLOG.articles,
-                comments: ESODI_BLOG.comments,
-                stats: ESODI_BLOG.stats,
-                adminEmail: ESODI_BLOG.adminEmail,
-                lastUpdate: new Date().toISOString()
-            };
-            localStorage.setItem(ESODI_BLOG.storageKey, JSON.stringify(data));
+            try {
+                const data = {
+                    articles: ESODI_BLOG.articles,
+                    comments: ESODI_BLOG.comments,
+                    stats: ESODI_BLOG.stats,
+                    adminEmail: ESODI_BLOG.adminEmail,
+                    lastUpdate: new Date().toISOString(),
+                    version: ESODI_BLOG.version
+                };
+                localStorage.setItem(ESODI_BLOG.storageKey, JSON.stringify(data));
+            } catch (error) {
+                console.error('Erreur lors de la sauvegarde des données:', error);
+            }
         }
 
-        // Système d'articles
+        // Système d'articles amélioré
         function initArticles() {
             const container = document.getElementById('articles-container');
             if (!container) return;
             
-            const publishedArticles = ESODI_BLOG.articles.filter(article => article.published);
+            const publishedArticles = ESODI_BLOG.articles
+                .filter(article => article.published)
+                .sort((a, b) => new Date(b.date) - new Date(a.date));
             
             if (publishedArticles.length === 0) {
                 container.innerHTML = `
-                    <div style="text-align: center; padding: 3rem;">
-                        <i class="fas fa-newspaper" style="font-size: 3rem; color: var(--gray); margin-bottom: 1rem;"></i>
-                        <h3 style="color: var(--gray);">Aucun contenu publié</h3>
-                        <p style="color: var(--gray-light);">Revenez bientôt !</p>
+                    <div style="text-align: center; padding: 4rem; grid-column: 1 / -1;">
+                        <i class="fas fa-newspaper" style="font-size: 4rem; color: var(--gray-400); margin-bottom: 1.5rem;"></i>
+                        <h3 style="color: var(--gray-600); margin-bottom: 1rem;">Aucun article publié pour le moment</h3>
+                        <p style="color: var(--gray-500); max-width: 400px; margin: 0 auto;">
+                            Revenez bientôt pour découvrir du nouveau contenu !
+                        </p>
                     </div>
                 `;
                 return;
@@ -1605,6 +2963,7 @@ Fournir des produits digitaux de haute qualité qui :
                 const typeClass = article.type || 'blog';
                 const typeLabel = getTypeLabel(article.type);
                 const typeIcon = getTypeIcon(article.type);
+                const readTime = article.readTime || '3 min';
                 
                 return `
                     <article class="article-card" data-id="${article.id}">
@@ -1614,14 +2973,16 @@ Fournir des produits digitaux de haute qualité qui :
                         <div class="article-content">
                             <div class="article-header">
                                 <span class="article-type ${typeClass}">${typeLabel}</span>
-                                <span class="date">${formatDate(article.date)}</span>
+                                <span class="date">${formatDate(article.date)} • ${readTime}</span>
                             </div>
                             <h3>${article.title}</h3>
                             <p class="excerpt">${article.excerpt}</p>
                             <div class="article-footer">
-                                <span class="author">${article.author}</span>
-                                <a href="#" class="read-more" data-article="${article.id}">
-                                    Lire <i class="fas fa-arrow-right"></i>
+                                <span class="author">
+                                    <i class="fas fa-user"></i> ${article.author}
+                                </span>
+                                <a href="#" class="read-more" data-article="${article.id}" aria-label="Lire ${article.title}">
+                                    Lire l'article <i class="fas fa-arrow-right"></i>
                                 </a>
                             </div>
                         </div>
@@ -1632,20 +2993,20 @@ Fournir des produits digitaux de haute qualité qui :
 
         function getTypeLabel(type) {
             const labels = {
-                'blog': 'Article',
+                'blog': '📝 Article',
                 'digital': '✨ Digital',
-                'product': 'Produit',
-                'category': 'Catégorie',
+                'product': '🛍️ Produit',
+                'category': '🏷️ Catégorie',
                 'donation': '❤️ Soutien'
             };
-            return labels[type] || 'Article';
+            return labels[type] || '📄 Article';
         }
 
         function getTypeIcon(type) {
             const icons = {
                 'blog': 'feather-alt',
                 'digital': 'laptop-code',
-                'product': 'box',
+                'product': 'box-open',
                 'category': 'tags',
                 'donation': 'heart'
             };
@@ -1654,6 +3015,16 @@ Fournir des produits digitaux de haute qualité qui :
 
         function formatDate(dateString) {
             const date = new Date(dateString);
+            const now = new Date();
+            const diffTime = Math.abs(now - date);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            
+            if (diffDays === 1) {
+                return 'Hier';
+            } else if (diffDays < 7) {
+                return `Il y a ${diffDays} jours`;
+            }
+            
             return date.toLocaleDateString('fr-FR', {
                 year: 'numeric',
                 month: 'short',
@@ -1665,7 +3036,9 @@ Fournir des produits digitaux de haute qualité qui :
             const select = document.getElementById('comment-article');
             if (!select) return;
             
-            const publishedArticles = ESODI_BLOG.articles.filter(article => article.published);
+            const publishedArticles = ESODI_BLOG.articles
+                .filter(article => article.published)
+                .sort((a, b) => new Date(b.date) - new Date(a.date));
             
             select.innerHTML = '<option value="">Sélectionnez un article</option>' +
                 publishedArticles.map(article => `
@@ -1673,7 +3046,7 @@ Fournir des produits digitaux de haute qualité qui :
                 `).join('');
         }
 
-        // Système de commentaires
+        // Système de commentaires amélioré
         function initComments() {
             const container = document.getElementById('comments-container');
             if (!container) return;
@@ -1681,13 +3054,16 @@ Fournir des produits digitaux de haute qualité qui :
             const recentComments = [...ESODI_BLOG.comments]
                 .filter(comment => comment.approved)
                 .sort((a, b) => new Date(b.date) - new Date(a.date))
-                .slice(0, 3);
+                .slice(0, 5);
             
             if (recentComments.length === 0) {
                 container.innerHTML = `
-                    <div class="comment" style="text-align: center; padding: 1.5rem;">
-                        <i class="fas fa-comment-slash" style="font-size: 1.5rem; color: var(--gray-light); margin-bottom: 0.5rem;"></i>
-                        <p style="color: var(--gray); font-size: 0.9rem;">Aucun commentaire. Soyez le premier !</p>
+                    <div class="comment" style="text-align: center; padding: 3rem 2rem;">
+                        <i class="fas fa-comment-slash" style="font-size: 3rem; color: var(--gray-400); margin-bottom: 1.5rem;"></i>
+                        <h4 style="color: var(--gray-600); margin-bottom: 1rem;">Aucun commentaire pour le moment</h4>
+                        <p style="color: var(--gray-500); font-size: 1.1rem; max-width: 400px; margin: 0 auto;">
+                            Soyez le premier à laisser un commentaire !
+                        </p>
                     </div>
                 `;
                 return;
@@ -1695,18 +3071,21 @@ Fournir des produits digitaux de haute qualité qui :
             
             container.innerHTML = recentComments.map(comment => {
                 const article = ESODI_BLOG.articles.find(a => a.id === comment.articleId);
-                const articleTitle = article ? article.title : 'Article supprimé';
+                const articleTitle = article ? article.title : 'Article non disponible';
                 
                 return `
                     <div class="comment">
                         <div class="comment-header">
-                            <span class="comment-author">${comment.author}</span>
+                            <span class="comment-author">
+                                <i class="fas fa-user-circle"></i> ${comment.author}
+                            </span>
                             <span class="comment-date">${formatDate(comment.date)}</span>
                         </div>
                         <p class="comment-content">${comment.content}</p>
-                        <p style="font-size: 0.85rem; color: var(--gray); margin-top: 0.5rem;">
-                            <i class="fas fa-newspaper"></i> "${articleTitle}"
-                        </p>
+                        <div class="comment-article">
+                            <i class="fas fa-newspaper"></i>
+                            <em>Article : "${articleTitle}"</em>
+                        </div>
                     </div>
                 `;
             }).join('');
@@ -1717,7 +3096,7 @@ Fournir des produits digitaux de haute qualité qui :
             const link = "https://me.fedapay.com/lmuOo1Nv";
             if (navigator.clipboard && navigator.clipboard.writeText) {
                 navigator.clipboard.writeText(link)
-                    .then(() => showNotification('Lien copié !', 'donation'))
+                    .then(() => showNotification('Lien de don copié ! 🎁', 'donation'))
                     .catch(() => fallbackCopy(link));
             } else {
                 fallbackCopy(link);
@@ -1735,15 +3114,15 @@ Fournir des produits digitaux de haute qualité qui :
             
             try {
                 document.execCommand('copy');
-                showNotification('Lien copié !', 'donation');
+                showNotification('Lien copié dans le presse-papier 📋', 'success');
             } catch (err) {
-                showNotification('Échec de la copie', 'error');
+                showNotification('Échec de la copie du lien', 'error');
             }
             
             document.body.removeChild(textArea);
         }
 
-        // Gestion des événements
+        // Gestion des événements améliorée
         function initEvents() {
             // Formulaire de commentaire
             const commentForm = document.getElementById('comment-form');
@@ -1751,42 +3130,60 @@ Fournir des produits digitaux de haute qualité qui :
                 commentForm.addEventListener('submit', function(e) {
                     e.preventDefault();
                     
-                    const name = document.getElementById('comment-name').value;
-                    const content = document.getElementById('comment-content').value;
+                    const name = document.getElementById('comment-name').value.trim();
+                    const content = document.getElementById('comment-content').value.trim();
                     const articleId = parseInt(document.getElementById('comment-article').value);
+                    const email = document.getElementById('comment-email').value.trim();
                     
                     if (!name || !content || !articleId) {
-                        showNotification('Veuillez remplir tous les champs', 'error');
+                        showNotification('Veuillez remplir tous les champs obligatoires', 'error');
                         return;
                     }
+                    
+                    if (content.length < 10) {
+                        showNotification('Le commentaire doit contenir au moins 10 caractères', 'error');
+                        return;
+                    }
+                    
+                    // Simuler un envoi
+                    const submitBtn = this.querySelector('button[type="submit"]');
+                    const originalText = submitBtn.innerHTML;
+                    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Publication...';
+                    submitBtn.disabled = true;
                     
                     const newComment = {
                         id: ESODI_BLOG.comments.length + 1,
                         articleId: articleId,
                         author: name,
-                        email: document.getElementById('comment-email').value || '',
+                        email: email || '',
                         content: content,
                         date: new Date().toISOString().split('T')[0],
                         approved: true,
                         notified: false
                     };
                     
-                    ESODI_BLOG.comments.push(newComment);
-                    saveData();
-                    this.reset();
-                    
-                    showNotification('Commentaire publié !', 'success');
-                    ESODI_BLOG.stats.comments++;
-                    updateStats();
-                    initComments();
+                    // Simuler un délai réseau
+                    setTimeout(() => {
+                        ESODI_BLOG.comments.push(newComment);
+                        saveData();
+                        this.reset();
+                        
+                        submitBtn.innerHTML = originalText;
+                        submitBtn.disabled = false;
+                        
+                        showNotification('Commentaire publié avec succès ! ✨', 'success');
+                        ESODI_BLOG.stats.comments++;
+                        updateStats();
+                        initComments();
+                    }, 1000);
                 });
             }
             
             // Bouton boutique
             const boutiqueBtn = document.getElementById('boutique-link');
             if (boutiqueBtn) {
-                boutiqueBtn.addEventListener('click', function() {
-                    showNotification('Ouverture de la boutique...', 'info');
+                boutiqueBtn.addEventListener('click', function(e) {
+                    showNotification('Ouverture de la boutique dans un nouvel onglet... 🛍️', 'info');
                 });
             }
             
@@ -1794,8 +3191,12 @@ Fournir des produits digitaux de haute qualité qui :
             const refreshBtn = document.getElementById('refresh-articles');
             if (refreshBtn) {
                 refreshBtn.addEventListener('click', function() {
-                    initArticles();
-                    showNotification('Articles actualisés', 'info');
+                    this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Actualisation...';
+                    setTimeout(() => {
+                        initArticles();
+                        this.innerHTML = '<i class="fas fa-sync-alt"></i> Actualiser';
+                        showNotification('Articles actualisés avec succès 📰', 'success');
+                    }, 800);
                 });
             }
             
@@ -1803,11 +3204,14 @@ Fournir des produits digitaux de haute qualité qui :
             const loadMoreBtn = document.getElementById('load-more');
             if (loadMoreBtn) {
                 loadMoreBtn.addEventListener('click', function() {
-                    showNotification('Chargement de plus d\'articles...', 'info');
-                    // Simuler un chargement
+                    this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Chargement...';
+                    
                     setTimeout(() => {
-                        showNotification('Tous les articles sont affichés', 'info');
-                    }, 1000);
+                        // Simuler le chargement de plus d'articles
+                        const currentArticles = ESODI_BLOG.articles.length;
+                        this.innerHTML = '<i class="fas fa-plus"></i> Voir plus d\'articles';
+                        showNotification(`Tous les articles sont affichés (${currentArticles} au total)`, 'info');
+                    }, 1500);
                 });
             }
             
@@ -1823,17 +3227,38 @@ Fournir des produits digitaux de haute qualité qui :
                 if (e.target.classList.contains('close-modal') || e.target.classList.contains('modal')) {
                     closeModal();
                 }
+                
+                // Prévenir les liens vides
+                if (e.target.tagName === 'A' && e.target.getAttribute('href') === '#') {
+                    e.preventDefault();
+                }
             });
             
-            // Prévenir le zoom sur les inputs iOS
-            document.addEventListener('touchstart', function(e) {
-                if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT') {
-                    // Ne rien faire, laisser le comportement par défaut
+            // Optimisation du clavier mobile
+            const inputs = document.querySelectorAll('input, textarea, select');
+            inputs.forEach(input => {
+                input.addEventListener('focus', function() {
+                    // Scroll vers l'input sur mobile
+                    if (window.innerWidth < 768) {
+                        setTimeout(() => {
+                            this.scrollIntoView({ 
+                                behavior: 'smooth',
+                                block: 'center'
+                            });
+                        }, 300);
+                    }
+                });
+            });
+            
+            // Fermer la modal avec Escape
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    closeModal();
                 }
-            }, { passive: true });
+            });
         }
 
-        // Ouvrir un article
+        // Ouvrir un article amélioré
         function openArticle(articleId) {
             const article = ESODI_BLOG.articles.find(a => a.id === articleId);
             if (!article) {
@@ -1841,52 +3266,154 @@ Fournir des produits digitaux de haute qualité qui :
                 return;
             }
             
-            const contentHTML = marked.parse(article.content);
-            
+            // Animation de chargement
             const modalContent = document.getElementById('article-modal-content');
             modalContent.innerHTML = `
-                <div style="margin-bottom: 1.5rem;">
-                    <div style="display: flex; justify-content: space-between; margin-bottom: 1rem; color: var(--gray); flex-wrap: wrap; gap: 0.5rem;">
-                        <span class="article-type ${article.type}" style="display: inline-block; padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.8rem; font-weight: 600; background: ${article.type === 'digital' ? 'var(--digital)' : article.type === 'product' ? 'var(--accent)' : article.type === 'category' ? 'var(--boutique)' : article.type === 'donation' ? 'var(--donation)' : 'var(--primary)'}; color: white;">
-                            ${getTypeLabel(article.type)}
-                        </span>
-                        <span class="date">${formatDate(article.date)}</span>
-                    </div>
-                    <h1 style="color: var(--dark); margin-bottom: 1rem; font-size: 1.4rem;">${article.title}</h1>
-                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--gray-light);">
-                        <i class="fas fa-user" style="color: var(--primary);"></i>
-                        <span style="font-weight: 600; font-size: 0.95rem;">${article.author}</span>
-                    </div>
-                </div>
-                <div class="article-content" style="line-height: 1.6; font-size: 1rem;">
-                    ${contentHTML}
-                </div>
-                <div style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--gray-light);">
-                    <p style="font-style: italic; color: var(--gray); font-size: 0.9rem;">
-                        <i class="fas fa-pen"></i> Publié par ${article.author}
-                    </p>
+                <div class="loading" style="min-height: 200px; display: flex; align-items: center; justify-content: center;">
+                    Chargement de l'article...
                 </div>
             `;
             
             document.getElementById('article-modal').style.display = 'block';
             document.body.style.overflow = 'hidden';
+            
+            // Simuler un délai de chargement
+            setTimeout(() => {
+                const contentHTML = marked.parse(article.content);
+                const typeClass = article.type || 'blog';
+                const typeLabel = getTypeLabel(article.type);
+                const readTime = article.readTime || '3 min';
+                
+                modalContent.innerHTML = `
+                    <div style="margin-bottom: 3rem;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+                            <span class="article-type ${typeClass}" style="display: inline-block; padding: 0.6rem 1.2rem; border-radius: 50px; font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">
+                                ${typeLabel}
+                            </span>
+                            <div style="display: flex; align-items: center; gap: 1rem; color: var(--gray-500); font-size: 0.95rem;">
+                                <span><i class="far fa-calendar"></i> ${formatDate(article.date)}</span>
+                                <span><i class="far fa-clock"></i> ${readTime}</span>
+                            </div>
+                        </div>
+                        <h1 style="color: var(--gray-900); margin-bottom: 2rem; font-size: 2.5rem; line-height: 1.2; font-weight: 800; letter-spacing: -0.5px;">
+                            ${article.title}
+                        </h1>
+                        <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 3rem; padding-bottom: 2rem; border-bottom: 2px solid var(--gray-200);">
+                            <div style="width: 50px; height: 50px; border-radius: 50%; background: var(--gradient-primary); display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">
+                                ${article.author.charAt(0)}
+                            </div>
+                            <div>
+                                <div style="font-weight: 800; font-size: 1.2rem; color: var(--gray-900);">${article.author}</div>
+                                <div style="color: var(--gray-500); font-size: 0.95rem;">Auteur & Créateur</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="article-content" style="line-height: 1.8; font-size: 1.15rem; color: var(--gray-700);">
+                        ${contentHTML}
+                    </div>
+                    <div style="margin-top: 4rem; padding-top: 3rem; border-top: 2px solid var(--gray-200); background: var(--gray-50); padding: 2.5rem; border-radius: var(--radius-lg);">
+                        <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 1.5rem;">
+                            <i class="fas fa-pen-nib" style="color: var(--primary); font-size: 1.5rem;"></i>
+                            <h3 style="color: var(--gray-900); font-size: 1.4rem; font-weight: 800;">À propos de l'auteur</h3>
+                        </div>
+                        <p style="color: var(--gray-600); line-height: 1.7; margin-bottom: 1.5rem;">
+                            ${article.author} est le créateur derrière ESODI, passionné par le développement web, le design et l'innovation. Chaque article et produit est le résultat d'un travail méticuleux et d'une passion pour le partage de connaissances.
+                        </p>
+                        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                            ${article.tags ? article.tags.map(tag => `
+                                <span style="background: var(--gray-200); color: var(--gray-700); padding: 0.5rem 1rem; border-radius: 50px; font-size: 0.9rem; font-weight: 600;">
+                                    #${tag}
+                                </span>
+                            `).join('') : ''}
+                        </div>
+                    </div>
+                    <div style="text-align: center; margin-top: 3rem; padding: 2.5rem; background: linear-gradient(135deg, var(--gray-50), var(--gray-100)); border-radius: var(--radius-lg);">
+                        <h3 style="color: var(--gray-900); margin-bottom: 1.5rem; font-size: 1.4rem; font-weight: 800;">Cet article vous a plu ?</h3>
+                        <p style="color: var(--gray-600); margin-bottom: 2rem; max-width: 500px; margin-left: auto; margin-right: auto;">
+                            Soutenez mon travail pour me permettre de créer plus de contenu de qualité comme celui-ci.
+                        </p>
+                        <a href="#donations" class="btn btn-primary" onclick="closeModal()">
+                            <i class="fas fa-heart"></i> Soutenir le projet
+                        </a>
+                    </div>
+                `;
+                
+                // Appliquer des styles supplémentaires au contenu markdown
+                const articleContent = modalContent.querySelector('.article-content');
+                if (articleContent) {
+                    // Style pour les titres markdown
+                    articleContent.querySelectorAll('h1, h2, h3, h4, h5, h6').forEach(heading => {
+                        heading.style.color = 'var(--gray-900)';
+                        heading.style.marginTop = '2.5rem';
+                        heading.style.marginBottom = '1.5rem';
+                        heading.style.fontWeight = '800';
+                    });
+                    
+                    // Style pour les paragraphes
+                    articleContent.querySelectorAll('p').forEach(p => {
+                        p.style.marginBottom = '1.5rem';
+                        p.style.lineHeight = '1.8';
+                    });
+                    
+                    // Style pour les listes
+                    articleContent.querySelectorAll('ul, ol').forEach(list => {
+                        list.style.marginBottom = '1.5rem';
+                        list.style.paddingLeft = '2rem';
+                    });
+                    
+                    articleContent.querySelectorAll('li').forEach(li => {
+                        li.style.marginBottom = '0.5rem';
+                        li.style.lineHeight = '1.6';
+                    });
+                    
+                    // Style pour les blocs de code
+                    articleContent.querySelectorAll('pre').forEach(pre => {
+                        pre.style.background = 'var(--gray-900)';
+                        pre.style.color = 'var(--gray-100)';
+                        pre.style.padding = '1.5rem';
+                        pre.style.borderRadius = 'var(--radius)';
+                        pre.style.overflowX = 'auto';
+                        pre.style.margin = '1.5rem 0';
+                    });
+                    
+                    // Style pour les liens
+                    articleContent.querySelectorAll('a').forEach(link => {
+                        link.style.color = 'var(--primary)';
+                        link.style.textDecoration = 'none';
+                        link.style.fontWeight = '600';
+                        link.style.borderBottom = '2px solid var(--primary-light)';
+                        link.style.transition = 'var(--transition)';
+                        
+                        link.addEventListener('mouseenter', () => {
+                            link.style.borderBottomColor = 'var(--primary)';
+                        });
+                        
+                        link.addEventListener('mouseleave', () => {
+                            link.style.borderBottomColor = 'var(--primary-light)';
+                        });
+                    });
+                }
+            }, 500);
         }
 
         function closeModal() {
             document.getElementById('article-modal').style.display = 'none';
-            document.body.style.overflow = 'auto';
+            document.body.style.overflow = '';
         }
 
-        // Notifications
+        // Notifications améliorées
         function showNotification(message, type = 'info') {
             // Supprimer les notifications existantes
             const existing = document.querySelectorAll('.notification');
-            existing.forEach(notif => notif.remove());
+            existing.forEach(notif => {
+                notif.style.animation = 'slideInMobile 0.3s ease reverse';
+                setTimeout(() => notif.remove(), 300);
+            });
             
             const notification = document.createElement('div');
             notification.className = `notification ${type}`;
             notification.innerHTML = `
-                <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : type === 'donation' ? 'heart' : 'info-circle'}"></i>
+                <i class="fas fa-${getNotificationIcon(type)}"></i>
                 <span>${message}</span>
             `;
             
@@ -1895,7 +3422,28 @@ Fournir des produits digitaux de haute qualité qui :
             setTimeout(() => {
                 notification.style.animation = 'slideInMobile 0.3s ease reverse';
                 setTimeout(() => notification.remove(), 300);
-            }, 3000);
+            }, 4000);
+            
+            // Ajouter un son de notification sur mobile
+            if (window.innerWidth < 768 && typeof Audio !== 'undefined') {
+                try {
+                    const audio = new Audio('data:audio/wav;base64,UklGRigAAABXQVZFZm10IBIAAAABAAEAQB8AAEAfAAABAAgAZGF0YQ');
+                    audio.volume = 0.1;
+                    audio.play();
+                } catch (e) {
+                    // Ignorer les erreurs audio
+                }
+            }
+        }
+
+        function getNotificationIcon(type) {
+            const icons = {
+                'success': 'check-circle',
+                'error': 'exclamation-triangle',
+                'donation': 'gift',
+                'info': 'info-circle'
+            };
+            return icons[type] || 'info-circle';
         }
 
         // Mise à jour des statistiques
@@ -1905,31 +3453,87 @@ Fournir des produits digitaux de haute qualité qui :
             saveData();
         }
 
-        // Gestion du clavier virtuel sur mobile
+        // Détection du thème
+        function initThemeDetection() {
+            const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+            
+            function updateTheme() {
+                if (prefersDarkScheme.matches) {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                } else {
+                    document.documentElement.setAttribute('data-theme', 'light');
+                }
+            }
+            
+            updateTheme();
+            prefersDarkScheme.addEventListener('change', updateTheme);
+        }
+
+        // Gestion du clavier virtuel
+        let isKeyboardVisible = false;
+        let initialViewportHeight = window.innerHeight;
+        
         window.addEventListener('resize', function() {
-            // Ajuster la hauteur des modales quand le clavier apparaît
-            if (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA') {
+            const newHeight = window.innerHeight;
+            
+            if (newHeight < initialViewportHeight * 0.6) {
+                isKeyboardVisible = true;
+                document.body.classList.add('keyboard-visible');
+            } else if (isKeyboardVisible) {
+                isKeyboardVisible = false;
+                document.body.classList.remove('keyboard-visible');
+            }
+        });
+
+        // Prévenir le défilement de l'écran quand le clavier est visible
+        document.addEventListener('focusin', function(e) {
+            if (['INPUT', 'TEXTAREA', 'SELECT'].includes(e.target.tagName)) {
                 setTimeout(() => {
-                    const modal = document.querySelector('.modal[style*="display: block"]');
-                    if (modal) {
-                        modal.scrollTop = 0;
+                    if (window.innerWidth < 768) {
+                        e.target.scrollIntoView({ 
+                            behavior: 'smooth',
+                            block: 'center',
+                            inline: 'nearest'
+                        });
                     }
                 }, 100);
             }
         });
 
-        // Empêcher le défilement pendant l'édition sur iOS
-        document.addEventListener('focus', function(e) {
-            if (['INPUT', 'TEXTAREA', 'SELECT'].includes(e.target.tagName)) {
-                document.body.style.overflow = 'hidden';
+        // API pour les interactions externes
+        window.ESODI = {
+            version: ESODI_BLOG.version,
+            stats: ESODI_BLOG.stats,
+            refreshArticles: initArticles,
+            refreshComments: initComments,
+            showNotification: showNotification,
+            openArticle: openArticle,
+            makeDonation: function() {
+                window.open('https://me.fedapay.com/lmuOo1Nv', '_blank');
+                showNotification('Merci pour votre soutien ! ❤️', 'donation');
             }
-        }, true);
+        };
 
-        document.addEventListener('blur', function(e) {
-            if (['INPUT', 'TEXTAREA', 'SELECT'].includes(e.target.tagName)) {
-                document.body.style.overflow = 'auto';
-            }
-        }, true);
+        // Animation d'entrée pour les éléments
+        function animateOnScroll() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate-in');
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+            
+            document.querySelectorAll('.article-card, .digital-product, .donation-feature').forEach(el => {
+                observer.observe(el);
+            });
+        }
+
+        // Lancer l'animation après le chargement
+        setTimeout(animateOnScroll, 1000);
     </script>
 </body>
 </html>
