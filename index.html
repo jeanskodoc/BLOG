@@ -2578,6 +2578,99 @@
                 width: 0;
             }
         }
+
+        /* Styles pour la page de connexion admin */
+        .login-form-container {
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .login-card {
+            background: white;
+            border-radius: var(--radius-xl);
+            padding: 3rem;
+            box-shadow: var(--shadow-xl);
+            width: 100%;
+            max-width: 450px;
+            border: 2px solid var(--admin-border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-admin);
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .login-header .admin-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .login-header h2 {
+            color: var(--admin-dark);
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+
+        .login-header p {
+            color: var(--gray-600);
+            font-size: 0.95rem;
+        }
+
+        .login-alert {
+            padding: 1rem;
+            border-radius: var(--radius);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .login-alert.error {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(239, 68, 68, 0.05));
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            color: var(--danger-dark);
+        }
+
+        .login-alert.error i {
+            color: var(--danger);
+        }
+
+        .login-footer {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--gray-200);
+            font-size: 0.9rem;
+            color: var(--gray-600);
+        }
+
+        .login-footer a {
+            color: var(--admin);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .login-footer a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
@@ -2755,7 +2848,7 @@
             </div>
         </section>
 
-        <!-- Section Admin améliorée avec nouvelle palette de couleurs -->
+        <!-- Section Admin améliorée avec authentification -->
         <section id="admin" class="admin-section">
             <div class="container">
                 <div class="admin-icon">
@@ -2770,150 +2863,202 @@
                 
                 <p>Gérez facilement tous vos articles : ajoutez, modifiez ou supprimez du contenu en temps réel.</p>
 
-                <!-- Statistiques admin -->
-                <div class="admin-stats" id="admin-stats">
-                    <!-- Les statistiques seront chargées dynamiquement -->
-                </div>
+                <!-- Formulaire de connexion admin (visible par défaut) -->
+                <div id="admin-login-form" class="login-form-container">
+                    <div class="login-card">
+                        <div class="login-header">
+                            <div class="admin-icon">
+                                <i class="fas fa-lock"></i>
+                            </div>
+                            <h2>Connexion Admin</h2>
+                            <p>Veuillez vous authentifier pour accéder au panneau d'administration</p>
+                        </div>
 
-                <div class="admin-actions">
-                    <button id="show-add-article-form" class="btn btn-admin">
-                        <i class="fas fa-plus-circle"></i> Ajouter un article
-                    </button>
-                    <button id="show-added-articles" class="btn btn-admin-secondary">
-                        <i class="fas fa-list"></i> Voir les articles ajoutés
-                    </button>
-                    <button id="refresh-admin" class="btn btn-outline">
-                        <i class="fas fa-sync-alt"></i> Actualiser
-                    </button>
-                </div>
+                        <div id="login-alert" class="login-alert error hidden">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <span id="login-alert-text">Identifiant ou mot de passe incorrect</span>
+                        </div>
 
-                <!-- Formulaire pour ajouter un article -->
-                <div id="add-article-form" class="admin-form hidden">
-                    <h3><i class="fas fa-edit"></i> Ajouter un nouvel article</h3>
-                    <form id="article-form">
-                        <div class="form-row">
+                        <form id="login-form">
                             <div class="form-group">
-                                <label for="article-title">
-                                    <i class="fas fa-heading"></i> Titre de l'article *
+                                <label for="admin-username">
+                                    <i class="fas fa-user"></i> Identifiant *
                                 </label>
-                                <input type="text" id="article-title" class="form-control" required 
-                                       placeholder="Ex: Mon nouvel article révolutionnaire">
+                                <input type="text" id="admin-username" class="form-control" required 
+                                       placeholder="Entrez votre identifiant">
                             </div>
+                            
                             <div class="form-group">
-                                <label for="article-author">
-                                    <i class="fas fa-user"></i> Auteur *
+                                <label for="admin-password">
+                                    <i class="fas fa-key"></i> Mot de passe *
                                 </label>
-                                <input type="text" id="article-author" class="form-control" required 
-                                       value="Jeanskodoc" placeholder="Ex: Jeanskodoc">
+                                <input type="password" id="admin-password" class="form-control" required 
+                                       placeholder="Entrez votre mot de passe">
                             </div>
-                        </div>
-                        
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="article-category">
-                                    <i class="fas fa-folder"></i> Catégorie *
-                                </label>
-                                <select id="article-category" class="form-control" required>
-                                    <option value="">Sélectionnez une catégorie</option>
-                                    <option value="présentation">Présentation</option>
-                                    <option value="produits">Produits</option>
-                                    <option value="tutoriel">Tutoriel</option>
-                                    <option value="technique">Technique</option>
-                                    <option value="actualité">Actualité</option>
-                                    <option value="design">Design</option>
-                                    <option value="développement">Développement</option>
-                                </select>
+                            
+                            <div style="text-align: center; margin-top: 2rem;">
+                                <button type="submit" class="btn btn-admin" style="min-width: 200px;">
+                                    <i class="fas fa-sign-in-alt"></i> Se connecter
+                                </button>
                             </div>
-                            <div class="form-group">
-                                <label for="article-type">
-                                    <i class="fas fa-tag"></i> Type d'article *
-                                </label>
-                                <select id="article-type" class="form-control" required>
-                                    <option value="">Sélectionnez un type</option>
-                                    <option value="blog">📝 Article blog</option>
-                                    <option value="digital">✨ Produit digital</option>
-                                    <option value="product">🛍️ Produit boutique</option>
-                                    <option value="category">🏷️ Catégorie</option>
-                                    <option value="donation">❤️ Soutien</option>
-                                    <option value="admin">⚙️ Article admin</option>
-                                </select>
-                            </div>
-                        </div>
-                        
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="article-tags">
-                                    <i class="fas fa-hashtag"></i> Tags (séparés par des virgules)
-                                </label>
-                                <input type="text" id="article-tags" class="form-control" 
-                                       placeholder="Ex: design, web, développement, tutoriel">
-                            </div>
-                            <div class="form-group">
-                                <label for="article-read-time">
-                                    <i class="fas fa-clock"></i> Temps de lecture
-                                </label>
-                                <input type="text" id="article-read-time" class="form-control" 
-                                       placeholder="Ex: 5 min" value="5 min">
-                            </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="article-excerpt">
-                                <i class="fas fa-align-left"></i> Extrait *
-                            </label>
-                            <textarea id="article-excerpt" class="form-control" required 
-                                      placeholder="Brève description de l'article (apparaîtra dans la liste)" rows="3"></textarea>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="article-content">
-                                <i class="fas fa-file-alt"></i> Contenu (Markdown supporté) *
-                            </label>
-                            <textarea id="article-content" class="form-control" required 
-                                      placeholder="Contenu complet de l'article en Markdown..." rows="10"></textarea>
-                            <small style="color: var(--admin); margin-top: 0.5rem; display: block; font-weight: 600;">
-                                <i class="fas fa-info-circle"></i> Support Markdown : # Titre, ## Sous-titre, **gras**, *italique*, ```code```, - listes
-                            </small>
-                        </div>
-                        
-                        <div class="form-row">
-                            <div class="checkbox-group">
-                                <input type="checkbox" id="article-published" checked>
-                                <label for="article-published">Publier immédiatement</label>
-                            </div>
-                            <div class="checkbox-group">
-                                <input type="checkbox" id="article-featured">
-                                <label for="article-featured">Mettre en avant (featured)</label>
-                            </div>
-                        </div>
-                        
-                        <div style="text-align: center; margin-top: 2rem;">
-                            <button type="submit" class="btn btn-admin" style="min-width: 200px;">
-                                <i class="fas fa-paper-plane"></i> Publier l'article
-                            </button>
-                            <button type="button" id="preview-article" class="btn btn-admin-secondary" style="min-width: 200px; margin-left: 1rem;">
-                                <i class="fas fa-eye"></i> Prévisualiser
-                            </button>
-                            <button type="button" id="reset-form" class="btn btn-outline" style="min-width: 200px; margin-left: 1rem;">
-                                <i class="fas fa-redo"></i> Réinitialiser
-                            </button>
-                        </div>
-                    </form>
-                    
-                    <!-- Prévisualisation -->
-                    <div id="article-preview" class="article-preview hidden">
-                        <h4><i class="fas fa-search"></i> Prévisualisation</h4>
-                        <div class="article-preview-content" id="preview-content">
-                            <!-- La prévisualisation sera insérée ici -->
+                        </form>
+
+                        <div class="login-footer">
+                            <p>Identifiants requis pour accéder aux fonctionnalités d'administration</p>
                         </div>
                     </div>
                 </div>
 
-                <!-- Liste des articles ajoutés -->
-                <div id="added-articles-section" class="articles-added hidden">
-                    <h3><i class="fas fa-newspaper"></i> Articles Ajoutés</h3>
-                    <div class="added-articles-list" id="added-articles-container">
-                        <!-- Les articles ajoutés seront affichés ici -->
+                <!-- Contenu admin (caché par défaut, visible après connexion) -->
+                <div id="admin-content" class="hidden">
+                    <!-- Statistiques admin -->
+                    <div class="admin-stats" id="admin-stats">
+                        <!-- Les statistiques seront chargées dynamiquement -->
+                    </div>
+
+                    <div class="admin-actions">
+                        <button id="show-add-article-form" class="btn btn-admin">
+                            <i class="fas fa-plus-circle"></i> Ajouter un article
+                        </button>
+                        <button id="show-added-articles" class="btn btn-admin-secondary">
+                            <i class="fas fa-list"></i> Voir les articles ajoutés
+                        </button>
+                        <button id="refresh-admin" class="btn btn-outline">
+                            <i class="fas fa-sync-alt"></i> Actualiser
+                        </button>
+                        <button id="logout-admin" class="btn btn-outline" style="border-color: var(--danger); color: var(--danger);">
+                            <i class="fas fa-sign-out-alt"></i> Déconnexion
+                        </button>
+                    </div>
+
+                    <!-- Formulaire pour ajouter un article -->
+                    <div id="add-article-form" class="admin-form hidden">
+                        <h3><i class="fas fa-edit"></i> Ajouter un nouvel article</h3>
+                        <form id="article-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="article-title">
+                                        <i class="fas fa-heading"></i> Titre de l'article *
+                                    </label>
+                                    <input type="text" id="article-title" class="form-control" required 
+                                           placeholder="Ex: Mon nouvel article révolutionnaire">
+                                </div>
+                                <div class="form-group">
+                                    <label for="article-author">
+                                        <i class="fas fa-user"></i> Auteur *
+                                    </label>
+                                    <input type="text" id="article-author" class="form-control" required 
+                                           value="Jeanskodoc" placeholder="Ex: Jeanskodoc">
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="article-category">
+                                        <i class="fas fa-folder"></i> Catégorie *
+                                    </label>
+                                    <select id="article-category" class="form-control" required>
+                                        <option value="">Sélectionnez une catégorie</option>
+                                        <option value="présentation">Présentation</option>
+                                        <option value="produits">Produits</option>
+                                        <option value="tutoriel">Tutoriel</option>
+                                        <option value="technique">Technique</option>
+                                        <option value="actualité">Actualité</option>
+                                        <option value="design">Design</option>
+                                        <option value="développement">Développement</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="article-type">
+                                        <i class="fas fa-tag"></i> Type d'article *
+                                    </label>
+                                    <select id="article-type" class="form-control" required>
+                                        <option value="">Sélectionnez un type</option>
+                                        <option value="blog">📝 Article blog</option>
+                                        <option value="digital">✨ Produit digital</option>
+                                        <option value="product">🛍️ Produit boutique</option>
+                                        <option value="category">🏷️ Catégorie</option>
+                                        <option value="donation">❤️ Soutien</option>
+                                        <option value="admin">⚙️ Article admin</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="article-tags">
+                                        <i class="fas fa-hashtag"></i> Tags (séparés par des virgules)
+                                    </label>
+                                    <input type="text" id="article-tags" class="form-control" 
+                                           placeholder="Ex: design, web, développement, tutoriel">
+                                </div>
+                                <div class="form-group">
+                                    <label for="article-read-time">
+                                        <i class="fas fa-clock"></i> Temps de lecture
+                                    </label>
+                                    <input type="text" id="article-read-time" class="form-control" 
+                                           placeholder="Ex: 5 min" value="5 min">
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="article-excerpt">
+                                    <i class="fas fa-align-left"></i> Extrait *
+                                </label>
+                                <textarea id="article-excerpt" class="form-control" required 
+                                          placeholder="Brève description de l'article (apparaîtra dans la liste)" rows="3"></textarea>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="article-content">
+                                    <i class="fas fa-file-alt"></i> Contenu (Markdown supporté) *
+                                </label>
+                                <textarea id="article-content" class="form-control" required 
+                                          placeholder="Contenu complet de l'article en Markdown..." rows="10"></textarea>
+                                <small style="color: var(--admin); margin-top: 0.5rem; display: block; font-weight: 600;">
+                                    <i class="fas fa-info-circle"></i> Support Markdown : # Titre, ## Sous-titre, **gras**, *italique*, ```code```, - listes
+                                </small>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="checkbox-group">
+                                    <input type="checkbox" id="article-published" checked>
+                                    <label for="article-published">Publier immédiatement</label>
+                                </div>
+                                <div class="checkbox-group">
+                                    <input type="checkbox" id="article-featured">
+                                    <label for="article-featured">Mettre en avant (featured)</label>
+                                </div>
+                            </div>
+                            
+                            <div style="text-align: center; margin-top: 2rem;">
+                                <button type="submit" class="btn btn-admin" style="min-width: 200px;">
+                                    <i class="fas fa-paper-plane"></i> Publier l'article
+                                </button>
+                                <button type="button" id="preview-article" class="btn btn-admin-secondary" style="min-width: 200px; margin-left: 1rem;">
+                                    <i class="fas fa-eye"></i> Prévisualiser
+                                </button>
+                                <button type="button" id="reset-form" class="btn btn-outline" style="min-width: 200px; margin-left: 1rem;">
+                                    <i class="fas fa-redo"></i> Réinitialiser
+                                </button>
+                            </div>
+                        </form>
+                        
+                        <!-- Prévisualisation -->
+                        <div id="article-preview" class="article-preview hidden">
+                            <h4><i class="fas fa-search"></i> Prévisualisation</h4>
+                            <div class="article-preview-content" id="preview-content">
+                                <!-- La prévisualisation sera insérée ici -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Liste des articles ajoutés -->
+                    <div id="added-articles-section" class="articles-added hidden">
+                        <h3><i class="fas fa-newspaper"></i> Articles Ajoutés</h3>
+                        <div class="added-articles-list" id="added-articles-container">
+                            <!-- Les articles ajoutés seront affichés ici -->
+                        </div>
                     </div>
                 </div>
             </div>
@@ -3089,7 +3234,14 @@
                 comments: 0,
                 visitors: 0,
                 donations: 0
-            }
+            },
+            // Identifiants admin
+            adminCredentials: {
+                username: "KOLA",
+                password: "KOLA1@"
+            },
+            // État de connexion
+            isAdminLoggedIn: false
         };
 
         // Données initiales enrichies
@@ -3541,11 +3693,47 @@ add_header X-Content-Type-Options "nosniff";
             ESODI_BLOG.stats.visitors++;
             updateStats();
             
+            // Vérifier si l'admin est déjà connecté
+            checkAdminLogin();
+            
             // Show welcome notification after a delay
             setTimeout(() => {
                 showNotification(`Bienvenue sur ${ESODI_BLOG.name} ! ✨`, 'info');
             }, 1000);
         });
+
+        // Vérifier la connexion admin
+        function checkAdminLogin() {
+            const isLoggedIn = localStorage.getItem('esodi_admin_logged_in') === 'true';
+            if (isLoggedIn) {
+                ESODI_BLOG.isAdminLoggedIn = true;
+                showAdminContent();
+            } else {
+                hideAdminContent();
+            }
+        }
+
+        // Afficher le contenu admin
+        function showAdminContent() {
+            const loginForm = document.getElementById('admin-login-form');
+            const adminContent = document.getElementById('admin-content');
+            
+            if (loginForm) loginForm.classList.add('hidden');
+            if (adminContent) adminContent.classList.remove('hidden');
+            
+            // Initialiser la section admin
+            initAdminSection();
+            updateAdminStats();
+        }
+
+        // Cacher le contenu admin
+        function hideAdminContent() {
+            const loginForm = document.getElementById('admin-login-form');
+            const adminContent = document.getElementById('admin-content');
+            
+            if (loginForm) loginForm.classList.remove('hidden');
+            if (adminContent) adminContent.classList.add('hidden');
+        }
 
         // Initialisation complète
         function initApp() {
@@ -3557,13 +3745,96 @@ add_header X-Content-Type-Options "nosniff";
             loadArticleOptions();
             initScrollEffects();
             initThemeDetection();
-            initAdminSection();
-            updateAdminStats();
+            initAdminLogin();
+            updateStats();
             
             // Détecter si c'est un appareil mobile
             if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
                 document.body.classList.add('mobile-device');
             }
+        }
+
+        // Initialisation de la connexion admin
+        function initAdminLogin() {
+            const loginForm = document.getElementById('login-form');
+            const logoutBtn = document.getElementById('logout-admin');
+            
+            if (loginForm) {
+                loginForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const username = document.getElementById('admin-username').value.trim();
+                    const password = document.getElementById('admin-password').value.trim();
+                    const loginAlert = document.getElementById('login-alert');
+                    const alertText = document.getElementById('login-alert-text');
+                    
+                    // Validation
+                    if (!username || !password) {
+                        alertText.textContent = 'Veuillez remplir tous les champs';
+                        loginAlert.classList.remove('hidden');
+                        return;
+                    }
+                    
+                    // Vérifier les identifiants
+                    if (username === ESODI_BLOG.adminCredentials.username && 
+                        password === ESODI_BLOG.adminCredentials.password) {
+                        
+                        // Connexion réussie
+                        ESODI_BLOG.isAdminLoggedIn = true;
+                        localStorage.setItem('esodi_admin_logged_in', 'true');
+                        
+                        // Cacher l'alerte
+                        loginAlert.classList.add('hidden');
+                        
+                        // Afficher le contenu admin
+                        showAdminContent();
+                        
+                        // Réinitialiser le formulaire
+                        loginForm.reset();
+                        
+                        // Afficher une notification
+                        showNotification('Connexion admin réussie ! Bienvenue 👑', 'admin');
+                        
+                    } else {
+                        // Identifiants incorrects
+                        alertText.textContent = 'Identifiant ou mot de passe incorrect';
+                        loginAlert.classList.remove('hidden');
+                        
+                        // Effet de secousse
+                        loginForm.style.animation = 'none';
+                        setTimeout(() => {
+                            loginForm.style.animation = 'shake 0.5s ease-in-out';
+                        }, 10);
+                        
+                        // Réinitialiser l'animation
+                        setTimeout(() => {
+                            loginForm.style.animation = '';
+                        }, 500);
+                    }
+                });
+            }
+            
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', function() {
+                    if (confirm('Voulez-vous vraiment vous déconnecter ?')) {
+                        ESODI_BLOG.isAdminLoggedIn = false;
+                        localStorage.removeItem('esodi_admin_logged_in');
+                        hideAdminContent();
+                        showNotification('Déconnexion réussie. À bientôt ! 👋', 'info');
+                    }
+                });
+            }
+            
+            // Ajouter l'animation de secousse au CSS
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes shake {
+                    0%, 100% { transform: translateX(0); }
+                    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+                    20%, 40%, 60%, 80% { transform: translateX(5px); }
+                }
+            `;
+            document.head.appendChild(style);
         }
 
         // Initialisation de la section admin améliorée
@@ -3692,6 +3963,13 @@ add_header X-Content-Type-Options "nosniff";
             if (articleForm) {
                 articleForm.addEventListener('submit', function(e) {
                     e.preventDefault();
+                    
+                    // Vérifier que l'admin est connecté
+                    if (!ESODI_BLOG.isAdminLoggedIn) {
+                        showNotification('Veuillez vous connecter pour ajouter un article', 'error');
+                        hideAdminContent();
+                        return;
+                    }
                     
                     const title = document.getElementById('article-title').value.trim();
                     const author = document.getElementById('article-author').value.trim();
@@ -3921,6 +4199,13 @@ add_header X-Content-Type-Options "nosniff";
 
         // Éditer un article
         window.editArticle = function(articleId) {
+            // Vérifier que l'admin est connecté
+            if (!ESODI_BLOG.isAdminLoggedIn) {
+                showNotification('Veuillez vous connecter pour modifier un article', 'error');
+                hideAdminContent();
+                return;
+            }
+            
             const article = ESODI_BLOG.articles.find(a => a.id === articleId);
             if (!article) {
                 showNotification('Article non trouvé', 'error');
@@ -3961,6 +4246,13 @@ add_header X-Content-Type-Options "nosniff";
 
         // Supprimer un article
         window.deleteArticle = function(articleId) {
+            // Vérifier que l'admin est connecté
+            if (!ESODI_BLOG.isAdminLoggedIn) {
+                showNotification('Veuillez vous connecter pour supprimer un article', 'error');
+                hideAdminContent();
+                return;
+            }
+            
             if (!confirm('Êtes-vous sûr de vouloir supprimer cet article ? Cette action est irréversible.')) {
                 return;
             }
@@ -4819,6 +5111,25 @@ ESODI Blog - ${ESODI_BLOG.name}`;
             },
             getStats: function() {
                 return ESODI_BLOG.stats;
+            },
+            // Fonctions admin
+            loginAdmin: function(username, password) {
+                if (username === ESODI_BLOG.adminCredentials.username && 
+                    password === ESODI_BLOG.adminCredentials.password) {
+                    ESODI_BLOG.isAdminLoggedIn = true;
+                    localStorage.setItem('esodi_admin_logged_in', 'true');
+                    showAdminContent();
+                    return true;
+                }
+                return false;
+            },
+            logoutAdmin: function() {
+                ESODI_BLOG.isAdminLoggedIn = false;
+                localStorage.removeItem('esodi_admin_logged_in');
+                hideAdminContent();
+            },
+            isAdminLoggedIn: function() {
+                return ESODI_BLOG.isAdminLoggedIn;
             }
         };
 
