@@ -4820,10 +4820,10 @@ En optant pour TONTINE DIGITALE maintenant :
             }
         }
 
-        // Envoyer un article par WhatsApp
+        // MODIFICATION IMPORTANTE : Fonction pour envoyer un article complet par WhatsApp
         function sendWhatsAppArticle(article) {
             try {
-                // Formater le message WhatsApp
+                // Formater le message WhatsApp avec TOUT le contenu de l'article
                 const whatsappMessage = `📰 *NOUVEL ARTICLE PUBLIÉ - ESODI Blog*
 
 *${article.title}*
@@ -4839,7 +4839,15 @@ ${article.excerpt}
 
 📅 *Publié le :* ${formatDate(article.date)}
 
-👉 *Lire l'article complet :*
+---
+
+*CONTENU COMPLET DE L'ARTICLE :*
+
+${article.content}
+
+---
+
+👉 *Visitez le blog :*
 ${window.location.origin}${window.location.pathname}#articles
 
 ---
@@ -4863,7 +4871,7 @@ ${window.location.origin}${window.location.pathname}#articles
                     saveData();
                 }
                 
-                showNotification('Article envoyé par WhatsApp avec succès 📱', 'whatsapp');
+                showNotification('Article complet envoyé par WhatsApp avec succès 📱', 'whatsapp');
                 
             } catch (error) {
                 console.error('Erreur lors de l\'envoi WhatsApp :', error);
