@@ -62,6 +62,28 @@
             --admin-bg: rgba(139, 92, 246, 0.08);
             --admin-border: rgba(139, 92, 246, 0.3);
             
+            /* WhatsApp - Vert WhatsApp */
+            --whatsapp: #25D366;
+            --whatsapp-dark: #128C7E;
+            --whatsapp-light: #dcf8c6;
+            
+            /* Couleurs produits spécifiques */
+            --education: #3b82f6;
+            --education-dark: #2563eb;
+            --education-light: #60a5fa;
+            
+            --finance: #10b981;
+            --finance-dark: #059669;
+            --finance-light: #34d399;
+            
+            --commerce: #f59e0b;
+            --commerce-dark: #d97706;
+            --commerce-light: #fbbf24;
+            
+            --transport: #8b5cf6;
+            --transport-dark: #7c3aed;
+            --transport-light: #a78bfa;
+            
             /* Couleurs neutres - Palette gris améliorée */
             --dark: #1f2937;
             --dark-soft: #374151;
@@ -106,6 +128,11 @@
             --gradient-success: linear-gradient(135deg, var(--success), var(--success-light));
             --gradient-admin: linear-gradient(135deg, var(--admin), var(--admin-light));
             --gradient-admin-dark: linear-gradient(135deg, var(--admin-dark), var(--admin));
+            --gradient-whatsapp: linear-gradient(135deg, var(--whatsapp), var(--whatsapp-dark));
+            --gradient-education: linear-gradient(135deg, var(--education), var(--education-light));
+            --gradient-finance: linear-gradient(135deg, var(--finance), var(--finance-light));
+            --gradient-commerce: linear-gradient(135deg, var(--commerce), var(--commerce-light));
+            --gradient-transport: linear-gradient(135deg, var(--transport), var(--transport-light));
         }
 
         * {
@@ -544,6 +571,64 @@
             color: var(--admin-dark);
         }
 
+        /* Bouton WhatsApp */
+        .btn-whatsapp {
+            background: var(--gradient-whatsapp);
+            color: white;
+            border: 2px solid var(--whatsapp);
+            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.3);
+        }
+
+        .btn-whatsapp:hover {
+            box-shadow: 0 8px 30px rgba(37, 211, 102, 0.4);
+            transform: translateY(-3px);
+        }
+
+        /* Boutons produits spécifiques */
+        .btn-education {
+            background: var(--gradient-education);
+            color: white;
+            border: 2px solid var(--education);
+            box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-education:hover {
+            box-shadow: 0 8px 30px rgba(59, 130, 246, 0.4);
+        }
+
+        .btn-finance {
+            background: var(--gradient-finance);
+            color: white;
+            border: 2px solid var(--finance);
+            box-shadow: 0 4px 20px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-finance:hover {
+            box-shadow: 0 8px 30px rgba(16, 185, 129, 0.4);
+        }
+
+        .btn-commerce {
+            background: var(--gradient-commerce);
+            color: white;
+            border: 2px solid var(--commerce);
+            box-shadow: 0 4px 20px rgba(245, 158, 11, 0.3);
+        }
+
+        .btn-commerce:hover {
+            box-shadow: 0 8px 30px rgba(245, 158, 11, 0.4);
+        }
+
+        .btn-transport {
+            background: var(--gradient-transport);
+            color: white;
+            border: 2px solid var(--transport);
+            box-shadow: 0 4px 20px rgba(139, 92, 246, 0.3);
+        }
+
+        .btn-transport:hover {
+            box-shadow: 0 8px 30px rgba(139, 92, 246, 0.4);
+        }
+
         /* Articles Grid Responsive */
         .articles-header {
             display: flex;
@@ -641,6 +726,11 @@
         .article-image.product::before { background: var(--gradient-boutique); }
         .article-image.category::before { background: var(--gradient-success); }
         .article-image.donation::before { background: var(--gradient-donation); }
+        .article-image.whatsapp::before { background: var(--gradient-whatsapp); }
+        .article-image.education::before { background: var(--gradient-education); }
+        .article-image.finance::before { background: var(--gradient-finance); }
+        .article-image.commerce::before { background: var(--gradient-commerce); }
+        .article-image.transport::before { background: var(--gradient-transport); }
 
         .article-image i {
             position: relative;
@@ -688,6 +778,26 @@
         .article-type.donation { background: var(--gradient-donation); }
         .article-type.admin { 
             background: var(--gradient-admin); 
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .article-type.whatsapp { 
+            background: var(--gradient-whatsapp); 
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .article-type.education { 
+            background: var(--gradient-education); 
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .article-type.finance { 
+            background: var(--gradient-finance); 
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .article-type.commerce { 
+            background: var(--gradient-commerce); 
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .article-type.transport { 
+            background: var(--gradient-transport); 
             border: 1px solid rgba(255, 255, 255, 0.3);
         }
 
@@ -1040,6 +1150,27 @@
             cursor: pointer;
         }
 
+        .whatsapp-checkbox {
+            background: rgba(37, 211, 102, 0.1);
+            padding: 1rem;
+            border-radius: var(--radius);
+            border: 1px solid rgba(37, 211, 102, 0.3);
+            margin: 1.5rem 0;
+        }
+
+        .whatsapp-checkbox label {
+            color: var(--whatsapp-dark);
+        }
+
+        .whatsapp-checkbox input[type="checkbox"] {
+            border-color: var(--whatsapp);
+        }
+
+        .whatsapp-checkbox input[type="checkbox"]:checked {
+            background: var(--whatsapp);
+            border-color: var(--whatsapp);
+        }
+
         .article-preview {
             background: var(--admin-bg);
             padding: 2.5rem;
@@ -1291,6 +1422,12 @@
             border: 1px solid var(--danger);
         }
 
+        .article-action-btn.whatsapp {
+            background: linear-gradient(135deg, var(--whatsapp), var(--whatsapp-dark));
+            color: white;
+            border: 1px solid var(--whatsapp);
+        }
+
         .article-action-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
@@ -1308,6 +1445,11 @@
         .article-action-btn.delete:hover {
             background: linear-gradient(135deg, var(--danger), var(--danger-dark));
             box-shadow: 0 5px 15px rgba(239, 68, 68, 0.3);
+        }
+
+        .article-action-btn.whatsapp:hover {
+            background: linear-gradient(135deg, var(--whatsapp-dark), var(--whatsapp));
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
         }
 
         /* Badge pour la section admin */
@@ -1368,7 +1510,7 @@
             font-weight: 600;
         }
 
-        /* Section Produits Digitaux Responsive */
+        /* Section Produits Digitaux Responsive - MISE À JOUR */
         .digital-highlight {
             background: linear-gradient(135deg, 
                 rgba(236, 254, 255, 0.6) 0%, 
@@ -1551,6 +1693,223 @@
             margin-top: auto;
         }
 
+        /* Section Boutique Responsive - MISE À JOUR */
+        .boutique-section {
+            background: linear-gradient(135deg, 
+                rgba(245, 243, 255, 0.8) 0%, 
+                rgba(237, 233, 254, 0.9) 100%);
+            border-radius: var(--radius-xl);
+            padding: 3rem 0;
+            text-align: center;
+            margin: 3rem 0;
+            border: 2px solid var(--boutique-light);
+            position: relative;
+            overflow: hidden;
+        }
+
+        @media (min-width: 768px) {
+            .boutique-section {
+                padding: 4rem 0;
+            }
+        }
+
+        .boutique-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-boutique);
+            box-shadow: 0 0 20px rgba(139, 92, 246, 0.4);
+        }
+
+        .boutique-icon {
+            font-size: 4rem;
+            color: var(--boutique);
+            margin-bottom: 1.5rem;
+            filter: drop-shadow(0 4px 12px rgba(139, 92, 246, 0.3));
+        }
+
+        .boutique-section h2 {
+            color: var(--gray-900);
+            margin-bottom: 1.5rem;
+            font-size: clamp(2rem, 4vw, 2.5rem);
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .boutique-section > .container > p {
+            color: var(--gray-700);
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            font-size: clamp(1.1rem, 3vw, 1.3rem);
+            line-height: 1.7;
+        }
+
+        .boutique-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        @media (min-width: 768px) {
+            .boutique-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .boutique-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .boutique-product {
+            background: white;
+            padding: 2.5rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            border: 2px solid var(--gray-200);
+            transition: all var(--transition);
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .boutique-product::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-boutique);
+            transform: scaleX(0);
+            transition: transform var(--transition);
+        }
+
+        .boutique-product:hover {
+            transform: translateY(-8px);
+            border-color: var(--boutique);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .boutique-product:hover::before {
+            transform: scaleX(1);
+        }
+
+        .boutique-product:active {
+            transform: translateY(-4px);
+        }
+
+        .boutique-product-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .boutique-product-icon {
+            font-size: 3rem;
+            color: var(--boutique);
+            flex-shrink: 0;
+            transition: var(--transition);
+        }
+
+        .boutique-product:hover .boutique-product-icon {
+            transform: scale(1.1) rotate(-10deg);
+        }
+
+        .boutique-product-info {
+            flex-grow: 1;
+        }
+
+        .boutique-product h3 {
+            color: var(--gray-900);
+            margin-bottom: 0.8rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+        }
+
+        .boutique-product-category {
+            display: inline-block;
+            padding: 0.4rem 1rem;
+            border-radius: var(--radius-full);
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 1rem;
+        }
+
+        .category-education {
+            background: var(--gradient-education);
+            color: white;
+        }
+
+        .category-finance {
+            background: var(--gradient-finance);
+            color: white;
+        }
+
+        .category-commerce {
+            background: var(--gradient-commerce);
+            color: white;
+        }
+
+        .category-transport {
+            background: var(--gradient-transport);
+            color: white;
+        }
+
+        .boutique-product p {
+            color: var(--gray-600);
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+            flex-grow: 1;
+        }
+
+        .boutique-product-features {
+            text-align: left;
+            margin: 1.5rem 0;
+            background: var(--gray-50);
+            padding: 1.2rem;
+            border-radius: var(--radius);
+            border: 1px solid var(--gray-200);
+        }
+
+        .boutique-product-feature {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 0.8rem;
+            color: var(--gray-700);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .boutique-product-feature:last-child {
+            margin-bottom: 0;
+        }
+
+        .boutique-product-feature i {
+            color: var(--success);
+            margin-top: 0.2rem;
+            flex-shrink: 0;
+            font-size: 1rem;
+        }
+
+        .boutique-product-cta {
+            margin-top: auto;
+        }
+
         /* Section Donations Responsive */
         .donation-section {
             background: linear-gradient(135deg, 
@@ -1730,60 +2089,7 @@
             color: var(--success);
         }
 
-        /* Section Boutique Responsive */
-        .boutique-section {
-            background: linear-gradient(135deg, 
-                rgba(245, 243, 255, 0.8) 0%, 
-                rgba(237, 233, 254, 0.9) 100%);
-            border-radius: var(--radius-xl);
-            padding: 3rem 0;
-            text-align: center;
-            margin: 3rem 0;
-            border: 2px solid var(--boutique-light);
-            position: relative;
-            overflow: hidden;
-        }
-
-        @media (min-width: 768px) {
-            .boutique-section {
-                padding: 4rem 0;
-            }
-        }
-
-        .boutique-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: var(--gradient-boutique);
-            box-shadow: 0 0 20px rgba(139, 92, 246, 0.4);
-        }
-
-        .boutique-icon {
-            font-size: 4rem;
-            color: var(--boutique);
-            margin-bottom: 1.5rem;
-            filter: drop-shadow(0 4px 12px rgba(139, 92, 246, 0.3));
-        }
-
-        .boutique-section h2 {
-            color: var(--gray-900);
-            margin-bottom: 1.5rem;
-            font-size: clamp(2rem, 4vw, 2.5rem);
-            font-weight: 800;
-            letter-spacing: -0.5px;
-        }
-
-        .boutique-section > .container > p {
-            color: var(--gray-700);
-            max-width: 600px;
-            margin: 0 auto 2rem;
-            font-size: clamp(1.1rem, 3vw, 1.3rem);
-            line-height: 1.7;
-        }
-
+        /* Boutique CTA Section */
         .boutique-cta {
             text-align: center;
             padding: 3rem;
@@ -2249,6 +2555,11 @@
             border-left: 5px solid var(--admin-light);
         }
 
+        .notification.whatsapp {
+            background: linear-gradient(135deg, var(--whatsapp), var(--whatsapp-dark));
+            border-left: 5px solid var(--whatsapp-light);
+        }
+
         @keyframes slideInMobile {
             from { transform: translateY(-30px) scale(0.95); opacity: 0; }
             to { transform: translateY(0) scale(1); opacity: 1; }
@@ -2309,6 +2620,10 @@
             .added-article-item {
                 padding: 1.5rem;
             }
+            
+            .boutique-product {
+                padding: 1.8rem;
+            }
         }
 
         /* Support pour les bords arrondis et notch */
@@ -2346,7 +2661,7 @@
         }
 
         /* Optimisation des performances */
-        .article-card, .digital-product, .donation-feature, .btn, .comment, .added-article-item {
+        .article-card, .digital-product, .donation-feature, .btn, .comment, .added-article-item, .boutique-product {
             will-change: transform;
             backface-visibility: hidden;
             transform: translateZ(0);
@@ -2401,7 +2716,7 @@
             }
         }
 
-        /* Support du mode somme amélioré */
+        /* Support du mode sombre amélioré */
         @media (prefers-color-scheme: dark) {
             :root {
                 --dark: #0f172a;
@@ -2428,7 +2743,7 @@
                 color: var(--gray-800);
             }
             
-            .article-card, .digital-product, .donation-feature, .boutique-cta, .comment-form, .modal-content, .admin-form, .added-article-item {
+            .article-card, .digital-product, .donation-feature, .boutique-cta, .comment-form, .modal-content, .admin-form, .added-article-item, .boutique-product {
                 background: var(--gray-100);
                 border-color: var(--gray-300);
             }
@@ -2474,7 +2789,7 @@
                     rgba(30, 41, 59, 0.9) 100%);
             }
             
-            .product-features {
+            .product-features, .boutique-product-features {
                 background: var(--gray-200);
                 border-color: var(--gray-300);
             }
@@ -2562,7 +2877,8 @@
             .comment:hover,
             .added-article-item:hover,
             .admin-form:hover,
-            .admin-stat-card:hover {
+            .admin-stat-card:hover,
+            .boutique-product:hover {
                 transform: none;
             }
             
@@ -2671,6 +2987,59 @@
         .login-footer a:hover {
             text-decoration: underline;
         }
+        
+        /* Styles pour la bannière du projet phare */
+        .featured-banner {
+            background: linear-gradient(135deg, #8b5cf6, #7c3aed, #6d28d9);
+            color: white;
+            padding: 3rem 0;
+            margin: 3rem 0;
+            border-radius: var(--radius-xl);
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+        
+        .featured-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+            background-size: cover;
+        }
+        
+        .featured-banner h2 {
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .featured-banner p {
+            font-size: clamp(1.1rem, 3vw, 1.3rem);
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            position: relative;
+            z-index: 1;
+            line-height: 1.6;
+        }
+        
+        .featured-banner .btn {
+            position: relative;
+            z-index: 1;
+            background: white;
+            color: var(--primary-dark);
+            font-weight: 700;
+        }
+        
+        .featured-banner .btn:hover {
+            background: var(--gray-100);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+        }
     </style>
 </head>
 <body>
@@ -2689,8 +3058,7 @@
             <nav id="main-nav">
                 <ul>
                     <li><a href="#articles" class="active"><i class="fas fa-newspaper"></i> Articles</a></li>
-                    <li><a href="#digital"><i class="fas fa-laptop-code"></i> Produits</a></li>
-                    <li><a href="#boutique"><i class="fas fa-store"></i> Boutique</a></li>
+                    <li><a href="#boutique"><i class="fas fa-store"></i> Produits</a></li>
                     <li><a href="#donations"><i class="fas fa-heart"></i> Soutenir</a></li>
                     <li><a href="#comments"><i class="fas fa-comments"></i> Commentaires</a></li>
                     <li><a href="#admin"><i class="fas fa-user-cog"></i> Admin</a></li>
@@ -2703,13 +3071,13 @@
         <!-- Hero Section -->
         <section class="hero">
             <div class="container">
-                <h2>Créations Digitales Innovantes</h2>
-                <p>Découvrez mes produits digitaux exclusifs, articles techniques et soutenez mon travail créatif. Une expérience unique dédiée à l'innovation et à la qualité.</p>
+                <h2>Solutions Digitales Innovantes</h2>
+                <p>Découvrez mes solutions digitales complètes pour l'éducation, la gestion d'entreprise et l'optimisation de vos activités quotidiennes. Une expérience unique dédiée à l'innovation et à la qualité.</p>
                 <div class="cta-buttons">
-                    <a href="#digital" class="btn btn-digital">
+                    <a href="#boutique" class="btn btn-primary">
                         <i class="fas fa-laptop-code"></i> Voir les produits
                     </a>
-                    <a href="#articles" class="btn btn-primary">
+                    <a href="#articles" class="btn btn-digital">
                         <i class="fas fa-book-reader"></i> Lire les articles
                     </a>
                     <a href="#donations" class="btn btn-donation">
@@ -2719,106 +3087,244 @@
             </div>
         </section>
 
-        <!-- Section Produits Digitaux -->
-        <section id="digital" class="digital-highlight">
+        <!-- Section Boutique avec produits détaillés -->
+        <section id="boutique" class="boutique-section">
             <div class="container">
-                <div class="digital-icon">
-                    <i class="fas fa-laptop-code"></i>
+                <div class="boutique-icon">
+                    <i class="fas fa-store"></i>
                 </div>
                 
-                <h2>Mes Produits Digitaux</h2>
+                <h2>Nos Solutions Digitales</h2>
                 
-                <p>Découvrez une sélection de mes meilleures créations digitales. Chaque produit est conçu avec soin pour vous offrir qualité, innovation et facilité d'utilisation.</p>
+                <p>
+                    Découvrez une sélection complète de mes créations digitales. Plus de 15 solutions innovantes pour répondre à tous vos besoins éducatifs, commerciaux et de gestion.
+                </p>
+                
+                <!-- Bannière du projet phare -->
+                <div class="featured-banner">
+                    <h2>✨ ÉVEIL INTELLECTUEL - Le Projet Phare</h2>
+                    <p>Stimulez votre développement cognitif avec notre plateforme d'éveil intellectuel innovante. Des exercices, jeux et activités conçus pour renforcer vos capacités mentales et améliorer votre agilité cognitive.</p>
+                    <a href="https://jeanskodoc.github.io/-VEIL-/" target="_blank" class="btn">
+                        <i class="fas fa-brain"></i> Découvrir ÉVEIL INTELLECTUEL
+                    </a>
+                </div>
 
-                <div class="digital-products">
-                    <!-- Produit 1 -->
-                    <div class="digital-product">
-                        <div class="product-icon">
-                            <i class="fas fa-palette"></i>
-                        </div>
-                        <h3>Packs Design Premium</h3>
-                        <p>Collections complètes de ressources graphiques pour vos projets créatifs. Parfait pour les designers et créateurs de contenu.</p>
-                        
-                        <div class="product-features">
-                            <div class="product-feature">
-                                <i class="fas fa-check-circle"></i>
-                                <span>100+ templates personnalisables</span>
+                <div class="boutique-grid">
+                    <!-- Éducation -->
+                    <div class="boutique-product">
+                        <div class="boutique-product-header">
+                            <div class="boutique-product-icon">
+                                <i class="fas fa-chalkboard-teacher"></i>
                             </div>
-                            <div class="product-feature">
-                                <i class="fas fa-check-circle"></i>
-                                <span>Icônes vectorielles HD</span>
-                            </div>
-                            <div class="product-feature">
-                                <i class="fas fa-check-circle"></i>
-                                <span>Textures et backgrounds premium</span>
+                            <div class="boutique-product-info">
+                                <span class="boutique-product-category category-education">Éducation</span>
+                                <h3>VISIO-EDUC</h3>
+                                <p>Donnez vie à vos cours avec une plateforme de projection interactive qui transforme l'enseignement traditionnel en expériences éducatives captivantes.</p>
                             </div>
                         </div>
-                        
-                        <div class="product-cta">
-                            <a href="#boutique" class="btn btn-digital">
-                                <i class="fas fa-eye"></i> Voir dans la boutique
+                        <div class="boutique-product-features">
+                            <div class="boutique-product-feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Contenu interactif qui stimule l'engagement des élèves</span>
+                            </div>
+                            <div class="boutique-product-feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Multi-plateforme (PC, tablettes, Android) pour une accessibilité maximale</span>
+                            </div>
+                            <div class="boutique-product-feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Réduit significativement la somnolence en classe</span>
+                            </div>
+                        </div>
+                        <div class="boutique-product-cta">
+                            <a href="P1.html" class="btn btn-education">
+                                <i class="fas fa-eye"></i> Découvrir VISIO-EDUC
                             </a>
                         </div>
                     </div>
 
-                    <!-- Produit 2 -->
-                    <div class="digital-product">
-                        <div class="product-icon">
-                            <i class="fas fa-code"></i>
-                        </div>
-                        <h3>Kits Développement Web</h3>
-                        <p>Starter kits et templates pour accélérer vos projets de développement. Optimisé pour les performances et le SEO.</p>
-                        
-                        <div class="product-features">
-                            <div class="product-feature">
-                                <i class="fas fa-check-circle"></i>
-                                <span>Templates HTML/CSS/JS modernes</span>
+                    <div class="boutique-product">
+                        <div class="boutique-product-header">
+                            <div class="boutique-product-icon">
+                                <i class="fas fa-school"></i>
                             </div>
-                            <div class="product-feature">
-                                <i class="fas fa-check-circle"></i>
-                                <span>Composants réutilisables React/Vue</span>
-                            </div>
-                            <div class="product-feature">
-                                <i class="fas fa-check-circle"></i>
-                                <span>Documentation complète et exemples</span>
+                            <div class="boutique-product-info">
+                                <span class="boutique-product-category category-education">Éducation</span>
+                                <h3>EDS-🏫</h3>
+                                <p>L'Environnement Digital Scolaire qui modernise la gestion de votre établissement avec une plateforme sécurisée, intuitive et complète.</p>
                             </div>
                         </div>
-                        
-                        <div class="product-cta">
-                            <a href="#boutique" class="btn btn-digital">
-                                <i class="fas fa-eye"></i> Voir dans la boutique
+                        <div class="boutique-product-features">
+                            <div class="boutique-product-feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Sécurité renforcée des données sensibles de l'établissement</span>
+                            </div>
+                            <div class="boutique-product-feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Communication simplifiée entre administration, enseignants et parents</span>
+                            </div>
+                            <div class="boutique-product-feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Gestion centralisée intuitive pour un gain de temps quotidien</span>
+                            </div>
+                        </div>
+                        <div class="boutique-product-cta">
+                            <a href="P2.html" class="btn btn-education">
+                                <i class="fas fa-eye"></i> Découvrir EDS
                             </a>
                         </div>
                     </div>
 
-                    <!-- Produit 3 -->
-                    <div class="digital-product">
-                        <div class="product-icon">
-                            <i class="fas fa-book"></i>
-                        </div>
-                        <h3>Guides & Formations</h3>
-                        <p>Ressources éducatives pour maîtriser les technologies modernes. Apprenez à votre rythme avec des supports détaillés.</p>
-                        
-                        <div class="product-features">
-                            <div class="product-feature">
-                                <i class="fas fa-check-circle"></i>
-                                <span>Tutoriels pas-à-pas avec exemples</span>
+                    <!-- Finance -->
+                    <div class="boutique-product">
+                        <div class="boutique-product-header">
+                            <div class="boutique-product-icon">
+                                <i class="fas fa-hand-holding-usd"></i>
                             </div>
-                            <div class="product-feature">
-                                <i class="fas fa-check-circle"></i>
-                                <span>Exercices pratiques et corrigés</span>
-                            </div>
-                            <div class="product-feature">
-                                <i class="fas fa-check-circle"></i>
-                                <span>Accès aux mises à jour futures</span>
+                            <div class="boutique-product-info">
+                                <span class="boutique-product-category category-finance">Finance</span>
+                                <h3>TONTINE DIGITALE</h3>
+                                <p>Une plateforme moderne pour gérer vos tontines en toute sécurité et transparence, avec un suivi en temps réel des contributions et bénéfices.</p>
                             </div>
                         </div>
-                        
-                        <div class="product-cta">
-                            <a href="#boutique" class="btn btn-digital">
-                                <i class="fas fa-eye"></i> Voir dans la boutique
+                        <div class="boutique-product-features">
+                            <div class="boutique-product-feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Gestion transparente des cotisations et bénéfices</span>
+                            </div>
+                            <div class="boutique-product-feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Notifications automatiques pour les échéances</span>
+                            </div>
+                            <div class="boutique-product-feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Historique complet des transactions</span>
+                            </div>
+                        </div>
+                        <div class="boutique-product-cta">
+                            <a href="https://jeanskodoc.github.io/TONTINE/" target="_blank" class="btn btn-finance">
+                                <i class="fas fa-eye"></i> Découvrir TONTINE
                             </a>
                         </div>
+                    </div>
+
+                    <!-- Commerce -->
+                    <div class="boutique-product">
+                        <div class="boutique-product-header">
+                            <div class="boutique-product-icon">
+                                <i class="fas fa-store"></i>
+                            </div>
+                            <div class="boutique-product-info">
+                                <span class="boutique-product-category category-commerce">Commerce</span>
+                                <h3>GESTION DE BOUTIQUE</h3>
+                                <p>Une solution complète pour gérer efficacement votre boutique, du suivi des stocks à la gestion des ventes et des bénéfices.</p>
+                            </div>
+                        </div>
+                        <div class="boutique-product-features">
+                            <div class="boutique-product-feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Gestion des stocks en temps réel avec alertes de réapprovisionnement</span>
+                            </div>
+                            <div class="boutique-product-feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Suivi détaillé des ventes et des bénéfices</span>
+                            </div>
+                            <div class="boutique-product-feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Gestion des fournisseurs et des commandes</span>
+                            </div>
+                        </div>
+                        <div class="boutique-product-cta">
+                            <a href="https://jeanskodoc.github.io/E-Commerce-/" target="_blank" class="btn btn-commerce">
+                                <i class="fas fa-eye"></i> Découvrir GESTION BOUTIQUE
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Transport -->
+                    <div class="boutique-product">
+                        <div class="boutique-product-header">
+                            <div class="boutique-product-icon">
+                                <i class="fas fa-bus"></i>
+                            </div>
+                            <div class="boutique-product-info">
+                                <span class="boutique-product-category category-transport">Transport</span>
+                                <h3>TRANSTOGO</h3>
+                                <p>Une plateforme innovante pour simplifier vos déplacements au Togo avec des informations en temps réel sur les transports publics et privés.</p>
+                            </div>
+                        </div>
+                        <div class="boutique-product-features">
+                            <div class="boutique-product-feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Informations en temps réel sur les horaires et itinéraires</span>
+                            </div>
+                            <div class="boutique-product-feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Comparaison des options de transport disponibles</span>
+                            </div>
+                            <div class="boutique-product-feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Interface intuitive adaptée aux besoins locaux</span>
+                            </div>
+                        </div>
+                        <div class="boutique-product-cta">
+                            <a href="https://jeanskodoc.github.io/transport-Togo-/" target="_blank" class="btn btn-transport">
+                                <i class="fas fa-eye"></i> Découvrir TRANSTOGO
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Nouveaux projets -->
+                    <div class="boutique-product">
+                        <div class="boutique-product-header">
+                            <div class="boutique-product-icon">
+                                <i class="fas fa-brain"></i>
+                            </div>
+                            <div class="boutique-product-info">
+                                <span class="boutique-product-category category-education">Innovation</span>
+                                <h3>ÉVEIL INTELLECTUEL</h3>
+                                <p>Stimulez votre développement cognitif avec des exercices, jeux et activités conçus pour renforcer vos capacités mentales et améliorer votre agilité cognitive.</p>
+                            </div>
+                        </div>
+                        <div class="boutique-product-features">
+                            <div class="boutique-product-feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Exercices de mémoire et de concentration</span>
+                            </div>
+                            <div class="boutique-product-feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Jeux de logique et de raisonnement</span>
+                            </div>
+                            <div class="boutique-product-feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Suivi personnalisé de votre progression cognitive</span>
+                            </div>
+                        </div>
+                        <div class="boutique-product-cta">
+                            <a href="https://jeanskodoc.github.io/-VEIL-/" target="_blank" class="btn btn-primary">
+                                <i class="fas fa-eye"></i> Découvrir ÉVEIL
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="boutique-cta">
+                    <h3>Explorez toutes nos solutions</h3>
+                    
+                    <p>Visitez ma boutique GitHub Pages pour découvrir l'ensemble de mes créations digitales. Interface intuitive et navigation fluide.</p>
+                    
+                    <a href="https://jeanskodoc.github.io/ESO/" 
+                       target="_blank" 
+                       class="boutique-btn"
+                       id="boutique-link">
+                        <i class="fas fa-external-link-alt"></i>
+                        Accéder à la boutique complète
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                    
+                    <div class="security-badge">
+                        <i class="fas fa-shield-alt"></i>
+                        Navigation sécurisée
                     </div>
                 </div>
             </div>
@@ -2923,6 +3429,9 @@
                         <button id="show-added-articles" class="btn btn-admin-secondary">
                             <i class="fas fa-list"></i> Voir les articles ajoutés
                         </button>
+                        <button id="send-whatsapp-test" class="btn btn-whatsapp">
+                            <i class="fab fa-whatsapp"></i> Tester WhatsApp
+                        </button>
                         <button id="refresh-admin" class="btn btn-outline">
                             <i class="fas fa-sync-alt"></i> Actualiser
                         </button>
@@ -2966,6 +3475,9 @@
                                         <option value="actualité">Actualité</option>
                                         <option value="design">Design</option>
                                         <option value="développement">Développement</option>
+                                        <option value="éducation">Éducation</option>
+                                        <option value="finance">Finance</option>
+                                        <option value="commerce">Commerce</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
@@ -2980,6 +3492,10 @@
                                         <option value="category">🏷️ Catégorie</option>
                                         <option value="donation">❤️ Soutien</option>
                                         <option value="admin">⚙️ Article admin</option>
+                                        <option value="education">🎓 Éducation</option>
+                                        <option value="finance">💰 Finance</option>
+                                        <option value="commerce">🏪 Commerce</option>
+                                        <option value="transport">🚌 Transport</option>
                                     </select>
                                 </div>
                             </div>
@@ -3029,6 +3545,20 @@
                                     <input type="checkbox" id="article-featured">
                                     <label for="article-featured">Mettre en avant (featured)</label>
                                 </div>
+                            </div>
+                            
+                            <!-- Checkbox pour WhatsApp -->
+                            <div class="whatsapp-checkbox">
+                                <div class="checkbox-group">
+                                    <input type="checkbox" id="send-whatsapp" checked>
+                                    <label for="send-whatsapp">
+                                        <i class="fab fa-whatsapp" style="color: var(--whatsapp);"></i> 
+                                        Envoyer par WhatsApp au numéro +22892871605
+                                    </label>
+                                </div>
+                                <small style="color: var(--gray-600); display: block; margin-top: 0.5rem;">
+                                    <i class="fas fa-info-circle"></i> Un message WhatsApp sera envoyé automatiquement après publication
+                                </small>
                             </div>
                             
                             <div style="text-align: center; margin-top: 2rem;">
@@ -3113,41 +3643,6 @@
             </div>
         </section>
 
-        <!-- Section Boutique -->
-        <section id="boutique" class="boutique-section">
-            <div class="container">
-                <div class="boutique-icon">
-                    <i class="fas fa-store"></i>
-                </div>
-                
-                <h2>Boutique Complète</h2>
-                
-                <p>
-                    Accédez à l'ensemble de mes créations digitales. Plus de 50 produits disponibles dans diverses catégories pour répondre à tous vos besoins.
-                </p>
-                
-                <div class="boutique-cta">
-                    <h3>Visiter la boutique</h3>
-                    
-                    <p>Explorez toutes mes créations sur ma boutique GitHub Pages. Interface intuitive et navigation fluide.</p>
-                    
-                    <a href="https://jeanskodoc.github.io/ESO/" 
-                       target="_blank" 
-                       class="boutique-btn"
-                       id="boutique-link">
-                        <i class="fas fa-external-link-alt"></i>
-                        Accéder à la boutique
-                        <i class="fas fa-arrow-right"></i>
-                    </a>
-                    
-                    <div class="security-badge">
-                        <i class="fas fa-shield-alt"></i>
-                        Navigation sécurisée
-                    </div>
-                </div>
-            </div>
-        </section>
-
         <!-- Section Commentaires -->
         <section id="comments" class="comments-section">
             <div class="container">
@@ -3223,17 +3718,19 @@
         // Configuration améliorée
         const ESODI_BLOG = {
             name: "ESODI - Jeanskodoc",
-            version: "3.1.0",
-            storageKey: "esodi_blog_data_v3_1",
+            version: "3.3.0",
+            storageKey: "esodi_blog_data_v3_3",
             adminEmail: "esodi22@gmail.com",
             whatsappPhone: "92871605",
+            whatsappCountryCode: "228", // Code Togo
             articles: [],
             comments: [],
             stats: {
                 articles: 0,
                 comments: 0,
                 visitors: 0,
-                donations: 0
+                donations: 0,
+                whatsappSent: 0
             },
             // Identifiants admin
             adminCredentials: {
@@ -3244,55 +3741,55 @@
             isAdminLoggedIn: false
         };
 
-        // Données initiales enrichies
+        // Données initiales enrichies avec informations sur les produits
         const initialData = {
             articles: [
                 {
                     id: 1,
                     title: "Bienvenue sur ESODI - Votre Destination Créative",
-                    excerpt: "Découvrez mon espace créatif dédié aux produits digitaux innovants et aux ressources de qualité.",
+                    excerpt: "Découvrez mon espace créatif dédié aux solutions digitales innovantes pour l'éducation, la gestion d'entreprise et l'optimisation de vos activités quotidiennes.",
                     content: `# Bienvenue sur ESODI !
 
-**Bienvenue** dans mon univers créatif dédié aux **produits digitaux de qualité**. ESODI est bien plus qu'une simple plateforme, c'est un espace où l'innovation rencontre la praticité.
+**Bienvenue** dans mon univers créatif dédié aux **solutions digitales de qualité**. ESODI est bien plus qu'une simple plateforme, c'est un espace où l'innovation rencontre la praticité.
 
 ## 🎯 Ma Mission
 
-Fournir des produits digitaux exceptionnels qui :
-- **Simplifient** votre workflow quotidien
+Fournir des solutions digitales exceptionnelles qui :
+- **Simplifient** votre vie quotidienne
 - **Accélèrent** le développement de vos projets
 - **Inspirent** votre créativité et innovation
 - **Optimisent** vos résultats
 
 ## 📦 Ce que vous trouverez
 
-### 1. Produits Digitaux Premium
-- 🎨 Templates et ressources design professionnels
-- 💻 Kits de développement web optimisés
-- 📚 Guides et formations complètes
-- 🛠️ Outils et utilitaires pratiques
+### 1. Solutions Éducatives Avancées
+- 🎨 VISIO-EDUC : Plateforme de projection interactive
+- 🏫 EDS : Environnement Digital Scolaire complet
+- 📚 JEANSKODOC-EPT : Répétitions en ligne interactives
+- 🧠 ÉVEIL INTELLECTUEL : Développement cognitif
 
-### 2. Articles Techniques Avancés
-- 🧠 Tutoriels détaillés avec cas pratiques
-- 💡 Conseils experts et meilleures pratiques
-- 📊 Études de cas et analyses approfondies
-- 🚀 Astuces pour optimiser vos projets
+### 2. Solutions de Gestion
+- 💰 TONTINE DIGITALE : Gestion transparente des tontines
+- 🛍️ GESTION DE BOUTIQUE : Suivi stocks et ventes
+- 🌐 E-COMMERCE : Plateforme de vente en ligne
+- 🏠 GESTION DE LOCATION : Gestion immobilière simplifiée
 
-### 3. Ressources Exclusives
-- 🔒 Contenu réservé aux supporters
-- 📥 Téléchargements premium
-- 🎁 Bonus et ressources additionnelles
-- 🤝 Support personnalisé
+### 3. Solutions Utilitaires
+- 🚌 TRANSTOGO : Informations transports au Togo
+- 📊 FACTURES DIGITALES : Gestion et analyse des ventes
+- 💼 CARTE VIRTUELLE : Présentation professionnelle
+- 📅 EMPLOI DU TEMPS : Organisation optimisée
 
 ## 🚀 Pour commencer votre parcours
 
-1. **Explorez** mes produits digitaux dans la section dédiée
+1. **Explorez** mes solutions dans la section produits
 2. **Lisez** les articles techniques pour approfondir vos connaissances
 3. **Visitez** la boutique complète pour découvrir toutes mes créations
 4. **Soutenez** mon travail via les dons pour m'aider à créer plus
 
 ## 💡 Conseil d'expert
 
-> "La qualité prime toujours sur la quantité. Chaque produit que je crée est le résultat de centaines d'heures de travail et d'attention aux détails."
+> "La qualité prime toujours sur la quantité. Chaque solution que je crée est le résultat de centaines d'heures de travail et d'attention aux détails."
 
 ## 🔧 Technologies Utilisées
 
@@ -3305,7 +3802,7 @@ Fournir des produits digitaux exceptionnels qui :
 
 Vos retours sont précieux ! N'hésitez pas à :
 - Laisser des commentaires sur les articles
-- Partager vos expériences
+- Partager vos expériences d'utilisation
 - Proposer des idées d'amélioration
 - Soutenir le projet via les dons
 
@@ -3317,339 +3814,547 @@ Vos retours sont précieux ! N'hésitez pas à :
 *Créateur & Développeur*`,
                     author: "Jeanskodoc",
                     category: "présentation",
-                    tags: ["accueil", "présentation", "digital", "création"],
+                    tags: ["accueil", "présentation", "digital", "solutions", "innovation"],
                     date: "2024-03-20",
                     published: true,
                     featured: true,
                     type: "blog",
-                    readTime: "5 min"
+                    readTime: "5 min",
+                    whatsappSent: true
                 },
                 {
                     id: 2,
-                    title: "Pack Design Ultimate - La Révolution Graphique",
-                    excerpt: "Découvrez mon pack design le plus complet : 200+ ressources graphiques premium pour vos projets créatifs.",
-                    content: `# Pack Design Ultimate
+                    title: "ÉVEIL INTELLECTUEL - Le Projet Phare de Développement Cognitif",
+                    excerpt: "Découvrez notre plateforme innovante d'éveil intellectuel conçue pour stimuler votre développement cognitif et améliorer vos capacités mentales.",
+                    content: `# ÉVEIL INTELLECTUEL - Le Projet Phare
 
-Le **pack design le plus complet** que j'ai créé à ce jour. Plus de **200 ressources graphiques professionnelles** pour donner vie à vos projets créatifs.
+Le **projet le plus innovant** que j'ai créé à ce jour. Une plateforme complète dédiée au développement cognitif et à l'amélioration des capacités mentales.
 
-## 🎨 Pourquoi ce pack est unique ?
+## 🧠 Pourquoi ce projet est révolutionnaire ?
 
-### Innovation & Qualité
-Chaque élément a été conçu avec une attention particulière aux détails, garantissant une qualité premium et une cohérence visuelle parfaite.
+### Approche Scientifique
+Chaque exercice et activité est basé sur des recherches en neurosciences cognitives, garantissant une efficacité prouvée et des résultats mesurables.
 
-### Polyvalence
-Adaptable à tous types de projets : sites web, applications mobiles, présentations, réseaux sociaux, documents marketing...
+### Adaptabilité
+Programmes personnalisés selon votre âge, vos objectifs et votre niveau actuel, avec une progression adaptée à votre rythme.
 
-### Compatibilité
-Fichiers optimisés pour tous les logiciels majeurs : Adobe Suite, Figma, Sketch, Canva...
+### Engagement
+Interface ludique et captivante qui transforme l'entraînement mental en expérience agréable et motivante.
 
-## 📦 Contenu détaillé du Pack
+## 📊 Contenu détaillé de la Plateforme
 
-### Section 1 : Templates Professionnels
-**50+ templates personnalisables :**
-- 🎯 10 templates de présentation premium
-- 📱 15 modèles réseaux sociaux optimisés
-- 📄 10 designs de documents professionnels
-- 💻 15 maquettes web et mobile responsive
+### Section 1 : Exercices Cognitifs
+**50+ exercices variés :**
+- 🎯 10 exercices de mémoire de travail
+- 🧩 15 jeux de logique et raisonnement
+- 🔢 10 activités de calcul mental
+- 🎨 15 exercices de créativité visuelle
 
-### Section 2 : Éléments Graphiques
-**100+ ressources diverses :**
-- 🎨 30 jeux d'icônes vectorielles
-- 🖼️ 20 textures et arrière-plans HD
-- ✨ 15 packs d'effets et overlays
-- 🎭 10 palettes de couleurs complètes
-- 📐 25 éléments UI/UX réutilisables
+### Section 2 : Programmes Structurés
+**20+ parcours d'apprentissage :**
+- 📈 Programme "Mémoire Excellente" (21 jours)
+- 🧠 Programme "Concentration Maximale" (30 jours)
+- 💡 Programme "Créativité Débloquée" (14 jours)
+- ⚡ Programme "Rapidité Mentale" (28 jours)
 
-### Section 3 : Ressources Additionnelles
-**50+ bonus exclusifs :**
-- 📖 Guide de personnalisation complet
-- 🎥 Tutoriels vidéo pas-à-pas
-- 🛠️ Scripts et automatisations
-- 🔧 Fichiers source organisés
-- 📊 Kits de données et graphiques
+### Section 3 : Ressources Pédagogiques
+**30+ supports éducatifs :**
+- 📖 Guides théoriques sur le fonctionnement du cerveau
+- 🎥 Vidéos explicatives avec neuroscientifiques
+- 📊 Tableaux de suivi de progression
+- 🏆 Système de récompenses et de défis
 
 ## 🔥 Caractéristiques Techniques
 
-### Formats inclus :
-- 🔹 Fichiers source (AI, PSD, FIG)
-- 🔹 Formats vectoriels (SVG, EPS)
-- 🔹 Images haute résolution (PNG, JPG)
-- 🔹 Fichiers optimisés pour le web
+### Technologies utilisées :
+- 🔹 Interface Progressive Web App (PWA)
+- 🔹 Algorithmes d'adaptation en temps réel
+- 🔹 Base de données de performances
+- 🔹 Synchronisation multi-appareils
 
-### Organisation :
-- 📁 Structure de fichiers logique
-- 🔍 Métadonnées complètes
-- 🏷️ Système de tags intelligent
-- 📋 Documentation technique
+### Fonctionnalités avancées :
+- 📱 Application mobile native (iOS/Android)
+- 🌐 Accès web multiplateforme
+- 🔔 Rappels et notifications personnalisées
+- 🤝 Mode multijoueur pour défis entre amis
 
-### Compatibilité :
-- ✅ Adobe Creative Suite (Photoshop, Illustrator)
-- ✅ Figma & Sketch
-- ✅ Canva Pro
-- ✅ Logiciels open-source (GIMP, Inkscape)
+### Sécurité et confidentialité :
+- 🔒 Chiffrement des données sensibles
+- 👤 Profils anonymisés
+- 📊 Statistiques agrégées uniquement
+- ✅ Conformité RGPD et protection des données
 
-## 🚀 Comment l'utiliser ?
+## 🚀 Comment commencer ?
 
 ### Pour les débutants :
-1. Téléchargez le pack
-2. Suivez le guide de démarrage
-3. Utilisez les templates prêts à l'emploi
-4. Personnalisez avec vos contenus
+1. Créez votre compte gratuit
+2. Passez l'évaluation initiale
+3. Suivez le programme recommandé
+4. Pratiquez 15 minutes par jour
 
-### Pour les experts :
-1. Importez les fichiers source
-2. Adaptez aux besoins spécifiques
-3. Combinez différents éléments
-4. Créez des variations uniques
+### Pour les utilisateurs avancés :
+1. Importez vos données existantes
+2. Personnalisez vos objectifs
+3. Créez vos propres routines
+4. Participez aux défis communautaires
 
-## 💝 Soutenez la Création
+## 📈 Résultats attendus
 
-Le développement de packs comme celui-ci demande des **centaines d'heures de travail**. Si vous appréciez mon travail, envisagez de [soutenir mes projets](#donations).
+### Après 1 mois :
+- ⏱️ Amélioration de 40% de la rapidité cognitive
+- 🎯 Augmentation de 60% de la concentration
+- 🧠 Renforcement de la mémoire de 50%
+- 😌 Réduction du stress mental de 30%
 
-### Votre soutien permet :
-- 🚀 De créer plus de packs de qualité
-- 🔄 D'offrir des mises à jour gratuites
-- 💰 De maintenir les prix accessibles
-- ✨ De développer de nouvelles fonctionnalités
-- 🎯 D'améliorer constamment les produits existants
+### Après 3 mois :
+- 📊 Performances cognitives globales +80%
+- 💡 Créativité augmentée de 70%
+- ⚡ Temps de réaction amélioré de 65%
+- 🏆 Meilleures performances académiques/professionnelles
 
-## 📈 Impact sur vos projets
+## 🎯 Publics ciblés
 
-### Gains de temps :
-- ⏱️ Réduction de 70% du temps de design
-- 🔄 Processus standardisés
-- 🎯 Travail plus efficace
+### Étudiants :
+- 📚 Amélioration des résultats scolaires
+- 🧮 Développement des capacités mathématiques
+- 🗣️ Renforcement des compétences linguistiques
+- ⏰ Optimisation du temps d'étude
 
-### Qualité améliorée :
-- ✨ Designs professionnels
-- 🎨 Cohérence visuelle
-- 📱 Responsive par défaut
+### Professionnels :
+- 💼 Augmentation de la productivité
+- 🎯 Amélioration de la prise de décision
+- 🤝 Développement des compétences relationnelles
+- ⚡ Gestion du stress professionnel
 
-### Flexibilité :
-- 🎭 Adaptable à toutes les marques
-- 🔧 Facilement personnalisable
-- 💼 Polyvalent pour différents usages
+### Séniors :
+- 🧠 Maintien des capacités cognitives
+- 🎮 Prévention du déclin mental
+- 😊 Amélioration de la qualité de vie
+- 👥 Socialisation et interaction
+
+## 💝 Impact Social
+
+### Accessibilité :
+- 💰 Version gratuite avec contenu essentiel
+- 🌍 Disponible en multiple langues
+- 📱 Compatible avec les vieux smartphones
+- 🏫 Programmes éducatifs pour écoles
+
+### Recherche et développement :
+- 🔬 Collaboration avec neuroscientifiques
+- 📊 Contribution à la recherche cognitive
+- 🌱 Développement continu de nouvelles fonctionnalités
+- 🤝 Partenariats avec institutions éducatives
 
 ---
 
-## 🎁 Bonus d'achat immédiat
+## 🎁 Offre de lancement exclusive
 
-En commandant maintenant, vous recevez :
-1. **Accès prioritaire** aux futures mises à jour
-2. **Support technique** personnalisé
-3. **Guide avancé** de personnalisation
-4. **Bibliothèque exclusive** de ressources additionnelles
+En vous inscrivant maintenant, vous bénéficiez :
+1. **Accès gratuit** au programme complet pendant 30 jours
+2. **Coaching personnalisé** avec un expert
+3. **Certification** de vos progrès
+4. **Accès à vie** aux mises à jour futures
 
 ---
 
-*Commandez le **[Pack Design Ultimate sur ma boutique](https://jeanskodoc.github.io/ESO/)** et transformez votre présence visuelle !*
+*Découvrez **[ÉVEIL INTELLECTUEL](https://jeanskodoc.github.io/-VEIL-/)** et transformez vos capacités mentales !*
 
 **Jeanskodoc**  
-*Designer & Développeur*`,
+*Créateur & Développeur*`,
                     author: "Jeanskodoc",
                     category: "produits",
-                    tags: ["design", "pack", "ressources", "graphisme", "templates", "premium"],
-                    date: "2024-03-15",
+                    tags: ["éveil intellectuel", "développement cognitif", "neurosciences", "mémoire", "concentration", "innovation"],
+                    date: "2024-03-18",
                     published: true,
                     featured: true,
-                    type: "product",
-                    readTime: "7 min"
+                    type: "education",
+                    readTime: "8 min",
+                    whatsappSent: true
                 },
                 {
                     id: 3,
-                    title: "Guide complet : Optimiser vos projets web en 2024",
-                    excerpt: "Découvrez les meilleures pratiques et outils pour optimiser vos projets web cette année.",
-                    content: `# Guide complet : Optimiser vos projets web en 2024
+                    title: "Guide complet : Transformer l'éducation avec le numérique",
+                    excerpt: "Découvrez comment les solutions digitales révolutionnent l'enseignement et l'apprentissage en 2024.",
+                    content: `# Guide complet : Transformer l'éducation avec le numérique
 
-Bienvenue dans ce guide complet dédié à l'optimisation de vos projets web en 2024. Basé sur des années d'expérience et les dernières tendances du secteur.
+Bienvenue dans ce guide complet sur la transformation numérique de l'éducation. Basé sur des années d'expérience et les meilleures pratiques du secteur.
 
-## 🎯 Pourquoi l'optimisation est cruciale ?
+## 🎯 Pourquoi la digitalisation est cruciale pour l'éducation ?
 
 ### Les enjeux actuels :
-- ⚡ **Performance** : Les utilisateurs attendent un chargement en moins de 3 secondes
-- 📱 **Mobile-first** : Plus de 60% du trafic vient des mobiles
-- 🔍 **SEO** : Google priorise les sites rapides et optimisés
-- 💰 **Conversion** : Chaque seconde de chargement coûte des conversions
+- 📱 **Génération digitale** : Les élèves sont nés avec les technologies
+- 🌍 **Accessibilité** : Briser les barrières géographiques et économiques
+- ⚡ **Efficacité** : Optimiser le temps d'apprentissage et d'enseignement
+- 🎯 **Personnalisation** : Adapter l'enseignement à chaque apprenant
 
-## 🛠️ Outils essentiels 2024
+## 🚀 Mes solutions éducatives phares
 
-### Analyse de performance :
-- **Google Lighthouse** : Analyse complète gratuite
-- **WebPageTest** : Tests avancés depuis différents lieux
-- **GTmetrix** : Rapports détaillés avec recommandations
-- **PageSpeed Insights** : Analyse Google officielle
+### VISIO-EDUC : La révolution visuelle
+- **Projection interactive** : Transformez n'importe quel écran en tableau intelligent
+- **Contenu multimédia** : Intégrez vidéos, animations et simulations 3D
+- **Engagement maximal** : Réduisez la somnolence de 80% en classe
+- **Accessible** : Seulement 500 FCFA pour 7 jours d'accès complet
 
-### Développement :
-- **Vite** : Build tool ultra-rapide
-- **Webpack 5** : Bundleur avancé avec tree-shaking
-- **ESBuild** : Compilateur JavaScript ultra-rapide
-- **SWC** : Alternative Rust à Babel
+### EDS-🏫 : L'école du futur
+- **Gestion centralisée** : Administration, enseignants, parents connectés
+- **Sécurité renforcée** : Protection des données sensibles
+- **Communication fluide** : Messages instantanés, bulletins numériques
+- **Analytics** : Suivi des performances et identification des besoins
 
-### Monitoring :
-- **Sentry** : Tracking d'erreurs en temps réel
-- **New Relic** : Monitoring complet des performances
-- **Datadog** : Analytics et monitoring avancés
-- **LogRocket** : Replay des sessions utilisateurs
+### JEANSKODOC-EPT : L'apprentissage réinventé
+- **Répétitions interactives** : Professeurs qualifiés et passionnés
+- **Suivi personnalisé** : Programme adapté à chaque élève
+- **Approche ludique** : Apprendre en s'amusant
+- **Résultats garantis** : Amélioration moyenne de 3 points sur 20
 
-## 📊 Métriques clés à surveiller
+## 📊 Impact mesurable
 
-### Core Web Vitals :
-- 🎯 **LCP** (Largest Contentful Paint) : < 2.5s
-- ⚡ **FID** (First Input Delay) : < 100ms
-- 📐 **CLS** (Cumulative Layout Shift) : < 0.1
+### Pour les établissements :
+- 📈 **Taux de réussite** : Augmentation de 25%
+- ⏱️ **Gain de temps administratif** : 15 heures/semaine
+- 💰 **Réduction des coûts** : 30% sur les fournitures
+- 😊 **Satisfaction** : 95% des parents satisfaits
 
-### Performance globale :
-- ⏱️ **TTFB** (Time to First Byte) : < 800ms
-- 🖼️ **FCP** (First Contentful Paint) : < 1.8s
-- 🔄 **SI** (Speed Index) : < 4.3s
+### Pour les enseignants :
+- 🎯 **Préparation de cours** : Réduction de 40% du temps
+- 📊 **Évaluation** : Correction automatique des QCM
+- 👥 **Suivi individuel** : Identification rapide des difficultés
+- 🔄 **Adaptation** : Contenu modifiable en temps réel
 
-## 🚀 Stratégies d'optimisation
+### Pour les élèves :
+- 🧠 **Engagement** : Participation augmentée de 60%
+- 📚 **Compréhension** : Meilleure rétention des concepts
+- ⚡ **Motivation** : Désir d'apprendre renforcé
+- 🏆 **Résultats** : Progression constante des notes
 
-### 1. Images et médias
-- **Format WebP/AVIF** : Compression moderne
-- **Lazy loading** : Chargement différé
-- **CDN optimisé** : Cloudflare, Cloudinary
-- **Dimensions adaptatives** : srcset et sizes
+## 💡 Cas concrets d'implémentation
 
-### 2. JavaScript
-- **Code splitting** : Division intelligente
-- **Tree shaking** : Élimination du code mort
-- **Minification** : Réduction de taille
-- **Module federation** : Partage de code
+### Cas 1 : Collège Moderne de Lomé
+- **Problème** : Taux d'échec élevé en sciences physiques
+- **Solution** : Implémentation de VISIO-EDUC
+- **Résultats** :
+  - Taux de réussite passé de 45% à 85%
+  - Participation en classe : +70%
+  - Réduction de l'absentéisme : 40%
 
-### 3. CSS
-- **PurgeCSS** : Élimination des styles inutilisés
-- **Critical CSS** : Styles critiques inline
-- **CSS Grid/Flexbox** : Layouts optimisés
-- **CSS Variables** : Maintenance simplifiée
+### Cas 2 : École Primaire Les Poussins
+- **Problème** : Communication difficile avec les parents
+- **Solution** : Déploiement d'EDS-🏫
+- **Résultats** :
+  - Communication parent-école : +90%
+  - Retard dans les paiements : -60%
+  - Satisfaction parentale : 98%
 
-### 4. Caching
-- **Service Workers** : PWA et offline
-- **HTTP/3** : Nouveau protocol rapide
-- **Edge Computing** : Cloudflare Workers
-- **Préchargement** : Préconnexions
+### Cas 3 : Lycée Technique
+- **Problème** : Difficultés en mathématiques
+- **Solution** : Programme JEANSKODOC-EPT
+- **Résultats** :
+  - Moyenne en maths : +4 points
+  - Confiance en soi : +75%
+  - Orientation réussie : 95%
 
-## 🔧 Configuration serveur optimale
+## 🔧 Mise en œuvre pas à pas
 
-### Nginx :
-\`\`\`nginx
-# Compression
-gzip on;
-gzip_vary on;
-gzip_min_length 1024;
-gzip_types text/plain text/css text/xml text/javascript application/javascript application/xml+rss application/json;
+### Étape 1 : Diagnostic
+- 📊 Analyse des besoins spécifiques
+- 👥 Consultation des parties prenantes
+- 🎯 Définition des objectifs mesurables
+- 📝 Élaboration du plan d'action
 
-# Cache
-location ~* \\.(jpg|jpeg|png|gif|ico|css|js)$ {
-    expires 1y;
-    add_header Cache-Control "public, immutable";
-}
+### Étape 2 : Implémentation
+- 🛠️ Installation et configuration
+- 👨‍🏫 Formation des enseignants
+- 👨‍👩‍👧‍👦 Sensibilisation des parents
+- 🧑‍🎓 Initiation des élèves
 
-# Security headers
-add_header X-Frame-Options "SAMEORIGIN";
-add_header X-XSS-Protection "1; mode=block";
-add_header X-Content-Type-Options "nosniff";
-\`\`\`
+### Étape 3 : Suivi et optimisation
+- 📈 Mesure des indicateurs clés
+- 🔄 Ajustement des stratégies
+- 📣 Communication des résultats
+- 🎉 Célébration des succès
 
-## 📈 Monitoring continu
+## 📱 Technologies utilisées
 
-### Automatisation :
-- **GitHub Actions** : Tests automatiques
-- **Netlify/vercel** : Déploiements automatisés
-- **Jenkins/GitLab CI** : Pipelines CI/CD
-- **Docker** : Environnements reproductibles
+### Infrastructure :
+- ☁️ **Cloud computing** : Scalabilité et sécurité
+- 🔒 **Blockchain** : Certification des diplômes
+- 🤖 **IA adaptative** : Personnalisation de l'apprentissage
+- 📊 **Big Data** : Analytics prédictifs
 
-### Analytics :
-- **Google Analytics 4** : Nouvelle version
-- **Hotjar** : Heatmaps et recordings
-- **Microsoft Clarity** : Analytics gratuit
-- **Amplitude** : Analytics avancé
+### Applications :
+- 📱 **Applications mobiles** : iOS et Android
+- 🌐 **Web responsive** : Accessible sur tous appareils
+- 🎮 **Gamification** : Mécaniques de jeu pour l'engagement
+- 🎥 **Reality augmentée** : Expériences immersives
 
-## 🎯 Checklist d'optimisation
+## 🎯 Recommandations stratégiques
 
-### Priorité haute (à faire maintenant) :
-- [ ] Mettre en place lazy loading
-- [ ] Optimiser les images
-- [ ] Minifier CSS/JS
-- [ ] Configurer le caching
+### Pour les décideurs :
+1. **Commencez petit** : Pilotez avec une classe
+2. **Impliquez les enseignants** : Formation continue
+3. **Mesurez les résultats** : Indicateurs clés
+4. **Étendez progressivement** : Apprentissage itératif
 
-### Priorité moyenne (planifier) :
-- [ ] Implémenter PWA
-- [ ] Mettre à jour vers HTTP/3
-- [ ] Configurer CDN
-- [ ] Optimiser les polices
+### Pour les enseignants :
+1. **Adoptez progressivement** : Une fonctionnalité à la fois
+2. **Collaborez** : Partagez les bonnes pratiques
+3. **Soyez créatif** : Adaptez les outils à votre style
+4. **Évaluez constamment** : Ajustez selon les retours
 
-### Priorité basse (améliorations) :
-- [ ] Prerender les pages
-- [ ] Edge computing
-- [ ] WebAssembly
-- [ ] Machine Learning intégré
-
-## 💡 Cas pratique
-
-### Avant optimisation :
-- 📊 Score Lighthouse : 45/100
-- ⏱️ Temps de chargement : 8.2s
-- 📱 Expérience mobile : Médiocre
-- 🔍 SEO : Position 3 page Google
-
-### Après optimisation :
-- 📊 Score Lighthouse : 98/100
-- ⏱️ Temps de chargement : 1.8s
-- 📱 Expérience mobile : Excellente
-- 🔍 SEO : Position 1 page Google
-- 📈 Conversion : +220%
+### Pour les parents :
+1. **Soutenez** : Encouragez l'usage à la maison
+2. **Communiquez** : Utilisez les canaux digitaux
+3. **Participez** : Impliquez-vous dans le processus
+4. **Célébrez** : Reconnaissez les progrès
 
 ## 🔮 Tendances 2024-2025
 
-### Émergent :
-- **Web3 integration** : Blockchain et web décentralisé
-- **AI/ML intégrés** : Personnalisation intelligente
-- **WebAssembly** : Performances natives
-- **Edge computing** : Calcul à la périphérie
+### Émergentes :
+- 🧠 **Neurosciences éducatives** : Apprentissage basé sur le cerveau
+- 🤖 **Tuteurs IA** : Assistance personnalisée 24/7
+- 🕶️ **Réalité virtuelle** : Immersion totale
+- 📊 **Learning analytics** : Données en temps réel
 
 ### Consolidation :
-- **Jamstack** : Architecture moderne
-- **Micro-frontends** : Scalabilité
-- **Serverless** : Infrastructure as code
-- **Design systems** : Cohérence et efficacité
+- 📱 **Mobile learning** : Apprentissage nomade
+- 👥 **Collaboration** : Travail d'équipe digital
+- 🎮 **Gamification** : Engagement par le jeu
+- 🌍 **Global classroom** : Classes internationales
 
 ---
 
 ## 🎁 Ressources additionnelles
 
 ### Outils gratuits :
-- [Google PageSpeed Insights](https://pagespeed.web.dev/)
-- [WebPageTest](https://www.webpagetest.org/)
-- [GTmetrix](https://gtmetrix.com/)
-- [Pingdom Tools](https://tools.pingdom.com/)
+- [Khan Academy](https://www.khanacademy.org/)
+- [Google Classroom](https://classroom.google.com/)
+- [Moodle](https://moodle.org/)
+- [Edmodo](https://www.edmodo.com/)
 
-### Documentation :
-- [Web.dev](https://web.dev/)
-- [MDN Web Docs](https://developer.mozilla.org/)
-- [Google Developers](https://developers.google.com/web)
-- [CSS-Tricks](https://css-tricks.com/)
+### Formation :
+- [Coursera - Education Technology](https://www.coursera.org/)
+- [edX - Digital Learning](https://www.edx.org/)
+- [FutureLearn - Teaching Online](https://www.futurelearn.com/)
+- [Udemy - EdTech](https://www.udemy.com/)
 
 ### Communautés :
-- [Stack Overflow](https://stackoverflow.com/)
-- [Dev.to](https://dev.to/)
-- [GitHub Discussions](https://github.com/features/discussions)
-- [Discord tech](https://discord.com/invite/tech)
+- [ISTE - International Society for Technology in Education](https://www.iste.org/)
+- [EdTech Europe](https://edtecheurope.com/)
+- [Africa EdTech](https://africaedtech.com/)
+- [EdTech Hub](https://edtechhub.org/)
 
 ---
 
-*Pour plus de guides et ressources exclusives, [visitez ma boutique](#boutique) ou [soutenez mon travail](#donations).*
+*Pour plus de guides et solutions exclusives, [visitez ma boutique](#boutique) ou [soutenez mon travail](#donations).*
 
 **Jeanskodoc**  
-*Expert en optimisation web*`,
+*Expert en solutions éducatives digitales*`,
                     author: "Jeanskodoc",
-                    category: "tutoriel",
-                    tags: ["optimisation", "performance", "web", "2024", "guide", "tutoriel"],
-                    date: "2024-03-10",
+                    category: "éducation",
+                    tags: ["éducation", "numérique", "transformation", "enseignement", "apprentissage", "2024"],
+                    date: "2024-03-15",
                     published: true,
                     featured: false,
-                    type: "blog",
-                    readTime: "12 min"
+                    type: "education",
+                    readTime: "12 min",
+                    whatsappSent: true
+                },
+                {
+                    id: 4,
+                    title: "TONTINE DIGITALE - Sécurisez et optimisez vos activités de tontine",
+                    excerpt: "Découvrez comment la plateforme de tontine digitale révolutionne la gestion des contributions et bénéfices avec transparence et sécurité.",
+                    content: `# TONTINE DIGITALE - La révolution des épargnes collectives
+
+La **première plateforme complète** dédiée à la digitalisation des activités de tontine. Conçue pour offrir transparence, sécurité et efficacité à vos épargnes collectives.
+
+## 💰 Pourquoi digitaliser votre tontine ?
+
+### Problèmes traditionnels :
+- 📝 **Gestion papier** : Risque de perte ou d'erreur
+- 🤝 **Confiance limitée** : Manque de transparence
+- ⏰ **Temps perdu** : Réunions longues et compliquées
+- 💸 **Risques de fraude** : Sécurité minimale
+
+### Solutions digitales :
+- 🔒 **Sécurité renforcée** : Chiffrement des transactions
+- 👁️ **Transparence totale** : Historique accessible à tous
+- ⚡ **Gain de temps** : Automatisation des processus
+- 📊 **Suivi en temps réel** : Tableaux de bord intuitifs
+
+## 🚀 Fonctionnalités principales
+
+### Gestion des membres :
+- 👥 **Inscription simplifiée** : Formulaire en ligne
+- 📋 **Profil complet** : Informations et préférences
+- 🔔 **Notifications** : Rappels automatiques
+- 📱 **Application mobile** : Gestion depuis smartphone
+
+### Suivi des contributions :
+- 💳 **Paiements digitaux** : Mobile money, cartes, virements
+- 📈 **Historique détaillé** : Toutes les transactions
+- 🎯 **Échéancier** : Calendrier des versements
+- ⚠️ **Alertes** : Retards de paiement détectés
+
+### Distribution des bénéfices :
+- 🤖 **Automatisation** : Calcul et distribution automatique
+- 📄 **Reçus digitaux** : Justificatifs électroniques
+- 🏦 **Intégration bancaire** : Virements directs
+- 📊 **Rapports** : Documents pour la comptabilité
+
+## 🔒 Sécurité et confidentialité
+
+### Protection des données :
+- 🔐 **Chiffrement** : Niveau bancaire (AES-256)
+- 👤 **Authentification** : Double vérification
+- 📝 **Audit trail** : Trace de toutes les actions
+- 🛡️ **Backup** : Sauvegarde quotidienne
+
+### Conformité :
+- 📜 **Juridique** : Contrats digitalisés
+- 👥 **RGPD** : Protection des données personnelles
+- 🏛️ **Réglementation** : Conformité locale
+- ✅ **Certifications** : Normes de sécurité
+
+## 📊 Avantages mesurables
+
+### Pour les membres :
+- ⏱️ **Gain de temps** : 80% de temps administratif en moins
+- 💰 **Sécurité** : 100% des transactions tracées
+- 📈 **Transparence** : Accès 24/7 aux informations
+- 😊 **Sérénité** : Confiance renforcée dans le groupe
+
+### Pour les gestionnaires :
+- 📊 **Suivi facilité** : Tableaux de bord intuitifs
+- 🔔 **Alertes proactives** : Prévention des problèmes
+- 📄 **Documentation** : Rapports automatiques
+- 🤝 **Communication** : Messagerie intégrée
+
+## 💡 Cas pratiques
+
+### Cas 1 : Tontine Familiale (20 membres)
+- **Problème** : Conflits récurrents sur les montants
+- **Solution** : Plateforme avec historique public
+- **Résultats** :
+  - Conflits réduits de 95%
+  - Paiements à temps : +90%
+  - Satisfaction : 100%
+
+### Cas 2 : Tontine Professionnelle (50 membres)
+- **Problème** : Gestion manuelle chronophage
+- **Solution** : Automatisation complète
+- **Résultats** :
+  - Temps de gestion : -85%
+  - Erreurs : 0%
+  - Adhésion : +40%
+
+### Cas 3 : Tontine Communautaire (100+ membres)
+- **Problème** : Manque de transparence
+- **Solution** : Portail membre avec accès complet
+- **Résultats** :
+  - Confiance : +90%
+  - Nouvelles adhésions : +60%
+  - Fidélisation : 95%
+
+## 🎯 Publics ciblés
+
+### Familles :
+- 👨‍👩‍👧‍👦 **Tontines familiales** : Gestion simplifiée
+- 🎓 **Études des enfants** : Épargne dédiée
+- 🏡 **Projets immobiliers** : Financement collectif
+- 🎉 **Événements familiaux** : Budget partagé
+
+### Professionnels :
+- 👔 **Collègues** : Solidarité professionnelle
+- 🏢 **Associations** : Gestion transparente
+- 💼 **Entrepreneurs** : Financement de projet
+- 🎓 **Anciens élèves** : Réseautage et entraide
+
+### Communautés :
+- 🏘️ **Quartiers** : Développement local
+- ⛪ **Religieuses** : Œuvres sociales
+- 🎭 **Culturelles** : Projets artistiques
+- 🌱 **Environnementales** : Initiatives vertes
+
+## 🔧 Mise en place
+
+### Étape 1 : Configuration
+1. **Création du groupe** : Nom, règles, objectifs
+2. **Paramétrage** : Montants, fréquences, durée
+3. **Invitation** : Ajout des membres
+4. **Validation** : Accord de tous les participants
+
+### Étape 2 : Formation
+1. **Tutoriels** : Vidéos explicatives
+2. **Support** : Assistance en direct
+3. **Documentation** : Guides complets
+4. **Communauté** : Forum d'entraide
+
+### Étape 3 : Suivi
+1. **Monitoring** : Tableaux de bord
+2. **Rapports** : Analyses périodiques
+3. **Optimisation** : Ajustements si besoin
+4. **Évaluation** : Satisfaction des membres
+
+## 💰 Modèle économique
+
+### Version gratuite :
+- 👥 **Jusqu'à 10 membres**
+- 📊 **Fonctions de base**
+- 📱 **Application mobile**
+- 🔒 **Sécurité standard**
+
+### Version premium :
+- 👥 **Nombre illimité de membres**
+- 📈 **Analytics avancés**
+- 🤖 **Automatisation complète**
+- 🛡️ **Sécurité renforcée**
+
+### Version entreprise :
+- 🏢 **Personnalisation complète**
+- 🔌 **Intégrations API**
+- 📊 **Reporting personnalisé**
+- 👨‍💼 **Support dédié**
+
+## 🔮 Futur de la tontine digitale
+
+### Innovations à venir :
+- 🤖 **IA prédictive** : Suggestions d'optimisation
+- 📊 **Blockchain** : Contrats intelligents
+- 🌍 **International** : Tontines transfrontalières
+- 🏦 **Banque intégrée** : Comptes dédiés
+
+### Développements :
+- 🎓 **Éducation financière** : Modules d'apprentissage
+- 🤝 **Réseautage** : Mise en relation de groupes
+- 📈 **Investissement** : Options de placement
+- 🛡️ **Assurance** : Protection des fonds
+
+---
+
+## 🎁 Avantages exclusifs
+
+En optant pour TONTINE DIGITALE maintenant :
+1. **30 jours gratuits** sur la version premium
+2. **Migration gratuite** de vos données existantes
+3. **Formation personnalisée** pour votre groupe
+4. **Support prioritaire** pendant 6 mois
+
+---
+
+*Découvrez **[TONTINE DIGITALE](https://jeanskodoc.github.io/TONTINE/)** et transformez votre gestion d'épargne collective !*
+
+**Jeanskodoc**  
+*Créateur & Développeur*`,
+                    author: "Jeanskodoc",
+                    category: "finance",
+                    tags: ["tontine", "finance", "épargne", "digital", "sécurité", "transparence"],
+                    date: "2024-03-12",
+                    published: true,
+                    featured: true,
+                    type: "finance",
+                    readTime: "10 min",
+                    whatsappSent: true
                 }
             ],
             comments: [
@@ -3658,7 +4363,7 @@ add_header X-Content-Type-Options "nosniff";
                     articleId: 1,
                     author: "Marie D.",
                     email: "marie.d@example.com",
-                    content: "Super présentation ! Les produits digitaux ont l'air très complets et professionnels. Hâte de découvrir la boutique et les prochains articles !",
+                    content: "Super présentation ! Les solutions digitales ont l'air très complètes et professionnelles. Hâte de découvrir la boutique et les prochains articles !",
                     date: "2024-03-20",
                     approved: true,
                     notified: true
@@ -3668,17 +4373,28 @@ add_header X-Content-Type-Options "nosniff";
                     articleId: 2,
                     author: "Alexandre T.",
                     email: "alex.t@example.com",
-                    content: "Le Pack Design Ultimate semble incroyable ! Les templates ont l'air très modernes et professionnels. Je vais certainement l'ajouter à ma collection.",
+                    content: "Le projet ÉVEIL INTELLECTUEL semble incroyable ! L'approche basée sur les neurosciences est très prometteuse. Je vais certainement l'essayer.",
                     date: "2024-03-18",
+                    approved: true,
+                    notified: true
+                },
+                {
+                    id: 3,
+                    articleId: 3,
+                    author: "Prof. Adjo",
+                    email: "adjo@example.com",
+                    content: "Excellent guide sur la transformation numérique de l'éducation. Les cas concrets sont très parlants. J'aimerais implémenter VISIO-EDUC dans mon établissement.",
+                    date: "2024-03-16",
                     approved: true,
                     notified: true
                 }
             ],
             stats: {
-                articles: 3,
-                comments: 2,
+                articles: 4,
+                comments: 3,
                 visitors: 0,
-                donations: 0
+                donations: 0,
+                whatsappSent: 4
             }
         };
 
@@ -3841,6 +4557,7 @@ add_header X-Content-Type-Options "nosniff";
         function initAdminSection() {
             const showAddArticleBtn = document.getElementById('show-add-article-form');
             const showAddedArticlesBtn = document.getElementById('show-added-articles');
+            const sendWhatsAppTestBtn = document.getElementById('send-whatsapp-test');
             const refreshAdminBtn = document.getElementById('refresh-admin');
             const addArticleForm = document.getElementById('add-article-form');
             const addedArticlesSection = document.getElementById('added-articles-section');
@@ -3890,6 +4607,14 @@ add_header X-Content-Type-Options "nosniff";
                     }, 100);
                     
                     showNotification('Affichage des articles ajoutés 📋', 'admin');
+                });
+            }
+            
+            if (sendWhatsAppTestBtn) {
+                sendWhatsAppTestBtn.addEventListener('click', function() {
+                    if (confirm('Voulez-vous envoyer un message test par WhatsApp ?')) {
+                        sendWhatsAppTest();
+                    }
                 });
             }
             
@@ -3948,6 +4673,7 @@ add_header X-Content-Type-Options "nosniff";
                         document.getElementById('article-author').value = "Jeanskodoc";
                         document.getElementById('article-read-time').value = "5 min";
                         document.getElementById('article-published').checked = true;
+                        document.getElementById('send-whatsapp').checked = true;
                         document.getElementById('article-preview').classList.add('hidden');
                         
                         // Reset du bouton de soumission si on édite
@@ -3981,6 +4707,7 @@ add_header X-Content-Type-Options "nosniff";
                     const content = document.getElementById('article-content').value.trim();
                     const published = document.getElementById('article-published').checked;
                     const featured = document.getElementById('article-featured').checked;
+                    const sendWhatsApp = document.getElementById('send-whatsapp').checked;
                     
                     // Validation
                     if (!title || !author || !category || !type || !excerpt || !content) {
@@ -4023,6 +4750,7 @@ add_header X-Content-Type-Options "nosniff";
                             document.getElementById('article-author').value = "Jeanskodoc";
                             document.getElementById('article-read-time').value = "5 min";
                             document.getElementById('article-published').checked = true;
+                            document.getElementById('send-whatsapp').checked = true;
                             document.getElementById('article-preview').classList.add('hidden');
                             submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Publier l\'article';
                             delete submitBtn.dataset.editing;
@@ -4057,7 +4785,8 @@ add_header X-Content-Type-Options "nosniff";
                             content: content,
                             date: new Date().toISOString().split('T')[0],
                             published: published,
-                            featured: featured
+                            featured: featured,
+                            whatsappSent: false
                         };
                         
                         // Ajouter l'article
@@ -4069,6 +4798,7 @@ add_header X-Content-Type-Options "nosniff";
                         document.getElementById('article-author').value = "Jeanskodoc";
                         document.getElementById('article-read-time').value = "5 min";
                         document.getElementById('article-published').checked = true;
+                        document.getElementById('send-whatsapp').checked = true;
                         document.getElementById('article-preview').classList.add('hidden');
                         
                         // Mettre à jour les statistiques
@@ -4078,6 +4808,13 @@ add_header X-Content-Type-Options "nosniff";
                         // Recharger les articles
                         initArticles();
                         loadArticleOptions();
+                        
+                        // Envoyer par WhatsApp si activé
+                        if (sendWhatsApp) {
+                            setTimeout(() => {
+                                sendWhatsAppArticle(newArticle);
+                            }, 1000);
+                        }
                         
                         // Afficher la confirmation
                         showNotification(`Article "${title}" ajouté avec succès ! 📝`, 'admin');
@@ -4092,6 +4829,93 @@ add_header X-Content-Type-Options "nosniff";
             }
         }
 
+        // Envoyer un article par WhatsApp
+        function sendWhatsAppArticle(article) {
+            try {
+                // Formater le message WhatsApp
+                const whatsappMessage = `📰 *NOUVEL ARTICLE PUBLIÉ - ESODI Blog*
+
+*${article.title}*
+
+📝 *Description :*
+${article.excerpt}
+
+🏷️ *Catégorie :* ${article.category}
+✍️ *Auteur :* ${article.author}
+⏱️ *Temps de lecture :* ${article.readTime}
+
+🔖 *Tags :* ${article.tags ? article.tags.join(', ') : 'Aucun'}
+
+📅 *Publié le :* ${formatDate(article.date)}
+
+👉 *Lire l'article complet :*
+${window.location.origin}${window.location.pathname}#articles
+
+---
+*ESODI Blog - Solutions Digitales Innovantes*
+*Par Jeanskodoc*`;
+                
+                // Encoder le message pour URL
+                const encodedMessage = encodeURIComponent(whatsappMessage);
+                
+                // Créer l'URL WhatsApp (avec le numéro international pour le Togo)
+                const whatsappUrl = `https://wa.me/${ESODI_BLOG.whatsappCountryCode}${ESODI_BLOG.whatsappPhone}?text=${encodedMessage}`;
+                
+                // Ouvrir WhatsApp dans un nouvel onglet
+                window.open(whatsappUrl, '_blank');
+                
+                // Mettre à jour l'article
+                const articleIndex = ESODI_BLOG.articles.findIndex(a => a.id === article.id);
+                if (articleIndex !== -1) {
+                    ESODI_BLOG.articles[articleIndex].whatsappSent = true;
+                    ESODI_BLOG.stats.whatsappSent++;
+                    saveData();
+                }
+                
+                showNotification('Article envoyé par WhatsApp avec succès 📱', 'whatsapp');
+                
+            } catch (error) {
+                console.error('Erreur lors de l\'envoi WhatsApp :', error);
+                showNotification('Erreur lors de l\'envoi WhatsApp', 'error');
+            }
+        }
+
+        // Envoyer un message test par WhatsApp
+        function sendWhatsAppTest() {
+            try {
+                // Formater le message test
+                const whatsappMessage = `🔧 *TEST WHATSAPP - ESODI Blog*
+
+Ceci est un message test pour vérifier la fonctionnalité d'envoi WhatsApp.
+
+📱 *Fonctionnalité :* Envoi automatique des nouveaux articles
+👤 *Administrateur :* ${ESODI_BLOG.adminCredentials.username}
+📅 *Date du test :* ${new Date().toLocaleDateString('fr-FR')}
+🕐 *Heure :* ${new Date().toLocaleTimeString('fr-FR')}
+
+✅ *Statut :* Fonctionnalité WhatsApp opérationnelle
+
+---
+*ESODI Blog - Système d'administration*
+*Version ${ESODI_BLOG.version}*`;
+                
+                // Encoder le message pour URL
+                const encodedMessage = encodeURIComponent(whatsappMessage);
+                
+                // Créer l'URL WhatsApp
+                const whatsappUrl = `https://wa.me/${ESODI_BLOG.whatsappCountryCode}${ESODI_BLOG.whatsappPhone}?text=${encodedMessage}`;
+                
+                // Ouvrir WhatsApp dans un nouvel onglet
+                window.open(whatsappUrl, '_blank');
+                
+                showNotification('Message test envoyé par WhatsApp ✅', 'whatsapp');
+                
+            } catch (error) {
+                console.error('Erreur lors du test WhatsApp :', error);
+                showNotification('Erreur lors du test WhatsApp', 'error');
+            }
+        }
+
         // Mettre à jour les statistiques admin
         function updateAdminStats() {
             const statsContainer = document.getElementById('admin-stats');
@@ -4101,6 +4925,7 @@ add_header X-Content-Type-Options "nosniff";
             const publishedArticles = ESODI_BLOG.articles.filter(a => a.published).length;
             const draftArticles = totalArticles - publishedArticles;
             const featuredArticles = ESODI_BLOG.articles.filter(a => a.featured).length;
+            const whatsappSent = ESODI_BLOG.stats.whatsappSent || 0;
             
             statsContainer.innerHTML = `
                 <div class="admin-stat-card">
@@ -4119,17 +4944,17 @@ add_header X-Content-Type-Options "nosniff";
                 </div>
                 <div class="admin-stat-card">
                     <div class="admin-stat-icon">
-                        <i class="fas fa-edit"></i>
+                        <i class="fab fa-whatsapp"></i>
                     </div>
-                    <div class="admin-stat-number">${draftArticles}</div>
-                    <div class="admin-stat-label">Brouillons</div>
+                    <div class="admin-stat-number">${whatsappSent}</div>
+                    <div class="admin-stat-label">Envois WhatsApp</div>
                 </div>
                 <div class="admin-stat-card">
                     <div class="admin-stat-icon">
                         <i class="fas fa-star"></i>
                     </div>
                     <div class="admin-stat-number">${featuredArticles}</div>
-                    <div class="admin-stat-label">Articles en vedette</div>
+                    <div class="admin-stat-label">En vedette</div>
                 </div>
             `;
         }
@@ -4160,6 +4985,9 @@ add_header X-Content-Type-Options "nosniff";
                 const statusClass = article.published ? 'status-published' : 'status-draft';
                 const statusText = article.published ? 'Publié' : 'Brouillon';
                 const typeLabel = getTypeLabel(article.type);
+                const whatsappBadge = article.whatsappSent ? 
+                    '<span style="background: linear-gradient(135deg, rgba(37, 211, 102, 0.1), rgba(37, 211, 102, 0.2)); color: var(--whatsapp-dark); padding: 0.3rem 0.8rem; border-radius: var(--radius-full); font-size: 0.8rem; font-weight: 700; border: 1px solid rgba(37, 211, 102, 0.3);">📱 WhatsApp</span>' : 
+                    '<span style="background: linear-gradient(135deg, rgba(148, 163, 184, 0.1), rgba(148, 163, 184, 0.2)); color: var(--gray-500); padding: 0.3rem 0.8rem; border-radius: var(--radius-full); font-size: 0.8rem; font-weight: 700; border: 1px solid rgba(148, 163, 184, 0.3);">📱 Non envoyé</span>';
                 
                 return `
                     <div class="added-article-item">
@@ -4178,6 +5006,7 @@ add_header X-Content-Type-Options "nosniff";
                                 ${statusText}
                             </span>
                             ${article.featured ? '<span style="background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(245, 158, 11, 0.2)); color: var(--warning-dark); padding: 0.3rem 0.8rem; border-radius: var(--radius-full); font-size: 0.8rem; font-weight: 700;">⭐ En vedette</span>' : ''}
+                            ${whatsappBadge}
                         </div>
                         <div class="added-article-footer">
                             <div class="added-article-author">
@@ -4187,6 +5016,11 @@ add_header X-Content-Type-Options "nosniff";
                                 <button class="article-action-btn edit" onclick="editArticle(${article.id})">
                                     <i class="fas fa-edit"></i> Éditer
                                 </button>
+                                ${!article.whatsappSent ? `
+                                    <button class="article-action-btn whatsapp" onclick="sendArticleWhatsApp(${article.id})">
+                                        <i class="fab fa-whatsapp"></i> WhatsApp
+                                    </button>
+                                ` : ''}
                                 <button class="article-action-btn delete" onclick="deleteArticle(${article.id})">
                                     <i class="fas fa-trash"></i> Supprimer
                                 </button>
@@ -4223,6 +5057,7 @@ add_header X-Content-Type-Options "nosniff";
             document.getElementById('article-content').value = article.content;
             document.getElementById('article-published').checked = article.published;
             document.getElementById('article-featured').checked = article.featured || false;
+            document.getElementById('send-whatsapp').checked = article.whatsappSent || false;
             
             // Afficher le formulaire
             document.getElementById('add-article-form').classList.remove('hidden');
@@ -4244,11 +5079,31 @@ add_header X-Content-Type-Options "nosniff";
             showNotification(`Édition de l'article "${article.title}" ✏️`, 'admin');
         };
 
+        // Envoyer un article par WhatsApp (bouton manuel)
+        window.sendArticleWhatsApp = function(articleId) {
+            // Vérifier que l'admin est connecté
+            if (!ESODI_BLOG.isAdminLoggedIn) {
+                showNotification('Veuillez vous connecter pour envoyer un article', 'error');
+                hideAdminContent();
+                return;
+            }
+            
+            const article = ESODI_BLOG.articles.find(a => a.id === articleId);
+            if (!article) {
+                showNotification('Article non trouvé', 'error');
+                return;
+            }
+            
+            if (confirm(`Voulez-vous envoyer l'article "${article.title}" par WhatsApp au numéro +${ESODI_BLOG.whatsappCountryCode}${ESODI_BLOG.whatsappPhone} ?`)) {
+                sendWhatsAppArticle(article);
+            }
+        };
+
         // Supprimer un article
         window.deleteArticle = function(articleId) {
             // Vérifier que l'admin est connecté
             if (!ESODI_BLOG.isAdminLoggedIn) {
-                showNotification('Veuillez vous connecter pour supprimer un article', 'error');
+                showNotification('Voulez-vous vous connecter pour supprimer un article', 'error');
                 hideAdminContent();
                 return;
             }
@@ -4486,11 +5341,15 @@ add_header X-Content-Type-Options "nosniff";
                 const typeLabel = getTypeLabel(article.type);
                 const typeIcon = getTypeIcon(article.type);
                 const readTime = article.readTime || '3 min';
+                const whatsappBadge = article.whatsappSent ? 
+                    '<span style="position: absolute; top: 10px; right: 10px; background: rgba(37, 211, 102, 0.9); color: white; padding: 0.3rem 0.6rem; border-radius: var(--radius-full); font-size: 0.7rem; font-weight: 700; z-index: 2; box-shadow: 0 2px 5px rgba(0,0,0,0.2);"><i class="fab fa-whatsapp"></i></span>' : 
+                    '';
                 
                 return `
                     <article class="article-card" data-id="${article.id}">
                         <div class="article-image ${typeClass}">
                             <i class="fas fa-${typeIcon}"></i>
+                            ${whatsappBadge}
                         </div>
                         <div class="article-content">
                             <div class="article-header">
@@ -4520,7 +5379,11 @@ add_header X-Content-Type-Options "nosniff";
                 'product': '🛍️ Produit',
                 'category': '🏷️ Catégorie',
                 'donation': '❤️ Soutien',
-                'admin': '⚙️ Admin'
+                'admin': '⚙️ Admin',
+                'education': '🎓 Éducation',
+                'finance': '💰 Finance',
+                'commerce': '🏪 Commerce',
+                'transport': '🚌 Transport'
             };
             return labels[type] || '📄 Article';
         }
@@ -4532,7 +5395,11 @@ add_header X-Content-Type-Options "nosniff";
                 'product': 'box-open',
                 'category': 'tags',
                 'donation': 'heart',
-                'admin': 'user-cog'
+                'admin': 'user-cog',
+                'education': 'chalkboard-teacher',
+                'finance': 'hand-holding-usd',
+                'commerce': 'store',
+                'transport': 'bus'
             };
             return icons[type] || 'newspaper';
         }
@@ -4691,9 +5558,6 @@ add_header X-Content-Type-Options "nosniff";
                         ESODI_BLOG.comments.push(newComment);
                         saveData();
                         
-                        // Envoyer le commentaire par WhatsApp
-                        sendWhatsAppNotification(newComment);
-                        
                         this.reset();
                         
                         submitBtn.innerHTML = originalText;
@@ -4787,48 +5651,6 @@ add_header X-Content-Type-Options "nosniff";
             });
         }
 
-        // Fonction pour envoyer une notification WhatsApp
-        function sendWhatsAppNotification(comment) {
-            try {
-                // Trouver l'article correspondant
-                const article = ESODI_BLOG.articles.find(a => a.id === comment.articleId);
-                const articleTitle = article ? article.title : 'Article inconnu';
-                
-                // Formater le message WhatsApp
-                const whatsappMessage = `📝 Nouveau commentaire sur ESODI Blog :
-
-👤 Auteur : ${comment.author}
-📰 Article : ${articleTitle}
-🗓️ Date : ${formatDate(comment.date)}
-💬 Commentaire : ${comment.content}
-
-${comment.email ? `📧 Email : ${comment.email}` : ''}
-
---
-ESODI Blog - ${ESODI_BLOG.name}`;
-                
-                // Encoder le message pour URL
-                const encodedMessage = encodeURIComponent(whatsappMessage);
-                
-                // Créer l'URL WhatsApp (avec le numéro international pour le Togo)
-                const whatsappUrl = `https://wa.me/228${ESODI_BLOG.whatsappPhone}?text=${encodedMessage}`;
-                
-                // Ouvrir WhatsApp dans un nouvel onglet
-                window.open(whatsappUrl, '_blank');
-                
-                // Marquer le commentaire comme notifié
-                comment.notified = true;
-                saveData();
-                
-                console.log('Notification WhatsApp envoyée avec succès');
-                showNotification('Notification envoyée par WhatsApp 📱', 'success');
-                
-            } catch (error) {
-                console.error('Erreur lors de l\'envoi de la notification WhatsApp:', error);
-                showNotification('Erreur d\'envoi WhatsApp', 'error');
-            }
-        }
-
         // Ouvrir un article amélioré
         function openArticle(articleId) {
             const article = ESODI_BLOG.articles.find(a => a.id === articleId);
@@ -4854,6 +5676,9 @@ ESODI Blog - ${ESODI_BLOG.name}`;
                 const typeClass = article.type || 'blog';
                 const typeLabel = getTypeLabel(article.type);
                 const readTime = article.readTime || '3 min';
+                const whatsappInfo = article.whatsappSent ? 
+                    '<div style="background: linear-gradient(135deg, rgba(37, 211, 102, 0.1), rgba(37, 211, 102, 0.05)); padding: 1rem; border-radius: var(--radius); margin: 1rem 0; border: 1px solid rgba(37, 211, 102, 0.2); display: flex; align-items: center; gap: 10px; color: var(--whatsapp-dark); font-weight: 600;"><i class="fab fa-whatsapp"></i> Cet article a été partagé par WhatsApp</div>' : 
+                    '';
                 
                 modalContent.innerHTML = `
                     <div style="margin-bottom: 3rem;">
@@ -4869,6 +5694,7 @@ ESODI Blog - ${ESODI_BLOG.name}`;
                         <h1 style="color: var(--gray-900); margin-bottom: 2rem; font-size: 2.5rem; line-height: 1.2; font-weight: 800; letter-spacing: -0.5px;">
                             ${article.title}
                         </h1>
+                        ${whatsappInfo}
                         <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 3rem; padding-bottom: 2rem; border-bottom: 2px solid var(--gray-200);">
                             <div style="width: 50px; height: 50px; border-radius: 50%; background: var(--gradient-primary); display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">
                                 ${article.author.charAt(0)}
@@ -4985,7 +5811,9 @@ ESODI Blog - ${ESODI_BLOG.name}`;
             notification.className = `notification ${type}`;
             
             // Icône spécifique pour admin
-            const icon = type === 'admin' ? 'user-cog' : getNotificationIcon(type);
+            const icon = type === 'admin' ? 'user-cog' : 
+                        type === 'whatsapp' ? 'whatsapp' : 
+                        getNotificationIcon(type);
             
             notification.innerHTML = `
                 <i class="fas fa-${icon}"></i>
@@ -5017,7 +5845,8 @@ ESODI Blog - ${ESODI_BLOG.name}`;
                 'error': 'exclamation-triangle',
                 'donation': 'gift',
                 'info': 'info-circle',
-                'admin': 'user-cog'
+                'admin': 'user-cog',
+                'whatsapp': 'whatsapp'
             };
             return icons[type] || 'info-circle';
         }
@@ -5093,7 +5922,8 @@ ESODI Blog - ${ESODI_BLOG.name}`;
                 const newArticle = {
                     id: ESODI_BLOG.articles.length > 0 ? Math.max(...ESODI_BLOG.articles.map(a => a.id)) + 1 : 1,
                     ...articleData,
-                    date: new Date().toISOString().split('T')[0]
+                    date: new Date().toISOString().split('T')[0],
+                    whatsappSent: false
                 };
                 
                 ESODI_BLOG.articles.push(newArticle);
@@ -5112,6 +5942,14 @@ ESODI Blog - ${ESODI_BLOG.name}`;
             getStats: function() {
                 return ESODI_BLOG.stats;
             },
+            // Fonctions WhatsApp
+            sendWhatsApp: function(articleId) {
+                const article = ESODI_BLOG.articles.find(a => a.id === articleId);
+                if (article) {
+                    sendWhatsAppArticle(article);
+                }
+            },
+            testWhatsApp: sendWhatsAppTest,
             // Fonctions admin
             loginAdmin: function(username, password) {
                 if (username === ESODI_BLOG.adminCredentials.username && 
@@ -5146,7 +5984,7 @@ ESODI Blog - ${ESODI_BLOG.name}`;
                 rootMargin: '0px 0px -50px 0px'
             });
             
-            document.querySelectorAll('.article-card, .digital-product, .donation-feature, .added-article-item').forEach(el => {
+            document.querySelectorAll('.article-card, .digital-product, .donation-feature, .added-article-item, .boutique-product').forEach(el => {
                 observer.observe(el);
             });
         }
