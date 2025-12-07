@@ -4902,11 +4902,11 @@
         // Configuration améliorée
         const ESODI_BLOG = {
             name: "ESODI - Jeanskodoc",
-            version: "3.4.0", // Version mise à jour
+            version: "3.4.0",
             storageKey: "esodi_blog_data_v3_4",
             adminEmail: "esodi22@gmail.com",
             whatsappPhone: "92871605",
-            whatsappCountryCode: "228", // Code Togo
+            whatsappCountryCode: "228",
             articles: [],
             comments: [],
             stats: {
@@ -4916,86 +4916,21 @@
                 donations: 0,
                 whatsappSent: 0
             },
-            // Identifiants admin
             adminCredentials: {
                 username: "KOLA",
                 password: "KOLA1@"
             },
-            // État de connexion
             isAdminLoggedIn: false
         };
 
-        // Données initiales enrichies avec informations sur les produits
+        // Données initiales
         const initialData = {
             articles: [
                 {
                     id: 1,
                     title: "Bienvenue sur ESODI - Votre Destination Créative",
                     excerpt: "Découvrez mon espace créatif dédié aux solutions digitales innovantes pour l'éducation, la gestion d'entreprise et l'optimisation de vos activités quotidiennes.",
-                    content: `# Bienvenue sur ESODI !
-
-**Bienvenue** dans mon univers créatif dédié aux **solutions digitales de qualité**. ESODI est bien plus qu'une simple plateforme, c'est un espace où l'innovation rencontre la praticité.
-
-## 🎯 Ma Mission
-
-Fournir des solutions digitales exceptionnelles qui :
-- **Simplifient** votre vie quotidienne
-- **Accélèrent** le développement de vos projets
-- **Inspirent** votre créativité et innovation
-- **Optimisent** vos résultats
-
-## 📦 Ce que vous trouverez
-
-### 1. Solutions Éducatives Avancées
-- 🎨 VISIO-EDUC : Plateforme de projection interactive
-- 🏫 EDS : Environnement Digital Scolaire complet
-- 📚 JEANSKODOC-EPT : Répétitions en ligne interactives
-- 🧠 ÉVEIL INTELLECTUEL : Développement cognitif
-
-### 2. Solutions de Gestion
-- 💰 TONTINE DIGITALE : Gestion transparente des tontines
-- 🛍️ GESTION DE BOUTIQUE : Suivi stocks et ventes
-- 🌐 E-COMMERCE : Plateforme de vente en ligne
-- 🏠 GESTION DE LOCATION : Gestion immobilière simplifiée
-
-### 3. Solutions Utilitaires
-- 🚌 TRANSTOGO : Informations transports au Togo
-- 📊 FACTURES DIGITALES : Gestion et analyse des ventes
-- 💼 CARTE VIRTUELLE : Présentation professionnelle
-- 📅 EMPLOI DU TEMPS : Organisation optimisée
-
-## 🚀 Pour commencer votre parcours
-
-1. **Explorez** mes solutions dans la section produits
-2. **Lisez** les articles techniques pour approfondir vos connaissances
-3. **Visitez** la boutique complète pour découvrir toutes mes créations
-4. **Soutenez** mon travail via les dons pour m'aider à créer plus
-
-## 💡 Conseil d'expert
-
-> "La qualité prime toujours sur la quantité. Chaque solution que je crée est le résultat de centaines d'heures de travail et d'attention aux détails."
-
-## 🔧 Technologies Utilisées
-
-- **Frontend** : HTML5, CSS3, JavaScript ES6+
-- **Design** : Figma, Adobe Creative Suite
-- **Développement** : React, Vue.js, Node.js
-- **Outils** : Git, Webpack, VS Code
-
-## 🤝 Rejoignez la communauté
-
-Vos retours sont précieux ! N'hésitez pas à :
-- Laisser des commentaires sur les articles
-- Partager vos expériences d'utilisation
-- Proposer des idées d'amélioration
-- Soutenir le projet via les dons
-
----
-
-*Merci de visiter **ESODI** ! Votre intérêt est ce qui motive mon travail quotidien.*
-
-**Jeanskodoc**  
-*Créateur & Développeur*`,
+                    content: `# Bienvenue sur ESODI !`,
                     author: "Jeanskodoc",
                     category: "présentation",
                     tags: ["accueil", "présentation", "digital", "solutions", "innovation"],
@@ -5004,540 +4939,6 @@ Vos retours sont précieux ! N'hésitez pas à :
                     featured: true,
                     type: "blog",
                     readTime: "5 min",
-                    whatsappSent: true
-                },
-                {
-                    id: 2,
-                    title: "ÉVEIL INTELLECTUEL - Le Projet Phare de Développement Cognitif",
-                    excerpt: "Découvrez notre plateforme innovante d'éveil intellectuel conçue pour stimuler votre développement cognitif et améliorer vos capacités mentales.",
-                    content: `# ÉVEIL INTELLECTUEL - Le Projet Phare
-
-Le **projet le plus innovant** que j'ai créé à ce jour. Une plateforme complète dédiée au développement cognitif et à l'amélioration des capacités mentales.
-
-## 🧠 Pourquoi ce projet est révolutionnaire ?
-
-### Approche Scientifique
-Chaque exercice et activité est basé sur des recherches en neurosciences cognitives, garantissant une efficacité prouvée et des résultats mesurables.
-
-### Adaptabilité
-Programmes personnalisés selon votre âge, vos objectifs et votre niveau actuel, avec une progression adaptée à votre rythme.
-
-### Engagement
-Interface ludique et captivante qui transforme l'entraînement mental en expérience agréable et motivante.
-
-## 📊 Contenu détaillé de la Plateforme
-
-### Section 1 : Exercices Cognitifs
-**50+ exercices variés :**
-- 🎯 10 exercices de mémoire de travail
-- 🧩 15 jeux de logique et raisonnement
-- 🔢 10 activités de calcul mental
-- 🎨 15 exercices de créativité visuelle
-
-### Section 2 : Programmes Structurés
-**20+ parcours d'apprentissage :**
-- 📈 Programme "Mémoire Excellente" (21 jours)
-- 🧠 Programme "Concentration Maximale" (30 jours)
-- 💡 Programme "Créativité Débloquée" (14 jours)
-- ⚡ Programme "Rapidité Mentale" (28 jours)
-
-### Section 3 : Ressources Pédagogiques
-**30+ supports éducatifs :**
-- 📖 Guides théoriques sur le fonctionnement du cerveau
-- 🎥 Vidéos explicatives avec neuroscientifiques
-- 📊 Tableaux de suivi de progression
-- 🏆 Système de récompenses et de défis
-
-## 🔥 Caractéristiques Techniques
-
-### Technologies utilisées :
-- 🔹 Interface Progressive Web App (PWA)
-- 🔹 Algorithmes d'adaptation en temps réel
-- 🔹 Base de données de performances
-- 🔹 Synchronisation multi-appareils
-
-### Fonctionnalités avancées :
-- 📱 Application mobile native (iOS/Android)
-- 🌐 Accès web multiplateforme
-- 🔔 Rappels et notifications personnalisées
-- 🤝 Mode multijoueur pour défis entre amis
-
-### Sécurité et confidentialité :
-- 🔒 Chiffrement des données sensibles
-- 👤 Profils anonymisés
-- 📊 Statistiques agrégées uniquement
-- ✅ Conformité RGPD et protection des données
-
-## 🚀 Comment commencer ?
-
-### Pour les débutants :
-1. Créez votre compte gratuit
-2. Passez l'évaluation initiale
-3. Suivez le programme recommandé
-4. Pratiquez 15 minutes par jour
-
-### Pour les utilisateurs avancés :
-1. Importez vos données existantes
-2. Personnalisez vos objectifs
-3. Créez vos propres routines
-4. Participez aux défis communautaires
-
-## 📈 Résultats attendus
-
-### Après 1 mois :
-- ⏱️ Amélioration de 40% de la rapidité cognitive
-- 🎯 Augmentation de 60% de la concentration
-- 🧠 Renforcement de la mémoire de 50%
-- 😌 Réduction du stress mental de 30%
-
-### Après 3 mois :
-- 📊 Performances cognitives globales +80%
-- 💡 Créativité augmentée de 70%
-- ⚡ Temps de réaction amélioré de 65%
-- 🏆 Meilleures performances académiques/professionnelles
-
-## 🎯 Publics ciblés
-
-### Étudiants :
-- 📚 Amélioration des résultats scolaires
-- 🧮 Développement des capacités mathématiques
-- 🗣️ Renforcement des compétences linguistiques
-- ⏰ Optimisation du temps d'étude
-
-### Professionnels :
-- 💼 Augmentation de la productivité
-- 🎯 Amélioration de la prise de décision
-- 🤝 Développement des compétences relationnelles
-- ⚡ Gestion du stress professionnel
-
-### Séniors :
-- 🧠 Maintien des capacités cognitives
-- 🎮 Prévention du déclin mental
-- 😊 Amélioration de la qualité de vie
-- 👥 Socialisation et interaction
-
-## 💝 Impact Social
-
-### Accessibilité :
-- 💰 Version gratuite avec contenu essentiel
-- 🌍 Disponible en multiple langues
-- 📱 Compatible avec les vieux smartphones
-- 🏫 Programmes éducatifs pour écoles
-
-### Recherche et développement :
-- 🔬 Collaboration avec neuroscientifiques
-- 📊 Contribution à la recherche cognitive
-- 🌱 Développement continu de nouvelles fonctionnalités
-- 🤝 Partenariats avec institutions éducatives
-
----
-
-## 🎁 Offre de lancement exclusive
-
-En vous inscrivant maintenant, vous bénéficiez :
-1. **Accès gratuit** au programme complet pendant 30 jours
-2. **Coaching personnalisé** avec un expert
-3. **Certification** de vos progrès
-4. **Accès à vie** aux mises à jour futures
-
----
-
-*Découvrez **[ÉVEIL INTELLECTUEL](https://jeanskodoc.github.io/-VEIL-/)** et transformez vos capacités mentales !*
-
-**Jeanskodoc**  
-*Créateur & Développeur*`,
-                    author: "Jeanskodoc",
-                    category: "produits",
-                    tags: ["éveil intellectuel", "développement cognitif", "neurosciences", "mémoire", "concentration", "innovation"],
-                    date: "2024-03-18",
-                    published: true,
-                    featured: true,
-                    type: "education",
-                    readTime: "8 min",
-                    whatsappSent: true
-                },
-                {
-                    id: 3,
-                    title: "Guide complet : Transformer l'éducation avec le numérique",
-                    excerpt: "Découvrez comment les solutions digitales révolutionnent l'enseignement et l'apprentissage en 2024.",
-                    content: `# Guide complet : Transformer l'éducation avec le numérique
-
-Bienvenue dans ce guide complet sur la transformation numérique de l'éducation. Basé sur des années d'expérience et les meilleures pratiques du secteur.
-
-## 🎯 Pourquoi la digitalisation est cruciale pour l'éducation ?
-
-### Les enjeux actuels :
-- 📱 **Génération digitale** : Les élèves sont nés avec les technologies
-- 🌍 **Accessibilité** : Briser les barrières géographiques et économiques
-- ⚡ **Efficacité** : Optimiser le temps d'apprentissage et d'enseignement
-- 🎯 **Personnalisation** : Adapter l'enseignement à chaque apprenant
-
-## 🚀 Mes solutions éducatives phares
-
-### VISIO-EDUC : La révolution visuelle
-- **Projection interactive** : Transformez n'importe quel écran en tableau intelligent
-- **Contenu multimédia** : Intégrez vidéos, animations et simulations 3D
-- **Engagement maximal** : Réduisez la somnolence de 80% en classe
-- **Accessible** : Seulement 500 FCFA pour 7 jours d'accès complet
-
-### EDS-🏫 : L'école du futur
-- **Gestion centralisée** : Administration, enseignants, parents connectés
-- **Sécurité renforcée** : Protection des données sensibles
-- **Communication fluide** : Messages instantanés, bulletins numériques
-- **Analytics** : Suivi des performances et identification des besoins
-
-### JEANSKODOC-EPT : L'apprentissage réinventé
-- **Répétitions interactives** : Professeurs qualifiés et passionnés
-- **Suivi personnalisé** : Programme adapté à chaque élève
-- **Approche ludique** : Apprendre en s'amusant
-- **Résultats garantis** : Amélioration moyenne de 3 points sur 20
-
-## 📊 Impact mesurable
-
-### Pour les établissements :
-- 📈 **Taux de réussite** : Augmentation de 25%
-- ⏱️ **Gain de temps administratif** : 15 heures/semaine
-- 💰 **Réduction des coûts** : 30% sur les fournitures
-- 😊 **Satisfaction** : 95% des parents satisfaits
-
-### Pour les enseignants :
-- 🎯 **Préparation de cours** : Réduction de 40% du temps
-- 📊 **Évaluation** : Correction automatique des QCM
-- 👥 **Suivi individuel** : Identification rapide des difficultés
-- 🔄 **Adaptation** : Contenu modifiable en temps réel
-
-### Pour les élèves :
-- 🧠 **Engagement** : Participation augmentée de 60%
-- 📚 **Compréhension** : Meilleure rétention des concepts
-- ⚡ **Motivation** : Désir d'apprendre renforcé
-- 🏆 **Résultats** : Progression constante des notes
-
-## 💡 Cas concrets d'implémentation
-
-### Cas 1 : Collège Moderne de Lomé
-- **Problème** : Taux d'échec élevé en sciences physiques
-- **Solution** : Implémentation de VISIO-EDUC
-- **Résultats** :
-  - Taux de réussite passé de 45% à 85%
-  - Participation en classe : +70%
-  - Réduction de l'absentéisme : 40%
-
-### Cas 2 : École Primaire Les Poussins
-- **Problème** : Communication difficile avec les parents
-- **Solution** : Déploiement d'EDS-🏫
-- **Résultats** :
-  - Communication parent-école : +90%
-  - Retard dans les paiements : -60%
-  - Satisfaction parentale : 98%
-
-### Cas 3 : Lycée Technique
-- **Problème** : Difficultés en mathématiques
-- **Solution** : Programme JEANSKODOC-EPT
-- **Résultats** :
-  - Moyenne en maths : +4 points
-  - Confiance en soi : +75%
-  - Orientation réussie : 95%
-
-## 🔧 Mise en œuvre pas à pas
-
-### Étape 1 : Diagnostic
-- 📊 Analyse des besoins spécifiques
-- 👥 Consultation des parties prenantes
-- 🎯 Définition des objectifs mesurables
-- 📝 Élaboration du plan d'action
-
-### Étape 2 : Implémentation
-- 🛠️ Installation et configuration
-- 👨‍🏫 Formation des enseignants
-- 👨‍👩‍👧‍👦 Sensibilisation des parents
-- 🧑‍🎓 Initiation des élèves
-
-### Étape 3 : Suivi et optimisation
-- 📈 Mesure des indicateurs clés
-- 🔄 Ajustement des stratégies
-- 📣 Communication des résultats
-- 🎉 Célébration des succès
-
-## 📱 Technologies utilisées
-
-### Infrastructure :
-- ☁️ **Cloud computing** : Scalabilité et sécurité
-- 🔒 **Blockchain** : Certification des diplômes
-- 🤖 **IA adaptative** : Personnalisation de l'apprentissage
-- 📊 **Big Data** : Analytics prédictifs
-
-### Applications :
-- 📱 **Applications mobiles** : iOS et Android
-- 🌐 **Web responsive** : Accessible sur tous appareils
-- 🎮 **Gamification** : Mécaniques de jeu pour l'engagement
-- 🎥 **Reality augmentée** : Expériences immersives
-
-## 🎯 Recommandations stratégiques
-
-### Pour les décideurs :
-1. **Commencez petit** : Pilotez avec une classe
-2. **Impliquez les enseignants** : Formation continue
-3. **Mesurez les résultats** : Indicateurs clés
-4. **Étendez progressivement** : Apprentissage itératif
-
-### Pour les enseignants :
-1. **Adoptez progressivement** : Une fonctionnalité à la fois
-2. **Collaborez** : Partagez les bonnes pratiques
-3. **Soyez créatif** : Adaptez les outils à votre style
-4. **Évaluez constamment** : Ajustez selon les retours
-
-### Pour les parents :
-1. **Soutenez** : Encouragez l'usage à la maison
-2. **Communiquez** : Utilisez les canaux digitaux
-3. **Participez** : Impliquez-vous dans le processus
-4. **Célébrez** : Reconnaissez les progrès
-
-## 🔮 Tendances 2024-2025
-
-### Émergentes :
-- 🧠 **Neurosciences éducatives** : Apprentissage basé sur le cerveau
-- 🤖 **Tuteurs IA** : Assistance personnalisée 24/7
-- 🕶️ **Réalité virtuelle** : Immersion totale
-- 📊 **Learning analytics** : Données en temps réel
-
-### Consolidation :
-- 📱 **Mobile learning** : Apprentissage nomade
-- 👥 **Collaboration** : Travail d'équipe digital
-- 🎮 **Gamification** : Engagement par le jeu
-- 🌍 **Global classroom** : Classes internationales
-
----
-
-## 🎁 Ressources additionnelles
-
-### Outils gratuits :
-- [Khan Academy](https://www.khanacademy.org/)
-- [Google Classroom](https://classroom.google.com/)
-- [Moodle](https://moodle.org/)
-- [Edmodo](https://www.edmodo.com/)
-
-### Formation :
-- [Coursera - Education Technology](https://www.coursera.org/)
-- [edX - Digital Learning](https://www.edx.org/)
-- [FutureLearn - Teaching Online](https://www.futurelearn.com/)
-- [Udemy - EdTech](https://www.udemy.com/)
-
-### Communautés :
-- [ISTE - International Society for Technology in Education](https://www.iste.org/)
-- [EdTech Europe](https://edtecheurope.com/)
-- [Africa EdTech](https://africaedtech.com/)
-- [EdTech Hub](https://edtechhub.org/)
-
----
-
-*Pour plus de guides et solutions exclusives, [visitez ma boutique](#boutique) ou [soutenez mon travail](#donations).*
-
-**Jeanskodoc**  
-*Expert en solutions éducatives digitales*`,
-                    author: "Jeanskodoc",
-                    category: "éducation",
-                    tags: ["éducation", "numérique", "transformation", "enseignement", "apprentissage", "2024"],
-                    date: "2024-03-15",
-                    published: true,
-                    featured: false,
-                    type: "education",
-                    readTime: "12 min",
-                    whatsappSent: true
-                },
-                {
-                    id: 4,
-                    title: "TONTINE DIGITALE - Sécurisez et optimisez vos activités de tontine",
-                    excerpt: "Découvrez comment la plateforme de tontine digitale révolutionne la gestion des contributions et bénéfices avec transparence et sécurité.",
-                    content: `# TONTINE DIGITALE - La révolution des épargnes collectives
-
-La **première plateforme complète** dédiée à la digitalisation des activités de tontine. Conçue pour offrir transparence, sécurité et efficacité à vos épargnes collectives.
-
-## 💰 Pourquoi digitaliser votre tontine ?
-
-### Problèmes traditionnels :
-- 📝 **Gestion papier** : Risque de perte ou d'erreur
-- 🤝 **Confiance limitée** : Manque de transparence
-- ⏰ **Temps perdu** : Réunions longues et compliquées
-- 💸 **Risques de fraude** : Sécurité minimale
-
-### Solutions digitales :
-- 🔒 **Sécurité renforcée** : Chiffrement des transactions
-- 👁️ **Transparence totale** : Historique accessible à tous
-- ⚡ **Gain de temps** : Automatisation des processus
-- 📊 **Suivi en temps réel** : Tableaux de bord intuitifs
-
-## 🚀 Fonctionnalités principales
-
-### Gestion des membres :
-- 👥 **Inscription simplifiée** : Formulaire en ligne
-- 📋 **Profil complet** : Informations et préférences
-- 🔔 **Notifications** : Rappels automatiques
-- 📱 **Application mobile** : Gestion depuis smartphone
-
-### Suivi des contributions :
-- 💳 **Paiements digitaux** : Mobile money, cartes, virements
-- 📈 **Historique détaillé** : Toutes les transactions
-- 🎯 **Échéancier** : Calendrier des versements
-- ⚠️ **Alertes** : Retards de paiement détectés
-
-### Distribution des bénéfices :
-- 🤖 **Automatisation** : Calcul et distribution automatique
-- 📄 **Reçus digitaux** : Justificatifs électroniques
-- 🏦 **Intégration bancaire** : Virements directs
-- 📊 **Rapports** : Documents pour la comptabilité
-
-## 🔒 Sécurité et confidentialité
-
-### Protection des données :
-- 🔐 **Chiffrement** : Niveau bancaire (AES-256)
-- 👤 **Authentification** : Double vérification
-- 📝 **Audit trail** : Trace de toutes les actions
-- 🛡️ **Backup** : Sauvegarde quotidienne
-
-### Conformité :
-- 📜 **Juridique** : Contrats digitalisés
-- 👥 **RGPD** : Protection des données personnelles
-- 🏛️ **Réglementation** : Conformité locale
-- ✅ **Certifications** : Normes de sécurité
-
-## 📊 Avantages mesurables
-
-### Pour les membres :
-- ⏱️ **Gain de temps** : 80% de temps administratif en moins
-- 💰 **Sécurité** : 100% des transactions tracées
-- 📈 **Transparence** : Accès 24/7 aux informations
-- 😊 **Sérénité** : Confiance renforcée dans le groupe
-
-### Pour les gestionnaires :
-- 📊 **Suivi facilité** : Tableaux de bord intuitifs
-- 🔔 **Alertes proactives** : Prévention des problèmes
-- 📄 **Documentation** : Rapports automatiques
-- 🤝 **Communication** : Messagerie intégrée
-
-## 💡 Cas pratiques
-
-### Cas 1 : Tontine Familiale (20 membres)
-- **Problème** : Conflits récurrents sur les montants
-- **Solution** : Plateforme avec historique public
-- **Résultats** :
-  - Conflits réduits de 95%
-  - Paiements à temps : +90%
-  - Satisfaction : 100%
-
-### Cas 2 : Tontine Professionnelle (50 membres)
-- **Problème** : Gestion manuelle chronophage
-- **Solution** : Automatisation complète
-- **Résultats** :
-  - Temps de gestion : -85%
-  - Erreurs : 0%
-  - Adhésion : +40%
-
-### Cas 3 : Tontine Communautaire (100+ membres)
-- **Problème** : Manque de transparence
-- **Solution** : Portail membre avec accès complet
-- **Résultats** :
-  - Confiance : +90%
-  - Nouvelles adhésions : +60%
-  - Fidélisation : 95%
-
-## 🎯 Publics ciblés
-
-### Familles :
-- 👨‍👩‍👧‍👦 **Tontines familiales** : Gestion simplifiée
-- 🎓 **Études des enfants** : Épargne dédiée
-- 🏡 **Projets immobiliers** : Financement collectif
-- 🎉 **Événements familiaux** : Budget partagé
-
-### Professionnels :
-- 👔 **Collègues** : Solidarité professionnelle
-- 🏢 **Associations** : Gestion transparente
-- 💼 **Entrepreneurs** : Financement de projet
-- 🎓 **Anciens élèves** : Réseautage et entraide
-
-### Communautés :
-- 🏘️ **Quartiers** : Développement local
-- ⛪ **Religieuses** : Œuvres sociales
-- 🎭 **Culturelles** : Projets artistiques
-- 🌱 **Environnementales** : Initiatives vertes
-
-## 🔧 Mise en place
-
-### Étape 1 : Configuration
-1. **Création du groupe** : Nom, règles, objectifs
-2. **Paramétrage** : Montants, fréquences, durée
-3. **Invitation** : Ajout des membres
-4. **Validation** : Accord de tous les participants
-
-### Étape 2 : Formation
-1. **Tutoriels** : Vidéos explicatives
-2. **Support** : Assistance en direct
-3. **Documentation** : Guides complets
-4. **Communauté** : Forum d'entraide
-
-### Étape 3 : Suivi
-1. **Monitoring** : Tableaux de bord
-2. **Rapports** : Analyses périodiques
-3. **Optimisation** : Ajustements si besoin
-4. **Évaluation** : Satisfaction des membres
-
-## 💰 Modèle économique
-
-### Version gratuite :
-- 👥 **Jusqu'à 10 membres**
-- 📊 **Fonctions de base**
-- 📱 **Application mobile**
-- 🔒 **Sécurité standard**
-
-### Version premium :
-- 👥 **Nombre illimité de membres**
-- 📈 **Analytics avancés**
-- 🤖 **Automatisation complète**
-- 🛡️ **Sécurité renforcée**
-
-### Version entreprise :
-- 🏢 **Personnalisation complète**
-- 🔌 **Intégrations API**
-- 📊 **Reporting personnalisé**
-- 👨‍💼 **Support dédié**
-
-## 🔮 Futur de la tontine digitale
-
-### Innovations à venir :
-- 🤖 **IA prédictive** : Suggestions d'optimisation
-- 📊 **Blockchain** : Contrats intelligents
-- 🌍 **International** : Tontines transfrontalières
-- 🏦 **Banque intégrée** : Comptes dédiés
-
-### Développements :
-- 🎓 **Éducation financière** : Modules d'apprentissage
-- 🤝 **Réseautage** : Mise en relation de groupes
-- 📈 **Investissement** : Options de placement
-- 🛡️ **Assurance** : Protection des fonds
-
----
-
-## 🎁 Avantages exclusifs
-
-En optant pour TONTINE DIGITALE maintenant :
-1. **30 jours gratuits** sur la version premium
-2. **Migration gratuite** de vos données existantes
-3. **Formation personnalisée** pour votre groupe
-4. **Support prioritaire** pendant 6 mois
-
----
-
-*Découvrez **[TONTINE DIGITALE](https://jeanskodoc.github.io/TONTINE/)** et transformez votre gestion d'épargne collective !*
-
-**Jeanskodoc**  
-*Créateur & Développeur*`,
-                    author: "Jeanskodoc",
-                    category: "finance",
-                    tags: ["tontine", "finance", "épargne", "digital", "sécurité", "transparence"],
-                    date: "2024-03-12",
-                    published: true,
-                    featured: true,
-                    type: "finance",
-                    readTime: "10 min",
                     whatsappSent: true
                 }
             ],
@@ -5549,26 +4950,6 @@ En optant pour TONTINE DIGITALE maintenant :
                     email: "marie.d@example.com",
                     content: "Super présentation ! Les solutions digitales ont l'air très complètes et professionnelles. Hâte de découvrir la boutique et les prochains articles !",
                     date: "2024-03-20",
-                    approved: true,
-                    notified: true
-                },
-                {
-                    id: 2,
-                    articleId: 2,
-                    author: "Alexandre T.",
-                    email: "alex.t@example.com",
-                    content: "Le projet ÉVEIL INTELLECTUEL semble incroyable ! L'approche basée sur les neurosciences est très prometteuse. Je vais certainement l'essayer.",
-                    date: "2024-03-18",
-                    approved: true,
-                    notified: true
-                },
-                {
-                    id: 3,
-                    articleId: 3,
-                    author: "Prof. Adjo",
-                    email: "adjo@example.com",
-                    content: "Excellent guide sur la transformation numérique de l'éducation. Les cas concrets sont très parlants. J'aimerais implémenter VISIO-EDUC dans mon établissement.",
-                    date: "2024-03-16",
                     approved: true,
                     notified: true
                 }
@@ -5924,7 +5305,7 @@ En optant pour TONTINE DIGITALE maintenant :
                                 content,
                                 published,
                                 featured,
-                                date: new Date().toISOString().split('T')[0] // Mettre à jour la date
+                                date: new Date().toISOString().split('T')[0]
                             };
                             
                             saveData();
@@ -6013,7 +5394,7 @@ En optant pour TONTINE DIGITALE maintenant :
             }
         }
 
-        // MODIFICATION IMPORTANTE : Fonction pour envoyer un article complet par WhatsApp
+        // Fonction pour envoyer un article complet par WhatsApp
         function sendWhatsAppArticle(article) {
             try {
                 // Formater le message WhatsApp avec TOUT le contenu de l'article
@@ -6343,7 +5724,7 @@ Ceci est un message test pour vérifier la fonctionnalité d'envoi WhatsApp.
                 
                 // Active nav link based on scroll position
                 updateActiveNavLink();
-            }, { passive: true });
+            });
         }
 
         function updateActiveNavLink() {
@@ -7019,17 +6400,6 @@ Ceci est un message test pour vérifier la fonctionnalité d'envoi WhatsApp.
                 notification.style.animation = 'slideInMobile 0.3s ease reverse';
                 setTimeout(() => notification.remove(), 4000);
             }, 4000);
-            
-            // Ajouter un son de notification sur mobile
-            if (window.innerWidth < 768 && typeof Audio !== 'undefined') {
-                try {
-                    const audio = new Audio('data:audio/wav;base64,UklGRigAAABXQVZFZm10IBIAAAABAAEAQB8AAEAfAAABAAgAZGF0YQ');
-                    audio.volume = 0.1;
-                    audio.play();
-                } catch (e) {
-                    // Ignorer les erreurs audio
-                }
-            }
         }
 
         function getNotificationIcon(type) {
@@ -7066,37 +6436,6 @@ Ceci est un message test pour vérifier la fonctionnalité d'envoi WhatsApp.
             updateTheme();
             prefersDarkScheme.addEventListener('change', updateTheme);
         }
-
-        // Gestion du clavier virtuel
-        let isKeyboardVisible = false;
-        let initialViewportHeight = window.innerHeight;
-        
-        window.addEventListener('resize', function() {
-            const newHeight = window.innerHeight;
-            
-            if (newHeight < initialViewportHeight * 0.6) {
-                isKeyboardVisible = true;
-                document.body.classList.add('keyboard-visible');
-            } else if (isKeyboardVisible) {
-                isKeyboardVisible = false;
-                document.body.classList.remove('keyboard-visible');
-            }
-        });
-
-        // Prévenir le défilement de l'écran quand le clavier est visible
-        document.addEventListener('focusin', function(e) {
-            if (['INPUT', 'TEXTAREA', 'SELECT'].includes(e.target.tagName)) {
-                setTimeout(() => {
-                    if (window.innerWidth < 768) {
-                        e.target.scrollIntoView({ 
-                            behavior: 'smooth',
-                            block: 'center',
-                            inline: 'nearest'
-                        });
-                    }
-                }, 100);
-            }
-        });
 
         // API pour les interactions externes
         window.ESODI = {
@@ -7163,27 +6502,6 @@ Ceci est un message test pour vérifier la fonctionnalité d'envoi WhatsApp.
                 return ESODI_BLOG.isAdminLoggedIn;
             }
         };
-
-        // Animation d'entrée pour les éléments
-        function animateOnScroll() {
-            const observer = new IntersectionObserver((entries) {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('animate-in');
-                    }
-                });
-            }, {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
-            });
-            
-            document.querySelectorAll('.article-card, .digital-product, .donation-feature, .added-article-item, .boutique-product').forEach(el => {
-                observer.observe(el);
-            });
-        }
-
-        // Lancer l'animation après le chargement
-        setTimeout(animateOnScroll, 1000);
     </script>
 </body>
 </html>
