@@ -65,6 +65,11 @@
             --whatsapp-dark: #128C7E;
             --whatsapp-light: #dcf8c6;
             
+            /* Commentaires - Bleu */
+            --comment: #3b82f6;
+            --comment-dark: #2563eb;
+            --comment-light: #60a5fa;
+            
             /* Couleurs produits spécifiques */
             --education: #3b82f6;
             --education-dark: #2563eb;
@@ -131,6 +136,7 @@
             --gradient-finance: linear-gradient(135deg, var(--finance), var(--finance-light));
             --gradient-commerce: linear-gradient(135deg, var(--commerce), var(--commerce-light));
             --gradient-transport: linear-gradient(135deg, var(--transport), var(--transport-light));
+            --gradient-comment: linear-gradient(135deg, var(--comment), var(--comment-light));
         }
 
         * {
@@ -699,6 +705,19 @@
             box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
         }
 
+        /* Bouton Commentaire */
+        .btn-comment {
+            background: var(--gradient-comment);
+            color: white;
+            border: 2px solid var(--comment);
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-comment:hover {
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+            transform: translateY(-2px);
+        }
+
         /* Nouveau bouton Admin */
         .btn-admin {
             background: var(--gradient-admin);
@@ -921,6 +940,7 @@
         .article-image.finance::before { background: var(--gradient-finance); }
         .article-image.commerce::before { background: var(--gradient-commerce); }
         .article-image.transport::before { background: var(--gradient-transport); }
+        .article-image.comment::before { background: var(--gradient-comment); }
 
         .article-image i {
             position: relative;
@@ -988,6 +1008,10 @@
         }
         .article-type.transport { 
             background: var(--gradient-transport); 
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .article-type.comment { 
+            background: var(--gradient-comment); 
             border: 1px solid rgba(255, 255, 255, 0.3);
         }
 
@@ -3030,7 +3054,7 @@
             color: var(--success);
         }
 
-        /* Section Commentaires Responsive */
+        /* Section Commentaires Responsive - MISE À JOUR */
         .comments-section {
             background: white;
             border-radius: var(--radius-xl);
@@ -3078,7 +3102,7 @@
             border-radius: var(--radius-lg);
             padding: 1.5rem;
             margin-bottom: 1rem;
-            border-left: 4px solid var(--primary);
+            border-left: 4px solid var(--comment);
             transition: var(--transition);
             position: relative;
             overflow: hidden;
@@ -3088,7 +3112,7 @@
             .comment {
                 padding: 2rem;
                 margin-bottom: 1.5rem;
-                border-left: 5px solid var(--primary);
+                border-left: 5px solid var(--comment);
             }
         }
 
@@ -3110,7 +3134,7 @@
             left: 0;
             width: 4px;
             height: 100%;
-            background: var(--gradient-primary);
+            background: var(--gradient-comment);
             opacity: 0;
             transition: opacity var(--transition);
         }
@@ -3158,7 +3182,7 @@
         }
 
         .comment-author i {
-            color: var(--primary);
+            color: var(--comment);
             font-size: 0.85rem;
         }
 
@@ -3205,7 +3229,7 @@
         }
 
         .comment-article i {
-            color: var(--primary);
+            color: var(--comment);
             margin-right: 6px;
         }
 
@@ -3215,12 +3239,16 @@
             }
         }
 
+        /* Formulaire de commentaires amélioré */
         .comment-form {
-            background: var(--gray-50);
+            background: linear-gradient(135deg, 
+                rgba(59, 130, 246, 0.03) 0%, 
+                rgba(59, 130, 246, 0.06) 100%);
             padding: 1.5rem;
             border-radius: var(--radius-xl);
-            border: 2px dashed var(--gray-300);
+            border: 2px solid var(--comment-light);
             transition: var(--transition);
+            box-shadow: var(--shadow);
         }
 
         @media (min-width: 768px) {
@@ -3230,9 +3258,8 @@
         }
 
         .comment-form:hover {
-            border-color: var(--primary-light);
-            border-style: solid;
-            box-shadow: var(--shadow);
+            border-color: var(--comment);
+            box-shadow: var(--shadow-md);
         }
 
         .comment-form h3 {
@@ -3242,12 +3269,67 @@
             font-weight: 800;
             letter-spacing: -0.3px;
             text-align: center;
+            position: relative;
+            padding-bottom: 1rem;
         }
 
         @media (min-width: 768px) {
             .comment-form h3 {
                 font-size: 1.8rem;
                 margin-bottom: 2rem;
+            }
+        }
+
+        .comment-form h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 3px;
+            background: var(--gradient-comment);
+            border-radius: 1.5px;
+        }
+
+        /* Styles pour le formulaire de commentaire */
+        .comment-form .form-group {
+            margin-bottom: 1rem;
+        }
+
+        @media (min-width: 768px) {
+            .comment-form .form-group {
+                margin-bottom: 1.5rem;
+            }
+        }
+
+        .comment-form label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+            color: var(--comment-dark);
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        @media (min-width: 768px) {
+            .comment-form label {
+                margin-bottom: 0.8rem;
+                font-size: 1rem;
+                gap: 8px;
+            }
+        }
+
+        .comment-form label i {
+            color: var(--comment);
+            font-size: 1rem;
+        }
+
+        @media (min-width: 768px) {
+            .comment-form label i {
+                font-size: 1.1rem;
             }
         }
 
@@ -3577,6 +3659,11 @@
             border-left: 5px solid var(--whatsapp-light);
         }
 
+        .notification.comment {
+            background: linear-gradient(135deg, var(--comment), var(--comment-dark));
+            border-left: 5px solid var(--comment-light);
+        }
+
         @keyframes slideInMobile {
             from { transform: translateY(-30px) scale(0.95); opacity: 0; }
             to { transform: translateY(0) scale(1); opacity: 1; }
@@ -3786,6 +3873,9 @@
                 
                 --admin-bg: rgba(139, 92, 246, 0.12);
                 --admin-border: rgba(139, 92, 246, 0.4);
+                --comment: #60a5fa;
+                --comment-dark: #3b82f6;
+                --comment-light: #93c5fd;
             }
             
             body {
@@ -4229,6 +4319,64 @@
             
             .digital-products {
                 gap: 2.5rem;
+            }
+        }
+        
+        /* Styles pour la sauvegarde automatique */
+        .autosave-status {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--success);
+            color: white;
+            padding: 0.75rem 1.25rem;
+            border-radius: var(--radius-full);
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 9999;
+            box-shadow: var(--shadow-lg);
+            animation: slideUp 0.3s ease-out;
+            transition: all var(--transition);
+            opacity: 0;
+            transform: translateY(20px);
+            pointer-events: none;
+        }
+
+        .autosave-status.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .autosave-status.saving {
+            background: var(--warning);
+        }
+
+        .autosave-status.error {
+            background: var(--danger);
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            to {
+                opacity: 0;
+                transform: translateY(20px);
             }
         }
     </style>
@@ -4825,75 +4973,92 @@
             </div>
         </section>
 
-        <!-- Section Commentaires avec intégration WhatsApp -->
+        <!-- Section Commentaires avec formulaire intégré - MISE À JOUR -->
         <section id="comments" class="comments-section">
             <div class="container">
                 <h2>Commentaires Récents</h2>
                 
                 <div id="comments-container" class="comments-list">
-                    <!-- Les commentaires seront chargés depuis WhatsApp via l'API -->
+                    <!-- Les commentaires seront chargés ici -->
                 </div>
                 
-                <div class="comment-form">
-                    <h3>Ajouter un commentaire via WhatsApp</h3>
-                    <p style="text-align: center; margin-bottom: 1.5rem; color: var(--gray-600);">
-                        <i class="fab fa-whatsapp" style="color: var(--whatsapp);"></i>
-                        Envoyez vos commentaires directement par WhatsApp au numéro 
-                        <strong>+228 92 87 16 05</strong>
-                    </p>
+                <!-- Nouveau formulaire de commentaires intégré -->
+                <div class="comment-form" id="comment-form-section">
+                    <h3>Laisser un commentaire</h3>
                     
-                    <div style="background: linear-gradient(135deg, rgba(37, 211, 102, 0.1), rgba(37, 211, 102, 0.05)); 
-                                padding: 1.5rem; border-radius: var(--radius); border: 1px solid rgba(37, 211, 102, 0.2); 
-                                margin-bottom: 1.5rem;">
-                        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
-                            <div style="background: var(--whatsapp); color: white; width: 40px; height: 40px; 
-                                        border-radius: 50%; display: flex; align-items: center; justify-content: center;">
-                                <i class="fab fa-whatsapp"></i>
-                            </div>
-                            <div>
-                                <h4 style="color: var(--whatsapp-dark); margin-bottom: 0.25rem; font-size: 1.1rem;">
-                                    Commenter via WhatsApp
-                                </h4>
-                                <p style="color: var(--gray-600); font-size: 0.9rem;">
-                                    Envoyez votre commentaire avec le nom de l'article
-                                </p>
-                            </div>
-                        </div>
-                        
-                        <div style="display: grid; grid-template-columns: 1fr; gap: 0.75rem;">
-                            <div style="background: white; padding: 1rem; border-radius: var(--radius); border: 1px solid var(--gray-200);">
-                                <h5 style="color: var(--gray-800); margin-bottom: 0.5rem; font-size: 0.9rem;">
-                                    <i class="fas fa-info-circle" style="color: var(--accent);"></i>
-                                    Format recommandé :
-                                </h5>
-                                <div style="background: var(--gray-50); padding: 0.75rem; border-radius: var(--radius-sm); 
-                                            font-family: monospace; font-size: 0.85rem; color: var(--gray-700);">
-                                    Article : [Nom de l'article]<br>
-                                    Commentaire : [Votre commentaire]<br>
-                                    Nom : [Votre nom]
-                                </div>
-                            </div>
-                            
-                            <div style="text-align: center; margin-top: 1rem;">
-                                <a href="https://wa.me/22892871605?text=Bonjour%20!%20Je%20souhaite%20laisser%20un%20commentaire%20sur%20votre%20blog." 
-                                   target="_blank" 
-                                   class="btn btn-whatsapp"
-                                   style="min-width: 250px;">
-                                    <i class="fab fa-whatsapp"></i>
-                                    Ouvrir WhatsApp
-                                </a>
-                            </div>
+                    <div id="comment-form-alert" class="hidden" style="background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(239, 68, 68, 0.05)); padding: 1rem; border-radius: var(--radius); border: 1px solid rgba(239, 68, 68, 0.2); margin-bottom: 1.5rem;">
+                        <div style="display: flex; align-items: center; gap: 10px; color: var(--danger-dark);">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <span id="comment-alert-text">Veuillez remplir tous les champs obligatoires</span>
                         </div>
                     </div>
                     
-                    <div style="text-align: center; margin-top: 1.5rem;">
-                        <p style="color: var(--gray-500); font-size: 0.85rem;">
-                            <i class="fas fa-sync-alt"></i>
-                            Les commentaires sont synchronisés toutes les 24 heures
+                    <form id="comment-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="comment-name">
+                                    <i class="fas fa-user"></i> Nom *
+                                </label>
+                                <input type="text" id="comment-name" class="form-control" required 
+                                       placeholder="Votre nom ou pseudo">
+                            </div>
+                            <div class="form-group">
+                                <label for="comment-email">
+                                    <i class="fas fa-envelope"></i> Email *
+                                </label>
+                                <input type="email" id="comment-email" class="form-control" required 
+                                       placeholder="votre@email.com">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="comment-article">
+                                <i class="fas fa-newspaper"></i> Article concerné
+                            </label>
+                            <select id="comment-article" class="form-control">
+                                <option value="">Sélectionnez un article (optionnel)</option>
+                                <!-- Les options seront chargées dynamiquement -->
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="comment-content">
+                                <i class="fas fa-comment"></i> Votre commentaire *
+                            </label>
+                            <textarea id="comment-content" class="form-control" required rows="5" 
+                                      placeholder="Partagez votre avis, posez une question ou faites une suggestion..."></textarea>
+                            <small style="color: var(--comment); margin-top: 0.5rem; display: block; font-weight: 600;">
+                                <i class="fas fa-info-circle"></i> Les commentaires sont modérés avant publication
+                            </small>
+                        </div>
+                        
+                        <div class="checkbox-group" style="margin: 1.5rem 0;">
+                            <input type="checkbox" id="comment-notify" checked>
+                            <label for="comment-notify">Me notifier par email des réponses</label>
+                        </div>
+                        
+                        <div style="text-align: center; margin-top: 2rem;">
+                            <button type="submit" class="btn btn-comment" style="min-width: 200px;">
+                                <i class="fas fa-paper-plane"></i> Publier le commentaire
+                            </button>
+                            <button type="button" id="comment-reset" class="btn btn-outline" style="min-width: 200px; margin-left: 0.75rem;">
+                                <i class="fas fa-redo"></i> Réinitialiser
+                            </button>
+                        </div>
+                    </form>
+                    
+                    <!-- Alternative WhatsApp -->
+                    <div style="margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid var(--gray-200); text-align: center;">
+                        <p style="color: var(--gray-600); margin-bottom: 1rem; font-size: 1rem;">
+                            <i class="fas fa-mobile-alt" style="color: var(--whatsapp);"></i>
+                            Vous pouvez aussi commenter via WhatsApp
                         </p>
-                        <button id="refresh-comments-whatsapp" class="btn btn-outline btn-sm" style="margin-top: 0.5rem;">
-                            <i class="fas fa-sync-alt"></i> Synchroniser maintenant
-                        </button>
+                        <a href="https://wa.me/22892871605?text=Bonjour%20!%20Je%20souhaite%20laisser%20un%20commentaire%20sur%20votre%20blog." 
+                           target="_blank" 
+                           class="btn btn-whatsapp btn-sm">
+                            <i class="fab fa-whatsapp"></i>
+                            Commenter par WhatsApp
+                        </a>
                     </div>
                 </div>
             </div>
@@ -4908,6 +5073,12 @@
                 <!-- Contenu de l'article chargé dynamiquement -->
             </div>
         </div>
+    </div>
+
+    <!-- Notification de sauvegarde automatique -->
+    <div id="autosave-notification" class="autosave-status">
+        <i class="fas fa-check-circle"></i>
+        <span id="autosave-text">Commentaire sauvegardé</span>
     </div>
 
     <!-- Footer -->
@@ -4935,11 +5106,11 @@
 
     <!-- Script principal optimisé -->
     <script>
-        // Configuration améliorée avec intégration WhatsApp
+        // Configuration améliorée avec intégration des commentaires
         const ESODI_BLOG = {
             name: "ESODI - Jeanskodoc",
-            version: "4.0.0", // Version mise à jour
-            storageKey: "esodi_blog_data_v4_0",
+            version: "4.1.0", // Version mise à jour avec commentaires
+            storageKey: "esodi_blog_data_v4_1",
             adminEmail: "esodi22@gmail.com",
             whatsappPhone: "92871605",
             whatsappCountryCode: "228",
@@ -4957,13 +5128,20 @@
                 password: "KOLA1@"
             },
             isAdminLoggedIn: false,
-            // Nouvelle configuration pour l'intégration WhatsApp
+            // Configuration pour l'intégration WhatsApp
             whatsappIntegration: {
                 enabled: true,
                 phoneNumber: "+22892871605",
-                apiKey: "whatsapp_direct", // Clé pour l'intégration future d'API
-                syncInterval: 24 * 60 * 60 * 1000, // 24 heures en millisecondes
+                apiKey: "whatsapp_direct",
+                syncInterval: 24 * 60 * 60 * 1000,
                 lastSync: null
+            },
+            // Configuration pour les commentaires
+            commentConfig: {
+                maxLength: 2000,
+                minLength: 10,
+                autoSaveInterval: 30000, // 30 secondes
+                moderationRequired: true
             }
         };
 
@@ -4996,7 +5174,18 @@
                     date: "2024-03-20",
                     approved: true,
                     notified: true,
-                    source: "whatsapp" // Nouveau champ pour identifier la source
+                    source: "whatsapp"
+                },
+                {
+                    id: 2,
+                    articleId: 1,
+                    author: "Thomas P.",
+                    email: "thomas.p@example.com",
+                    content: "Excellent travail ! J'ai particulièrement aimé la section sur l'éducation digitale. Serait-il possible d'avoir plus de détails sur VISIO-EDUC ?",
+                    date: "2024-03-21",
+                    approved: true,
+                    notified: false,
+                    source: "website"
                 }
             ],
             stats: {
@@ -5007,6 +5196,19 @@
                 whatsappSent: 4
             }
         };
+
+        // Variables pour la sauvegarde automatique
+        let commentDraft = {
+            name: '',
+            email: '',
+            articleId: '',
+            content: '',
+            notify: true,
+            lastSave: null
+        };
+        
+        let autoSaveTimer = null;
+        let isSaving = false;
 
         // Initialisation améliorée
         document.addEventListener('DOMContentLoaded', function() {
@@ -5025,11 +5227,310 @@
             // Initialiser la synchronisation WhatsApp
             initWhatsAppIntegration();
             
+            // Initialiser la sauvegarde automatique des commentaires
+            initCommentAutoSave();
+            
+            // Charger le brouillon de commentaire
+            loadCommentDraft();
+            
             // Show welcome notification after a delay
             setTimeout(() => {
                 showNotification(`Bienvenue sur ${ESODI_BLOG.name} ! ✨`, 'info');
             }, 1000);
         });
+
+        // Initialiser la sauvegarde automatique des commentaires
+        function initCommentAutoSave() {
+            const commentForm = document.getElementById('comment-form');
+            
+            if (commentForm) {
+                const inputs = commentForm.querySelectorAll('input, textarea, select');
+                
+                inputs.forEach(input => {
+                    // Sauvegarde lors de la perte de focus
+                    input.addEventListener('blur', function() {
+                        saveCommentDraft();
+                    });
+                    
+                    // Sauvegarde automatique périodique pour le textarea
+                    if (input.type === 'textarea' || input.tagName === 'TEXTAREA') {
+                        input.addEventListener('input', function() {
+                            // Débounce pour éviter trop de sauvegardes
+                            clearTimeout(autoSaveTimer);
+                            autoSaveTimer = setTimeout(() => {
+                                saveCommentDraft();
+                            }, 1000);
+                        });
+                    }
+                });
+                
+                // Sauvegarder au submit
+                commentForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    clearCommentDraft(); // Effacer le brouillon après soumission
+                });
+                
+                // Sauvegarde périodique toutes les 30 secondes
+                setInterval(() => {
+                    saveCommentDraft();
+                }, ESODI_BLOG.commentConfig.autoSaveInterval);
+            }
+        }
+
+        // Sauvegarder le brouillon de commentaire
+        function saveCommentDraft() {
+            if (isSaving) return;
+            
+            const name = document.getElementById('comment-name')?.value || '';
+            const email = document.getElementById('comment-email')?.value || '';
+            const articleId = document.getElementById('comment-article')?.value || '';
+            const content = document.getElementById('comment-content')?.value || '';
+            const notify = document.getElementById('comment-notify')?.checked || true;
+            
+            // Vérifier s'il y a des changements
+            if (name === commentDraft.name && 
+                email === commentDraft.email && 
+                articleId === commentDraft.articleId && 
+                content === commentDraft.content && 
+                notify === commentDraft.notify) {
+                return; // Pas de changements
+            }
+            
+            // Mettre à jour le brouillon
+            commentDraft = {
+                name,
+                email,
+                articleId,
+                content,
+                notify,
+                lastSave: new Date().toISOString()
+            };
+            
+            // Sauvegarder dans localStorage
+            localStorage.setItem('esodi_comment_draft', JSON.stringify(commentDraft));
+            
+            // Afficher la notification de sauvegarde
+            showAutoSaveNotification('Brouillon sauvegardé', 'success');
+            
+            // Marquer comme en cours de sauvegarde
+            isSaving = true;
+            setTimeout(() => {
+                isSaving = false;
+            }, 1000);
+        }
+
+        // Charger le brouillon de commentaire
+        function loadCommentDraft() {
+            try {
+                const saved = localStorage.getItem('esodi_comment_draft');
+                if (saved) {
+                    commentDraft = JSON.parse(saved);
+                    
+                    // Remplir le formulaire avec le brouillon
+                    const nameInput = document.getElementById('comment-name');
+                    const emailInput = document.getElementById('comment-email');
+                    const articleSelect = document.getElementById('comment-article');
+                    const contentTextarea = document.getElementById('comment-content');
+                    const notifyCheckbox = document.getElementById('comment-notify');
+                    
+                    if (nameInput && commentDraft.name) nameInput.value = commentDraft.name;
+                    if (emailInput && commentDraft.email) emailInput.value = commentDraft.email;
+                    if (articleSelect && commentDraft.articleId) articleSelect.value = commentDraft.articleId;
+                    if (contentTextarea && commentDraft.content) contentTextarea.value = commentDraft.content;
+                    if (notifyCheckbox && commentDraft.notify !== undefined) notifyCheckbox.checked = commentDraft.notify;
+                    
+                    // Afficher une notification si un brouillon est chargé
+                    if (commentDraft.content && commentDraft.content.length > 0) {
+                        setTimeout(() => {
+                            showAutoSaveNotification('Brouillon restauré', 'success');
+                        }, 500);
+                    }
+                }
+            } catch (error) {
+                console.error('Erreur lors du chargement du brouillon:', error);
+            }
+        }
+
+        // Effacer le brouillon de commentaire
+        function clearCommentDraft() {
+            commentDraft = {
+                name: '',
+                email: '',
+                articleId: '',
+                content: '',
+                notify: true,
+                lastSave: null
+            };
+            localStorage.removeItem('esodi_comment_draft');
+        }
+
+        // Afficher la notification de sauvegarde automatique
+        function showAutoSaveNotification(message, type = 'success') {
+            const notification = document.getElementById('autosave-notification');
+            const text = document.getElementById('autosave-text');
+            
+            if (!notification || !text) return;
+            
+            // Mettre à jour le texte et le type
+            text.textContent = message;
+            notification.className = 'autosave-status';
+            notification.classList.add(type);
+            
+            // Afficher la notification
+            notification.classList.add('show');
+            
+            // Masquer après 3 secondes
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => {
+                    notification.classList.remove(type);
+                }, 300);
+            }, 3000);
+        }
+
+        // Initialisation complète
+        function initApp() {
+            loadData();
+            initMobileNavigation();
+            initArticles();
+            initComments();
+            initEvents();
+            loadArticleOptions();
+            initScrollEffects();
+            initThemeDetection();
+            initAdminLogin();
+            initCommentForm();
+            updateStats();
+            
+            // Détecter si c'est un appareil mobile
+            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                document.body.classList.add('mobile-device');
+            }
+        }
+
+        // Initialiser le formulaire de commentaires
+        function initCommentForm() {
+            const commentForm = document.getElementById('comment-form');
+            const resetBtn = document.getElementById('comment-reset');
+            const alertDiv = document.getElementById('comment-form-alert');
+            const alertText = document.getElementById('comment-alert-text');
+            
+            if (commentForm) {
+                commentForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const name = document.getElementById('comment-name').value.trim();
+                    const email = document.getElementById('comment-email').value.trim();
+                    const articleId = document.getElementById('comment-article').value;
+                    const content = document.getElementById('comment-content').value.trim();
+                    const notify = document.getElementById('comment-notify').checked;
+                    
+                    // Validation
+                    if (!name || !email || !content) {
+                        alertText.textContent = 'Veuillez remplir tous les champs obligatoires';
+                        alertDiv.classList.remove('hidden');
+                        
+                        // Scroll vers l'alerte
+                        setTimeout(() => {
+                            alertDiv.scrollIntoView({ 
+                                behavior: 'smooth',
+                                block: 'center'
+                            });
+                        }, 100);
+                        return;
+                    }
+                    
+                    // Validation de l'email
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (!emailRegex.test(email)) {
+                        alertText.textContent = 'Veuillez entrer une adresse email valide';
+                        alertDiv.classList.remove('hidden');
+                        return;
+                    }
+                    
+                    // Validation de la longueur du commentaire
+                    if (content.length < ESODI_BLOG.commentConfig.minLength) {
+                        alertText.textContent = `Le commentaire doit contenir au moins ${ESODI_BLOG.commentConfig.minLength} caractères`;
+                        alertDiv.classList.remove('hidden');
+                        return;
+                    }
+                    
+                    if (content.length > ESODI_BLOG.commentConfig.maxLength) {
+                        alertText.textContent = `Le commentaire ne doit pas dépasser ${ESODI_BLOG.commentConfig.maxLength} caractères`;
+                        alertDiv.classList.remove('hidden');
+                        return;
+                    }
+                    
+                    // Cacher l'alerte
+                    alertDiv.classList.add('hidden');
+                    
+                    // Créer le nouveau commentaire
+                    const newComment = {
+                        id: ESODI_BLOG.comments.length > 0 ? Math.max(...ESODI_BLOG.comments.map(c => c.id)) + 1 : 1,
+                        articleId: articleId ? parseInt(articleId) : null,
+                        author: name,
+                        email: email,
+                        content: content,
+                        date: new Date().toISOString().split('T')[0],
+                        approved: !ESODI_BLOG.commentConfig.moderationRequired, // Approuvé immédiatement si pas de modération
+                        notified: notify,
+                        source: "website"
+                    };
+                    
+                    // Ajouter le commentaire
+                    ESODI_BLOG.comments.push(newComment);
+                    ESODI_BLOG.stats.comments++;
+                    
+                    // Sauvegarder les données
+                    saveData();
+                    
+                    // Réinitialiser le formulaire
+                    commentForm.reset();
+                    clearCommentDraft();
+                    
+                    // Mettre à jour l'affichage des commentaires
+                    initComments();
+                    updateStats();
+                    updateAdminStats();
+                    
+                    // Afficher une notification
+                    if (ESODI_BLOG.commentConfig.moderationRequired) {
+                        showNotification('Commentaire envoyé ! Il sera publié après modération. 📝', 'comment');
+                    } else {
+                        showNotification('Commentaire publié avec succès ! ✅', 'success');
+                    }
+                    
+                    // Scroll vers les commentaires
+                    setTimeout(() => {
+                        document.getElementById('comments-container').scrollIntoView({ 
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }, 500);
+                });
+            }
+            
+            if (resetBtn) {
+                resetBtn.addEventListener('click', function() {
+                    if (confirm('Voulez-vous réinitialiser le formulaire ? Toutes les modifications seront perdues.')) {
+                        commentForm.reset();
+                        clearCommentDraft();
+                        alertDiv.classList.add('hidden');
+                        showNotification('Formulaire réinitialisé 🔄', 'info');
+                    }
+                });
+            }
+            
+            // Cacher l'alerte quand l'utilisateur commence à taper
+            const formInputs = commentForm?.querySelectorAll('input, textarea, select');
+            if (formInputs) {
+                formInputs.forEach(input => {
+                    input.addEventListener('input', function() {
+                        alertDiv.classList.add('hidden');
+                    });
+                });
+            }
+        }
 
         // Initialiser l'intégration WhatsApp
         function initWhatsAppIntegration() {
@@ -5067,8 +5568,6 @@
             
             // Simuler une synchronisation avec l'API WhatsApp
             setTimeout(() => {
-                // En production, ici vous intégreriez une vraie API WhatsApp
-                // Pour l'instant, nous simulons des données
                 const mockWhatsAppComments = [
                     {
                         id: ESODI_BLOG.comments.length + 1,
@@ -5155,25 +5654,6 @@
             
             if (loginForm) loginForm.classList.remove('hidden');
             if (adminContent) adminContent.classList.add('hidden');
-        }
-
-        // Initialisation complète
-        function initApp() {
-            loadData();
-            initMobileNavigation();
-            initArticles();
-            initComments();
-            initEvents();
-            loadArticleOptions();
-            initScrollEffects();
-            initThemeDetection();
-            initAdminLogin();
-            updateStats();
-            
-            // Détecter si c'est un appareil mobile
-            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-                document.body.classList.add('mobile-device');
-            }
         }
 
         // Initialisation de la connexion admin
@@ -5641,6 +6121,8 @@ Ceci est un message test pour vérifier la fonctionnalité d'envoi WhatsApp.
             const featuredArticles = ESODI_BLOG.articles.filter(a => a.featured).length;
             const whatsappSent = ESODI_BLOG.stats.whatsappSent || 0;
             const whatsappComments = ESODI_BLOG.comments.filter(c => c.source === 'whatsapp').length;
+            const websiteComments = ESODI_BLOG.comments.filter(c => c.source === 'website').length;
+            const pendingComments = ESODI_BLOG.comments.filter(c => !c.approved).length;
             
             statsContainer.innerHTML = `
                 <div class="admin-stat-card">
@@ -5668,8 +6150,8 @@ Ceci est un message test pour vérifier la fonctionnalité d'envoi WhatsApp.
                     <div class="admin-stat-icon">
                         <i class="fas fa-comments"></i>
                     </div>
-                    <div class="admin-stat-number">${whatsappComments}</div>
-                    <div class="admin-stat-label">Commentaires WhatsApp</div>
+                    <div class="admin-stat-number">${ESODI_BLOG.comments.length}</div>
+                    <div class="admin-stat-label">Commentaires totaux</div>
                 </div>
             `;
         }
@@ -6138,7 +6620,7 @@ Ceci est un message test pour vérifier la fonctionnalité d'envoi WhatsApp.
             });
         }
 
-        // Système de commentaires amélioré avec intégration WhatsApp
+        // Système de commentaires amélioré
         function initComments() {
             const container = document.getElementById('comments-container');
             if (!container) return;
@@ -6152,15 +6634,12 @@ Ceci est un message test pour vérifier la fonctionnalité d'envoi WhatsApp.
                 container.innerHTML = `
                     <div class="comment" style="text-align: center; padding: 2rem 1.5rem;">
                         <div style="margin-bottom: 1rem;">
-                            <i class="fab fa-whatsapp" style="font-size: 2.5rem; color: var(--whatsapp);"></i>
+                            <i class="fas fa-comments" style="font-size: 2.5rem; color: var(--comment);"></i>
                         </div>
                         <h4 style="color: var(--gray-600); margin-bottom: 0.75rem; font-size: 1.2rem;">Aucun commentaire</h4>
                         <p style="color: var(--gray-500); font-size: 1rem; max-width: 350px; margin: 0 auto;">
-                            Soyez le premier à laisser un commentaire via WhatsApp !
+                            Soyez le premier à laisser un commentaire !
                         </p>
-                        <a href="https://wa.me/22892871605" target="_blank" class="btn btn-whatsapp" style="margin-top: 1rem;">
-                            <i class="fab fa-whatsapp"></i> Commenter maintenant
-                        </a>
                     </div>
                 `;
                 return;
@@ -6171,7 +6650,7 @@ Ceci est un message test pour vérifier la fonctionnalité d'envoi WhatsApp.
                 const articleTitle = article ? article.title : 'Article non disponible';
                 const sourceBadge = comment.source === 'whatsapp' ? 
                     '<span style="background: linear-gradient(135deg, rgba(37, 211, 102, 0.1), rgba(37, 211, 102, 0.2)); color: var(--whatsapp-dark); padding: 0.3rem 0.8rem; border-radius: var(--radius-full); font-size: 0.75rem; font-weight: 700; border: 1px solid rgba(37, 211, 102, 0.3); display: inline-flex; align-items: center; gap: 4px; margin-left: 0.5rem;"><i class="fab fa-whatsapp" style="font-size: 0.7rem;"></i> WhatsApp</span>' : 
-                    '';
+                    '<span style="background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(59, 130, 246, 0.2)); color: var(--comment-dark); padding: 0.3rem 0.8rem; border-radius: var(--radius-full); font-size: 0.75rem; font-weight: 700; border: 1px solid rgba(59, 130, 246, 0.3); display: inline-flex; align-items: center; gap: 4px; margin-left: 0.5rem;"><i class="fas fa-globe" style="font-size: 0.7rem;"></i> Site web</span>';
                 
                 return `
                     <div class="comment">
@@ -6183,13 +6662,36 @@ Ceci est un message test pour vérifier la fonctionnalité d'envoi WhatsApp.
                             <span class="comment-date">${formatDate(comment.date)}</span>
                         </div>
                         <p class="comment-content">${comment.content}</p>
-                        <div class="comment-article">
-                            <i class="fas fa-newspaper"></i>
-                            <em>Article : "${articleTitle}"</em>
-                        </div>
+                        ${comment.articleId ? `
+                            <div class="comment-article">
+                                <i class="fas fa-newspaper"></i>
+                                <em>Article : "${articleTitle}"</em>
+                            </div>
+                        ` : ''}
                     </div>
                 `;
             }).join('');
+        }
+
+        // Charger les options d'articles pour le formulaire de commentaire
+        function loadArticleOptions() {
+            const select = document.getElementById('comment-article');
+            if (!select) return;
+            
+            // Garder l'option par défaut
+            select.innerHTML = '<option value="">Sélectionnez un article (optionnel)</option>';
+            
+            // Ajouter les articles publiés
+            const publishedArticles = ESODI_BLOG.articles
+                .filter(article => article.published)
+                .sort((a, b) => new Date(b.date) - new Date(a.date));
+            
+            publishedArticles.forEach(article => {
+                const option = document.createElement('option');
+                option.value = article.id;
+                option.textContent = article.title;
+                select.appendChild(option);
+            });
         }
 
         // Gestion des dons
@@ -6225,14 +6727,6 @@ Ceci est un message test pour vérifier la fonctionnalité d'envoi WhatsApp.
 
         // Gestion des événements améliorée
         function initEvents() {
-            // Formulaire de commentaire WhatsApp
-            const refreshBtn = document.getElementById('refresh-comments-whatsapp');
-            if (refreshBtn) {
-                refreshBtn.addEventListener('click', function() {
-                    syncWhatsAppComments();
-                });
-            }
-            
             // Bouton boutique
             const boutiqueBtn = document.getElementById('boutique-link');
             if (boutiqueBtn) {
@@ -6387,23 +6881,22 @@ Ceci est un message test pour vérifier la fonctionnalité d'envoi WhatsApp.
                             </div>
                         </div>
                         
-                        <div style="background: linear-gradient(135deg, rgba(37, 211, 102, 0.05), rgba(37, 211, 102, 0.1)); padding: 2rem; border-radius: var(--radius-lg); border: 1px solid rgba(37, 211, 102, 0.2);">
+                        <div style="background: linear-gradient(135deg, rgba(59, 130, 246, 0.05), rgba(59, 130, 246, 0.1)); padding: 2rem; border-radius: var(--radius-lg); border: 1px solid rgba(59, 130, 246, 0.2);">
                             <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 1rem;">
-                                <div style="background: var(--whatsapp); color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
-                                    <i class="fab fa-whatsapp"></i>
+                                <div style="background: var(--comment); color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                                    <i class="fas fa-comment"></i>
                                 </div>
                                 <h3 style="color: var(--gray-900); font-size: 1.3rem; font-weight: 800;">Commenter cet article</h3>
                             </div>
                             <p style="color: var(--gray-600); margin-bottom: 1.5rem; font-size: 1rem;">
-                                Partagez votre avis sur cet article en envoyant un message WhatsApp. Votre commentaire apparaîtra ici après modération.
+                                Partagez votre avis sur cet article en utilisant le formulaire de commentaires ci-dessous.
                             </p>
-                            <a href="https://wa.me/22892871605?text=Article%20:%20${encodeURIComponent(article.title)}%0ACommentaire%20:%20" 
-                               target="_blank" 
-                               class="btn btn-whatsapp"
-                               style="min-width: 250px;">
-                                <i class="fab fa-whatsapp"></i>
-                                Commenter via WhatsApp
-                            </a>
+                            <div style="text-align: center;">
+                                <button onclick="scrollToCommentForm(${article.id})" class="btn btn-comment" style="min-width: 250px;">
+                                    <i class="fas fa-comment"></i>
+                                    Commenter cet article
+                                </button>
+                            </div>
                         </div>
                     </div>
                 `;
@@ -6467,6 +6960,33 @@ Ceci est un message test pour vérifier la fonctionnalité d'envoi WhatsApp.
             }, 500);
         }
 
+        // Fonction pour scroller vers le formulaire de commentaire
+        window.scrollToCommentForm = function(articleId) {
+            closeModal();
+            
+            // Sélectionner l'article dans le formulaire
+            const articleSelect = document.getElementById('comment-article');
+            if (articleSelect && articleId) {
+                articleSelect.value = articleId;
+            }
+            
+            // Scroll vers le formulaire
+            setTimeout(() => {
+                document.getElementById('comment-form-section').scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+                
+                // Focus sur le textarea
+                const contentTextarea = document.getElementById('comment-content');
+                if (contentTextarea) {
+                    setTimeout(() => {
+                        contentTextarea.focus();
+                    }, 500);
+                }
+            }, 300);
+        };
+
         function closeModal() {
             document.getElementById('article-modal').style.display = 'none';
             document.body.style.overflow = '';
@@ -6487,6 +7007,7 @@ Ceci est un message test pour vérifier la fonctionnalité d'envoi WhatsApp.
             // Icône spécifique pour admin
             const icon = type === 'admin' ? 'user-cog' : 
                         type === 'whatsapp' ? 'whatsapp' : 
+                        type === 'comment' ? 'comment' :
                         getNotificationIcon(type);
             
             notification.innerHTML = `
@@ -6509,7 +7030,8 @@ Ceci est un message test pour vérifier la fonctionnalité d'envoi WhatsApp.
                 'donation': 'gift',
                 'info': 'info-circle',
                 'admin': 'user-cog',
-                'whatsapp': 'whatsapp'
+                'whatsapp': 'whatsapp',
+                'comment': 'comment'
             };
             return icons[type] || 'info-circle';
         }
@@ -6582,6 +7104,25 @@ Ceci est un message test pour vérifier la fonctionnalité d'envoi WhatsApp.
             },
             testWhatsApp: sendWhatsAppTest,
             syncWhatsAppComments: syncWhatsAppComments,
+            // Fonctions commentaires
+            submitComment: function(commentData) {
+                const newComment = {
+                    id: ESODI_BLOG.comments.length > 0 ? Math.max(...ESODI_BLOG.comments.map(c => c.id)) + 1 : 1,
+                    ...commentData,
+                    date: new Date().toISOString().split('T')[0],
+                    approved: !ESODI_BLOG.commentConfig.moderationRequired,
+                    source: "api"
+                };
+                
+                ESODI_BLOG.comments.push(newComment);
+                ESODI_BLOG.stats.comments++;
+                saveData();
+                initComments();
+                updateAdminStats();
+                
+                showNotification('Commentaire soumis avec succès !', 'comment');
+                return newComment;
+            },
             // Fonctions admin
             loginAdmin: function(username, password) {
                 if (username === ESODI_BLOG.adminCredentials.username && 
@@ -6604,7 +7145,11 @@ Ceci est un message test pour vérifier la fonctionnalité d'envoi WhatsApp.
             // WhatsApp direct
             openWhatsApp: function() {
                 window.open('https://wa.me/22892871605', '_blank');
-            }
+            },
+            // Sauvegarde automatique
+            saveCommentDraft: saveCommentDraft,
+            loadCommentDraft: loadCommentDraft,
+            clearCommentDraft: clearCommentDraft
         };
     </script>
 </body>
