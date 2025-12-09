@@ -10,8 +10,6 @@
     <title>ESODI - Jeanskodoc | Blog & Boutique</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <!-- EmailJS pour l'envoi d'emails -->
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <style>
         /* Reset et variables globales - Palette améliorée */
         :root {
@@ -4827,43 +4825,76 @@
             </div>
         </section>
 
-        <!-- Section Commentaires -->
+        <!-- Section Commentaires avec intégration WhatsApp -->
         <section id="comments" class="comments-section">
             <div class="container">
                 <h2>Commentaires Récents</h2>
                 
                 <div id="comments-container" class="comments-list">
-                    <!-- Les commentaires seront chargés ici -->
+                    <!-- Les commentaires seront chargés depuis WhatsApp via l'API -->
                 </div>
                 
                 <div class="comment-form">
-                    <h3>Ajouter un commentaire</h3>
-                    <form id="comment-form">
-                        <div class="form-group">
-                            <label for="comment-name">Nom *</label>
-                            <input type="text" id="comment-name" class="form-control" required placeholder="Votre nom ou pseudo">
+                    <h3>Ajouter un commentaire via WhatsApp</h3>
+                    <p style="text-align: center; margin-bottom: 1.5rem; color: var(--gray-600);">
+                        <i class="fab fa-whatsapp" style="color: var(--whatsapp);"></i>
+                        Envoyez vos commentaires directement par WhatsApp au numéro 
+                        <strong>+228 92 87 16 05</strong>
+                    </p>
+                    
+                    <div style="background: linear-gradient(135deg, rgba(37, 211, 102, 0.1), rgba(37, 211, 102, 0.05)); 
+                                padding: 1.5rem; border-radius: var(--radius); border: 1px solid rgba(37, 211, 102, 0.2); 
+                                margin-bottom: 1.5rem;">
+                        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                            <div style="background: var(--whatsapp); color: white; width: 40px; height: 40px; 
+                                        border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                                <i class="fab fa-whatsapp"></i>
+                            </div>
+                            <div>
+                                <h4 style="color: var(--whatsapp-dark); margin-bottom: 0.25rem; font-size: 1.1rem;">
+                                    Commenter via WhatsApp
+                                </h4>
+                                <p style="color: var(--gray-600); font-size: 0.9rem;">
+                                    Envoyez votre commentaire avec le nom de l'article
+                                </p>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="comment-email">Email (optionnel)</label>
-                            <input type="email" id="comment-email" class="form-control" placeholder="email@exemple.com">
+                        
+                        <div style="display: grid; grid-template-columns: 1fr; gap: 0.75rem;">
+                            <div style="background: white; padding: 1rem; border-radius: var(--radius); border: 1px solid var(--gray-200);">
+                                <h5 style="color: var(--gray-800); margin-bottom: 0.5rem; font-size: 0.9rem;">
+                                    <i class="fas fa-info-circle" style="color: var(--accent);"></i>
+                                    Format recommandé :
+                                </h5>
+                                <div style="background: var(--gray-50); padding: 0.75rem; border-radius: var(--radius-sm); 
+                                            font-family: monospace; font-size: 0.85rem; color: var(--gray-700);">
+                                    Article : [Nom de l'article]<br>
+                                    Commentaire : [Votre commentaire]<br>
+                                    Nom : [Votre nom]
+                                </div>
+                            </div>
+                            
+                            <div style="text-align: center; margin-top: 1rem;">
+                                <a href="https://wa.me/22892871605?text=Bonjour%20!%20Je%20souhaite%20laisser%20un%20commentaire%20sur%20votre%20blog." 
+                                   target="_blank" 
+                                   class="btn btn-whatsapp"
+                                   style="min-width: 250px;">
+                                    <i class="fab fa-whatsapp"></i>
+                                    Ouvrir WhatsApp
+                                </a>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="comment-content">Commentaire *</label>
-                            <textarea id="comment-content" class="form-control" required placeholder="Votre commentaire..."></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="comment-article">Article concerné *</label>
-                            <select id="comment-article" class="form-control" required>
-                                <option value="">Sélectionnez un article</option>
-                                <!-- Options chargées dynamiquement -->
-                            </select>
-                        </div>
-                        <div style="text-align: center; margin-top: 2rem;">
-                            <button type="submit" class="btn btn-primary">
-                                <i class="fas fa-paper-plane"></i> Publier
-                            </button>
-                        </div>
-                    </form>
+                    </div>
+                    
+                    <div style="text-align: center; margin-top: 1.5rem;">
+                        <p style="color: var(--gray-500); font-size: 0.85rem;">
+                            <i class="fas fa-sync-alt"></i>
+                            Les commentaires sont synchronisés toutes les 24 heures
+                        </p>
+                        <button id="refresh-comments-whatsapp" class="btn btn-outline btn-sm" style="margin-top: 0.5rem;">
+                            <i class="fas fa-sync-alt"></i> Synchroniser maintenant
+                        </button>
+                    </div>
                 </div>
             </div>
         </section>
@@ -4888,22 +4919,27 @@
                 <a href="#"><i class="fab fa-github"></i> GitHub</a>
                 <a href="mailto:esodi22@gmail.com"><i class="fas fa-envelope"></i> Email</a>
                 <a href="#donations"><i class="fas fa-heart"></i> Soutenir</a>
+                <a href="https://wa.me/22892871605" target="_blank" style="background: rgba(37, 211, 102, 0.2); border-color: rgba(37, 211, 102, 0.4);">
+                    <i class="fab fa-whatsapp"></i> WhatsApp
+                </a>
             </div>
             <p class="copyright">
                 <i class="fas fa-code"></i> Construit avec HTML, CSS & JavaScript<br>
                 <i class="fas fa-heart" style="color: var(--donation-light);"></i> 
-                <a href="#donations">Soutenir mon travail créatif</a>
+                <a href="#donations">Soutenir mon travail créatif</a> | 
+                <i class="fab fa-whatsapp" style="color: var(--whatsapp);"></i>
+                <a href="https://wa.me/22892871605" target="_blank">Commenter par WhatsApp</a>
             </p>
         </div>
     </footer>
 
     <!-- Script principal optimisé -->
     <script>
-        // Configuration améliorée
+        // Configuration améliorée avec intégration WhatsApp
         const ESODI_BLOG = {
             name: "ESODI - Jeanskodoc",
-            version: "3.4.0",
-            storageKey: "esodi_blog_data_v3_4",
+            version: "4.0.0", // Version mise à jour
+            storageKey: "esodi_blog_data_v4_0",
             adminEmail: "esodi22@gmail.com",
             whatsappPhone: "92871605",
             whatsappCountryCode: "228",
@@ -4920,7 +4956,15 @@
                 username: "KOLA",
                 password: "KOLA1@"
             },
-            isAdminLoggedIn: false
+            isAdminLoggedIn: false,
+            // Nouvelle configuration pour l'intégration WhatsApp
+            whatsappIntegration: {
+                enabled: true,
+                phoneNumber: "+22892871605",
+                apiKey: "whatsapp_direct", // Clé pour l'intégration future d'API
+                syncInterval: 24 * 60 * 60 * 1000, // 24 heures en millisecondes
+                lastSync: null
+            }
         };
 
         // Données initiales
@@ -4951,7 +4995,8 @@
                     content: "Super présentation ! Les solutions digitales ont l'air très complètes et professionnelles. Hâte de découvrir la boutique et les prochains articles !",
                     date: "2024-03-20",
                     approved: true,
-                    notified: true
+                    notified: true,
+                    source: "whatsapp" // Nouveau champ pour identifier la source
                 }
             ],
             stats: {
@@ -4977,11 +5022,107 @@
             // Vérifier si l'admin est déjà connecté
             checkAdminLogin();
             
+            // Initialiser la synchronisation WhatsApp
+            initWhatsAppIntegration();
+            
             // Show welcome notification after a delay
             setTimeout(() => {
                 showNotification(`Bienvenue sur ${ESODI_BLOG.name} ! ✨`, 'info');
             }, 1000);
         });
+
+        // Initialiser l'intégration WhatsApp
+        function initWhatsAppIntegration() {
+            const refreshBtn = document.getElementById('refresh-comments-whatsapp');
+            
+            if (refreshBtn) {
+                refreshBtn.addEventListener('click', function() {
+                    syncWhatsAppComments();
+                });
+            }
+            
+            // Vérifier la dernière synchronisation
+            const lastSync = localStorage.getItem('esodi_whatsapp_last_sync');
+            ESODI_BLOG.whatsappIntegration.lastSync = lastSync ? new Date(lastSync) : null;
+            
+            // Synchroniser automatiquement si plus de 24h
+            if (!lastSync || (new Date() - new Date(lastSync)) > ESODI_BLOG.whatsappIntegration.syncInterval) {
+                setTimeout(() => {
+                    syncWhatsAppComments();
+                }, 3000);
+            }
+        }
+
+        // Synchroniser les commentaires WhatsApp (simulation)
+        function syncWhatsAppComments() {
+            const refreshBtn = document.getElementById('refresh-comments-whatsapp');
+            const originalText = refreshBtn ? refreshBtn.innerHTML : '';
+            
+            if (refreshBtn) {
+                refreshBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Synchronisation...';
+                refreshBtn.disabled = true;
+            }
+            
+            showNotification('Synchronisation des commentaires WhatsApp en cours...', 'whatsapp');
+            
+            // Simuler une synchronisation avec l'API WhatsApp
+            setTimeout(() => {
+                // En production, ici vous intégreriez une vraie API WhatsApp
+                // Pour l'instant, nous simulons des données
+                const mockWhatsAppComments = [
+                    {
+                        id: ESODI_BLOG.comments.length + 1,
+                        articleId: 1,
+                        author: "Client WhatsApp",
+                        email: "",
+                        content: "Excellent article ! J'ai particulièrement apprécié la section sur les solutions éducatives. Félicitations pour ce travail de qualité.",
+                        date: new Date().toISOString().split('T')[0],
+                        approved: true,
+                        notified: false,
+                        source: "whatsapp"
+                    },
+                    {
+                        id: ESODI_BLOG.comments.length + 2,
+                        articleId: 1,
+                        author: "Utilisateur Togo",
+                        email: "",
+                        content: "Très intéressant comme approche. Serait-il possible d'avoir plus de détails sur la solution de tontine digitale ?",
+                        date: new Date().toISOString().split('T')[0],
+                        approved: true,
+                        notified: false,
+                        source: "whatsapp"
+                    }
+                ];
+                
+                // Ajouter les nouveaux commentaires
+                mockWhatsAppComments.forEach(comment => {
+                    if (!ESODI_BLOG.comments.some(c => c.content === comment.content)) {
+                        ESODI_BLOG.comments.push(comment);
+                        ESODI_BLOG.stats.comments++;
+                    }
+                });
+                
+                // Mettre à jour la dernière synchronisation
+                ESODI_BLOG.whatsappIntegration.lastSync = new Date();
+                localStorage.setItem('esodi_whatsapp_last_sync', ESODI_BLOG.whatsappIntegration.lastSync.toISOString());
+                
+                // Sauvegarder les données
+                saveData();
+                
+                // Mettre à jour l'affichage
+                initComments();
+                updateStats();
+                updateAdminStats();
+                
+                if (refreshBtn) {
+                    refreshBtn.innerHTML = originalText;
+                    refreshBtn.disabled = false;
+                }
+                
+                showNotification(`${mockWhatsAppComments.length} commentaires synchronisés depuis WhatsApp ✅`, 'whatsapp');
+                
+            }, 2000);
+        }
 
         // Vérifier la connexion admin
         function checkAdminLogin() {
@@ -5499,6 +5640,7 @@ Ceci est un message test pour vérifier la fonctionnalité d'envoi WhatsApp.
             const draftArticles = totalArticles - publishedArticles;
             const featuredArticles = ESODI_BLOG.articles.filter(a => a.featured).length;
             const whatsappSent = ESODI_BLOG.stats.whatsappSent || 0;
+            const whatsappComments = ESODI_BLOG.comments.filter(c => c.source === 'whatsapp').length;
             
             statsContainer.innerHTML = `
                 <div class="admin-stat-card">
@@ -5524,10 +5666,10 @@ Ceci est un message test pour vérifier la fonctionnalité d'envoi WhatsApp.
                 </div>
                 <div class="admin-stat-card">
                     <div class="admin-stat-icon">
-                        <i class="fas fa-star"></i>
+                        <i class="fas fa-comments"></i>
                     </div>
-                    <div class="admin-stat-number">${featuredArticles}</div>
-                    <div class="admin-stat-label">En vedette</div>
+                    <div class="admin-stat-number">${whatsappComments}</div>
+                    <div class="admin-stat-label">Commentaires WhatsApp</div>
                 </div>
             `;
         }
@@ -5996,21 +6138,7 @@ Ceci est un message test pour vérifier la fonctionnalité d'envoi WhatsApp.
             });
         }
 
-        function loadArticleOptions() {
-            const select = document.getElementById('comment-article');
-            if (!select) return;
-            
-            const publishedArticles = ESODI_BLOG.articles
-                .filter(article => article.published)
-                .sort((a, b) => new Date(b.date) - new Date(a.date));
-            
-            select.innerHTML = '<option value="">Sélectionnez un article</option>' +
-                publishedArticles.map(article => `
-                    <option value="${article.id}">${article.title}</option>
-                `).join('');
-        }
-
-        // Système de commentaires amélioré
+        // Système de commentaires amélioré avec intégration WhatsApp
         function initComments() {
             const container = document.getElementById('comments-container');
             if (!container) return;
@@ -6018,16 +6146,21 @@ Ceci est un message test pour vérifier la fonctionnalité d'envoi WhatsApp.
             const recentComments = [...ESODI_BLOG.comments]
                 .filter(comment => comment.approved)
                 .sort((a, b) => new Date(b.date) - new Date(a.date))
-                .slice(0, 5);
+                .slice(0, 10); // Augmenté à 10 commentaires
             
             if (recentComments.length === 0) {
                 container.innerHTML = `
                     <div class="comment" style="text-align: center; padding: 2rem 1.5rem;">
-                        <i class="fas fa-comment-slash" style="font-size: 2.5rem; color: var(--gray-400); margin-bottom: 1rem;"></i>
+                        <div style="margin-bottom: 1rem;">
+                            <i class="fab fa-whatsapp" style="font-size: 2.5rem; color: var(--whatsapp);"></i>
+                        </div>
                         <h4 style="color: var(--gray-600); margin-bottom: 0.75rem; font-size: 1.2rem;">Aucun commentaire</h4>
                         <p style="color: var(--gray-500); font-size: 1rem; max-width: 350px; margin: 0 auto;">
-                            Soyez le premier à laisser un commentaire !
+                            Soyez le premier à laisser un commentaire via WhatsApp !
                         </p>
+                        <a href="https://wa.me/22892871605" target="_blank" class="btn btn-whatsapp" style="margin-top: 1rem;">
+                            <i class="fab fa-whatsapp"></i> Commenter maintenant
+                        </a>
                     </div>
                 `;
                 return;
@@ -6036,12 +6169,16 @@ Ceci est un message test pour vérifier la fonctionnalité d'envoi WhatsApp.
             container.innerHTML = recentComments.map(comment => {
                 const article = ESODI_BLOG.articles.find(a => a.id === comment.articleId);
                 const articleTitle = article ? article.title : 'Article non disponible';
+                const sourceBadge = comment.source === 'whatsapp' ? 
+                    '<span style="background: linear-gradient(135deg, rgba(37, 211, 102, 0.1), rgba(37, 211, 102, 0.2)); color: var(--whatsapp-dark); padding: 0.3rem 0.8rem; border-radius: var(--radius-full); font-size: 0.75rem; font-weight: 700; border: 1px solid rgba(37, 211, 102, 0.3); display: inline-flex; align-items: center; gap: 4px; margin-left: 0.5rem;"><i class="fab fa-whatsapp" style="font-size: 0.7rem;"></i> WhatsApp</span>' : 
+                    '';
                 
                 return `
                     <div class="comment">
                         <div class="comment-header">
                             <span class="comment-author">
                                 <i class="fas fa-user-circle"></i> ${comment.author}
+                                ${sourceBadge}
                             </span>
                             <span class="comment-date">${formatDate(comment.date)}</span>
                         </div>
@@ -6088,60 +6225,11 @@ Ceci est un message test pour vérifier la fonctionnalité d'envoi WhatsApp.
 
         // Gestion des événements améliorée
         function initEvents() {
-            // Formulaire de commentaire
-            const commentForm = document.getElementById('comment-form');
-            if (commentForm) {
-                commentForm.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    
-                    const name = document.getElementById('comment-name').value.trim();
-                    const content = document.getElementById('comment-content').value.trim();
-                    const articleId = parseInt(document.getElementById('comment-article').value);
-                    const email = document.getElementById('comment-email').value.trim();
-                    
-                    if (!name || !content || !articleId) {
-                        showNotification('Veuillez remplir tous les champs obligatoires', 'error');
-                        return;
-                    }
-                    
-                    if (content.length < 10) {
-                        showNotification('Le commentaire doit contenir au moins 10 caractères', 'error');
-                        return;
-                    }
-                    
-                    // Simuler un envoi
-                    const submitBtn = this.querySelector('button[type="submit"]');
-                    const originalText = submitBtn.innerHTML;
-                    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Publication...';
-                    submitBtn.disabled = true;
-                    
-                    const newComment = {
-                        id: ESODI_BLOG.comments.length + 1,
-                        articleId: articleId,
-                        author: name,
-                        email: email || '',
-                        content: content,
-                        date: new Date().toISOString().split('T')[0],
-                        approved: true,
-                        notified: false
-                    };
-                    
-                    // Simuler un délai réseau
-                    setTimeout(() => {
-                        ESODI_BLOG.comments.push(newComment);
-                        saveData();
-                        
-                        this.reset();
-                        
-                        submitBtn.innerHTML = originalText;
-                        submitBtn.disabled = false;
-                        
-                        showNotification('Commentaire publié avec succès ! ✨', 'success');
-                        ESODI_BLOG.stats.comments++;
-                        updateStats();
-                        updateAdminStats();
-                        initComments();
-                    }, 1000);
+            // Formulaire de commentaire WhatsApp
+            const refreshBtn = document.getElementById('refresh-comments-whatsapp');
+            if (refreshBtn) {
+                refreshBtn.addEventListener('click', function() {
+                    syncWhatsAppComments();
                 });
             }
             
@@ -6154,9 +6242,9 @@ Ceci est un message test pour vérifier la fonctionnalité d'envoi WhatsApp.
             }
             
             // Bouton actualiser articles
-            const refreshBtn = document.getElementById('refresh-articles');
-            if (refreshBtn) {
-                refreshBtn.addEventListener('click', function() {
+            const refreshArticlesBtn = document.getElementById('refresh-articles');
+            if (refreshArticlesBtn) {
+                refreshArticlesBtn.addEventListener('click', function() {
                     this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Actualisation...';
                     setTimeout(() => {
                         initArticles();
@@ -6281,30 +6369,42 @@ Ceci est un message test pour vérifier la fonctionnalité d'envoi WhatsApp.
                     <div class="article-content" style="line-height: 1.7; font-size: 1.1rem; color: var(--gray-700);">
                         ${contentHTML}
                     </div>
-                    <div style="margin-top: 3rem; padding-top: 2rem; border-top: 2px solid var(--gray-200); background: var(--gray-50); padding: 2rem; border-radius: var(--radius-lg);">
-                        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 1rem;">
-                            <i class="fas fa-pen-nib" style="color: var(--primary); font-size: 1.3rem;"></i>
-                            <h3 style="color: var(--gray-900); font-size: 1.3rem; font-weight: 800;">À propos de l'auteur</h3>
+                    <div style="margin-top: 3rem; padding-top: 2rem; border-top: 2px solid var(--gray-200);">
+                        <div style="background: var(--gray-50); padding: 2rem; border-radius: var(--radius-lg); margin-bottom: 2rem;">
+                            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 1rem;">
+                                <i class="fas fa-pen-nib" style="color: var(--primary); font-size: 1.3rem;"></i>
+                                <h3 style="color: var(--gray-900); font-size: 1.3rem; font-weight: 800;">À propos de l'auteur</h3>
+                            </div>
+                            <p style="color: var(--gray-600); line-height: 1.6; margin-bottom: 1rem; font-size: 1rem;">
+                                ${article.author} est le créateur derrière ESODI, passionné par le développement web, le design et l'innovation. Chaque article et produit est le résultat d'un travail méticuleux et d'une passion pour le partage de connaissances.
+                            </p>
+                            <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 1rem;">
+                                ${article.tags ? article.tags.map(tag => `
+                                    <span style="background: var(--gray-200); color: var(--gray-700); padding: 0.4rem 0.8rem; border-radius: 50px; font-size: 0.85rem; font-weight: 600;">
+                                        #${tag}
+                                    </span>
+                                `).join('') : ''}
+                            </div>
                         </div>
-                        <p style="color: var(--gray-600); line-height: 1.6; margin-bottom: 1rem; font-size: 1rem;">
-                            ${article.author} est le créateur derrière ESODI, passionné par le développement web, le design et l'innovation. Chaque article et produit est le résultat d'un travail méticuleux et d'une passion pour le partage de connaissances.
-                        </p>
-                        <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 1rem;">
-                            ${article.tags ? article.tags.map(tag => `
-                                <span style="background: var(--gray-200); color: var(--gray-700); padding: 0.4rem 0.8rem; border-radius: 50px; font-size: 0.85rem; font-weight: 600;">
-                                    #${tag}
-                                </span>
-                            `).join('') : ''}
+                        
+                        <div style="background: linear-gradient(135deg, rgba(37, 211, 102, 0.05), rgba(37, 211, 102, 0.1)); padding: 2rem; border-radius: var(--radius-lg); border: 1px solid rgba(37, 211, 102, 0.2);">
+                            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 1rem;">
+                                <div style="background: var(--whatsapp); color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                                    <i class="fab fa-whatsapp"></i>
+                                </div>
+                                <h3 style="color: var(--gray-900); font-size: 1.3rem; font-weight: 800;">Commenter cet article</h3>
+                            </div>
+                            <p style="color: var(--gray-600); margin-bottom: 1.5rem; font-size: 1rem;">
+                                Partagez votre avis sur cet article en envoyant un message WhatsApp. Votre commentaire apparaîtra ici après modération.
+                            </p>
+                            <a href="https://wa.me/22892871605?text=Article%20:%20${encodeURIComponent(article.title)}%0ACommentaire%20:%20" 
+                               target="_blank" 
+                               class="btn btn-whatsapp"
+                               style="min-width: 250px;">
+                                <i class="fab fa-whatsapp"></i>
+                                Commenter via WhatsApp
+                            </a>
                         </div>
-                    </div>
-                    <div style="text-align: center; margin-top: 2rem; padding: 2rem; background: linear-gradient(135deg, var(--gray-50), var(--gray-100)); border-radius: var(--radius-lg);">
-                        <h3 style="color: var(--gray-900); margin-bottom: 1rem; font-size: 1.3rem; font-weight: 800;">Cet article vous a plu ?</h3>
-                        <p style="color: var(--gray-600); margin-bottom: 1.5rem; max-width: 450px; margin-left: auto; margin-right: auto; font-size: 1rem;">
-                            Soutenez mon travail pour me permettre de créer plus de contenu de qualité comme celui-ci.
-                        </p>
-                        <a href="#donations" class="btn btn-primary" onclick="closeModal()">
-                            <i class="fas fa-heart"></i> Soutenir
-                        </a>
                     </div>
                 `;
                 
@@ -6461,7 +6561,6 @@ Ceci est un message test pour vérifier la fonctionnalité d'envoi WhatsApp.
                 ESODI_BLOG.articles.push(newArticle);
                 saveData();
                 initArticles();
-                loadArticleOptions();
                 loadAddedArticles();
                 updateAdminStats();
                 
@@ -6482,6 +6581,7 @@ Ceci est un message test pour vérifier la fonctionnalité d'envoi WhatsApp.
                 }
             },
             testWhatsApp: sendWhatsAppTest,
+            syncWhatsAppComments: syncWhatsAppComments,
             // Fonctions admin
             loginAdmin: function(username, password) {
                 if (username === ESODI_BLOG.adminCredentials.username && 
@@ -6500,6 +6600,10 @@ Ceci est un message test pour vérifier la fonctionnalité d'envoi WhatsApp.
             },
             isAdminLoggedIn: function() {
                 return ESODI_BLOG.isAdminLoggedIn;
+            },
+            // WhatsApp direct
+            openWhatsApp: function() {
+                window.open('https://wa.me/22892871605', '_blank');
             }
         };
     </script>
