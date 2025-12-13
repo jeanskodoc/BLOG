@@ -3744,25 +3744,25 @@
             
             .modal-content {
                 padding-left: max(16px, env(safe-area-inset-left));
-                padding-right: max(16px, env(safe-area-inset-right));
+                padding-right: max(16px, env(safe-area-inset-left));
             }
             
             @media (min-width: 768px) {
                 .modal-content {
                     padding-left: max(24px, env(safe-area-inset-left));
-                    padding-right: max(24px, env(safe-area-inset-right));
+                    padding-right: max(24px, env(safe-area-inset-left));
                 }
             }
             
             footer {
                 padding-left: max(16px, env(safe-area-inset-left));
-                padding-right: max(16px, env(safe-area-inset-right));
+                padding-right: max(16px, env(safe-area-inset-left));
             }
             
             @media (min-width: 768px) {
                 footer {
                     padding-left: max(20px, env(safe-area-inset-left));
-                    padding-right: max(20px, env(safe-area-inset-right));
+                    padding-right: max(20px, env(safe-area-inset-left));
                 }
             }
         }
@@ -5109,8 +5109,8 @@
         // Configuration améliorée avec intégration des commentaires
         const ESODI_BLOG = {
             name: "ESODI - Jeanskodoc",
-            version: "4.1.0", // Version mise à jour avec commentaires
-            storageKey: "esodi_blog_data_v4_1",
+            version: "4.2.0", // Version corrigée
+            storageKey: "esodi_blog_data_v4_2",
             adminEmail: "esodi22@gmail.com",
             whatsappPhone: "92871605",
             whatsappCountryCode: "228",
@@ -5267,7 +5267,10 @@
                 // Sauvegarder au submit
                 commentForm.addEventListener('submit', function(e) {
                     e.preventDefault();
-                    clearCommentDraft(); // Effacer le brouillon après soumission
+                    // Sauvegarder avant d'envoyer
+                    saveCommentDraft();
+                    // Envoyer le commentaire
+                    submitCommentForm();
                 });
                 
                 // Sauvegarde périodique toutes les 30 secondes
@@ -5388,6 +5391,102 @@
             }, 3000);
         }
 
+        // Fonction pour soumettre le formulaire de commentaire
+        function submitCommentForm() {
+            const name = document.getElementById('comment-name').value.trim();
+            const email = document.getElementById('comment-email').value.trim();
+            const articleId = document.getElementById('comment-article').value;
+            const content = document.getElementById('comment-content').value.trim();
+            const notify = document.getElementById('comment-notify').checked;
+            const alertDiv = document.getElementById('comment-form-alert');
+            const alertText = document.getElementById('comment-alert-text');
+            
+            // Validation
+            if (!name || !email || !content) {
+                alertText.textContent = 'Veuillez remplir tous les champs obligatoires';
+                alertDiv.classList.remove('hidden');
+                
+                // Scroll vers l'alerte
+                setTimeout(() => {
+                    alertDiv.scrollIntoView({ 
+                        behavior: 'smooth',
+                        block: 'center'
+                    });
+                }, 100);
+                return false;
+            }
+            
+            // Validation de l'email
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                alertText.textContent = 'Veuillez entrer une adresse email valide';
+                alertDiv.classList.remove('hidden');
+                return false;
+            }
+            
+            // Validation de la longueur du commentaire
+            if (content.length < ESODI_BLOG.commentConfig.minLength) {
+                alertText.textContent = `Le commentaire doit contenir au moins ${ESODI_BLOG.commentConfig.minLength} caractères`;
+                alertDiv.classList.remove('hidden');
+                return false;
+            }
+            
+            if (content.length > ESODI_BLOG.commentConfig.maxLength) {
+                alertText.textContent = `Le commentaire ne doit pas dépasser ${ESODI_BLOG.commentConfig.maxLength} caractères`;
+                alertDiv.classList.remove('hidden');
+                return false;
+            }
+            
+            // Cacher l'alerte
+            alertDiv.classList.add('hidden');
+            
+            // Créer le nouveau commentaire
+            const newComment = {
+                id: ESODI_BLOG.comments.length > 0 ? Math.max(...ESODI_BLOG.comments.map(c => c.id)) + 1 : 1,
+                articleId: articleId ? parseInt(articleId) : null,
+                author: name,
+                email: email,
+                content: content,
+                date: new Date().toISOString().split('T')[0],
+                approved: !ESODI_BLOG.commentConfig.moderationRequired, // Approuvé immédiatement si pas de modération
+                notified: notify,
+                source: "website"
+            };
+            
+            // Ajouter le commentaire
+            ESODI_BLOG.comments.push(newComment);
+            ESODI_BLOG.stats.comments++;
+            
+            // Sauvegarder les données
+            saveData();
+            
+            // Réinitialiser le formulaire
+            document.getElementById('comment-form').reset();
+            clearCommentDraft();
+            
+            // Mettre à jour l'affichage des commentaires
+            initComments();
+            updateStats();
+            updateAdminStats();
+            
+            // Afficher une notification
+            if (ESODI_BLOG.commentConfig.moderationRequired) {
+                showNotification('Commentaire envoyé ! Il sera publié après modération. 📝', 'comment');
+            } else {
+                showNotification('Commentaire publié avec succès ! ✅', 'success');
+            }
+            
+            // Scroll vers les commentaires
+            setTimeout(() => {
+                document.getElementById('comments-container').scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }, 500);
+            
+            return true;
+        }
+
         // Initialisation complète
         function initApp() {
             loadData();
@@ -5418,95 +5517,7 @@
             if (commentForm) {
                 commentForm.addEventListener('submit', function(e) {
                     e.preventDefault();
-                    
-                    const name = document.getElementById('comment-name').value.trim();
-                    const email = document.getElementById('comment-email').value.trim();
-                    const articleId = document.getElementById('comment-article').value;
-                    const content = document.getElementById('comment-content').value.trim();
-                    const notify = document.getElementById('comment-notify').checked;
-                    
-                    // Validation
-                    if (!name || !email || !content) {
-                        alertText.textContent = 'Veuillez remplir tous les champs obligatoires';
-                        alertDiv.classList.remove('hidden');
-                        
-                        // Scroll vers l'alerte
-                        setTimeout(() => {
-                            alertDiv.scrollIntoView({ 
-                                behavior: 'smooth',
-                                block: 'center'
-                            });
-                        }, 100);
-                        return;
-                    }
-                    
-                    // Validation de l'email
-                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                    if (!emailRegex.test(email)) {
-                        alertText.textContent = 'Veuillez entrer une adresse email valide';
-                        alertDiv.classList.remove('hidden');
-                        return;
-                    }
-                    
-                    // Validation de la longueur du commentaire
-                    if (content.length < ESODI_BLOG.commentConfig.minLength) {
-                        alertText.textContent = `Le commentaire doit contenir au moins ${ESODI_BLOG.commentConfig.minLength} caractères`;
-                        alertDiv.classList.remove('hidden');
-                        return;
-                    }
-                    
-                    if (content.length > ESODI_BLOG.commentConfig.maxLength) {
-                        alertText.textContent = `Le commentaire ne doit pas dépasser ${ESODI_BLOG.commentConfig.maxLength} caractères`;
-                        alertDiv.classList.remove('hidden');
-                        return;
-                    }
-                    
-                    // Cacher l'alerte
-                    alertDiv.classList.add('hidden');
-                    
-                    // Créer le nouveau commentaire
-                    const newComment = {
-                        id: ESODI_BLOG.comments.length > 0 ? Math.max(...ESODI_BLOG.comments.map(c => c.id)) + 1 : 1,
-                        articleId: articleId ? parseInt(articleId) : null,
-                        author: name,
-                        email: email,
-                        content: content,
-                        date: new Date().toISOString().split('T')[0],
-                        approved: !ESODI_BLOG.commentConfig.moderationRequired, // Approuvé immédiatement si pas de modération
-                        notified: notify,
-                        source: "website"
-                    };
-                    
-                    // Ajouter le commentaire
-                    ESODI_BLOG.comments.push(newComment);
-                    ESODI_BLOG.stats.comments++;
-                    
-                    // Sauvegarder les données
-                    saveData();
-                    
-                    // Réinitialiser le formulaire
-                    commentForm.reset();
-                    clearCommentDraft();
-                    
-                    // Mettre à jour l'affichage des commentaires
-                    initComments();
-                    updateStats();
-                    updateAdminStats();
-                    
-                    // Afficher une notification
-                    if (ESODI_BLOG.commentConfig.moderationRequired) {
-                        showNotification('Commentaire envoyé ! Il sera publié après modération. 📝', 'comment');
-                    } else {
-                        showNotification('Commentaire publié avec succès ! ✅', 'success');
-                    }
-                    
-                    // Scroll vers les commentaires
-                    setTimeout(() => {
-                        document.getElementById('comments-container').scrollIntoView({ 
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
-                    }, 500);
+                    submitCommentForm();
                 });
             }
             
@@ -5532,7 +5543,361 @@
             }
         }
 
-        // Initialiser l'intégration WhatsApp
+        // Fonction pour envoyer un article complet par WhatsApp AVANT sauvegarde
+        async function sendWhatsAppArticle(article) {
+            try {
+                // Formater le message WhatsApp avec TOUT le contenu de l'article
+                const whatsappMessage = `📰 *NOUVEL ARTICLE PUBLIÉ - ESODI Blog*
+
+*${article.title}*
+
+📝 *Description :*
+${article.excerpt}
+
+🏷️ *Catégorie :* ${article.category}
+✍️ *Auteur :* ${article.author}
+⏱️ *Temps de lecture :* ${article.readTime}
+
+🔖 *Tags :* ${article.tags ? article.tags.join(', ') : 'Aucun'}
+
+📅 *Publié le :* ${formatDate(article.date)}
+
+---
+
+*CONTENU COMPLET DE L'ARTICLE :*
+
+${article.content}
+
+---
+
+👉 *Visitez le blog :*
+${window.location.origin}${window.location.pathname}#articles
+
+---
+*ESODI Blog - Solutions Digitales Innovantes*
+*Par Jeanskodoc*`;
+                
+                // Encoder le message pour URL
+                const encodedMessage = encodeURIComponent(whatsappMessage);
+                
+                // Créer l'URL WhatsApp (avec le numéro international pour le Togo)
+                const whatsappUrl = `https://wa.me/${ESODI_BLOG.whatsappCountryCode}${ESODI_BLOG.whatsappPhone}?text=${encodedMessage}`;
+                
+                // Ouvrir WhatsApp dans un nouvel onglet
+                const whatsappWindow = window.open(whatsappUrl, '_blank');
+                
+                // Attendre un moment pour que WhatsApp s'ouvre
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                
+                // Vérifier si la fenêtre WhatsApp est toujours ouverte
+                if (whatsappWindow && !whatsappWindow.closed) {
+                    // Marquer l'article comme envoyé
+                    const articleIndex = ESODI_BLOG.articles.findIndex(a => a.id === article.id);
+                    if (articleIndex !== -1) {
+                        ESODI_BLOG.articles[articleIndex].whatsappSent = true;
+                        ESODI_BLOG.stats.whatsappSent++;
+                        saveData();
+                    }
+                    
+                    showNotification('Article complet envoyé par WhatsApp avec succès 📱', 'whatsapp');
+                    return true;
+                } else {
+                    showNotification('WhatsApp non ouvert - Veuillez envoyer manuellement', 'warning');
+                    return false;
+                }
+                
+            } catch (error) {
+                console.error('Erreur lors de l\'envoi WhatsApp :', error);
+                showNotification('Erreur lors de l\'envoi WhatsApp', 'error');
+                return false;
+            }
+        }
+
+        // Modifier la fonction de soumission d'article pour envoyer d'abord par WhatsApp
+        function initAdminSection() {
+            const showAddArticleBtn = document.getElementById('show-add-article-form');
+            const showAddedArticlesBtn = document.getElementById('show-added-articles');
+            const sendWhatsAppTestBtn = document.getElementById('send-whatsapp-test');
+            const refreshAdminBtn = document.getElementById('refresh-admin');
+            const addArticleForm = document.getElementById('add-article-form');
+            const addedArticlesSection = document.getElementById('added-articles-section');
+            const previewBtn = document.getElementById('preview-article');
+            const resetFormBtn = document.getElementById('reset-form');
+            const articleForm = document.getElementById('article-form');
+            
+            // Initialiser les statistiques admin
+            updateAdminStats();
+            
+            if (showAddArticleBtn) {
+                showAddArticleBtn.addEventListener('click', function() {
+                    addArticleForm.classList.remove('hidden');
+                    addedArticlesSection.classList.add('hidden');
+                    
+                    // Reset du formulaire si on édite un article
+                    const submitBtn = document.querySelector('#article-form button[type="submit"]');
+                    submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Publier';
+                    delete submitBtn.dataset.editing;
+                    
+                    // Scroll vers le formulaire
+                    setTimeout(() => {
+                        addArticleForm.scrollIntoView({ 
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }, 100);
+                    
+                    showNotification('Formulaire d\'ajout d\'article ouvert ✍️', 'admin');
+                });
+            }
+            
+            if (showAddedArticlesBtn) {
+                showAddedArticlesBtn.addEventListener('click', function() {
+                    addedArticlesSection.classList.remove('hidden');
+                    addArticleForm.classList.add('hidden');
+                    
+                    // Charger les articles ajoutés
+                    loadAddedArticles();
+                    
+                    // Scroll vers la section
+                    setTimeout(() => {
+                        addedArticlesSection.scrollIntoView({ 
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }, 100);
+                    
+                    showNotification('Affichage des articles ajoutés 📋', 'admin');
+                });
+            }
+            
+            if (sendWhatsAppTestBtn) {
+                sendWhatsAppTestBtn.addEventListener('click', function() {
+                    if (confirm('Voulez-vous envoyer un message test par WhatsApp ?')) {
+                        sendWhatsAppTest();
+                    }
+                });
+            }
+            
+            if (refreshAdminBtn) {
+                refreshAdminBtn.addEventListener('click', function() {
+                    this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Actualisation...';
+                    
+                    setTimeout(() => {
+                        loadAddedArticles();
+                        updateAdminStats();
+                        this.innerHTML = '<i class="fas fa-sync-alt"></i> Actualiser';
+                        showNotification('Section admin actualisée 🔄', 'admin');
+                    }, 800);
+                });
+            }
+            
+            if (previewBtn) {
+                previewBtn.addEventListener('click', function() {
+                    const title = document.getElementById('article-title').value;
+                    const content = document.getElementById('article-content').value;
+                    
+                    if (!title || !content) {
+                        showNotification('Veuillez remplir le titre et le contenu pour prévisualiser', 'error');
+                        return;
+                    }
+                    
+                    const previewContent = document.getElementById('preview-content');
+                    const previewContainer = document.getElementById('article-preview');
+                    
+                    // Générer la prévisualisation avec mise en forme
+                    const previewHTML = marked.parse(content);
+                    previewContent.innerHTML = `
+                        <div style="margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 2px solid var(--admin-border);">
+                            <h3 style="color: var(--admin-dark); margin-bottom: 0.5rem;">${title}</h3>
+                            <small style="color: var(--gray-500);">Prévisualisation</small>
+                        </div>
+                        ${previewHTML}
+                    `;
+                    
+                    previewContainer.classList.remove('hidden');
+                    
+                    // Scroll vers la prévisualisation
+                    previewContainer.scrollIntoView({ 
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    
+                    showNotification('Prévisualisation générée 👁️', 'admin');
+                });
+            }
+            
+            if (resetFormBtn) {
+                resetFormBtn.addEventListener('click', function() {
+                    if (confirm('Voulez-vous réinitialiser le formulaire ? Toutes les modifications seront perdues.')) {
+                        articleForm.reset();
+                        document.getElementById('article-author').value = "Jeanskodoc";
+                        document.getElementById('article-read-time').value = "5 min";
+                        document.getElementById('article-published').checked = true;
+                        document.getElementById('send-whatsapp').checked = true;
+                        document.getElementById('article-preview').classList.add('hidden');
+                        
+                        // Reset du bouton de soumission si on édite
+                        const submitBtn = document.querySelector('#article-form button[type="submit"]');
+                        submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Publier';
+                        delete submitBtn.dataset.editing;
+                        
+                        showNotification('Formulaire réinitialisé 🔄', 'admin');
+                    }
+                });
+            }
+            
+            if (articleForm) {
+                articleForm.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    
+                    // Vérifier que l'admin est connecté
+                    if (!ESODI_BLOG.isAdminLoggedIn) {
+                        showNotification('Veuillez vous connecter pour ajouter un article', 'error');
+                        hideAdminContent();
+                        return;
+                    }
+                    
+                    const title = document.getElementById('article-title').value.trim();
+                    const author = document.getElementById('article-author').value.trim();
+                    const category = document.getElementById('article-category').value;
+                    const type = document.getElementById('article-type').value;
+                    const tags = document.getElementById('article-tags').value.trim();
+                    const readTime = document.getElementById('article-read-time').value.trim() || '5 min';
+                    const excerpt = document.getElementById('article-excerpt').value.trim();
+                    const content = document.getElementById('article-content').value.trim();
+                    const published = document.getElementById('article-published').checked;
+                    const featured = document.getElementById('article-featured').checked;
+                    const sendWhatsApp = document.getElementById('send-whatsapp').checked;
+                    
+                    // Validation
+                    if (!title || !author || !category || !type || !excerpt || !content) {
+                        showNotification('Veuillez remplir tous les champs obligatoires', 'error');
+                        return;
+                    }
+                    
+                    // Préparer les tags
+                    const tagsArray = tags ? tags.split(',').map(tag => tag.trim()).filter(tag => tag) : [];
+                    
+                    // Vérifier si on est en mode édition
+                    const submitBtn = this.querySelector('button[type="submit"]');
+                    const isEditing = submitBtn.dataset.editing;
+                    
+                    if (isEditing) {
+                        // Mise à jour d'un article existant
+                        const articleId = parseInt(isEditing);
+                        const articleIndex = ESODI_BLOG.articles.findIndex(a => a.id === articleId);
+                        
+                        if (articleIndex !== -1) {
+                            ESODI_BLOG.articles[articleIndex] = {
+                                ...ESODI_BLOG.articles[articleIndex],
+                                title,
+                                author,
+                                category,
+                                type,
+                                tags: tagsArray,
+                                readTime,
+                                excerpt,
+                                content,
+                                published,
+                                featured,
+                                date: new Date().toISOString().split('T')[0]
+                            };
+                            
+                            saveData();
+                            
+                            // Réinitialiser le formulaire
+                            this.reset();
+                            document.getElementById('article-author').value = "Jeanskodoc";
+                            document.getElementById('article-read-time').value = "5 min";
+                            document.getElementById('article-published').checked = true;
+                            document.getElementById('send-whatsapp').checked = true;
+                            document.getElementById('article-preview').classList.add('hidden');
+                            submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Publier';
+                            delete submitBtn.dataset.editing;
+                            
+                            // Mettre à jour les statistiques
+                            updateStats();
+                            
+                            // Recharger les articles
+                            initArticles();
+                            loadArticleOptions();
+                            
+                            // Afficher la confirmation
+                            showNotification(`Article "${title}" mis à jour avec succès ! ✏️`, 'admin');
+                            
+                            // Afficher les articles ajoutés
+                            addedArticlesSection.classList.remove('hidden');
+                            addArticleForm.classList.add('hidden');
+                            loadAddedArticles();
+                            updateAdminStats();
+                        }
+                    } else {
+                        // Créer le nouvel article
+                        const newArticle = {
+                            id: ESODI_BLOG.articles.length > 0 ? Math.max(...ESODI_BLOG.articles.map(a => a.id)) + 1 : 1,
+                            title: title,
+                            author: author,
+                            category: category,
+                            type: type,
+                            tags: tagsArray,
+                            readTime: readTime,
+                            excerpt: excerpt,
+                            content: content,
+                            date: new Date().toISOString().split('T')[0],
+                            published: published,
+                            featured: featured,
+                            whatsappSent: false
+                        };
+                        
+                        // Envoyer par WhatsApp AVANT de sauvegarder si activé
+                        let whatsappSuccess = true;
+                        if (sendWhatsApp) {
+                            showNotification('Envoi de l\'article par WhatsApp en cours...', 'whatsapp');
+                            whatsappSuccess = await sendWhatsAppArticle(newArticle);
+                        }
+                        
+                        // Ajouter l'article seulement si WhatsApp a réussi ou si WhatsApp n'était pas requis
+                        if (whatsappSuccess || !sendWhatsApp) {
+                            // Ajouter l'article
+                            ESODI_BLOG.articles.push(newArticle);
+                            saveData();
+                            
+                            // Réinitialiser le formulaire
+                            this.reset();
+                            document.getElementById('article-author').value = "Jeanskodoc";
+                            document.getElementById('article-read-time').value = "5 min";
+                            document.getElementById('article-published').checked = true;
+                            document.getElementById('send-whatsapp').checked = true;
+                            document.getElementById('article-preview').classList.add('hidden');
+                            
+                            // Mettre à jour les statistiques
+                            ESODI_BLOG.stats.articles++;
+                            updateStats();
+                            
+                            // Recharger les articles
+                            initArticles();
+                            loadArticleOptions();
+                            
+                            // Afficher la confirmation
+                            showNotification(`Article "${title}" ajouté avec succès ! 📝`, 'admin');
+                            
+                            // Afficher les articles ajoutés
+                            addedArticlesSection.classList.remove('hidden');
+                            addArticleForm.classList.add('hidden');
+                            loadAddedArticles();
+                            updateAdminStats();
+                        } else {
+                            showNotification('L\'article n\'a pas été ajouté car l\'envoi WhatsApp a échoué', 'error');
+                        }
+                    }
+                });
+            }
+        }
+
+        // Le reste du code JavaScript reste inchangé...
+        // [Le reste du code JavaScript est identique à l'original]
+        
+        // Initialisation de l'intégration WhatsApp
         function initWhatsAppIntegration() {
             const refreshBtn = document.getElementById('refresh-comments-whatsapp');
             
@@ -5737,341 +6102,6 @@
                 }
             `;
             document.head.appendChild(style);
-        }
-
-        // Initialisation de la section admin améliorée
-        function initAdminSection() {
-            const showAddArticleBtn = document.getElementById('show-add-article-form');
-            const showAddedArticlesBtn = document.getElementById('show-added-articles');
-            const sendWhatsAppTestBtn = document.getElementById('send-whatsapp-test');
-            const refreshAdminBtn = document.getElementById('refresh-admin');
-            const addArticleForm = document.getElementById('add-article-form');
-            const addedArticlesSection = document.getElementById('added-articles-section');
-            const previewBtn = document.getElementById('preview-article');
-            const resetFormBtn = document.getElementById('reset-form');
-            const articleForm = document.getElementById('article-form');
-            
-            // Initialiser les statistiques admin
-            updateAdminStats();
-            
-            if (showAddArticleBtn) {
-                showAddArticleBtn.addEventListener('click', function() {
-                    addArticleForm.classList.remove('hidden');
-                    addedArticlesSection.classList.add('hidden');
-                    
-                    // Reset du formulaire si on édite un article
-                    const submitBtn = document.querySelector('#article-form button[type="submit"]');
-                    submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Publier l\'article';
-                    delete submitBtn.dataset.editing;
-                    
-                    // Scroll vers le formulaire
-                    setTimeout(() => {
-                        addArticleForm.scrollIntoView({ 
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
-                    }, 100);
-                    
-                    showNotification('Formulaire d\'ajout d\'article ouvert ✍️', 'admin');
-                });
-            }
-            
-            if (showAddedArticlesBtn) {
-                showAddedArticlesBtn.addEventListener('click', function() {
-                    addedArticlesSection.classList.remove('hidden');
-                    addArticleForm.classList.add('hidden');
-                    
-                    // Charger les articles ajoutés
-                    loadAddedArticles();
-                    
-                    // Scroll vers la section
-                    setTimeout(() => {
-                        addedArticlesSection.scrollIntoView({ 
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
-                    }, 100);
-                    
-                    showNotification('Affichage des articles ajoutés 📋', 'admin');
-                });
-            }
-            
-            if (sendWhatsAppTestBtn) {
-                sendWhatsAppTestBtn.addEventListener('click', function() {
-                    if (confirm('Voulez-vous envoyer un message test par WhatsApp ?')) {
-                        sendWhatsAppTest();
-                    }
-                });
-            }
-            
-            if (refreshAdminBtn) {
-                refreshAdminBtn.addEventListener('click', function() {
-                    this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Actualisation...';
-                    
-                    setTimeout(() => {
-                        loadAddedArticles();
-                        updateAdminStats();
-                        this.innerHTML = '<i class="fas fa-sync-alt"></i> Actualiser';
-                        showNotification('Section admin actualisée 🔄', 'admin');
-                    }, 800);
-                });
-            }
-            
-            if (previewBtn) {
-                previewBtn.addEventListener('click', function() {
-                    const title = document.getElementById('article-title').value;
-                    const content = document.getElementById('article-content').value;
-                    
-                    if (!title || !content) {
-                        showNotification('Veuillez remplir le titre et le contenu pour prévisualiser', 'error');
-                        return;
-                    }
-                    
-                    const previewContent = document.getElementById('preview-content');
-                    const previewContainer = document.getElementById('article-preview');
-                    
-                    // Générer la prévisualisation avec mise en forme
-                    const previewHTML = marked.parse(content);
-                    previewContent.innerHTML = `
-                        <div style="margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 2px solid var(--admin-border);">
-                            <h3 style="color: var(--admin-dark); margin-bottom: 0.5rem;">${title}</h3>
-                            <small style="color: var(--gray-500);">Prévisualisation</small>
-                        </div>
-                        ${previewHTML}
-                    `;
-                    
-                    previewContainer.classList.remove('hidden');
-                    
-                    // Scroll vers la prévisualisation
-                    previewContainer.scrollIntoView({ 
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                    
-                    showNotification('Prévisualisation générée 👁️', 'admin');
-                });
-            }
-            
-            if (resetFormBtn) {
-                resetFormBtn.addEventListener('click', function() {
-                    if (confirm('Voulez-vous réinitialiser le formulaire ? Toutes les modifications seront perdues.')) {
-                        articleForm.reset();
-                        document.getElementById('article-author').value = "Jeanskodoc";
-                        document.getElementById('article-read-time').value = "5 min";
-                        document.getElementById('article-published').checked = true;
-                        document.getElementById('send-whatsapp').checked = true;
-                        document.getElementById('article-preview').classList.add('hidden');
-                        
-                        // Reset du bouton de soumission si on édite
-                        const submitBtn = document.querySelector('#article-form button[type="submit"]');
-                        submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Publier l\'article';
-                        delete submitBtn.dataset.editing;
-                        
-                        showNotification('Formulaire réinitialisé 🔄', 'admin');
-                    }
-                });
-            }
-            
-            if (articleForm) {
-                articleForm.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    
-                    // Vérifier que l'admin est connecté
-                    if (!ESODI_BLOG.isAdminLoggedIn) {
-                        showNotification('Veuillez vous connecter pour ajouter un article', 'error');
-                        hideAdminContent();
-                        return;
-                    }
-                    
-                    const title = document.getElementById('article-title').value.trim();
-                    const author = document.getElementById('article-author').value.trim();
-                    const category = document.getElementById('article-category').value;
-                    const type = document.getElementById('article-type').value;
-                    const tags = document.getElementById('article-tags').value.trim();
-                    const readTime = document.getElementById('article-read-time').value.trim() || '5 min';
-                    const excerpt = document.getElementById('article-excerpt').value.trim();
-                    const content = document.getElementById('article-content').value.trim();
-                    const published = document.getElementById('article-published').checked;
-                    const featured = document.getElementById('article-featured').checked;
-                    const sendWhatsApp = document.getElementById('send-whatsapp').checked;
-                    
-                    // Validation
-                    if (!title || !author || !category || !type || !excerpt || !content) {
-                        showNotification('Veuillez remplir tous les champs obligatoires', 'error');
-                        return;
-                    }
-                    
-                    // Préparer les tags
-                    const tagsArray = tags ? tags.split(',').map(tag => tag.trim()).filter(tag => tag) : [];
-                    
-                    // Vérifier si on est en mode édition
-                    const submitBtn = this.querySelector('button[type="submit"]');
-                    const isEditing = submitBtn.dataset.editing;
-                    
-                    if (isEditing) {
-                        // Mise à jour d'un article existant
-                        const articleId = parseInt(isEditing);
-                        const articleIndex = ESODI_BLOG.articles.findIndex(a => a.id === articleId);
-                        
-                        if (articleIndex !== -1) {
-                            ESODI_BLOG.articles[articleIndex] = {
-                                ...ESODI_BLOG.articles[articleIndex],
-                                title,
-                                author,
-                                category,
-                                type,
-                                tags: tagsArray,
-                                readTime,
-                                excerpt,
-                                content,
-                                published,
-                                featured,
-                                date: new Date().toISOString().split('T')[0]
-                            };
-                            
-                            saveData();
-                            
-                            // Réinitialiser le formulaire
-                            this.reset();
-                            document.getElementById('article-author').value = "Jeanskodoc";
-                            document.getElementById('article-read-time').value = "5 min";
-                            document.getElementById('article-published').checked = true;
-                            document.getElementById('send-whatsapp').checked = true;
-                            document.getElementById('article-preview').classList.add('hidden');
-                            submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Publier l\'article';
-                            delete submitBtn.dataset.editing;
-                            
-                            // Mettre à jour les statistiques
-                            updateStats();
-                            
-                            // Recharger les articles
-                            initArticles();
-                            loadArticleOptions();
-                            
-                            // Afficher la confirmation
-                            showNotification(`Article "${title}" mis à jour avec succès ! ✏️`, 'admin');
-                            
-                            // Afficher les articles ajoutés
-                            addedArticlesSection.classList.remove('hidden');
-                            addArticleForm.classList.add('hidden');
-                            loadAddedArticles();
-                            updateAdminStats();
-                        }
-                    } else {
-                        // Créer le nouvel article
-                        const newArticle = {
-                            id: ESODI_BLOG.articles.length > 0 ? Math.max(...ESODI_BLOG.articles.map(a => a.id)) + 1 : 1,
-                            title: title,
-                            author: author,
-                            category: category,
-                            type: type,
-                            tags: tagsArray,
-                            readTime: readTime,
-                            excerpt: excerpt,
-                            content: content,
-                            date: new Date().toISOString().split('T')[0],
-                            published: published,
-                            featured: featured,
-                            whatsappSent: false
-                        };
-                        
-                        // Ajouter l'article
-                        ESODI_BLOG.articles.push(newArticle);
-                        saveData();
-                        
-                        // Réinitialiser le formulaire
-                        this.reset();
-                        document.getElementById('article-author').value = "Jeanskodoc";
-                        document.getElementById('article-read-time').value = "5 min";
-                        document.getElementById('article-published').checked = true;
-                        document.getElementById('send-whatsapp').checked = true;
-                        document.getElementById('article-preview').classList.add('hidden');
-                        
-                        // Mettre à jour les statistiques
-                        ESODI_BLOG.stats.articles++;
-                        updateStats();
-                        
-                        // Recharger les articles
-                        initArticles();
-                        loadArticleOptions();
-                        
-                        // Envoyer par WhatsApp si activé
-                        if (sendWhatsApp) {
-                            setTimeout(() => {
-                                sendWhatsAppArticle(newArticle);
-                            }, 1000);
-                        }
-                        
-                        // Afficher la confirmation
-                        showNotification(`Article "${title}" ajouté avec succès ! 📝`, 'admin');
-                        
-                        // Afficher les articles ajoutés
-                        addedArticlesSection.classList.remove('hidden');
-                        addArticleForm.classList.add('hidden');
-                        loadAddedArticles();
-                        updateAdminStats();
-                    }
-                });
-            }
-        }
-
-        // Fonction pour envoyer un article complet par WhatsApp
-        function sendWhatsAppArticle(article) {
-            try {
-                // Formater le message WhatsApp avec TOUT le contenu de l'article
-                const whatsappMessage = `📰 *NOUVEL ARTICLE PUBLIÉ - ESODI Blog*
-
-*${article.title}*
-
-📝 *Description :*
-${article.excerpt}
-
-🏷️ *Catégorie :* ${article.category}
-✍️ *Auteur :* ${article.author}
-⏱️ *Temps de lecture :* ${article.readTime}
-
-🔖 *Tags :* ${article.tags ? article.tags.join(', ') : 'Aucun'}
-
-📅 *Publié le :* ${formatDate(article.date)}
-
----
-
-*CONTENU COMPLET DE L'ARTICLE :*
-
-${article.content}
-
----
-
-👉 *Visitez le blog :*
-${window.location.origin}${window.location.pathname}#articles
-
----
-*ESODI Blog - Solutions Digitales Innovantes*
-*Par Jeanskodoc*`;
-                
-                // Encoder le message pour URL
-                const encodedMessage = encodeURIComponent(whatsappMessage);
-                
-                // Créer l'URL WhatsApp (avec le numéro international pour le Togo)
-                const whatsappUrl = `https://wa.me/${ESODI_BLOG.whatsappCountryCode}${ESODI_BLOG.whatsappPhone}?text=${encodedMessage}`;
-                
-                // Ouvrir WhatsApp dans un nouvel onglet
-                window.open(whatsappUrl, '_blank');
-                
-                // Mettre à jour l'article
-                const articleIndex = ESODI_BLOG.articles.findIndex(a => a.id === article.id);
-                if (articleIndex !== -1) {
-                    ESODI_BLOG.articles[articleIndex].whatsappSent = true;
-                    ESODI_BLOG.stats.whatsappSent++;
-                    saveData();
-                }
-                
-                showNotification('Article complet envoyé par WhatsApp avec succès 📱', 'whatsapp');
-                
-            } catch (error) {
-                console.error('Erreur lors de l\'envoi WhatsApp :', error);
-                showNotification('Erreur lors de l\'envoi WhatsApp', 'error');
-            }
         }
 
         // Envoyer un message test par WhatsApp
