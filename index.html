@@ -457,14 +457,14 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
             gap: clamp(var(--space-sm), 2vw, var(--space-md));
-            max-width: 800px;
+            max-width: 1000px;
             margin: 0 auto;
             width: 100%;
         }
 
         @media (min-width: 640px) {
             .cta-buttons {
-                grid-template-columns: repeat(3, 1fr);
+                grid-template-columns: repeat(4, 1fr);
                 gap: var(--space-md);
             }
         }
@@ -525,6 +525,12 @@
             background: var(--gradient-youtube);
             color: white;
             box-shadow: 0 4px 15px rgba(255, 0, 0, 0.3);
+        }
+
+        .btn-products {
+            background: linear-gradient(135deg, var(--primary), var(--accent-innovation));
+            color: white;
+            box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
         }
 
         .btn-outline {
@@ -814,189 +820,6 @@
             justify-content: center;
             gap: var(--space-md);
             margin-top: var(--space-xl);
-        }
-
-        /* Grille de produits ultra-responsive */
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
-            gap: clamp(var(--space-lg), 3vw, var(--space-xl));
-            margin-bottom: var(--space-2xl);
-        }
-
-        @media (min-width: 640px) {
-            .products-grid {
-                grid-template-columns: repeat(auto-fill, minmax(min(100%, 350px), 1fr));
-            }
-        }
-
-        @media (min-width: 1024px) {
-            .products-grid {
-                grid-template-columns: repeat(auto-fill, minmax(min(100%, 380px), 1fr));
-            }
-        }
-
-        @media (min-width: 1280px) {
-            .products-grid {
-                grid-template-columns: repeat(auto-fill, minmax(min(100%, 400px), 1fr));
-            }
-        }
-
-        /* Carte produit responsive */
-        .product-card {
-            background: white;
-            border-radius: var(--radius-xl);
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            transition: all var(--transition-slow);
-            height: 100%;
-            border: 1px solid var(--gray-200);
-            display: flex;
-            flex-direction: column;
-            position: relative;
-        }
-
-        .product-card:hover {
-            transform: translateY(-8px);
-            box-shadow: var(--shadow-xl);
-            border-color: var(--primary-light);
-        }
-
-        @media (hover: none) {
-            .product-card:hover {
-                transform: none;
-            }
-        }
-
-        .product-header {
-            padding: clamp(var(--space-lg), 3vw, var(--space-xl));
-        }
-
-        .product-icon {
-            width: clamp(50px, 6vw, 60px);
-            height: clamp(50px, 6vw, 60px);
-            border-radius: var(--radius-lg);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: clamp(1.25rem, 2vw, 1.5rem);
-            margin-bottom: var(--space-md);
-            color: white;
-            box-shadow: var(--shadow);
-        }
-
-        .product-badge {
-            display: inline-block;
-            padding: clamp(0.25rem, 0.5vw, 0.375rem) clamp(0.75rem, 1vw, 1rem);
-            border-radius: var(--radius-full);
-            font-size: clamp(0.6875rem, 1vw, 0.75rem);
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: var(--space-sm);
-            color: white;
-        }
-
-        .product-card h3 {
-            font-size: clamp(1.25rem, 2vw, 1.5rem);
-            margin-bottom: var(--space-sm);
-            line-height: 1.3;
-        }
-
-        .product-card .description {
-            color: var(--gray-600);
-            font-size: clamp(0.9375rem, 1.5vw, 1rem);
-            line-height: 1.5;
-            margin-bottom: var(--space-md);
-        }
-
-        .product-features {
-            padding: 0 clamp(var(--space-lg), 3vw, var(--space-xl)) var(--space-md);
-            margin-bottom: var(--space-md);
-            flex-grow: 1;
-        }
-
-        .feature {
-            display: flex;
-            align-items: flex-start;
-            gap: var(--space-sm);
-            margin-bottom: var(--space-sm);
-            font-size: clamp(0.875rem, 1.5vw, 0.9375rem);
-            color: var(--gray-700);
-            line-height: 1.4;
-        }
-
-        .feature i {
-            color: var(--success);
-            font-size: clamp(0.875rem, 1.5vw, 1rem);
-            margin-top: 0.125rem;
-            flex-shrink: 0;
-        }
-
-        .product-footer {
-            padding: clamp(var(--space-md), 2vw, var(--space-lg)) clamp(var(--space-lg), 3vw, var(--space-xl));
-            border-top: 1px solid var(--gray-200);
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            align-items: center;
-            gap: var(--space-md);
-        }
-
-        .status {
-            font-size: clamp(0.8125rem, 1.2vw, 0.875rem);
-            font-weight: 600;
-            padding: clamp(0.25rem, 0.5vw, 0.375rem) clamp(0.75rem, 1vw, 1rem);
-            border-radius: var(--radius-full);
-        }
-
-        .status.live {
-            background: rgba(16, 185, 129, 0.1);
-            color: var(--accent-finance);
-            border: 1px solid rgba(16, 185, 129, 0.2);
-        }
-
-        .product-actions {
-            display: flex;
-            gap: clamp(var(--space-sm), 1vw, var(--space-md));
-        }
-
-        .btn-sm {
-            padding: clamp(0.5rem, 1vw, 0.625rem) clamp(1rem, 1.5vw, 1.25rem);
-            font-size: clamp(0.8125rem, 1.2vw, 0.875rem);
-            min-height: 36px;
-            border-radius: var(--radius);
-        }
-
-        /* Catégories responsive */
-        .categories {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: clamp(var(--space-sm), 1vw, var(--space-md));
-            margin-bottom: clamp(var(--space-xl), 4vw, var(--space-2xl));
-        }
-
-        .category-btn {
-            padding: clamp(0.625rem, 1.5vw, 0.75rem) clamp(1.25rem, 2vw, 1.5rem);
-            border-radius: var(--radius-full);
-            border: 2px solid var(--gray-200);
-            background: white;
-            color: var(--gray-700);
-            font-weight: 600;
-            cursor: pointer;
-            transition: all var(--transition);
-            font-size: clamp(0.875rem, 1.5vw, 0.9375rem);
-            white-space: nowrap;
-        }
-
-        .category-btn.active,
-        .category-btn:hover {
-            background: var(--gradient-primary);
-            color: white;
-            border-color: transparent;
-            transform: translateY(-2px);
-            box-shadow: var(--shadow);
         }
 
         /* Section Commentaires WhatsApp responsive */
@@ -1461,14 +1284,6 @@
             section {
                 padding: var(--space-4xl) 0;
             }
-            
-            .products-grid {
-                gap: var(--space-2xl);
-            }
-            
-            .product-card {
-                border-radius: var(--radius-2xl);
-            }
         }
 
         /* Support pour les petits écrans en mode paysage */
@@ -1489,11 +1304,6 @@
                 min-height: 42px;
             }
             
-            .product-card {
-                max-height: 80vh;
-                overflow-y: auto;
-            }
-            
             .modal-content {
                 max-height: 90vh;
             }
@@ -1504,10 +1314,6 @@
             .main-nav a {
                 padding: var(--space-sm) var(--space-md);
                 font-size: 0.9375rem;
-            }
-            
-            .products-grid {
-                grid-template-columns: repeat(2, 1fr);
             }
             
             .donation-features {
@@ -1546,7 +1352,6 @@
                 border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             }
             
-            .product-card,
             .comment-card,
             .donation-card,
             .modal-content,
@@ -1564,12 +1369,6 @@
             .donation-feature {
                 background: var(--gray-200);
                 border-color: var(--gray-300);
-            }
-            
-            .category-btn {
-                background: var(--gray-100);
-                border-color: var(--gray-300);
-                color: var(--gray-600);
             }
             
             .btn-outline {
@@ -1610,7 +1409,6 @@
         }
 
         /* Optimisations pour les performances */
-        .product-card,
         .btn,
         .donation-feature,
         .notification,
@@ -1696,7 +1494,6 @@
                 <nav>
                     <ul class="main-nav" id="mainNav">
                         <li><a href="#hero" class="active"><i class="fas fa-home"></i> Accueil</a></li>
-                        <li><a href="#products"><i class="fas fa-box"></i> Produits</a></li>
                         <li><a href="#tutorials"><i class="fas fa-play-circle"></i> Tutoriels</a></li>
                         <li><a href="#comments"><i class="fas fa-comments"></i> Commentaires</a></li>
                         <li><a href="#donation"><i class="fas fa-heart"></i> Soutenir</a></li>
@@ -1713,8 +1510,8 @@
             <h2>Transformez vos idées en solutions digitales</h2>
             <p class="lead">ESODI développe des applications innovantes pour l'éducation, la finance, le commerce et le transport. Des solutions sur mesure qui répondent aux besoins réels.</p>
             <div class="cta-buttons">
-                <a href="#products" class="btn btn-primary">
-                    <i class="fas fa-rocket"></i> Découvrir nos produits
+                <a href="ESO.html" class="btn btn-products">
+                    <i class="fas fa-rocket"></i> Nos produits
                 </a>
                 <a href="#tutorials" class="btn btn-youtube">
                     <i class="fab fa-youtube"></i> Voir les tutoriels
@@ -1722,36 +1519,8 @@
                 <a href="#comments" class="btn btn-whatsapp">
                     <i class="fab fa-whatsapp"></i> Commenter
                 </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Section Produits -->
-    <section id="products" class="products-section">
-        <div class="container">
-            <div class="section-header">
-                <h2>Nos Solutions Digitales</h2>
-                <p>Découvrez notre portfolio de produits innovants, chacun conçu pour résoudre des problèmes spécifiques et améliorer votre quotidien.</p>
-            </div>
-
-            <!-- Catégories -->
-            <div class="categories" id="categories">
-                <button class="category-btn active" data-category="all">Tous les produits</button>
-                <button class="category-btn" data-category="education">Éducation</button>
-                <button class="category-btn" data-category="finance">Finance</button>
-                <button class="category-btn" data-category="commerce">Commerce</button>
-                <button class="category-btn" data-category="transport">Transport</button>
-                <button class="category-btn" data-category="innovation">Innovation</button>
-            </div>
-
-            <!-- Grille de produits -->
-            <div class="products-grid" id="productsGrid">
-                <!-- Les produits sont chargés dynamiquement par JavaScript -->
-            </div>
-
-            <div style="text-align: center; margin-top: var(--space-2xl);">
-                <a href="https://jeanskodoc.github.io/ESO/" target="_blank" class="btn btn-primary" style="min-width: 200px;">
-                    <i class="fas fa-external-link-alt"></i> Voir tous les projets
+                <a href="#donation" class="btn btn-donation">
+                    <i class="fas fa-heart"></i> Soutenir
                 </a>
             </div>
         </div>
@@ -1847,7 +1616,12 @@
                         </label>
                         <select id="commentProduct" class="form-control">
                             <option value="">Sélectionnez un produit</option>
-                            <!-- Options chargées dynamiquement -->
+                            <option value="visio-educ">VISIO-EDUC</option>
+                            <option value="eds">EDS-🏫</option>
+                            <option value="tontine">TONTINE DIGITALE</option>
+                            <option value="boutique">GESTION DE BOUTIQUE</option>
+                            <option value="transtogo">TRANSTOGO</option>
+                            <option value="eveil">ÉVEIL INTELLECTUEL</option>
                         </select>
                     </div>
                     
@@ -2001,7 +1775,7 @@
                 <div class="footer-section">
                     <h3>Navigation rapide</h3>
                     <ul>
-                        <li><a href="#products">Produits</a></li>
+                        <li><a href="ESO.html">Nos produits</a></li>
                         <li><a href="#tutorials">Tutoriels</a></li>
                         <li><a href="#comments">Commentaires</a></li>
                         <li><a href="#donation">Soutenir</a></li>
@@ -2029,14 +1803,6 @@
         </div>
     </footer>
 
-    <!-- Modal pour les détails des produits -->
-    <div id="productModal" class="modal">
-        <div class="modal-content">
-            <button class="close-modal" aria-label="Fermer">&times;</button>
-            <div id="modalContent"></div>
-        </div>
-    </div>
-
     <!-- Notification -->
     <div id="notification" class="notification" style="display: none;" role="alert" aria-live="polite">
         <i class="fas fa-check-circle"></i>
@@ -2047,99 +1813,7 @@
         // Configuration ESODI
         const ESODI_CONFIG = {
             whatsappPhone: '22892871605',
-            donationLink: 'https://me.fedapay.com/lmuOo1Nv',
-            products: [
-                {
-                    id: 'visio-educ',
-                    title: 'VISIO-EDUC',
-                    category: 'education',
-                    icon: 'chalkboard-teacher',
-                    color: 'var(--accent-education)',
-                    description: 'Plateforme de projection interactive qui transforme l\'enseignement traditionnel en expériences éducatives captivantes.',
-                    features: [
-                        'Contenu interactif stimulant l\'engagement',
-                        'Multi-plateforme (PC, tablettes, Android)',
-                        'Réduction de la somnolence en classe'
-                    ],
-                    demoLink: 'https://jeanskodoc.github.io/VISIO-EDUC/',
-                    status: 'En ligne'
-                },
-                {
-                    id: 'eds',
-                    title: 'EDS-🏫',
-                    category: 'education',
-                    icon: 'school',
-                    color: 'var(--accent-education)',
-                    description: 'L\'Environnement Digital Scolaire complet pour la gestion moderne des établissements éducatifs.',
-                    features: [
-                        'Sécurité renforcée des données',
-                        'Communication simplifiée',
-                        'Gestion centralisée intuitive'
-                    ],
-                    demoLink: 'https://jeanskodoc.github.io/EDS/',
-                    status: 'En ligne'
-                },
-                {
-                    id: 'tontine',
-                    title: 'TONTINE DIGITALE',
-                    category: 'finance',
-                    icon: 'hand-holding-usd',
-                    color: 'var(--accent-finance)',
-                    description: 'Solution moderne et sécurisée pour la gestion transparente des tontines et associations financières.',
-                    features: [
-                        'Gestion transparente des cotisations',
-                        'Notifications automatiques',
-                        'Historique complet des transactions'
-                    ],
-                    demoLink: 'https://jeanskodoc.github.io/TONTINE/',
-                    status: 'En ligne'
-                },
-                {
-                    id: 'boutique',
-                    title: 'GESTION DE BOUTIQUE',
-                    category: 'commerce',
-                    icon: 'store',
-                    color: 'var(--accent-commerce)',
-                    description: 'Système complet de gestion commerciale pour les petites et moyennes entreprises.',
-                    features: [
-                        'Gestion des stocks en temps réel',
-                        'Suivi détaillé des ventes',
-                        'Gestion des fournisseurs'
-                    ],
-                    demoLink: 'https://jeanskodoc.github.io/E-Commerce-/',
-                    status: 'En ligne'
-                },
-                {
-                    id: 'transtogo',
-                    title: 'TRANSTOGO',
-                    category: 'transport',
-                    icon: 'bus',
-                    color: 'var(--accent-transport)',
-                    description: 'Plateforme intelligente pour faciliter les déplacements au Togo avec des informations actualisées.',
-                    features: [
-                        'Informations en temps réel',
-                        'Comparaison des options',
-                        'Interface adaptée aux besoins locaux'
-                    ],
-                    demoLink: 'https://jeanskodoc.github.io/transport-Togo-/',
-                    status: 'En ligne'
-                },
-                {
-                    id: 'eveil',
-                    title: 'ÉVEIL INTELLECTUEL',
-                    category: 'innovation',
-                    icon: 'brain',
-                    color: 'var(--accent-innovation)',
-                    description: 'Plateforme d\'entraînement cognitif pour améliorer les capacités mentales et la mémoire.',
-                    features: [
-                        'Exercices de mémoire personnalisés',
-                        'Jeux de logique adaptatifs',
-                        'Suivi de progression'
-                    ],
-                    demoLink: 'https://jeanskodoc.github.io/-VEIL-/',
-                    status: 'En ligne'
-                }
-            ]
+            donationLink: 'https://me.fedapay.com/lmuOo1Nv'
         };
 
         // Configuration YouTube
@@ -2169,11 +1843,9 @@
 
         function initApp() {
             initMobileNavigation();
-            initProducts();
             initYouTubeTutorials();
             initCommentForm();
             initDonation();
-            initModal();
             initNotifications();
             initSmoothScrolling();
             initIntersectionObserver();
@@ -2204,16 +1876,6 @@
         // Gestion du changement d'orientation
         function handleOrientationChange() {
             setTimeout(detectScreenSize, 100);
-            setTimeout(() => {
-                // Réinitialiser certaines animations après rotation
-                const modal = document.getElementById('productModal');
-                if (modal && modal.style.display === 'block') {
-                    closeModal();
-                    setTimeout(() => {
-                        modal.style.display = 'block';
-                    }, 50);
-                }
-            }, 200);
         }
 
         // Navigation mobile améliorée
@@ -2242,17 +1904,6 @@
                 document.addEventListener('click', function(e) {
                     if (!mainNav.contains(e.target) && !mobileNavToggle.contains(e.target) && mainNav.classList.contains('active')) {
                         closeMobileMenu();
-                    }
-                });
-                
-                // Fermer le menu en scrollant
-                let scrollTimeout;
-                window.addEventListener('scroll', function() {
-                    if (mainNav.classList.contains('active')) {
-                        clearTimeout(scrollTimeout);
-                        scrollTimeout = setTimeout(() => {
-                            closeMobileMenu();
-                        }, 300);
                     }
                 });
                 
@@ -2299,110 +1950,6 @@
                     document.body.style.overflow = '';
                 }
             }
-        }
-
-        // Initialisation des produits
-        function initProducts() {
-            const productsGrid = document.getElementById('productsGrid');
-            const productSelect = document.getElementById('commentProduct');
-            
-            if (productsGrid) {
-                productsGrid.innerHTML = ESODI_CONFIG.products.map(product => {
-                    return `
-                        <div class="product-card" data-category="${product.category}">
-                            <div class="product-header">
-                                <div class="product-icon" style="background: ${product.color};">
-                                    <i class="fas fa-${product.icon}"></i>
-                                </div>
-                                <span class="product-badge" style="background: ${product.color};">${getCategoryLabel(product.category)}</span>
-                                <h3>${product.title}</h3>
-                                <p class="description">${product.description}</p>
-                            </div>
-                            <div class="product-features">
-                                ${product.features.map(feature => `
-                                    <div class="feature">
-                                        <i class="fas fa-check"></i>
-                                        <span>${feature}</span>
-                                    </div>
-                                `).join('')}
-                            </div>
-                            <div class="product-footer">
-                                <span class="status live">${product.status}</span>
-                                <div class="product-actions">
-                                    <a href="${product.demoLink}" target="_blank" class="btn btn-sm btn-demo" aria-label="Voir la démo de ${product.title}">
-                                        <i class="fas fa-eye"></i> Démo
-                                    </a>
-                                    <button class="btn btn-sm btn-details" data-product="${product.id}" aria-label="Voir les détails de ${product.title}">
-                                        <i class="fas fa-info-circle"></i> Détails
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                }).join('');
-            }
-            
-            // Remplir le select des produits
-            if (productSelect) {
-                productSelect.innerHTML = '<option value="">Sélectionnez un produit</option>' +
-                    ESODI_CONFIG.products.map(product => `
-                        <option value="${product.id}">${product.title}</option>
-                    `).join('');
-            }
-            
-            // Filtrage des catégories
-            initCategoryFilter();
-        }
-
-        function getCategoryLabel(category) {
-            const labels = {
-                'education': 'Éducation',
-                'finance': 'Finance',
-                'commerce': 'Commerce',
-                'transport': 'Transport',
-                'innovation': 'Innovation'
-            };
-            return labels[category] || category;
-        }
-
-        function initCategoryFilter() {
-            const categoryBtns = document.querySelectorAll('.category-btn');
-            const productCards = document.querySelectorAll('.product-card');
-            
-            categoryBtns.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    // Mettre à jour les boutons actifs
-                    categoryBtns.forEach(b => b.classList.remove('active'));
-                    this.classList.add('active');
-                    
-                    const category = this.dataset.category;
-                    
-                    // Filtrer les produits
-                    productCards.forEach(card => {
-                        if (category === 'all' || card.dataset.category === category) {
-                            card.style.display = 'flex';
-                            card.style.opacity = '1';
-                            card.style.transform = 'translateY(0)';
-                            card.style.pointerEvents = 'auto';
-                        } else {
-                            card.style.opacity = '0';
-                            card.style.transform = 'translateY(20px)';
-                            card.style.pointerEvents = 'none';
-                            setTimeout(() => {
-                                if (!card.classList.contains('filtered')) {
-                                    card.style.display = 'none';
-                                }
-                            }, 300);
-                        }
-                    });
-                    
-                    // Animation de feedback
-                    this.style.transform = 'scale(0.95)';
-                    setTimeout(() => {
-                        this.style.transform = '';
-                    }, 150);
-                });
-            });
         }
 
         // Système de tutoriels YouTube
@@ -2512,25 +2059,39 @@
                 try {
                     // Méthode alternative sans API YouTube
                     // Utiliser une solution de secours avec des vidéos d'exemple
-                    // Cette méthode peut être remplacée par une vraie API si nécessaire
-                    
-                    // Pour l'instant, utiliser des données d'exemple
-                    // Dans une version future, on pourrait utiliser un proxy ou une autre méthode
-                    
                     const sampleVideos = [
                         {
                             id: 'sample1',
-                            title: 'Toute la chaîne - Guide complet',
-                            description: 'Apprenez à utiliser les projets ESODI.',
+                            title: 'Présentation de la chaîne ESODI',
+                            description: 'Découvrez tous les projets et solutions digitales ESODI. Des applications innovantes pour l'éducation, la finance, le commerce et le transport.',
                             thumbnail: 'https://img.youtube.com/vi/dQw4w9WgXcQ/mqdefault.jpg',
                             publishedAt: '15/03/2024',
                             viewCount: '1,234',
                             duration: '15:30',
                             videoUrl: 'https://youtube.com/@esodi'
+                        },
+                        {
+                            id: 'sample2',
+                            title: 'Tutoriel VISIO-EDUC - Guide complet',
+                            description: 'Apprenez à utiliser la plateforme de projection interactive VISIO-EDUC pour transformer votre enseignement.',
+                            thumbnail: 'https://img.youtube.com/vi/dQw4w9WgXcQ/mqdefault.jpg',
+                            publishedAt: '10/03/2024',
+                            viewCount: '856',
+                            duration: '12:45',
+                            videoUrl: 'https://youtube.com/@esodi'
+                        },
+                        {
+                            id: 'sample3',
+                            title: 'Gérer sa tontine avec TONTINE DIGITALE',
+                            description: 'Tutoriel complet pour utiliser la solution de gestion de tontine et d'épargne.',
+                            thumbnail: 'https://img.youtube.com/vi/dQw4w9WgXcQ/mqdefault.jpg',
+                            publishedAt: '05/03/2024',
+                            viewCount: '2,101',
+                            duration: '18:20',
+                            videoUrl: 'https://youtube.com/@esodi'
                         }
                     ];
                     
-                    // Retourner les vidéos d'exemple pour le moment
                     return sampleVideos;
                     
                 } catch (error) {
@@ -2753,9 +2314,10 @@
                 return;
             }
             
-            // Préparer le message WhatsApp
-            const product = ESODI_CONFIG.products.find(p => p.id === productId);
-            const productName = product ? product.title : 'Non spécifié';
+            // Récupérer le nom du produit
+            const productSelect = document.getElementById('commentProduct');
+            const productName = productSelect.options[productSelect.selectedIndex]?.text || 'Non spécifié';
+            
             const typeLabel = getCommentTypeLabel(type);
             
             const whatsappMessage = `💬 *NOUVEAU COMMENTAIRE - ESODI*
@@ -2796,7 +2358,7 @@ ${message}
 
         function getCommentTypeLabel(type) {
             const labels = {
-                'feedback': 'Retour d\'expérience',
+                'feedback': 'Retour d'expérience',
                 'question': 'Question',
                 'suggestion': 'Suggestion',
                 'bug': 'Signalement de bug',
@@ -2829,241 +2391,6 @@ ${message}
                         });
                 });
             }
-        }
-
-        // Modal des produits
-        function initModal() {
-            const detailBtns = document.querySelectorAll('.btn-details');
-            const modal = document.getElementById('productModal');
-            const closeModalBtn = document.querySelector('.close-modal');
-            const modalContent = document.getElementById('modalContent');
-            
-            // Détails complets des produits
-            const productDetails = {
-                'visio-educ': {
-                    title: 'VISIO-EDUC',
-                    category: 'Éducation',
-                    icon: 'chalkboard-teacher',
-                    color: 'var(--accent-education)',
-                    description: 'Une plateforme révolutionnaire qui transforme l\'enseignement traditionnel en expériences éducatives interactives et captivantes.',
-                    features: [
-                        'Projection interactive en temps réel',
-                        'Support multi-médias intégré',
-                        'Quiz et évaluations interactives',
-                        'Analytics de participation des élèves',
-                        'Compatibilité multi-appareils'
-                    ],
-                    demoLink: 'https://jeanskodoc.github.io/EDS/',
-                    status: 'En production',
-                    technologies: ['HTML5', 'CSS3', 'JavaScript', 'Canvas API']
-                },
-                'eds': {
-                    title: 'EDS-🏫',
-                    category: 'Éducation',
-                    icon: 'school',
-                    color: 'var(--accent-education)',
-                    description: 'L\'Environnement Digital Scolaire complet pour la gestion moderne des établissements éducatifs.',
-                    features: [
-                        'Gestion des élèves et enseignants',
-                        'Emploi du temps digital',
-                        'Communication parents-école',
-                        'Bulletins et évaluations',
-                        'Sécurité des données certifiée'
-                    ],
-                    demoLink: 'https://jeanskodoc.github.io/EDS/',
-                    status: 'En production',
-                    technologies: ['HTML5', 'CSS3', 'JavaScript', 'LocalStorage']
-                },
-                'tontine': {
-                    title: 'TONTINE DIGITALE',
-                    category: 'Finance',
-                    icon: 'hand-holding-usd',
-                    color: 'var(--accent-finance)',
-                    description: 'Solution moderne et sécurisée pour la gestion transparente des tontines et associations financières.',
-                    features: [
-                        'Gestion transparente des cotisations',
-                        'Notifications automatiques',
-                        'Historique détaillé des transactions',
-                        'Rapports financiers générés automatiquement',
-                        'Interface multi-utilisateurs'
-                    ],
-                    demoLink: 'https://jeanskodoc.github.io/TONTINE/',
-                    status: 'En production',
-                    technologies: ['HTML5', 'CSS3', 'JavaScript', 'Chart.js']
-                },
-                'boutique': {
-                    title: 'GESTION DE BOUTIQUE',
-                    category: 'Commerce',
-                    icon: 'store',
-                    color: 'var(--accent-commerce)',
-                    description: 'Système complet de gestion commerciale pour les petites et moyennes entreprises.',
-                    features: [
-                        'Gestion des stocks en temps réel',
-                        'Point de vente intégré',
-                        'Gestion des fournisseurs',
-                        'Analytics de vente',
-                        'Facturation automatique'
-                    ],
-                    demoLink: 'https://jeanskodoc.github.io/E-Commerce-/',
-                    status: 'En production',
-                    technologies: ['HTML5', 'CSS3', 'JavaScript', 'IndexedDB']
-                },
-                'transtogo': {
-                    title: 'TRANSTOGO',
-                    category: 'Transport',
-                    icon: 'bus',
-                    color: 'var(--accent-transport)',
-                    description: 'Plateforme intelligente pour faciliter les déplacements au Togo avec des informations actualisées.',
-                    features: [
-                        'Horaires en temps réel',
-                        'Calcul d\'itinéraires',
-                        'Comparaison des tarifs',
-                        'Notifications de perturbations',
-                        'Interface adaptée mobile'
-                    ],
-                    demoLink: 'https://jeanskodoc.github.io/transport-Togo-/',
-                    status: 'En production',
-                    technologies: ['HTML5', 'CSS3', 'JavaScript', 'Geolocation API']
-                },
-                'eveil': {
-                    title: 'ÉVEIL INTELLECTUEL',
-                    category: 'Innovation',
-                    icon: 'brain',
-                    color: 'var(--accent-innovation)',
-                    description: 'Plateforme d\'entraînement cognitif pour améliorer les capacités mentales et la mémoire.',
-                    features: [
-                        'Exercices de mémoire personnalisés',
-                        'Jeux de logique adaptatifs',
-                        'Suivi de progression',
-                        'Défis quotidiens',
-                        'Interface gamifiée'
-                    ],
-                    demoLink: 'https://jeanskodoc.github.io/-VEIL-/',
-                    status: 'En production',
-                    technologies: ['HTML5', 'CSS3', 'JavaScript', 'Game API']
-                }
-            };
-            
-            detailBtns.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const productId = this.dataset.product;
-                    openProductModal(productId);
-                });
-            });
-            
-            function openProductModal(productId) {
-                const product = productDetails[productId];
-                
-                if (!product) return;
-                
-                modalContent.innerHTML = `
-                    <div style="padding: clamp(var(--space-lg), 3vw, var(--space-xl));">
-                        <div style="display: flex; align-items: center; gap: var(--space-md); margin-bottom: var(--space-xl);">
-                            <div style="background: ${product.color}; width: clamp(50px, 6vw, 60px); height: clamp(50px, 6vw, 60px); border-radius: var(--radius-lg); display: flex; align-items: center; justify-content: center; color: white; font-size: clamp(1.25rem, 2vw, 1.5rem);">
-                                <i class="fas fa-${product.icon}"></i>
-                            </div>
-                            <div>
-                                <span style="background: ${product.color}; color: white; padding: var(--space-xs) var(--space-md); border-radius: var(--radius-full); font-size: clamp(0.75rem, 1vw, 0.875rem); font-weight: 700;">${product.category}</span>
-                                <h2 style="margin-top: var(--space-sm); font-size: clamp(1.5rem, 3vw, 2rem);">${product.title}</h2>
-                            </div>
-                        </div>
-                        
-                        <div style="background: var(--gray-100); padding: var(--space-lg); border-radius: var(--radius-lg); margin-bottom: var(--space-xl);">
-                            <p style="font-size: clamp(1rem, 1.5vw, 1.125rem); line-height: 1.6; color: var(--gray-800);">${product.description}</p>
-                        </div>
-                        
-                        <div style="margin-bottom: var(--space-xl);">
-                            <h3 style="margin-bottom: var(--space-lg);">Fonctionnalités principales</h3>
-                            <div style="display: grid; gap: var(--space-md);">
-                                ${product.features.map(feature => `
-                                    <div style="display: flex; align-items: flex-start; gap: var(--space-md); padding: var(--space-md); background: var(--gray-50); border-radius: var(--radius); border-left: 4px solid ${product.color};">
-                                        <i class="fas fa-check" style="color: var(--success); margin-top: 0.125rem;"></i>
-                                        <span style="flex: 1;">${feature}</span>
-                                    </div>
-                                `).join('')}
-                            </div>
-                        </div>
-                        
-                        <div style="margin-bottom: var(--space-xl);">
-                            <h3 style="margin-bottom: var(--space-lg);">Technologies utilisées</h3>
-                            <div style="display: flex; flex-wrap: wrap; gap: var(--space-sm);">
-                                ${product.technologies.map(tech => `
-                                    <span style="background: var(--gray-200); color: var(--gray-800); padding: var(--space-sm) var(--space-md); border-radius: var(--radius-full); font-size: clamp(0.75rem, 1vw, 0.875rem); font-weight: 600;">
-                                        ${tech}
-                                    </span>
-                                `).join('')}
-                            </div>
-                        </div>
-                        
-                        <div style="display: flex; flex-wrap: wrap; gap: var(--space-md); margin-top: var(--space-xl);">
-                            <a href="${product.demoLink}" target="_blank" class="btn" style="background: ${product.color}; color: white; flex: 1; min-width: 200px;">
-                                <i class="fas fa-external-link-alt"></i> Voir la démo
-                            </a>
-                            <button class="close-modal btn" style="background: transparent; border: 2px solid var(--gray-300); color: var(--gray-800); flex: 1; min-width: 200px;">
-                                Fermer
-                            </button>
-                        </div>
-                    </div>
-                `;
-                
-                modal.style.display = 'block';
-                document.body.style.overflow = 'hidden';
-                
-                // Focus trap pour accessibilité
-                const focusableElements = modal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
-                const firstFocusableElement = focusableElements[0];
-                const lastFocusableElement = focusableElements[focusableElements.length - 1];
-                
-                if (firstFocusableElement) {
-                    firstFocusableElement.focus();
-                }
-                
-                // Gestion de la navigation au clavier dans la modal
-                modal.addEventListener('keydown', function(e) {
-                    if (e.key === 'Escape') {
-                        closeModal();
-                    }
-                    
-                    if (e.key === 'Tab') {
-                        if (e.shiftKey) {
-                            if (document.activeElement === firstFocusableElement) {
-                                e.preventDefault();
-                                lastFocusableElement.focus();
-                            }
-                        } else {
-                            if (document.activeElement === lastFocusableElement) {
-                                e.preventDefault();
-                                firstFocusableElement.focus();
-                            }
-                        }
-                    }
-                });
-            }
-            
-            // Fermer la modal
-            window.closeModal = function() {
-                const modal = document.getElementById('productModal');
-                if (modal) {
-                    modal.style.display = 'none';
-                    document.body.style.overflow = 'auto';
-                    
-                    // Restaurer le focus sur le bouton qui a ouvert la modal
-                    const activeElement = document.activeElement;
-                    if (activeElement && activeElement.classList.contains('btn-details')) {
-                        activeElement.focus();
-                    }
-                }
-            };
-            
-            if (closeModalBtn) {
-                closeModalBtn.addEventListener('click', closeModal);
-            }
-            
-            modal.addEventListener('click', function(e) {
-                if (e.target === modal) {
-                    closeModal();
-                }
-            });
         }
 
         // Notifications
@@ -3168,7 +2495,7 @@ ${message}
             }, observerOptions);
             
             // Observer les éléments
-            document.querySelectorAll('.product-card, .donation-feature, .stat-card, .video-card').forEach(element => {
+            document.querySelectorAll('.donation-feature, .stat-card, .video-card').forEach(element => {
                 element.style.opacity = '0';
                 element.style.transform = 'translateY(20px)';
                 element.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
@@ -3259,12 +2586,10 @@ ${message}
                 }
                 
                 const product = data.product || '';
-                const productName = ESODI_CONFIG.products.find(p => p.id === product)?.title || 'Non spécifié';
-                
                 const whatsappMessage = `💬 *COMMENTAIRE API - ESODI*
 
 👤 *Nom :* ${name}
-📦 *Produit :* ${productName}
+📦 *Produit :* ${product || 'Non spécifié'}
 
 📝 *Message :*
 ${message}`;
@@ -3296,17 +2621,6 @@ ${message}`;
                 };
             }
         };
-
-        // Service Worker pour PWA (optionnel)
-        if ('serviceWorker' in navigator && isMobile) {
-            window.addEventListener('load', function() {
-                navigator.serviceWorker.register('/sw.js').then(function(registration) {
-                    console.log('ServiceWorker registration successful with scope: ', registration.scope);
-                }, function(err) {
-                    console.log('ServiceWorker registration failed: ', err);
-                });
-            });
-        }
     </script>
 </body>
 </html>
