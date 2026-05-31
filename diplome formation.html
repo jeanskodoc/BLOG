@@ -1,0 +1,1972 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gestion des Diplômes et Attestations</title>
+<style>
+/* ===== RESET & BASE ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f0f2f5; color: #1a1a2e; line-height: 1.6; }
+
+/* ===== LOGIN ===== */
+#loginOverlay {
+  position: fixed; inset: 0; z-index: 9999;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  display: flex; justify-content: center; align-items: center;
+}
+#loginOverlay.hidden { display: none; }
+.login-box {
+  background: #fff; border-radius: 12px; padding: 2.5rem 2rem; width: 360px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4); text-align: center;
+}
+.login-box h1 { font-size: 1.3rem; color: #1a1a2e; margin-bottom: 0.3rem; }
+.login-box p { font-size: 0.8rem; color: #888; margin-bottom: 1.5rem; }
+.login-box .login-icon { font-size: 2.5rem; margin-bottom: 0.8rem; }
+.login-box .form-group { text-align: left; margin-bottom: 1rem; }
+.login-box .form-group label { font-size: 0.78rem; font-weight: 600; color: #555; display: block; margin-bottom: 0.3rem; }
+.login-box .form-group input { width: 100%; padding: 0.65rem 0.8rem; border: 1.5px solid #ddd; border-radius: 6px; font-size: 0.9rem; transition: border-color 0.2s; }
+.login-box .form-group input:focus { border-color: #0f3460; outline: none; }
+.login-box .btn-login { width: 100%; padding: 0.7rem; background: #0f3460; color: #fff; border: none; border-radius: 6px; font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: background 0.2s; }
+.login-box .btn-login:hover { background: #1a1a2e; }
+.login-box .login-error { font-size: 0.78rem; color: #c0392b; margin-top: 0.6rem; min-height: 1.2rem; }
+.login-box .login-hint { font-size: 0.7rem; color: #bbb; margin-top: 1rem; }
+
+/* ===== EN-TÊTE ===== */
+.app-header { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); color: #fff; padding: 1rem 2rem; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 2px 10px rgba(0,0,0,0.3); position: sticky; top: 0; z-index: 100; }
+.app-header h1 { font-size: 1.3rem; display: flex; align-items: center; gap: 0.75rem; }
+.app-header h1 span { font-size: 1.6rem; }
+.app-header .app-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+.btn { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.5rem 1rem; border: none; border-radius: 6px; font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: all 0.2s; text-decoration: none; }
+.btn:hover { transform: translateY(-1px); box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
+.btn-primary { background: #e94560; color: #fff; }
+.btn-secondary { background: #533483; color: #fff; }
+.btn-success { background: #0f3460; color: #fff; }
+.btn-info { background: #16213e; color: #fff; }
+.btn-danger { background: #c0392b; color: #fff; }
+.btn-warning { background: #f39c12; color: #fff; }
+.btn-sm { padding: 0.3rem 0.7rem; font-size: 0.78rem; }
+.btn-outline { background: transparent; border: 1.5px solid #fff; color: #fff; }
+.btn-outline:hover { background: rgba(255,255,255,0.15); }
+
+/* ===== LAYOUT PRINCIPAL ===== */
+.app-main { max-width: 1400px; margin: 1rem auto; padding: 0 1rem; }
+.tabs { display: flex; gap: 0.25rem; margin-bottom: 1rem; background: #fff; border-radius: 10px; padding: 0.3rem; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+.tab-btn { padding: 0.7rem 1.5rem; border: none; background: transparent; border-radius: 8px; font-size: 0.9rem; font-weight: 600; color: #666; cursor: pointer; transition: all 0.2s; }
+.tab-btn:hover { background: #f0f2f5; color: #1a1a2e; }
+.tab-btn.active { background: #1a1a2e; color: #fff; }
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+
+/* ===== GRILLE DE WIDGETS ===== */
+.widget-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); gap: 1rem; }
+.widget-grid.full { grid-template-columns: 1fr; }
+.widget { background: #fff; border-radius: 12px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); overflow: hidden; transition: box-shadow 0.2s; }
+.widget:hover { box-shadow: 0 4px 15px rgba(0,0,0,0.12); }
+.widget-header { background: #f8f9fa; padding: 0.8rem 1rem; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #e9ecef; cursor: pointer; }
+.widget-header h3 { font-size: 0.95rem; font-weight: 700; color: #1a1a2e; display: flex; align-items: center; gap: 0.5rem; }
+.widget-header .badge { background: #e94560; color: #fff; font-size: 0.7rem; padding: 0.15rem 0.5rem; border-radius: 20px; font-weight: 600; }
+.widget-body { padding: 1rem; }
+.widget-body.collapsed { display: none; }
+
+/* ===== FORMULAIRES ===== */
+.form-group { margin-bottom: 0.8rem; }
+.form-group label { display: block; font-size: 0.78rem; font-weight: 600; color: #555; margin-bottom: 0.25rem; }
+.form-group input, .form-group select, .form-group textarea { width: 100%; padding: 0.5rem 0.7rem; border: 1.5px solid #ddd; border-radius: 6px; font-size: 0.85rem; font-family: inherit; transition: border-color 0.2s; }
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: #0f3460; box-shadow: 0 0 0 3px rgba(15,52,96,0.1); }
+.form-group textarea { resize: vertical; min-height: 60px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+.form-row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.8rem; }
+
+/* ===== TABLEAU ÉTUDIANTS ===== */
+.filter-bar { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 1rem; padding: 0.8rem; background: #f8f9fa; border-radius: 8px; border: 1px solid #e9ecef; }
+.filter-group { display: flex; flex-direction: column; gap: 0.2rem; flex: 1; min-width: 150px; }
+.filter-group label { font-size: 0.7rem; font-weight: 600; color: #666; text-transform: uppercase; letter-spacing: 0.5px; }
+.filter-group input, .filter-group select { padding: 0.4rem 0.6rem; border: 1.5px solid #ddd; border-radius: 5px; font-size: 0.82rem; }
+.filter-group input:focus, .filter-group select:focus { outline: none; border-color: #0f3460; }
+.table-container { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+thead th { background: #1a1a2e; color: #fff; padding: 0.6rem 0.8rem; text-align: left; font-weight: 600; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.5px; position: sticky; top: 0; }
+tbody td { padding: 0.5rem 0.8rem; border-bottom: 1px solid #eee; }
+tbody tr:hover { background: #f8f9fa; }
+tbody tr.selected { background: #e8f0fe; }
+.actions-cell { display: flex; gap: 0.3rem; }
+.mention-bien { color: #27ae60; font-weight: 700; }
+.mention-tresbien { color: #2980b9; font-weight: 700; }
+.mention-passable { color: #f39c12; font-weight: 700; }
+.mention-insuffisant { color: #c0392b; font-weight: 700; }
+.badge-promo { background: #e8f0fe; color: #0f3460; padding: 0.15rem 0.5rem; border-radius: 10px; font-size: 0.7rem; font-weight: 600; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+/* ===== PRÉVISUALISATION DU DIPLÔME ===== */
+/* Conteneur extérieur avec ombre portée */
+.diploma-preview {
+  background: #fff;
+  padding: 2.5rem;
+  border: 3px solid #1a1a2e;
+  border-radius: 6px;
+  max-width: 800px;
+  margin: 1rem auto;
+  position: relative;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.12), inset 0 0 0 1px rgba(255,215,0,0.3);
+}
+
+/* Bordure décorative intérieure */
+.diploma-preview .diploma-border {
+  border: 3px double #b8860b;
+  padding: 2rem 2rem 1.8rem;
+  position: relative;
+  z-index: 1;
+  background: rgba(255,255,255,0.92);
+}
+
+/* Filet doré intérieur supplémentaire */
+.diploma-preview .diploma-border::before {
+  content: "";
+  position: absolute;
+  inset: 6px;
+  border: 1px solid rgba(184,134,11,0.25);
+  pointer-events: none;
+}
+
+/* Décoration supérieure (frise) */
+.diploma-preview .diploma-border::after {
+  content: "";
+  position: absolute;
+  top: -1px; left: 20%;
+  width: 60%; height: 3px;
+  background: linear-gradient(90deg, transparent, #b8860b, transparent);
+  pointer-events: none;
+}
+
+/* Coins décoratifs améliorés */
+.diploma-preview .corner {
+  position: absolute;
+  width: 32px; height: 32px;
+  border-color: #b8860b;
+  border-style: solid;
+  z-index: 2;
+  pointer-events: none;
+}
+.diploma-preview .corner::after {
+  content: "";
+  position: absolute;
+  width: 8px; height: 8px;
+  background: #b8860b;
+  border-radius: 50%;
+  opacity: 0.4;
+}
+.diploma-preview .corner-tl { top: 6px; left: 6px; border-width: 3px 0 0 3px; border-radius: 4px 0 0 0; }
+.diploma-preview .corner-tl::after { bottom: -4px; right: -4px; }
+.diploma-preview .corner-tr { top: 6px; right: 6px; border-width: 3px 3px 0 0; border-radius: 0 4px 0 0; }
+.diploma-preview .corner-tr::after { bottom: -4px; left: -4px; }
+.diploma-preview .corner-bl { bottom: 6px; left: 6px; border-width: 0 0 3px 3px; border-radius: 0 0 0 4px; }
+.diploma-preview .corner-bl::after { top: -4px; right: -4px; }
+.diploma-preview .corner-br { bottom: 6px; right: 6px; border-width: 0 3px 3px 0; border-radius: 0 0 4px 0; }
+.diploma-preview .corner-br::after { top: -4px; left: -4px; }
+
+/* Sceau / cachet décoratif (cercle) */
+.diploma-preview .diploma-seal {
+  position: absolute;
+  bottom: 30px; right: 40px;
+  width: 90px; height: 90px;
+  border-radius: 50%;
+  border: 3px solid rgba(184,134,11,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: rgba(184,134,11,0.4);
+  text-transform: uppercase;
+  text-align: center;
+  z-index: 2;
+  background: rgba(255,215,0,0.05);
+  pointer-events: none;
+  line-height: 1.2;
+  transform: rotate(-15deg);
+}
+.diploma-preview .diploma-seal::before {
+  content: "";
+  position: absolute;
+  inset: 4px;
+  border-radius: 50%;
+  border: 2px dotted rgba(184,134,11,0.2);
+}
+
+/* En-tête du diplôme */
+.diploma-preview .diploma-header {
+  text-align: center;
+  margin-bottom: 1rem;
+  position: relative;
+  z-index: 1;
+}
+.diploma-preview .diploma-logo { max-height: 80px; margin-bottom: 0.5rem; }
+.diploma-preview .diploma-title {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #1a1a2e;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  margin-bottom: 0.3rem;
+  position: relative;
+  display: inline-block;
+}
+.diploma-preview .diploma-title::after {
+  content: "";
+  display: block;
+  width: 60%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #b8860b, transparent);
+  margin: 6px auto 0;
+}
+.diploma-preview .diploma-subtitle { font-size: 0.9rem; color: #555; font-weight: 600; }
+.diploma-preview .diploma-agrement { font-size: 0.75rem; color: #888; margin-top: 0.2rem; }
+
+/* Corps du diplôme */
+.diploma-preview .diploma-body {
+  text-align: center;
+  margin: 1.2rem 0;
+  position: relative;
+  z-index: 1;
+}
+.diploma-preview .diploma-atteste { font-size: 0.9rem; color: #444; margin-bottom: 0.6rem; }
+.diploma-preview .diploma-nom {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #1a1a2e;
+  margin: 0.3rem 0;
+  letter-spacing: 1px;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.08);
+}
+.diploma-preview .diploma-formation { font-size: 1.1rem; color: #0f3460; font-weight: 600; margin: 0.4rem 0; }
+.diploma-preview .diploma-details { margin: 0.8rem auto; width: auto; font-size: 0.85rem; }
+.diploma-preview .diploma-details td { padding: 0.2rem 0.8rem; }
+
+/* Signatures */
+.diploma-preview .diploma-signatures {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 1.5rem;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+.diploma-preview .diploma-signatures .signature-box { min-width: 140px; }
+.diploma-preview .diploma-signatures .signature-line {
+  border-top: 2px solid #555;
+  padding-top: 0.4rem;
+  margin-top: 1.8rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  min-width: 120px;
+}
+.diploma-preview {
+  --watermark-opacity: 0.035;
+}
+.diploma-preview::before {
+  content: attr(data-watermark);
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%) rotate(-35deg);
+  font-size: 6rem;
+  font-weight: 900;
+  color: rgba(26,26,46, var(--watermark-opacity, 0.035));
+  pointer-events: none;
+  white-space: nowrap;
+  z-index: 0;
+  letter-spacing: 12px;
+  font-family: 'Georgia', serif;
+  user-select: none;
+}
+.diploma-preview::after {
+  content: attr(data-securite);
+  position: absolute;
+  bottom: 8%; right: -2%;
+  transform: rotate(-90deg);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: rgba(15,52,96,0.06);
+  pointer-events: none;
+  white-space: nowrap;
+  z-index: 0;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  font-family: 'Courier New', monospace;
+  user-select: none;
+}
+
+.diploma-select { margin-bottom: 0.8rem; display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+.diploma-select select { padding: 0.5rem 1rem; border: 1.5px solid #ddd; border-radius: 6px; font-size: 0.9rem; flex: 1; min-width: 200px; background: #fff; }
+
+/* Contrôle de zoom */
+.diploma-toolbar { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; padding: 0.6rem 0.8rem; background: #f8f9fa; border-radius: 8px; margin-bottom: 0.8rem; border: 1px solid #e9ecef; }
+.diploma-toolbar label { font-size: 0.78rem; font-weight: 600; color: #555; display: flex; align-items: center; gap: 0.4rem; }
+.diploma-toolbar input[type=range] { width: 100px; }
+.diploma-toolbar .zoom-value { font-size: 0.8rem; font-weight: 700; color: #1a1a2e; min-width: 35px; text-align: center; }
+.diploma-toolbar .preview-meta { font-size: 0.75rem; color: #888; margin-left: auto; }
+
+/* Animation d'entrée du diplôme */
+.diploma-preview { animation: diplomaFadeIn 0.5s ease; }
+@keyframes diplomaFadeIn { from { opacity: 0; transform: translateY(10px) scale(0.97); } to { opacity: 1; transform: translateY(0) scale(1); } }
+
+/* Conteneur zoomable */
+#diplomaPreviewArea { overflow-x: auto; }
+#diplomaPreviewArea .diploma-preview { transform-origin: top center; }
+
+/* ===== BASCULE ATTESTATION / RELEVÉ ===== */
+.doc-type-toggle { display: flex; gap: 0; margin-bottom: 0.8rem; background: #f0f2f5; border-radius: 8px; padding: 3px; border: 1px solid #e0e0e0; }
+.doc-type-toggle button { flex: 1; padding: 0.5rem 1rem; border: none; background: transparent; border-radius: 6px; font-size: 0.82rem; font-weight: 600; color: #666; cursor: pointer; transition: all 0.2s; }
+.doc-type-toggle button.active { background: #fff; color: #1a1a2e; box-shadow: 0 1px 3px rgba(0,0,0,0.12); }
+
+/* ===== RELEVÉ DE NOTES ===== */
+.releve-preview {
+  background: #fff; padding: 2rem; border: 3px solid #1a1a2e; border-radius: 6px;
+  max-width: 800px; margin: 1rem auto; position: relative; box-shadow: 0 8px 30px rgba(0,0,0,0.12), inset 0 0 0 1px rgba(255,215,0,0.3);
+  animation: diplomaFadeIn 0.5s ease;
+  --watermark-opacity: 0.035;
+}
+.releve-preview::before {
+  content: attr(data-watermark);
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%) rotate(-35deg);
+  font-size: 6rem;
+  font-weight: 900;
+  color: rgba(26,26,46, var(--watermark-opacity, 0.035));
+  pointer-events: none;
+  white-space: nowrap;
+  z-index: -1;
+  letter-spacing: 12px;
+  font-family: 'Georgia', serif;
+  user-select: none;
+}
+.releve-preview::after {
+  content: attr(data-securite);
+  position: absolute;
+  bottom: 8%; right: -2%;
+  transform: rotate(-90deg);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: rgba(15,52,96,0.06);
+  pointer-events: none;
+  white-space: nowrap;
+  z-index: -1;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  font-family: 'Courier New', monospace;
+  user-select: none;
+}
+
+/* Bordure décorative intérieure du relevé */
+.releve-preview .releve-inner {
+  border: 2px double #b8860b;
+  padding: 1.5rem 1.5rem 1.2rem;
+  position: relative;
+  z-index: 1;
+  background: rgba(255,255,255,0.92);
+}
+.releve-preview .releve-inner::before {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  border: 1px solid rgba(184,134,11,0.2);
+  pointer-events: none;
+}
+.releve-preview .releve-inner::after {
+  content: "";
+  position: absolute;
+  top: -1px; left: 15%;
+  width: 70%; height: 2px;
+  background: linear-gradient(90deg, transparent, #b8860b, transparent);
+  pointer-events: none;
+}
+
+/* Coins décoratifs pour le relevé */
+.releve-preview .rc {
+  position: absolute;
+  width: 28px; height: 28px;
+  border-color: #b8860b;
+  border-style: solid;
+  z-index: 2;
+  pointer-events: none;
+}
+.releve-preview .rc::after {
+  content: "";
+  position: absolute;
+  width: 6px; height: 6px;
+  background: #b8860b;
+  border-radius: 50%;
+  opacity: 0.35;
+}
+.releve-preview .rc-tl { top: 5px; left: 5px; border-width: 3px 0 0 3px; border-radius: 4px 0 0 0; }
+.releve-preview .rc-tl::after { bottom: -3px; right: -3px; }
+.releve-preview .rc-tr { top: 5px; right: 5px; border-width: 3px 3px 0 0; border-radius: 0 4px 0 0; }
+.releve-preview .rc-tr::after { bottom: -3px; left: -3px; }
+.releve-preview .rc-bl { bottom: 5px; left: 5px; border-width: 0 0 3px 3px; border-radius: 0 0 0 4px; }
+.releve-preview .rc-bl::after { top: -3px; right: -3px; }
+.releve-preview .rc-br { bottom: 5px; right: 5px; border-width: 0 3px 3px 0; border-radius: 0 0 4px 0; }
+.releve-preview .rc-br::after { top: -3px; left: -3px; }
+
+.releve-preview .releve-header { text-align: center; margin-bottom: 1.2rem; border-bottom: 2px solid #1a1a2e; padding-bottom: 0.8rem; position: relative; z-index: 1; }
+.releve-preview .releve-header h2 { font-size: 1.3rem; color: #1a1a2e; margin-bottom: 0.2rem; }
+.releve-preview .releve-header .releve-subtitle { font-size: 0.85rem; color: #555; }
+.releve-preview .releve-student { font-size: 0.85rem; color: #333; margin-bottom: 1rem; line-height: 1.7; }
+.releve-preview table.releve-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; margin-bottom: 1rem; }
+.releve-preview table.releve-table th { background: #1a1a2e; color: #fff; padding: 0.5rem 0.6rem; text-align: center; font-weight: 600; font-size: 0.75rem; }
+.releve-preview table.releve-table td { padding: 0.4rem 0.6rem; border-bottom: 1px solid #e0e0e0; text-align: center; }
+.releve-preview table.releve-table td:first-child { text-align: left; font-weight: 600; }
+.releve-preview table.releve-table td.observation-cell { text-align: left; font-size: 0.75rem; color: #555; font-style: italic; max-width: 200px; }
+.releve-preview table.releve-table tr.total-row td { border-top: 2px solid #1a1a2e; font-weight: 700; font-size: 0.85rem; }
+.releve-preview .releve-observation { margin-top: 1rem; padding: 0.8rem; background: #f8f9fa; border-radius: 6px; border-left: 3px solid #0f3460; font-size: 0.82rem; color: #333; line-height: 1.6; }
+.releve-preview .releve-observation strong { color: #0f3460; }
+.releve-preview .releve-footer { margin-top: 1.2rem; display: flex; justify-content: space-between; font-size: 0.75rem; color: #777; border-top: 1px solid #ddd; padding-top: 0.8rem; }
+
+/* ===== MODAL ===== */
+.modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center; }
+.modal-overlay.active { display: flex; }
+.modal { background: #fff; border-radius: 12px; width: 90%; max-width: 700px; max-height: 90vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
+.modal-header { padding: 1rem 1.5rem; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; }
+.modal-header h2 { font-size: 1.1rem; }
+.modal-header .close-btn { background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #999; padding: 0 0.3rem; }
+.modal-header .close-btn:hover { color: #333; }
+.modal-body { padding: 1.5rem; }
+.modal-footer { padding: 1rem 1.5rem; border-top: 1px solid #eee; display: flex; justify-content: flex-end; gap: 0.5rem; }
+
+/* ===== ÉTAT VIDE ===== */
+.empty-state { text-align: center; padding: 3rem 1rem; color: #999; }
+.empty-state .empty-icon { font-size: 3rem; margin-bottom: 0.5rem; }
+
+/* ===== TOAST ===== */
+.toast-container { position: fixed; top: 1rem; right: 1rem; z-index: 2000; display: flex; flex-direction: column; gap: 0.5rem; }
+.toast { background: #1a1a2e; color: #fff; padding: 0.8rem 1.2rem; border-radius: 8px; font-size: 0.85rem; box-shadow: 0 4px 12px rgba(0,0,0,0.2); animation: slideIn 0.3s ease; }
+.toast.success { background: #27ae60; }
+.toast.error { background: #c0392b; }
+.toast.info { background: #2980b9; }
+@keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+
+/* ===== ARCHIVES ===== */
+.archive-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 0.8rem; }
+.archive-card { background: #fff; border: 1px solid #e0e0e0; border-radius: 8px; padding: 0.8rem 1rem; transition: box-shadow 0.2s; }
+.archive-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.1); }
+.archive-card .arch-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem; }
+.archive-card .arch-header strong { font-size: 0.9rem; color: #1a1a2e; }
+.archive-card .arch-type { font-size: 0.65rem; padding: 0.15rem 0.5rem; border-radius: 10px; font-weight: 600; text-transform: uppercase; }
+.archive-card .arch-type.attestation { background: #e8f0fe; color: #0f3460; }
+.archive-card .arch-type.releve { background: #fef3e2; color: #b8860b; }
+.archive-card .arch-meta { font-size: 0.75rem; color: #777; margin-bottom: 0.3rem; line-height: 1.5; }
+.archive-card .arch-securite { font-family: 'Courier New', monospace; font-size: 0.7rem; color: #999; letter-spacing: 1px; }
+.archive-card .arch-actions { margin-top: 0.5rem; display: flex; gap: 0.4rem; }
+
+/* ===== PRINT STYLES ===== */
+@media print {
+  body { background: #fff; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .app-header, .tabs, .app-actions, .btn, .table-container, .diploma-select, .widget-header, .no-print, .diploma-toolbar,
+  .widget, .widget-grid, .form-group, .form-row, .filter-bar, .doc-type-toggle, .modal-overlay, .toast-container, #loginOverlay,
+  #tab-etablissement, #tab-formation, #tab-modules, #tab-etudiants { display: none !important; }
+  .app-main { max-width: 100%; margin: 0; padding: 0; }
+  #tab-diplome { display: block !important; }
+  #tab-diplome .widget:first-child { display: none !important; }
+  .diploma-preview {
+    border: 2px solid #000;
+    max-width: 100%;
+    padding: 1.5rem;
+    margin: 0 auto;
+    box-shadow: none;
+    page-break-inside: avoid;
+  }
+  .diploma-preview .diploma-border { border: 2px double #000; padding: 1.2rem; }
+  .diploma-preview .diploma-border::before { border-color: rgba(0,0,0,0.15); }
+  .diploma-preview .diploma-border::after { background: linear-gradient(90deg, transparent, #000, transparent); }
+  .diploma-preview .corner { border-color: #000; }
+  .diploma-preview .corner::after { background: #000; }
+  .diploma-preview .diploma-nom { font-size: 1.8rem; }
+  .diploma-preview .diploma-title { font-size: 1.6rem; }
+  .diploma-preview .diploma-seal { border-color: rgba(0,0,0,0.2); color: rgba(0,0,0,0.3); }
+  .diploma-preview::before { color: rgba(26,26,46, var(--watermark-opacity, 0.06)); }
+  .diploma-preview::after { color: rgba(15,52,96,0.07); }
+  .releve-preview { border: 1px solid #000; max-width: 100%; margin: 0 auto; box-shadow: none; page-break-inside: avoid; }
+  .releve-preview .releve-inner { border-color: #000; }
+  .releve-preview .releve-inner::before { border-color: rgba(0,0,0,0.15); }
+  .releve-preview .releve-inner::after { background: linear-gradient(90deg, transparent, #000, transparent); }
+  .releve-preview .rc { border-color: #000; }
+  .releve-preview .rc::after { background: #000; }
+  .releve-preview::before { color: rgba(26,26,46, var(--watermark-opacity, 0.06)); }
+  .releve-preview::after { color: rgba(15,52,96,0.07); }
+  .releve-preview table.releve-table th { background: #000 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .releve-preview table.releve-table tr.total-row td { border-top-color: #000; }
+  @page { margin: 1.5cm; size: A4 portrait; }
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .app-header { flex-direction: column; gap: 0.5rem; padding: 0.8rem 1rem; }
+  .app-header h1 { font-size: 1rem; }
+  .form-row { grid-template-columns: 1fr; }
+  .widget-grid { grid-template-columns: 1fr; }
+  .diploma-preview { padding: 1rem; }
+  .diploma-preview .diploma-border { padding: 1rem; }
+  .diploma-preview .diploma-border::before { inset: 4px; }
+  .diploma-preview .corner { width: 18px; height: 18px; }
+  .diploma-preview .diploma-seal { width: 60px; height: 60px; bottom: 15px; right: 15px; font-size: 0.55rem; }
+  .diploma-preview::before { font-size: 4rem; letter-spacing: 6px; }
+  .diploma-preview::after { display: none; }
+  .diploma-preview .diploma-signatures { flex-direction: column; gap: 1rem; }
+  .tabs { flex-wrap: wrap; }
+  .tab-btn { flex: 1; font-size: 0.8rem; padding: 0.5rem 0.8rem; text-align: center; }
+  .filter-bar { flex-direction: column; gap: 0.5rem; }
+  .filter-group { min-width: 100%; }
+}
+</style>
+</head>
+<body>
+
+<!-- ===== LOGIN OVERLAY ===== -->
+<div id="loginOverlay">
+  <div class="login-box">
+    <div class="login-icon">&#128274;</div>
+    <h1>Gestion des Dipl&ocirc;mes</h1>
+    <p>Authentification requise</p>
+    <div class="form-group">
+      <label>Identifiant</label>
+      <input id="loginUser" type="text" placeholder="Entrez votre identifiant" autocomplete="username" onkeydown="if(event.key==='Enter'){event.preventDefault();document.getElementById('loginPass').focus();}">
+    </div>
+    <div class="form-group">
+      <label>Mot de passe</label>
+      <input id="loginPass" type="password" placeholder="Entrez votre mot de passe" autocomplete="current-password" onkeydown="if(event.key==='Enter'){event.preventDefault();connecter();}">
+    </div>
+    <button class="btn-login" onclick="connecter()">Se connecter</button>
+    <div class="login-error" id="loginError"></div>
+    <div class="login-hint">Application s&eacute;curis&eacute;e &mdash; acc&egrave;s r&eacute;serv&eacute;</div>
+  </div>
+</div>
+
+<!-- ===== EN-TÊTE ===== -->
+<header class="app-header">
+  <h1><span>&#127891;</span> Gestion des Diplômes &amp; Attestations</h1>
+  <div class="app-actions">
+    <button class="btn btn-outline btn-sm" onclick="exporterDonnees()">&#128230; Exporter</button>
+    <button class="btn btn-outline btn-sm" onclick="document.getElementById('importFile').click()">&#128229; Importer</button>
+    <input type="file" id="importFile" accept=".json" style="display:none" onchange="importerDonnees(event)">
+    <button class="btn btn-outline btn-sm" onclick="deconnecter()" title="D&#233;connexion">&#128682;</button>
+  </div>
+</header>
+
+<!-- ===== PRINCIPAL ===== -->
+<main class="app-main">
+
+  <!-- Onglets workflow -->
+  <div class="tabs no-print">
+    <button class="tab-btn active" data-tab="tab-etablissement" onclick="switchTab(this)"><span style="display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:#e94560;color:#fff;font-size:0.7rem;margin-right:6px;">1</span> &#201;tablissement</button>
+    <button class="tab-btn" data-tab="tab-formation" onclick="switchTab(this)"><span style="display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:#e94560;color:#fff;font-size:0.7rem;margin-right:6px;">2</span> Formation</button>
+    <button class="tab-btn" data-tab="tab-modules" onclick="switchTab(this)"><span style="display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:#e94560;color:#fff;font-size:0.7rem;margin-right:6px;">3</span> Modules</button>
+    <button class="tab-btn" data-tab="tab-etudiants" onclick="switchTab(this)"><span style="display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:#e94560;color:#fff;font-size:0.7rem;margin-right:6px;">4</span> &#201;tudiants <span id="studentCount" class="badge" style="background:#e94560;color:#fff;font-size:0.7rem;padding:0.1rem 0.4rem;border-radius:10px;margin-left:0.3rem;">0</span></button>
+    <button class="tab-btn" data-tab="tab-diplome" onclick="switchTab(this)"><span style="display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:#e94560;color:#fff;font-size:0.7rem;margin-right:6px;">5</span> Dipl&#244;me</button>
+    <button class="tab-btn" data-tab="tab-archives" onclick="switchTab(this)"><span style="display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:#533483;color:#fff;font-size:0.7rem;margin-right:6px;">6</span> Archives <span id="archiveCount" class="badge" style="background:#533483;color:#fff;font-size:0.7rem;padding:0.1rem 0.4rem;border-radius:10px;margin-left:0.3rem;">0</span></button>
+  </div>
+
+  <!-- ===== TAB 1: ÉTABLISSEMENT ===== -->
+  <div id="tab-etablissement" class="tab-content active">
+    <div class="widget-grid">
+      <div class="widget">
+        <div class="widget-header" onclick="toggleWidget(this)"><h3>&#127970; Informations de l'&#233;tablissement</h3><span>&#9660;</span></div>
+        <div class="widget-body">
+          <div class="form-row">
+            <div class="form-group"><label>Nom de l'&#233;tablissement</label><input id="etab-nom" value="Centre de Formation XYZ" onchange="sauvegarder()"></div>
+            <div class="form-group"><label>Sigle / Acronyme</label><input id="etab-sigle" value="CFXYZ" onchange="sauvegarder()"></div>
+          </div>
+          <div class="form-group"><label>Adresse</label><input id="etab-adresse" value="123 Rue de l'&#201;ducation" onchange="sauvegarder()"></div>
+          <div class="form-row">
+            <div class="form-group"><label>Ville</label><input id="etab-ville" value="Paris" onchange="sauvegarder()"></div>
+            <div class="form-group"><label>Code postal</label><input id="etab-cp" value="75001" onchange="sauvegarder()"></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label>T&#233;l&#233;phone</label><input id="etab-tel" value="01 23 45 67 89" onchange="sauvegarder()"></div>
+            <div class="form-group"><label>Email</label><input id="etab-email" value="contact@cfxyz.fr" onchange="sauvegarder()"></div>
+          </div>
+          <div class="form-group"><label>Site web</label><input id="etab-web" value="www.cfxyz.fr" onchange="sauvegarder()"></div>
+          <div class="form-group"><label>Directeur / Responsable</label><input id="etab-directeur" value="Jean Dupont" onchange="sauvegarder()"></div>
+        </div>
+      </div>
+      <div class="widget">
+        <div class="widget-header" onclick="toggleWidget(this)"><h3>&#128220; Agr&#233;ment et certification</h3><span>&#9660;</span></div>
+        <div class="widget-body">
+          <div class="form-row">
+            <div class="form-group"><label>Num&#233;ro d'agr&#233;ment</label><input id="etab-agrement" value="2024-12345" onchange="sauvegarder()"></div>
+            <div class="form-group"><label>Date d'agr&#233;ment</label><input id="etab-date-agrement" type="date" value="2024-01-01" onchange="sauvegarder()"></div>
+          </div>
+          <div class="form-group"><label>Qualification / Label</label><input id="etab-qualification" value="Centre agr&#233;&#233; par le Minist&#232;re de l'&#201;ducation Nationale" onchange="sauvegarder()"></div>
+          <div class="form-group"><label>Logo (URL)</label><input id="etab-logo" placeholder="https://exemple.com/logo.png" onchange="sauvegarder()"></div>
+          <div class="form-group"><label>Cachet / Signature (URL image)</label><input id="etab-cachet" placeholder="https://exemple.com/cachet.png" onchange="sauvegarder()"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== TAB 2: FORMATION ===== -->
+  <div id="tab-formation" class="tab-content">
+    <div class="widget-grid">
+      <div class="widget">
+        <div class="widget-header" onclick="toggleWidget(this)"><h3>&#128218; D&#233;tails de la formation</h3><span>&#9660;</span></div>
+        <div class="widget-body">
+          <div class="form-group"><label>Titre de la formation</label><input id="form-titre" value="D&#233;veloppement Web et Applications" onchange="sauvegarder()"></div>
+          <div class="form-row">
+            <div class="form-group"><label>Dur&#233;e</label><input id="form-duree" value="6 mois" onchange="sauvegarder()"></div>
+            <div class="form-group"><label>Volume horaire</label><input id="form-volume" value="450 heures" onchange="sauvegarder()"></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label>Date de d&#233;but</label><input id="form-debut" type="date" value="2024-09-01" onchange="sauvegarder()"></div>
+            <div class="form-group"><label>Date de fin</label><input id="form-fin" type="date" value="2025-02-28" onchange="sauvegarder()"></div>
+          </div>
+          <div class="form-group"><label>Description de la formation</label><textarea id="form-description" rows="3" onchange="sauvegarder()">Formation compl&#232;te aux technologies du web moderne : HTML5, CSS3, JavaScript, React, Node.js et bases de donn&#233;es.</textarea></div>
+          <div class="form-row">
+            <div class="form-group"><label>Organisme certificateur</label><input id="form-certificateur" value="Minist&#232;re de l'&#201;ducation Nationale" onchange="sauvegarder()"></div>
+            <div class="form-group"><label>Code RNCP / RS</label><input id="form-rncp" value="RNCP37894" onchange="sauvegarder()"></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label>Promotion</label><input id="form-promotion" value="2024-2025" placeholder="ex: 2024-2025" onchange="sauvegarder()"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== TAB 3: ÉTUDIANTS ===== -->
+  <div id="tab-etudiants" class="tab-content">
+    <div class="widget no-print">
+      <div class="widget-header" onclick="toggleWidget(this)">
+        <h3>&#128101; Liste des &#233;tudiants</h3>
+        <div style="display:flex;gap:0.5rem;">
+          <button class="btn btn-success btn-sm" onclick="ouvrirModalEtudiant()">+ Ajouter un &#233;tudiant</button>
+        </div>
+      </div>
+      <div class="widget-body">
+        <div class="filter-bar">
+          <div class="filter-group"><label>&#128269; Rechercher</label><input id="filter-nom" placeholder="Nom ou pr&#233;nom..." oninput="renderEtudiants()"></div>
+          <div class="filter-group"><label>&#127891; Dipl&#244;me</label><select id="filter-diplome" onchange="renderEtudiants()"><option value="">Tous</option></select></div>
+          <div class="filter-group"><label>&#128197; Promotion</label><select id="filter-promotion" onchange="renderEtudiants()"><option value="">Toutes</option></select></div>
+        </div>
+        <div id="tableEtudiantsContainer" class="table-container">
+          <div class="empty-state">
+            <div class="empty-icon">&#128101;</div>
+            <p>Aucun &#233;tudiant inscrit. Cliquez sur <strong>+ Ajouter un &#233;tudiant</strong> pour commencer.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== TAB 5: DIPLÔME ===== -->
+  <div id="tab-diplome" class="tab-content">
+    <div class="widget no-print">
+      <div class="widget-header"><h3>&#127891; G&#233;n&#233;ration des documents</h3></div>
+      <div class="widget-body">
+        <div class="diploma-select">
+          <label><strong>S&#233;lectionner un &#233;tudiant :</strong></label>
+          <select id="diplomaStudentSelect" onchange="changerEtudiant()">
+            <option value="">-- Choisir --</option>
+          </select>
+          <button class="btn btn-primary" onclick="genererLaTeX()">&#128196; T&#233;l&#233;charger .tex</button>
+          <button class="btn btn-success" onclick="imprimerPDF()">&#128424; Imprimer / PDF</button>
+        </div>
+        <div class="doc-type-toggle">
+          <button class="active" data-doc="attestation" onclick="changerTypeDoc('attestation')">&#127891; Attestation</button>
+          <button data-doc="releve" onclick="changerTypeDoc('releve')">&#128202; Relev&#233; de notes</button>
+        </div>
+        <div style="font-size:0.78rem;color:#888;">
+          &#128161; Astuce : remplissez d'abord les onglets 1 &#224; 4, puis g&#233;n&#233;rez le document ici.
+        </div>
+      </div>
+    </div>
+    <div class="diploma-toolbar no-print" id="diplomaToolbar" style="display:none;">
+      <label>&#128269; Zoom <input type="range" id="zoomSlider" min="50" max="150" value="100" oninput="appliquerZoom(this.value)"> <span class="zoom-value" id="zoomValue">100%</span></label>
+      <span class="preview-meta" id="previewMeta"></span>
+      <button class="btn btn-sm btn-warning" onclick="archiverDocument()" style="margin-left:auto;">&#128190; Archiver</button>
+    </div>
+    <div id="diplomaPreviewArea">
+      <div class="empty-state">
+        <div class="empty-icon">&#127891;</div>
+        <p>S&#233;lectionnez un &#233;tudiant pour pr&#233;visualiser son document.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== TAB 5: MODULES ===== -->
+  <div id="tab-modules" class="tab-content">
+    <div class="widget-grid">
+      <div class="widget">
+        <div class="widget-header" onclick="toggleWidget(this)"><h3>&#128221; Modules de la formation</h3><span>&#9660;</span></div>
+        <div class="widget-body">
+          <div id="modulesContainer"></div>
+          <button class="btn btn-secondary btn-sm" onclick="ajouterModule()" style="margin-top:0.5rem;">+ Ajouter un module</button>
+        </div>
+      </div>
+      <div class="widget">
+        <div class="widget-header" onclick="toggleWidget(this)"><h3>&#128202; Bar&#232;me et r&#232;gles de mention</h3><span>&#9660;</span></div>
+        <div class="widget-body">
+          <div class="form-row-3">
+            <div class="form-group"><label>Note &#233;liminatoire</label><input id="seuil-eliminatoire" type="number" value="8" step="0.5" onchange="sauvegarder()"></div>
+            <div class="form-group"><label>Moyenne pour "Passable"</label><input id="seuil-passable" type="number" value="10" step="0.5" onchange="sauvegarder()"></div>
+            <div class="form-group"><label>Moyenne pour "Bien"</label><input id="seuil-bien" type="number" value="13" step="0.5" onchange="sauvegarder()"></div>
+          </div>
+          <div class="form-row-3">
+            <div class="form-group"><label>Moyenne pour "Tr&#232;s Bien"</label><input id="seuil-tb" type="number" value="16" step="0.5" onchange="sauvegarder()"></div>
+            <div class="form-group"><label>Assiduit&#233; minimum (%)</label><input id="seuil-assiduite" type="number" value="75" step="5" onchange="sauvegarder()"></div>
+          </div>
+        </div>
+      </div>
+      <div class="widget">
+        <div class="widget-header" onclick="toggleWidget(this)"><h3>&#128220; Filigrane des documents</h3><span>&#9660;</span></div>
+        <div class="widget-body">
+          <div class="form-row-3">
+            <div class="form-group"><label>Texte du filigrane</label><input id="watermark-texte" placeholder="DOCUMENT OFFICIEL" onchange="sauvegarder()" oninput="previewWatermark()"></div>
+            <div class="form-group"><label>Opacit&#233; <span id="watermark-opacity-val">3,5%</span></label><input id="watermark-opacite" type="range" min="1" max="15" value="3.5" step="0.5" oninput="sauvegarder();document.getElementById('watermark-opacity-val').textContent=parseFloat(this.value).toFixed(1).replace('.',',')+'%';previewWatermark()"></div>
+            <div class="form-group" style="justify-content:flex-end;"><label>&nbsp;</label><button class="btn btn-sm btn-secondary" onclick="razWatermark()">R&#233;initialiser</button></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== TAB 6: ARCHIVES ===== -->
+  <div id="tab-archives" class="tab-content">
+    <div class="widget">
+      <div class="widget-header"><h3>&#128190; Archives des documents g&#233;n&#233;r&#233;s</h3></div>
+      <div class="widget-body">
+        <div class="filter-bar">
+          <div class="filter-group"><label>&#128269; Rechercher</label><input id="arch-filter-nom" placeholder="Nom ou pr&#233;nom..." oninput="renderArchives()"></div>
+          <div class="filter-group"><label>&#127891; Type</label><select id="arch-filter-type" onchange="renderArchives()"><option value="">Tous</option><option value="attestation">Attestation</option><option value="releve">Relev&#233;</option></select></div>
+          <div class="filter-group"><label>&#128197; Promotion</label><select id="arch-filter-promo" onchange="renderArchives()"><option value="">Toutes</option></select></div>
+        </div>
+        <div id="archivesContainer">
+          <div class="empty-state">
+            <div class="empty-icon">&#128190;</div>
+            <p>Aucun document archiv&#233;. G&#233;n&#233;rez un dipl&#244;me ou un relev&#233;, puis cliquez sur <strong>Archiver</strong>.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<!-- ===== MODAL ÉTUDIANT ===== -->
+<div id="modalEtudiant" class="modal-overlay">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 id="modalEtudiantTitle">Ajouter un &#233;tudiant</h2>
+      <button class="close-btn" onclick="fermerModalEtudiant()">&times;</button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="etudiant-id">
+      <div class="form-row">
+        <div class="form-group"><label>Nom *</label><input id="e-nom" placeholder="Martin"></div>
+        <div class="form-group"><label>Pr&#233;nom *</label><input id="e-prenom" placeholder="Sophie"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Date de naissance</label><input id="e-date-naissance" type="date"></div>
+        <div class="form-group"><label>Lieu de naissance</label><input id="e-lieu-naissance" placeholder="Paris"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Nationalit&#233;</label><input id="e-nationalite" value="Fran&#231;aise"></div>
+        <div class="form-group"><label>Sexe</label><select id="e-sexe"><option value="M">Masculin</option><option value="F">F&#233;minin</option></select></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Email</label><input id="e-email" type="email" placeholder="sophie.martin@email.com"></div>
+        <div class="form-group"><label>T&#233;l&#233;phone</label><input id="e-tel" placeholder="06 12 34 56 78"></div>
+      </div>
+      <div class="form-group"><label>Adresse</label><input id="e-adresse" placeholder="15 Rue des Lilas"></div>
+      <div class="form-row">
+        <div class="form-group"><label>Ville</label><input id="e-ville" placeholder="Paris"></div>
+        <div class="form-group"><label>Code postal</label><input id="e-cp" placeholder="75012"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Num&#233;ro de dossier</label><input id="e-dossier" placeholder="2024-001"></div>
+        <div class="form-group"><label>Appr&#233;ciation</label><input id="e-appreciation" placeholder="Tr&#232;s bon parcours"></div>
+      </div>
+      <hr style="margin:0.8rem 0;">
+      <h4 style="margin-bottom:0.5rem;font-size:0.9rem;">&#128202; Notes par module</h4>
+      <div id="modalNotesContainer"></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="fermerModalEtudiant()">Annuler</button>
+      <button class="btn btn-primary" onclick="sauvegarderEtudiant()">Enregistrer</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== TOASTS ===== -->
+<div id="toastContainer" class="toast-container"></div>
+
+<script>
+// ============================================================
+// DONNÉES
+// ============================================================
+let appData = {
+  etablissement: {
+    nom: "Centre de Formation XYZ",
+    sigle: "CFXYZ",
+    logo: "",
+    adresse: "123 Rue de l'Éducation",
+    ville: "Paris",
+    codePostal: "75001",
+    telephone: "01 23 45 67 89",
+    email: "contact@cfxyz.fr",
+    siteWeb: "www.cfxyz.fr",
+    numeroAgrement: "2024-12345",
+    dateAgrement: "2024-01-01",
+    directeur: "Jean Dupont",
+    qualification: "Centre agréé par le Ministère de l'Éducation Nationale",
+    cachet: ""
+  },
+  formation: {
+    titre: "Développement Web et Applications",
+    duree: "6 mois",
+    dateDebut: "2024-09-01",
+    dateFin: "2025-02-28",
+    volumeHoraire: "450 heures",
+    description: "Formation complète aux technologies du web moderne : HTML5, CSS3, JavaScript, React, Node.js et bases de données.",
+    certificateur: "Ministère de l'Éducation Nationale",
+    codeRNCP: "RNCP37894",
+    promotion: "2024-2025"
+  },
+  modules: [
+    { id: "m1", nom: "HTML/CSS", heures: 60, coefficient: 2 },
+    { id: "m2", nom: "JavaScript", heures: 80, coefficient: 3 },
+    { id: "m3", nom: "React", heures: 70, coefficient: 3 },
+    { id: "m4", nom: "Node.js", heures: 60, coefficient: 2 },
+    { id: "m5", nom: "Bases de données", heures: 50, coefficient: 2 },
+    { id: "m6", nom: "Projet final", heures: 130, coefficient: 4 }
+  ],
+  seuils: { eliminatoire: 8, passable: 10, bien: 13, tresBien: 16, assiduiteMin: 75 },
+  watermark: { texte: "DOCUMENT OFFICIEL", opacite: 3.5 },
+  etudiants: [],
+  archives: []
+};
+
+// ============================================================
+// UTILITAIRES
+// ============================================================
+let docType = "attestation";
+function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2,6); }
+function escHtml(t) { var d = document.createElement("div"); d.appendChild(document.createTextNode(t || "")); return d.innerHTML; }
+
+function genererCodeSecurite() {
+  const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+  let code = "";
+  for (let i = 0; i < 4; i++) {
+    for (let j = 0; j < 4; j++) code += chars[Math.floor(Math.random() * chars.length)];
+    if (i < 3) code += "-";
+  }
+  return code;
+}
+
+function formaterDate(dateStr) {
+  if (!dateStr) return "";
+  const d = new Date(dateStr + "T00:00:00");
+  return d.toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" });
+}
+
+function formaterDateLatex(dateStr) {
+  if (!dateStr) return "";
+  const d = new Date(dateStr + "T00:00:00");
+  return d.toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" }).replace(/^1 /, "1er ");
+}
+
+function previewWatermark() {
+  var card = document.getElementById("diplomaCard");
+  if (!card) return;
+  var texte = document.getElementById("watermark-texte")?.value || "DOCUMENT OFFICIEL";
+  var opacite = parseFloat(document.getElementById("watermark-opacite")?.value) || 3.5;
+  card.dataset.watermark = texte;
+  card.style.setProperty("--watermark-opacity", (opacite / 100).toString());
+}
+
+function razWatermark() {
+  document.getElementById("watermark-texte").value = "DOCUMENT OFFICIEL";
+  document.getElementById("watermark-opacite").value = "3.5";
+  document.getElementById("watermark-opacity-val").textContent = "3,5%";
+  appData.watermark.texte = "DOCUMENT OFFICIEL";
+  appData.watermark.opacite = 3.5;
+  sauvegarder();
+  previewWatermark();
+  toast("Filigrane r&eacute;initialis&eacute;.", "info");
+}
+
+function formaterDateCourt(dateStr) {
+  if (!dateStr) return "";
+  const d = new Date(dateStr + "T00:00:00");
+  return d.toLocaleDateString("fr-FR", { day: "numeric", month: "numeric", year: "numeric" });
+}
+
+function calculerMention(moyenne) {
+  if (moyenne >= appData.seuils.tresBien) return "Très Bien";
+  if (moyenne >= appData.seuils.bien) return "Bien";
+  if (moyenne >= appData.seuils.passable) return "Passable";
+  return "Insuffisant";
+}
+
+function calculerMoyenne(notes) {
+  let totalPoints = 0, totalCoef = 0;
+  for (const m of appData.modules) {
+    const note = notes[m.id];
+    if (note !== undefined && note !== null && note !== "") {
+      totalPoints += parseFloat(note) * m.coefficient;
+      totalCoef += m.coefficient;
+    }
+  }
+  return totalCoef > 0 ? Math.round((totalPoints / totalCoef) * 10) / 10 : 0;
+}
+
+function getEtabValue(id) {
+  const el = document.getElementById(id);
+  return el ? el.value : "";
+}
+
+function getFormValue(id) {
+  const el = document.getElementById(id);
+  return el ? el.value : "";
+}
+
+// ============================================================
+// SAUVEGARDE
+// ============================================================
+function sauvegarder() {
+  appData.etablissement.nom = getEtabValue("etab-nom") || appData.etablissement.nom;
+  appData.etablissement.sigle = getEtabValue("etab-sigle") || appData.etablissement.sigle;
+  appData.etablissement.adresse = getEtabValue("etab-adresse") || appData.etablissement.adresse;
+  appData.etablissement.ville = getEtabValue("etab-ville") || appData.etablissement.ville;
+  appData.etablissement.codePostal = getEtabValue("etab-cp") || appData.etablissement.codePostal;
+  appData.etablissement.telephone = getEtabValue("etab-tel") || appData.etablissement.telephone;
+  appData.etablissement.email = getEtabValue("etab-email") || appData.etablissement.email;
+  appData.etablissement.siteWeb = getEtabValue("etab-web") || appData.etablissement.siteWeb;
+  appData.etablissement.directeur = getEtabValue("etab-directeur") || appData.etablissement.directeur;
+  appData.etablissement.numeroAgrement = getEtabValue("etab-agrement") || appData.etablissement.numeroAgrement;
+  appData.etablissement.dateAgrement = getEtabValue("etab-date-agrement") || appData.etablissement.dateAgrement;
+  appData.etablissement.qualification = getEtabValue("etab-qualification") || appData.etablissement.qualification;
+  appData.etablissement.logo = getEtabValue("etab-logo") || appData.etablissement.logo;
+  appData.etablissement.cachet = getEtabValue("etab-cachet") || appData.etablissement.cachet;
+  appData.formation.titre = getFormValue("form-titre") || appData.formation.titre;
+  appData.formation.duree = getFormValue("form-duree") || appData.formation.duree;
+  appData.formation.volumeHoraire = getFormValue("form-volume") || appData.formation.volumeHoraire;
+  appData.formation.dateDebut = getFormValue("form-debut") || appData.formation.dateDebut;
+  appData.formation.dateFin = getFormValue("form-fin") || appData.formation.dateFin;
+  appData.formation.description = getFormValue("form-description") || appData.formation.description;
+  appData.formation.certificateur = getFormValue("form-certificateur") || appData.formation.certificateur;
+  appData.formation.codeRNCP = getFormValue("form-rncp") || appData.formation.codeRNCP;
+  appData.formation.promotion = getFormValue("form-promotion") || appData.formation.promotion;
+  appData.seuils.eliminatoire = parseFloat(document.getElementById("seuil-eliminatoire")?.value) || appData.seuils.eliminatoire;
+  appData.seuils.passable = parseFloat(document.getElementById("seuil-passable")?.value) || appData.seuils.passable;
+  appData.seuils.bien = parseFloat(document.getElementById("seuil-bien")?.value) || appData.seuils.bien;
+  appData.seuils.tresBien = parseFloat(document.getElementById("seuil-tb")?.value) || appData.seuils.tresBien;
+  appData.seuils.assiduiteMin = parseFloat(document.getElementById("seuil-assiduite")?.value) || appData.seuils.assiduiteMin;
+  appData.watermark.texte = document.getElementById("watermark-texte")?.value || appData.watermark.texte;
+  appData.watermark.opacite = parseFloat(document.getElementById("watermark-opacite")?.value) || appData.watermark.opacite;
+  localStorage.setItem("gestionDiplomes", JSON.stringify(appData));
+  remplirFiltres();
+}
+
+function chargerDonnees() {
+  try {
+    const saved = localStorage.getItem("gestionDiplomes");
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      appData = { ...appData, ...parsed };
+      if (parsed.etablissement) appData.etablissement = { ...appData.etablissement, ...parsed.etablissement };
+      if (parsed.formation) appData.formation = { ...appData.formation, ...parsed.formation };
+      if (parsed.modules) appData.modules = parsed.modules;
+      if (parsed.seuils) appData.seuils = { ...appData.seuils, ...parsed.seuils };
+      if (parsed.watermark) appData.watermark = { ...appData.watermark, ...parsed.watermark };
+      if (parsed.etudiants) appData.etudiants = parsed.etudiants;
+      if (parsed.archives) appData.archives = parsed.archives;
+    }
+  } catch(e) { console.warn("Erreur chargement", e); }
+}
+
+// ============================================================
+// ONGLETS
+// ============================================================
+function switchTab(btn) {
+  document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+  document.querySelectorAll(".tab-content").forEach(t => t.classList.remove("active"));
+  btn.classList.add("active");
+  document.getElementById(btn.dataset.tab).classList.add("active");
+  if (btn.dataset.tab === "tab-diplome") remplirSelectDiplome();
+  if (btn.dataset.tab === "tab-modules") renderModules();
+}
+
+function toggleWidget(header) {
+  const body = header.nextElementSibling;
+  body.classList.toggle("collapsed");
+  header.querySelector("span").textContent = body.classList.contains("collapsed") ? "▶" : "▼";
+}
+
+// ============================================================
+// MODULES
+// ============================================================
+let moduleCounter = appData.modules.length;
+
+function renderModules() {
+  const container = document.getElementById("modulesContainer");
+  if (appData.modules.length === 0) {
+    container.innerHTML = '<div class="empty-state"><p>Aucun module d&#233;fini.</p></div>';
+    return;
+  }
+  let html = '<table><thead><tr><th>Module</th><th>Heures</th><th>Coefficient</th><th>Action</th></tr></thead><tbody>';
+  for (const m of appData.modules) {
+    html += `<tr>
+      <td><input value="${m.nom}" onchange="modifierModule('${m.id}','nom',this.value)" style="width:100%;border:1px solid #ddd;border-radius:4px;padding:0.3rem;"></td>
+      <td><input type="number" value="${m.heures}" onchange="modifierModule('${m.id}','heures',this.value)" style="width:70px;border:1px solid #ddd;border-radius:4px;padding:0.3rem;"></td>
+      <td><input type="number" value="${m.coefficient}" onchange="modifierModule('${m.id}','coefficient',this.value)" style="width:60px;border:1px solid #ddd;border-radius:4px;padding:0.3rem;"></td>
+      <td><button class="btn btn-danger btn-sm" onclick="supprimerModule('${m.id}')">&times;</button></td>
+    </tr>`;
+  }
+  html += '</tbody></table>';
+  container.innerHTML = html;
+}
+
+function ajouterModule() {
+  moduleCounter++;
+  appData.modules.push({ id: "m" + uid(), nom: "Nouveau module", heures: 30, coefficient: 1 });
+  renderModules();
+  sauvegarder();
+}
+
+function modifierModule(id, champ, valeur) {
+  const m = appData.modules.find(x => x.id === id);
+  if (m) {
+    if (champ === "heures" || champ === "coefficient") m[champ] = parseFloat(valeur) || 0;
+    else m[champ] = valeur;
+    sauvegarder();
+  }
+}
+
+function supprimerModule(id) {
+  if (!confirm("Supprimer ce module ?")) return;
+  appData.modules = appData.modules.filter(m => m.id !== id);
+  renderModules();
+  sauvegarder();
+}
+
+// ============================================================
+// ÉTUDIANTS
+// ============================================================
+function renderEtudiants() {
+  const container = document.getElementById("tableEtudiantsContainer");
+  const search = (document.getElementById("filter-nom")?.value || "").toLowerCase().trim();
+  const filtrediplome = document.getElementById("filter-diplome")?.value || "";
+  const filtrepromo = document.getElementById("filter-promotion")?.value || "";
+  document.getElementById("studentCount").textContent = appData.etudiants.length;
+  let etudiants = appData.etudiants;
+  if (search) etudiants = etudiants.filter(e => (e.nom + " " + e.prenom).toLowerCase().includes(search));
+  if (filtrediplome && filtrediplome !== appData.formation.titre) etudiants = [];
+  if (filtrepromo && filtrepromo !== appData.formation.promotion) etudiants = [];
+  if (appData.etudiants.length === 0) {
+    container.innerHTML = '<div class="empty-state"><div class="empty-icon">&#128101;</div><p>Aucun &#233;tudiant inscrit. Cliquez sur <strong>+ Ajouter un &#233;tudiant</strong> pour commencer.</p></div>';
+    return;
+  }
+  if (etudiants.length === 0 && search) {
+    container.innerHTML = '<div class="empty-state"><div class="empty-icon">&#128270;</div><p>Aucun &#233;tudiant ne correspond &#224; votre recherche.</p></div>';
+    return;
+  }
+  if (etudiants.length === 0) {
+    container.innerHTML = '<div class="empty-state"><div class="empty-icon">&#128101;</div><p>Aucun &#233;tudiant pour ce filtre.</p></div>';
+    return;
+  }
+  let html = '<table><thead><tr><th>N&#176; Dossier</th><th>Nom</th><th>Pr&#233;nom</th><th>Dipl&#244;me</th><th>Promotion</th><th>Moyenne</th><th>Mention</th><th>Actions</th></tr></thead><tbody>';
+  for (const e of etudiants) {
+    const moyenne = calculerMoyenne(e.notes || {});
+    const mention = calculerMention(moyenne);
+    html += `<tr>
+      <td>${e.numeroDossier || "-"}</td>
+      <td><strong>${e.nom}</strong></td>
+      <td>${e.prenom}</td>
+      <td style="font-size:0.75rem;color:#555;">${appData.formation.titre}</td>
+      <td style="font-size:0.75rem;"><span class="badge-promo">${appData.formation.promotion || "-"}</span></td>
+      <td>${moyenne > 0 ? moyenne + "/20" : "-"}</td>
+      <td class="mention-${mention.toLowerCase().normalize('NFD').replace(/[^a-z]/g,'')}">${moyenne > 0 ? mention : "-"}</td>
+      <td class="actions-cell">
+        <button class="btn btn-info btn-sm" onclick="ouvrirModalEtudiant('${e.id}')">&#9998;</button>
+        <button class="btn btn-danger btn-sm" onclick="supprimerEtudiant('${e.id}')">&#128465;</button>
+      </td>
+    </tr>`;
+  }
+  html += '</tbody></table>';
+  container.innerHTML = html;
+}
+
+function remplirFiltres() {
+  const d = document.getElementById("filter-diplome");
+  const p = document.getElementById("filter-promotion");
+  if (d) { const v = d.value; d.innerHTML = '<option value="">Tous</option><option value="' + appData.formation.titre + '">' + appData.formation.titre + '</option>'; d.value = v; }
+  if (p) { const v = p.value; p.innerHTML = '<option value="">Toutes</option><option value="' + appData.formation.promotion + '">' + appData.formation.promotion + '</option>'; p.value = v; }
+}
+
+function ouvrirModalEtudiant(id) {
+  const modal = document.getElementById("modalEtudiant");
+  const title = document.getElementById("modalEtudiantTitle");
+  const isEdit = !!id;
+  title.textContent = isEdit ? "Modifier l'étudiant" : "Ajouter un étudiant";
+  document.getElementById("etudiant-id").value = id || "";
+  const e = isEdit ? appData.etudiants.find(x => x.id === id) : null;
+  document.getElementById("e-nom").value = e?.nom || "";
+  document.getElementById("e-prenom").value = e?.prenom || "";
+  document.getElementById("e-date-naissance").value = e?.dateNaissance || "";
+  document.getElementById("e-lieu-naissance").value = e?.lieuNaissance || "";
+  document.getElementById("e-nationalite").value = e?.nationalite || "Française";
+  document.getElementById("e-sexe").value = e?.sexe || "M";
+  document.getElementById("e-email").value = e?.email || "";
+  document.getElementById("e-tel").value = e?.telephone || "";
+  document.getElementById("e-adresse").value = e?.adresse || "";
+  document.getElementById("e-ville").value = e?.ville || "";
+  document.getElementById("e-cp").value = e?.codePostal || "";
+  document.getElementById("e-dossier").value = e?.numeroDossier || "";
+  document.getElementById("e-appreciation").value = e?.appreciation || "";
+  renderModalNotes(e?.notes || {});
+  modal.classList.add("active");
+}
+
+function fermerModalEtudiant() {
+  document.getElementById("modalEtudiant").classList.remove("active");
+}
+
+function renderModalNotes(notes) {
+  const container = document.getElementById("modalNotesContainer");
+  if (appData.modules.length === 0) {
+    container.innerHTML = '<p style="color:#999;font-size:0.85rem;">D&#233;finissez d&#8217;abord des modules dans l&#8217;onglet "Modules &amp; Notes".</p>';
+    return;
+  }
+  let html = '<div class="form-row-3">';
+  for (const m of appData.modules) {
+    const val = notes[m.id] !== undefined ? notes[m.id] : "";
+    html += `<div class="form-group"><label>${m.nom} (coef ${m.coefficient})</label><input type="number" step="0.5" min="0" max="20" class="note-input" data-module="${m.id}" value="${val}"></div>`;
+  }
+  html += '</div>';
+  container.innerHTML = html;
+}
+
+function sauvegarderEtudiant() {
+  const id = document.getElementById("etudiant-id").value;
+  const nom = document.getElementById("e-nom").value.trim();
+  const prenom = document.getElementById("e-prenom").value.trim();
+  if (!nom || !prenom) { toast("Veuillez saisir le nom et le prénom.", "error"); return; }
+  const notes = {};
+  document.querySelectorAll(".note-input").forEach(inp => {
+    const val = inp.value.trim();
+    if (val !== "") notes[inp.dataset.module] = parseFloat(val);
+  });
+  const etudiant = {
+    nom, prenom,
+    dateNaissance: document.getElementById("e-date-naissance").value,
+    lieuNaissance: document.getElementById("e-lieu-naissance").value,
+    nationalite: document.getElementById("e-nationalite").value,
+    sexe: document.getElementById("e-sexe").value,
+    email: document.getElementById("e-email").value,
+    telephone: document.getElementById("e-tel").value,
+    adresse: document.getElementById("e-adresse").value,
+    ville: document.getElementById("e-ville").value,
+    codePostal: document.getElementById("e-cp").value,
+    numeroDossier: document.getElementById("e-dossier").value,
+    appreciation: document.getElementById("e-appreciation").value,
+    notes
+  };
+  if (!id) etudiant.dateDelivrance = new Date().toISOString().slice(0,10);
+  if (id) {
+    const idx = appData.etudiants.findIndex(x => x.id === id);
+    if (idx >= 0) { etudiant.dateDelivrance = appData.etudiants[idx].dateDelivrance; appData.etudiants[idx] = { ...appData.etudiants[idx], ...etudiant }; }
+    toast("Étudiant modifié.", "success");
+  } else {
+    etudiant.id = uid();
+    etudiant.numeroDiplome = "DIP-" + new Date().getFullYear() + "-" + String(appData.etudiants.length + 1).padStart(3,"0");
+    appData.etudiants.push(etudiant);
+    toast("Étudiant ajouté.", "success");
+  }
+  fermerModalEtudiant();
+  renderEtudiants();
+  sauvegarder();
+}
+
+function supprimerEtudiant(id) {
+  if (!confirm("Supprimer définitivement cet étudiant ?")) return;
+  appData.etudiants = appData.etudiants.filter(x => x.id !== id);
+  renderEtudiants();
+  sauvegarder();
+  toast("Étudiant supprimé.", "info");
+}
+
+// ============================================================
+// DIPLÔME & RELEVÉ
+// ============================================================
+function remplirSelectDiplome() {
+  const sel = document.getElementById("diplomaStudentSelect");
+  const currentVal = sel.value;
+  sel.innerHTML = '<option value="">-- Choisir --</option>';
+  for (const e of appData.etudiants) {
+    sel.innerHTML += `<option value="${e.id}">${e.nom} ${e.prenom} (${e.numeroDossier || "N/D"})</option>`;
+  }
+  if (currentVal) sel.value = currentVal;
+}
+
+function changerEtudiant() {
+  if (docType === "attestation") afficherDiplome();
+  else afficherReleve();
+}
+
+function changerTypeDoc(type) {
+  docType = type;
+  document.querySelectorAll(".doc-type-toggle button").forEach(b => b.classList.toggle("active", b.dataset.doc === type));
+  const id = document.getElementById("diplomaStudentSelect").value;
+  if (id) changerEtudiant();
+}
+
+function preparerDiplome() {
+  const sel = document.getElementById("diplomaStudentSelect");
+  if (!sel) return "";
+  return sel.value;
+}
+
+function genererObservation(note) {
+  if (note === undefined || note === null || note === "") return "";
+  if (note >= 16) return "Excellent niveau, maîtrise approfondie.";
+  if (note >= 14) return "Très bon niveau, acquis solides.";
+  if (note >= 12) return "Bon niveau, acquis satisfaisants.";
+  if (note >= 10) return "Niveau passable, objectifs atteints.";
+  if (note >= 8) return "Niveau fragile, des efforts nécessaires.";
+  return "Niveau insuffisant, compétences non acquises.";
+}
+
+function genererObservationGlobale(moyenne, mention) {
+  if (mention === "Très Bien") return "Félicitations pour ce parcours exemplaire. L'étudiant a démontré une excellence constante tout au long de la formation, faisant preuve d'une grande rigueur et d'un investissement remarquable dans l'ensemble des unités d'enseignement.";
+  if (mention === "Bien") return "Très bon travail tout au long de la formation. L'étudiant a atteint un niveau solide dans l'ensemble des compétences visées et a su produire un travail de qualité. Encourager à poursuivre dans cette dynamique.";
+  if (mention === "Passable") return "L'étudiant a validé sa formation avec des résultats satisfaisants. Les objectifs pédagogiques ont été atteints. Il est invité à consolider ses acquis dans les matières où les résultats sont plus fragiles.";
+  return "L'étudiant n'a pas pleinement atteint les objectifs pédagogiques fixés. Un travail de fond est nécessaire pour combler les lacunes identifiées dans plusieurs unités d'enseignement. Un accompagnement renforcé est recommandé.";
+}
+
+function afficherDiplome() {
+  const id = document.getElementById("diplomaStudentSelect").value;
+  const area = document.getElementById("diplomaPreviewArea");
+  const toolbar = document.getElementById("diplomaToolbar");
+  const meta = document.getElementById("previewMeta");
+  const zoomSlider = document.getElementById("zoomSlider");
+  if (!id) {
+    area.innerHTML = '<div class="empty-state"><div class="empty-icon">&#127891;</div><p>S&#233;lectionnez un &#233;tudiant pour pr&#233;visualiser son document.</p></div>';
+    toolbar.style.display = "none";
+    return;
+  }
+  const e = appData.etudiants.find(x => x.id === id);
+  if (!e) return;
+  const codeSecurite = genererCodeSecurite();
+  const moyenne = calculerMoyenne(e.notes || {});
+  const mention = calculerMention(moyenne);
+  const etab = appData.etablissement;
+  const form = appData.formation;
+
+  meta.textContent = `${e.prenom} ${e.nom} — ${mention} (${moyenne}/20) — Code: ${codeSecurite}`;
+  zoomSlider.value = 100;
+  document.getElementById("zoomValue").textContent = "100%";
+  toolbar.style.display = "flex";
+
+  let notesHtml = "";
+  if (appData.modules.length > 0) {
+    notesHtml = '<table class="diploma-details" style="margin:0.8rem auto;"><tr><th>Module</th><th>Note</th><th>Coeff.</th></tr>';
+    for (const m of appData.modules) {
+      const note = e.notes?.[m.id];
+      notesHtml += `<tr><td>${m.nom}</td><td>${note !== undefined && note !== "" ? note + "/20" : "-"}</td><td>${m.coefficient}</td></tr>`;
+    }
+    notesHtml += `<tr><td><strong>Moyenne g&#233;n&#233;rale</strong></td><td><strong>${moyenne}/20</strong></td><td><strong>${mention}</strong></td></tr></table>`;
+  }
+
+  area.innerHTML = `<div class="diploma-preview" id="diplomaCard" data-securite="${codeSecurite}" data-watermark="${(appData.watermark && appData.watermark.texte) || "DOCUMENT OFFICIEL"}">
+    <div class="diploma-border">
+      <div class="corner corner-tl"></div><div class="corner corner-tr"></div>
+      <div class="corner corner-bl"></div><div class="corner corner-br"></div>
+      <div class="diploma-seal">&#10003;<br>Certifi&#233;</div>
+      <div class="diploma-header">
+        ${etab.logo ? `<img class="diploma-logo" src="${etab.logo}" alt="Logo">` : ""}
+        <div class="diploma-title">Attestation de Formation</div>
+        <div class="diploma-subtitle">${etab.nom} &mdash; ${etab.sigle}</div>
+        <div class="diploma-agrement">Agr&#233;ment N&#176; ${etab.numeroAgrement} &mdash; ${etab.qualification}</div>
+      </div>
+      <div class="diploma-body">
+        <div class="diploma-atteste">Le Directeur de <strong>${etab.nom}</strong> atteste que</div>
+        <div class="diploma-atteste">${e.dateNaissance ? 'N&#233;(e) le ' + formaterDate(e.dateNaissance) : ''}${e.lieuNaissance ? ' &#224; ' + e.lieuNaissance : ''}</div>
+        <div class="diploma-nom">${e.prenom} ${e.nom}</div>
+        <div class="diploma-atteste">a suivi avec succ&#232;s la formation</div>
+        <div class="diploma-formation">&#171; ${form.titre} &#187;</div>
+        <div class="diploma-atteste" style="font-size:0.85rem;">du ${formaterDate(form.dateDebut)} au ${formaterDate(form.dateFin)} (${form.volumeHoraire})</div>
+        ${notesHtml}
+        ${e.appreciation ? `<div class="diploma-atteste" style="font-style:italic;">Appr&#233;ciation : ${e.appreciation}</div>` : ""}
+        ${e.numeroDiplome ? `<div class="diploma-agrement" style="margin-top:0.4rem;">Dipl&#244;me N&#176; ${e.numeroDiplome}</div>` : ""}
+        <div class="diploma-agrement">D&#233;livr&#233; le ${formaterDate(e.dateDelivrance || new Date().toISOString().slice(0,10))}</div>
+        <div class="diploma-agrement" style="margin-top:0.6rem;font-size:0.65rem;letter-spacing:2px;color:#aaa;font-family:'Courier New',monospace;">Code s&#233;curit&#233; : ${codeSecurite}</div>
+      </div>
+      <div class="diploma-signatures">
+        <div class="signature-box">
+          <div class="signature-line">${etab.directeur}<br><span style="font-weight:400;font-size:0.7rem;">Directeur de ${etab.sigle}</span></div>
+        </div>
+        <div class="signature-box">
+          <div class="signature-line">L&#8217;apprenant(e)<br><span style="font-weight:400;font-size:0.7rem;">${e.prenom} ${e.nom}</span></div>
+        </div>
+      </div>
+    </div>
+  </div>`;
+  // Appliquer l'opacité du filigrane
+  var wmCard = document.getElementById("diplomaCard");
+  if (wmCard && appData.watermark) {
+    wmCard.style.setProperty("--watermark-opacity", (appData.watermark.opacite / 100).toString());
+  }
+}
+
+function afficherReleve() {
+  const id = document.getElementById("diplomaStudentSelect").value;
+  const area = document.getElementById("diplomaPreviewArea");
+  const toolbar = document.getElementById("diplomaToolbar");
+  const meta = document.getElementById("previewMeta");
+  const zoomSlider = document.getElementById("zoomSlider");
+  if (!id) {
+    area.innerHTML = '<div class="empty-state"><div class="empty-icon">&#128202;</div><p>S&#233;lectionnez un &#233;tudiant pour voir son relev&#233; de notes.</p></div>';
+    toolbar.style.display = "none";
+    return;
+  }
+  const e = appData.etudiants.find(x => x.id === id);
+  if (!e) return;
+  const codeSecurite = genererCodeSecurite();
+  const moyenne = calculerMoyenne(e.notes || {});
+  const mention = calculerMention(moyenne);
+  const etab = appData.etablissement;
+  const form = appData.formation;
+
+  meta.textContent = `${e.prenom} ${e.nom} — Relevé — Code: ${codeSecurite}`;
+  zoomSlider.value = 100;
+  document.getElementById("zoomValue").textContent = "100%";
+  toolbar.style.display = "flex";
+
+  let rowsHtml = "";
+  if (appData.modules.length > 0) {
+    for (const m of appData.modules) {
+      const note = e.notes?.[m.id];
+      const noteDisplay = note !== undefined && note !== "" ? note + "/20" : "-";
+      const obs = genererObservation(note);
+      rowsHtml += `<tr><td>${m.nom}</td><td>${m.coefficient}</td><td><strong>${noteDisplay}</strong></td><td class="observation-cell">${obs}</td></tr>`;
+    }
+  }
+
+  const obsGlobale = genererObservationGlobale(moyenne, mention);
+
+  area.innerHTML = `<div class="releve-preview" id="diplomaCard" data-securite="${codeSecurite}" data-watermark="${(appData.watermark && appData.watermark.texte) || "DOCUMENT OFFICIEL"}">
+    <div class="releve-inner">
+      <div class="rc rc-tl"></div><div class="rc rc-tr"></div>
+      <div class="rc rc-bl"></div><div class="rc rc-br"></div>
+      <div class="releve-header">
+      <h2>RELEV&#201; DE NOTES</h2>
+      <div class="releve-subtitle">${etab.nom} &mdash; ${etab.sigle}</div>
+      <div style="font-size:0.78rem;color:#888;">Agr&#233;ment N&#176; ${etab.numeroAgrement}</div>
+    </div>
+    <div class="releve-student">
+      <strong>Étudiant :</strong> ${e.nom} ${e.prenom} &nbsp;|&nbsp; <strong>N&#176; dossier :</strong> ${e.numeroDossier || "-"}<br>
+      <strong>Formation :</strong> ${form.titre} &nbsp;|&nbsp; du ${formaterDate(form.dateDebut)} au ${formaterDate(form.dateFin)}<br>
+      <strong>Date d'&#233;dition :</strong> ${formaterDate(new Date().toISOString().slice(0,10))}
+    </div>
+    <table class="releve-table">
+      <thead><tr><th>Unit&#233; d'Enseignement</th><th>Coeff.</th><th>Note</th><th>Observations</th></tr></thead>
+      <tbody>
+        ${rowsHtml || '<tr><td colspan="4" style="color:#999;">Aucun module d&#233;fini.</td></tr>'}
+        <tr class="total-row"><td colspan="2"><strong>Moyenne G&#233;n&#233;rale</strong></td><td><strong>${moyenne}/20</strong></td><td><strong>${mention}</strong></td></tr>
+      </tbody>
+    </table>
+    <div class="releve-observation">
+      <strong>Observation du Directeur :</strong><br>${obsGlobale}
+    </div>
+    <div class="releve-footer">
+      <span>${etab.ville ? "Fait &#224; " + etab.ville + ", " : ""}le ${formaterDate(new Date().toISOString().slice(0,10))}</span>
+      <span style="font-family:'Courier New',monospace;font-size:0.65rem;color:#aaa;">Code s&#233;curit&#233; : ${codeSecurite}</span>
+      <span>${etab.directeur ? "Le Directeur, " + etab.directeur : ""}</span>
+    </div>
+    </div>
+  </div>`;
+  // Appliquer l'opacité du filigrane
+  var wmCard = document.getElementById("diplomaCard");
+  if (wmCard && appData.watermark) {
+    wmCard.style.setProperty("--watermark-opacity", (appData.watermark.opacite / 100).toString());
+  }
+}
+
+function appliquerZoom(val) {
+  document.getElementById("zoomValue").textContent = val + "%";
+  const card = document.getElementById("diplomaCard");
+  if (card) card.style.transform = "scale(" + (val / 100) + ")";
+}
+
+function genererLaTeX() {
+  const id = preparerDiplome();
+  if (!id) {
+    toast("Aucun étudiant. Ajoutez-en un dans l'onglet Étudiants (étape 4).", "error");
+    return;
+  }
+  if (docType === "releve") { genererLaTeXReleve(); return; }
+  const e = appData.etudiants.find(x => x.id === id);
+  if (!e) return;
+  const etab = appData.etablissement;
+  const form = appData.formation;
+  const moyenne = calculerMoyenne(e.notes || {});
+  const mention = calculerMention(moyenne);
+  const codeSecurite = genererCodeSecurite();
+
+  let notesLatex = "";
+  if (appData.modules.length > 0) {
+    notesLatex = `\\begin{tabular}{|l|c|c|}
+\\hline
+\\textbf{Module} & \\textbf{Note} & \\textbf{Coefficient} \\\\
+\\hline
+`;
+    for (const m of appData.modules) {
+      const note = e.notes?.[m.id];
+      notesLatex += `${m.nom} & ${note !== undefined && note !== "" ? note + "/20" : "-"} & ${m.coefficient} \\\\ \\hline\n`;
+    }
+    notesLatex += `\\textbf{Moyenne g\\'en\\'erale} & \\textbf{${moyenne}/20} & \\textbf{${mention}} \\\\ \\hline\n`;
+    notesLatex += `\\end{tabular}`;
+  }
+
+  const latex = `\\documentclass[12pt,a4paper]{article}
+\\usepackage[french]{babel}
+\\usepackage[utf8]{inputenc}
+\\usepackage[T1]{fontenc}
+\\usepackage{graphicx}
+\\usepackage{array}
+\\usepackage{geometry}
+\\geometry{margin=2cm}
+\\pagestyle{empty}
+\\usepackage{draftwatermark}
+\\SetWatermarkText{${codeSecurite}}
+\\SetWatermarkScale{3}
+\\SetWatermarkColor[gray]{0.9}
+\\SetWatermarkAngle{45}
+
+\\begin{document}
+
+\\begin{center}
+${etab.logo ? `\\includegraphics[height=3cm]{${etab.logo}}\\\\[0.3cm]` : ""}
+{\\LARGE\\bfseries ATTESTATION DE FORMATION}\\\\[0.3cm]
+{\\large ${etab.nom} -- ${etab.sigle}}\\\\
+{\\footnotesize Agr\\'ement N\\deg ${etab.numeroAgrement} -- ${etab.qualification}}
+\\end{center}
+
+\\vspace{0.5cm}
+
+\\noindent Le Directeur de \\textbf{${etab.nom}} atteste que
+
+\\vspace{0.3cm}
+
+\\begin{center}
+{\\LARGE\\bfseries ${e.prenom} \\textsc{${e.nom}}}\\\\[0.2cm]
+${e.dateNaissance ? "Né(e) le " + formaterDateLatex(e.dateNaissance) : ""}${e.lieuNaissance ? " \\`a " + e.lieuNaissance : ""}
+\\end{center}
+
+\\vspace{0.3cm}
+
+\\noindent a suivi avec succès la formation
+
+\\begin{center}
+{\\Large \\og ${form.titre} \\fg}\\\\[0.2cm]
+{\\footnotesize du ${formaterDateLatex(form.dateDebut)} au ${formaterDateLatex(form.dateFin)} (${form.volumeHoraire})}
+\\end{center}
+
+\\vspace{0.3cm}
+
+\\begin{center}
+${notesLatex}
+\\end{center}
+
+\\vspace{0.3cm}
+
+\\noindent Appr\\'eciation : ${e.appreciation || "---"}
+
+\\vspace{0.3cm}
+
+\\noindent D\\'elivr\\'e le ${formaterDateLatex(e.dateDelivrance || new Date().toISOString().slice(0,10))}
+
+\\vspace{0.5cm}
+
+\\begin{center}
+\\begin{tabular}{p{5cm}p{5cm}}
+${etab.directeur} & L'apprenant(e)\\\\
+\\rule{5cm}{0.5pt} & \\rule{5cm}{0.5pt}\\\\
+Directeur de ${etab.sigle} & ${e.prenom} ${e.nom}\\\\
+${etab.cachet ? "\\\\includegraphics[height=1.5cm]{" + etab.cachet + "}" : ""}
+\\end{tabular}
+\\end{center}
+
+\\vfill
+
+\\begin{center}
+{\\tiny ${form.certificateur}${form.codeRNCP ? " --- Code RNCP : " + form.codeRNCP : ""}}
+\\end{center}
+
+\\vspace{0.3cm}
+{\\tiny \\ttfamily Code s\\'ecurit\\'e : ${codeSecurite}}
+\\end{document}`;
+
+  const blob = new Blob([latex], { type: "text/plain;charset=utf-8" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = `diplome_${e.nom}_${e.prenom}.tex`;
+  a.click();
+  URL.revokeObjectURL(a.href);
+  toast("Fichier LaTeX téléchargé : " + a.download, "success");
+}
+
+function genererLaTeXReleve() {
+  const id = preparerDiplome();
+  if (!id) return;
+  const e = appData.etudiants.find(x => x.id === id);
+  if (!e) return;
+  const etab = appData.etablissement;
+  const form = appData.formation;
+  const moyenne = calculerMoyenne(e.notes || {});
+  const mention = calculerMention(moyenne);
+  const codeSecurite = genererCodeSecurite();
+  const obsGlobale = genererObservationGlobale(moyenne, mention);
+
+  let rows = "";
+  for (const m of appData.modules) {
+    const note = e.notes?.[m.id];
+    const noteDisplay = note !== undefined && note !== "" ? note + "/20" : "-";
+    const obs = genererObservation(note);
+    rows += `${m.nom} & ${m.coefficient} & ${noteDisplay} & ${obs} \\\\ \\hline\n`;
+  }
+
+  const latex = `\\documentclass[12pt,a4paper]{article}
+\\usepackage[french]{babel}
+\\usepackage[utf8]{inputenc}
+\\usepackage[T1]{fontenc}
+\\usepackage{array}
+\\usepackage{geometry}
+\\geometry{margin=2cm}
+\\pagestyle{empty}
+\\usepackage{draftwatermark}
+\\SetWatermarkText{${codeSecurite}}
+\\SetWatermarkScale{3}
+\\SetWatermarkColor[gray]{0.9}
+\\SetWatermarkAngle{45}
+
+\\begin{document}
+
+\\begin{center}
+{\\LARGE\\bfseries RELEV\\'E DE NOTES}\\\\[0.3cm]
+{\\large ${etab.nom} -- ${etab.sigle}}\\\\
+{\\footnotesize Agr\\'ement N\\deg ${etab.numeroAgrement}}
+\\end{center}
+
+\\vspace{0.4cm}
+
+\\noindent\\textbf{Étudiant :} ${e.nom} ${e.prenom} \\hfill \\textbf{N\\deg dossier :} ${e.numeroDossier || "-"}\\\\
+\\noindent\\textbf{Formation :} ${form.titre}\\\\
+\\noindent\\textbf{P\\'eriode :} du ${formaterDateLatex(form.dateDebut)} au ${formaterDateLatex(form.dateFin)}\\\\
+\\noindent\\textbf{Date d'\\'edition :} ${formaterDateLatex(new Date().toISOString().slice(0,10))}
+
+\\vspace{0.4cm}
+
+\\begin{tabular}{|p{3.5cm}|c|c|p{5.5cm}|}
+\\hline
+\\textbf{Unit\\'e d'Enseignement} & \\textbf{Coeff.} & \\textbf{Note} & \\textbf{Observations} \\\\
+\\hline
+${rows}
+\\hline
+\\textbf{Moyenne G\\'en\\'erale} & & \\textbf{${moyenne}/20} & \\textbf{${mention}} \\\\
+\\hline
+\\end{tabular}
+
+\\vspace{0.4cm}
+
+\\noindent\\textbf{Observation du Directeur :}\\\\
+${obsGlobale}
+
+\\vspace{0.5cm}
+
+\\begin{flushright}
+Fait ${etab.ville ? "\\`a " + etab.ville + ", " : ""}le ${formaterDateLatex(new Date().toISOString().slice(0,10))}\\\\
+${etab.directeur ? "Le Directeur, " + etab.directeur : ""}
+\\end{flushright}
+
+\\vspace{0.3cm}
+{\\tiny \\ttfamily Code s\\'ecurit\\'e : ${codeSecurite}}
+\\end{document}`;
+
+  const blob = new Blob([latex], { type: "text/plain;charset=utf-8" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = `releve_${e.nom}_${e.prenom}.tex`;
+  a.click();
+  URL.revokeObjectURL(a.href);
+  toast("Fichier LaTeX (relevé) téléchargé : " + a.download, "success");
+}
+
+// ============================================================
+// IMPRESSION PDF
+// ============================================================
+function imprimerPDF() {
+  const id = preparerDiplome();
+  if (!id) {
+    toast("Aucun étudiant. Ajoutez-en un dans l'onglet Étudiants (étape 4).", "error");
+    return;
+  }
+  setTimeout(() => window.print(), 400);
+}
+
+// ============================================================
+// EXPORT / IMPORT
+// ============================================================
+function exporterDonnees() {
+  sauvegarder();
+  const blob = new Blob([JSON.stringify(appData, null, 2)], { type: "application/json;charset=utf-8" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "donnees_diplomes.json";
+  a.click();
+  URL.revokeObjectURL(a.href);
+  toast("Données exportées.", "success");
+}
+
+function importerDonnees(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    try {
+      const data = JSON.parse(e.target.result);
+      if (data.etablissement) {
+        appData = {
+          ...appData,
+          ...data,
+          etablissement: { ...appData.etablissement, ...data.etablissement },
+          formation: { ...appData.formation, ...(data.formation || {}) },
+          seuils: { ...appData.seuils, ...(data.seuils || {}) },
+          modules: data.modules || appData.modules,
+          etudiants: data.etudiants || data.etudiant || appData.etudiants
+        };
+        remplirChamps();
+        renderEtudiants();
+        renderModules();
+        sauvegarder();
+        toast("Données importées avec succès.", "success");
+      } else {
+        toast("Format de fichier invalide.", "error");
+      }
+    } catch(err) {
+      toast("Erreur lors de l'import : " + err.message, "error");
+    }
+  };
+  reader.readAsText(file);
+  event.target.value = "";
+}
+
+function remplirChamps() {
+  const set = (id, val) => { const el = document.getElementById(id); if (el) el.value = val || ""; };
+  set("etab-nom", appData.etablissement.nom);
+  set("etab-sigle", appData.etablissement.sigle);
+  set("etab-adresse", appData.etablissement.adresse);
+  set("etab-ville", appData.etablissement.ville);
+  set("etab-cp", appData.etablissement.codePostal);
+  set("etab-tel", appData.etablissement.telephone);
+  set("etab-email", appData.etablissement.email);
+  set("etab-web", appData.etablissement.siteWeb);
+  set("etab-directeur", appData.etablissement.directeur);
+  set("etab-agrement", appData.etablissement.numeroAgrement);
+  set("etab-date-agrement", appData.etablissement.dateAgrement);
+  set("etab-qualification", appData.etablissement.qualification);
+  set("etab-logo", appData.etablissement.logo);
+  set("etab-cachet", appData.etablissement.cachet);
+  set("form-titre", appData.formation.titre);
+  set("form-duree", appData.formation.duree);
+  set("form-volume", appData.formation.volumeHoraire);
+  set("form-debut", appData.formation.dateDebut);
+  set("form-fin", appData.formation.dateFin);
+  set("form-description", appData.formation.description);
+  set("form-certificateur", appData.formation.certificateur);
+  set("form-rncp", appData.formation.codeRNCP);
+  set("form-promotion", appData.formation.promotion);
+  if (appData.seuils) {
+    set("seuil-eliminatoire", appData.seuils.eliminatoire);
+    set("seuil-passable", appData.seuils.passable);
+    set("seuil-bien", appData.seuils.bien);
+    set("seuil-tb", appData.seuils.tresBien);
+    set("seuil-assiduite", appData.seuils.assiduiteMin);
+  }
+  if (appData.watermark) {
+    set("watermark-texte", appData.watermark.texte);
+    set("watermark-opacite", appData.watermark.opacite);
+    document.getElementById("watermark-opacity-val").textContent = parseFloat(appData.watermark.opacite).toFixed(1).replace(".", ",") + "%";
+  }
+}
+
+// ============================================================
+// ARCHIVES
+// ============================================================
+function archiverDocument() {
+  const etuSelect = document.getElementById("diplomaStudentSelect");
+  if (!etuSelect.value) { toast("Veuillez s&eacute;lectionner un &eacute;tudiant.", "error"); return; }
+  const etuId = parseInt(etuSelect.value);
+  const etudiant = appData.etudiants.find(e => e.id === etuId);
+  if (!etudiant) return;
+
+  // Récupérer le code sécurité depuis l'aperçu (ou en générer un nouveau)
+  const card = document.getElementById("diplomaCard");
+  let codeSecu;
+  if (card && card.dataset.securite) {
+    codeSecu = card.dataset.securite;
+  } else {
+    codeSecu = genererCodeSecurite();
+  }
+
+  const docType = document.getElementById("docTypeAttestation").checked ? "attestation" : "releve";
+  const moyenne = calculerMoyenne(etudiant.notes || {});
+  const mention = calculerMention(moyenne);
+
+  // Calculer les observations par module
+  var observationsModules = {};
+  if (appData.modules.length > 0) {
+    for (const m of appData.modules) {
+      const note = etudiant.notes?.[m.id];
+      observationsModules[m.id] = genererObservation(note);
+    }
+  }
+  const observationGlobale = genererObservationGlobale(moyenne, mention);
+  const dateEdition = new Date().toISOString();
+  const dateDelivrance = etudiant.dateDelivrance || dateEdition.slice(0,10);
+
+  const archive = {
+    id: Date.now(),
+    date: dateEdition,
+    type: docType,
+    codeSecurite: codeSecu,
+    moyenne: moyenne,
+    mention: mention,
+    observationsModules: observationsModules,
+    observationGlobale: observationGlobale,
+    dateDelivrance: dateDelivrance,
+    etudiant: Object.assign({}, etudiant),
+    formation: Object.assign({}, appData.formation),
+    etablissement: Object.assign({}, appData.etablissement),
+    seuils: Object.assign({}, appData.seuils),
+    modules: appData.modules.map(function(m) { return Object.assign({}, m); })
+  };
+
+  if (!appData.archives) appData.archives = [];
+  appData.archives.unshift(archive);
+  sauvegarder();
+  renderArchives();
+  remplirFiltresArchives();
+  document.getElementById("archiveCount").textContent = appData.archives.length;
+  toast("Document archiv&eacute; avec succ&egrave;s (&agrave; la date du " + new Date().toLocaleDateString("fr-FR") + "). Code s&eacute;curit&eacute; : " + codeSecu, "success");
+}
+
+function renderArchives() {
+  const container = document.getElementById("archivesContainer");
+  if (!container) return;
+  const filtres = appData.archives || [];
+  const q = (document.getElementById("arch-filter-nom").value || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  const t = document.getElementById("arch-filter-type").value;
+  const p = document.getElementById("arch-filter-promo").value;
+
+  const resultats = filtres.filter(function(a) {
+    if (q) {
+      var nom = (a.etudiant.nom + " " + a.etudiant.prenom).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+      if (nom.indexOf(q) === -1) return false;
+    }
+    if (t && a.type !== t) return false;
+    if (p && a.formation.promotion !== p) return false;
+    return true;
+  });
+
+  if (resultats.length === 0) {
+    container.innerHTML = '<div class="empty-state"><div class="empty-icon">&#128190;</div><p>Aucun document archiv&#233; trouv&#233;.</p></div>';
+    return;
+  }
+
+  var html = '<div class="archive-grid">';
+  resultats.forEach(function(a) {
+    var date = new Date(a.date);
+    var dateStr = date.toLocaleDateString("fr-FR") + " " + date.toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" });
+    var nom = a.etudiant.nom + " " + a.etudiant.prenom;
+    var diplome = a.formation.titre || "Sans titre";
+    var promo = a.formation.promotion || "";
+    var typeLabel = a.type === "attestation" ? "Attestation" : "Relev&eacute;";
+    var typeClass = a.type;
+    var mention = a.mention || "";
+    var moyenne = a.moyenne !== undefined ? a.moyenne + "/20" : "";
+    html += '<div class="archive-card">';
+    html += '<div class="arch-header"><strong>' + escHtml(nom) + '</strong><span class="arch-type ' + typeClass + '">' + typeLabel + '</span></div>';
+    html += '<div class="arch-meta">' + escHtml(diplome) + (promo ? ' &middot; ' + escHtml(promo) : "") + '</div>';
+    html += '<div class="arch-meta">' + dateStr + '</div>';
+    if (moyenne || mention) html += '<div class="arch-meta"><strong>' + moyenne + '</strong>' + (mention ? ' &mdash; ' + escHtml(mention) : "") + '</div>';
+    html += '<div class="arch-securite">Code : ' + a.codeSecurite + '</div>';
+    html += '<div class="arch-actions">';
+    html += '<button class="btn btn-sm btn-secondary" onclick="afficherArchive(' + a.id + ')">&#128065; Voir</button>';
+    html += '<button class="btn btn-sm btn-secondary" onclick="supprimerArchive(' + a.id + ')">&#128465; Suppr.</button>';
+    html += '</div></div>';
+  });
+  html += '</div>';
+  container.innerHTML = html;
+}
+
+function afficherArchive(id) {
+  var archive = (appData.archives || []).find(function(a) { return a.id === id; });
+  if (!archive) return;
+
+  var intitule = archive.formation.titre || "Formation";
+  var etudiant = archive.etudiant;
+
+  // Temporarily swap appData to render the archived document
+  var savedEtab = appData.etablissement;
+  var savedForm = appData.formation;
+  var savedSeuils = appData.seuils;
+  var savedModules = appData.modules;
+  var savedEtudiants = appData.etudiants;
+
+  appData.etablissement = Object.assign({}, archive.etablissement);
+  appData.formation = Object.assign({}, archive.formation);
+  appData.seuils = Object.assign({}, archive.seuils);
+  appData.modules = archive.modules.map(function(m) { return Object.assign({}, m); });
+
+  // Temporarily unshift the student so it appears in the select
+  var exists = appData.etudiants.find(function(e) { return e.id === etudiant.id; });
+  if (!exists) appData.etudiants.unshift(Object.assign({}, etudiant));
+
+  remplirChamps();
+  renderEtudiants();
+  remplirSelectDiplome();
+
+  // Set the student select and render
+  var sel = document.getElementById("diplomaStudentSelect");
+  sel.value = etudiant.id;
+
+  if (archive.type === "releve") document.getElementById("docTypeReleve").checked = true;
+  else document.getElementById("docTypeAttestation").checked = true;
+  changerTypeDoc(archive.type);
+
+  // Restore appData (after render so archived data was used)
+  appData.etablissement = savedEtab;
+  appData.formation = savedForm;
+  appData.seuils = savedSeuils;
+  appData.modules = savedModules;
+  appData.etudiants = savedEtudiants;
+
+  // Inject the archived security code into the preview (overwrite auto-generated one)
+  var card = document.getElementById("diplomaCard");
+  if (card) {
+    card.dataset.securite = archive.codeSecurite;
+    // Update previewMeta toolbar text
+    var meta = document.getElementById("previewMeta");
+    if (meta) {
+      var moyenneStr = archive.moyenne !== undefined ? archive.moyenne + "/20" : "";
+      var mentionStr = archive.mention || "";
+      meta.textContent = archive.etudiant.prenom + " " + archive.etudiant.nom + " — " + (archive.type === "releve" ? "Relevé" : mentionStr ? mentionStr + " (" + moyenneStr + ")" : moyenneStr) + " — Code: " + archive.codeSecurite;
+    }
+    // Also update visible security code text in the preview HTML
+    var codeSpans = card.querySelectorAll('[class*="securite"]');
+    for (var i = 0; i < codeSpans.length; i++) {
+      codeSpans[i].textContent = "Code s\u00e9curit\u00e9 : " + archive.codeSecurite;
+    }
+    // Update all text nodes containing "Code sécurité :" inside the card
+    var walker = document.createTreeWalker(card, 4, null, false);
+    var node;
+    while (node = walker.nextNode()) {
+      if (node.textContent.indexOf("Code sécurité") !== -1) {
+        node.textContent = "Code sécurité : " + archive.codeSecurite;
+      }
+    }
+  }
+
+  // Switch to diploma tab
+  var tab = document.querySelector('.tab-btn[data-tab="tab-diplome"]');
+  if (tab) switchTab(tab);
+}
+
+function supprimerArchive(id) {
+  if (!confirm("Supprimer ce document des archives ?")) return;
+  appData.archives = (appData.archives || []).filter(function(a) { return a.id !== id; });
+  sauvegarder();
+  renderArchives();
+  remplirFiltresArchives();
+  document.getElementById("archiveCount").textContent = appData.archives.length;
+  toast("Document retir&eacute; des archives.", "info");
+}
+
+function remplirFiltresArchives() {
+  var sel = document.getElementById("arch-filter-promo");
+  if (!sel) return;
+  var current = sel.value;
+  var promos = {};
+  (appData.archives || []).forEach(function(a) {
+    if (a.formation.promotion) promos[a.formation.promotion] = true;
+  });
+  var keys = Object.keys(promos).sort();
+  sel.innerHTML = '<option value="">Toutes</option>';
+  keys.forEach(function(k) { sel.innerHTML += '<option value="' + escHtml(k) + '">' + escHtml(k) + "</option>"; });
+  sel.value = current;
+}
+
+// ============================================================
+// AUTHENTIFICATION
+// ============================================================
+function connecter() {
+  var user = document.getElementById("loginUser").value.trim();
+  var pass = document.getElementById("loginPass").value;
+  var error = document.getElementById("loginError");
+  if (!user || !pass) { error.textContent = "Veuillez saisir identifiant et mot de passe."; return; }
+  if (user === "KOLA" && pass === "KOLA1@") {
+    error.textContent = "";
+    document.getElementById("loginOverlay").classList.add("hidden");
+    // Focus sur le premier champ après connexion
+    var firstInput = document.querySelector(".tab-btn");
+    if (firstInput) firstInput.focus();
+  } else {
+    error.textContent = "Identifiant ou mot de passe incorrect.";
+    document.getElementById("loginPass").value = "";
+    document.getElementById("loginPass").focus();
+  }
+}
+
+function deconnecter() {
+  document.getElementById("loginOverlay").classList.remove("hidden");
+  document.getElementById("loginUser").value = "";
+  document.getElementById("loginPass").value = "";
+  document.getElementById("loginError").textContent = "";
+  document.getElementById("loginUser").focus();
+}
+
+// ============================================================
+// TOAST
+// ============================================================
+function toast(message, type) {
+  const container = document.getElementById("toastContainer");
+  const t = document.createElement("div");
+  t.className = "toast " + (type || "info");
+  t.innerHTML = message;
+  container.appendChild(t);
+  setTimeout(() => { t.style.opacity = "0"; t.style.transition = "opacity 0.3s"; setTimeout(() => t.remove(), 300); }, 3500);
+}
+
+// ============================================================
+// INITIALISATION
+// ============================================================
+function init() {
+  chargerDonnees();
+  remplirChamps();
+  renderEtudiants();
+  renderModules();
+  remplirSelectDiplome();
+  remplirFiltres();
+  remplirFiltresArchives();
+  renderArchives();
+  document.getElementById("archiveCount").textContent = (appData.archives || []).length;
+  // Restaurer l'onglet actif
+  const activeTab = document.querySelector(".tab-btn.active");
+  if (activeTab) switchTab(activeTab);
+  // Auto-sauvegarde périodique
+  setInterval(sauvegarder, 30000);
+}
+
+document.addEventListener("DOMContentLoaded", init);
+</script>
+</body>
+</html>
