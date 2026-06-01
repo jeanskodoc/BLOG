@@ -2,1034 +2,586 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
     <meta name="theme-color" content="#4f46e5">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>ESODI - Solutions Digitales Innovantes</title>
     <meta name="description" content="Découvrez les solutions digitales ESODI : éducation, finance, commerce, transport et bien plus.">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9979946391591594" crossorigin="anonymous"></script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         :root {
-            --primary: #4f46e5;
-            --primary-dark: #4338ca;
-            --secondary: #7c3aed;
-            --whatsapp: #25D366;
-            --whatsapp-dark: #128C7E;
-            --donation: #f97316;
-            --youtube: #FF0000;
-            --success: #10b981;
-            --gray-50: #f9fafb;
-            --gray-100: #f3f4f6;
-            --gray-200: #e5e7eb;
-            --gray-300: #d1d5db;
-            --gray-400: #9ca3af;
-            --gray-500: #6b7280;
-            --gray-600: #4b5563;
-            --gray-700: #374151;
-            --gray-800: #1f2937;
-            --gray-900: #111827;
-            --light: #ffffff;
-            
-            --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
-            --shadow: 0 2px 4px rgba(0,0,0,0.1);
-            --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
-            --radius-sm: 0.375rem;
-            --radius: 0.5rem;
-            --radius-md: 0.75rem;
-            --radius-lg: 1rem;
-            --radius-full: 9999px;
+            --primary: #4f46e5; --primary-dark: #4338ca; --secondary: #7c3aed;
+            --whatsapp: #25D366; --whatsapp-dark: #128C7E; --donation: #f97316;
+            --youtube: #FF0000; --success: #10b981;
+            --edu: #10b981; --housing: #8b5cf6; --commerce: #f97316; --finance: #0ea5e9;
+            --gray-50: #f9fafb; --gray-100: #f3f4f6; --gray-200: #e5e7eb;
+            --gray-300: #d1d5db; --gray-400: #9ca3af; --gray-500: #6b7280;
+            --gray-600: #4b5563; --gray-700: #374151; --gray-800: #1f2937;
+            --gray-900: #111827; --light: #ffffff;
+            --shadow: 0 2px 4px rgba(0,0,0,.1); --shadow-md: 0 4px 6px rgba(0,0,0,.1); --shadow-lg: 0 10px 15px -3px rgba(0,0,0,.1);
+            --radius: .5rem; --radius-md: .75rem; --radius-lg: 1rem; --radius-full: 9999px;
             --transition: 200ms ease;
+            --safe-t: env(safe-area-inset-top,0px); --safe-b: env(safe-area-inset-bottom,0px);
+            --safe-l: env(safe-area-inset-left,0px); --safe-r: env(safe-area-inset-right,0px);
         }
 
         html {
-            font-size: 16px;
-            scroll-behavior: smooth;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            font-size: 16px; scroll-behavior: smooth;
+            font-family: -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',sans-serif;
+            -webkit-text-size-adjust: 100%;
         }
-
-        /* Responsive typographie */
         @media (max-width: 1200px) { html { font-size: 15.5px; } }
         @media (max-width: 992px) { html { font-size: 15px; } }
         @media (max-width: 768px) { html { font-size: 14.5px; } }
         @media (max-width: 576px) { html { font-size: 14px; } }
-        @media (max-width: 400px) { html { font-size: 13.5px; } }
+        @media (max-width: 380px) { html { font-size: 13px; } }
 
         body {
-            line-height: 1.5;
-            color: var(--gray-800);
-            background: var(--light);
-            overflow-x: hidden;
-            min-height: 100vh;
+            line-height: 1.5; color: var(--gray-800); background: var(--light);
+            overflow-x: hidden; min-height: 100vh; min-height: -webkit-fill-available;
+            padding-top: var(--safe-t); padding-bottom: var(--safe-b);
         }
-
-        /* Container responsive fluide */
         .container {
-            width: 100%;
-            margin: 0 auto;
-            padding: 0 1rem;
+            width: 100%; margin: 0 auto;
+            padding: 0 max(1rem, var(--safe-l));
         }
-        
-        /* Breakpoints responsives */
         @media (min-width: 576px) { .container { max-width: 540px; } }
-        @media (min-width: 768px) { .container { max-width: 720px; padding: 0 1.5rem; } }
+        @media (min-width: 768px) { .container { max-width: 720px; padding: 0 max(1.5rem, var(--safe-l)); } }
         @media (min-width: 992px) { .container { max-width: 960px; } }
         @media (min-width: 1200px) { .container { max-width: 1140px; } }
         @media (min-width: 1400px) { .container { max-width: 1320px; } }
+        .text-center { text-align: center; }
 
-        /* Header responsive */
+        /* HEADER */
         header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: rgba(255,255,255,0.95);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            z-index: 1000;
-            padding: 0.75rem 0;
-            box-shadow: var(--shadow-sm);
-            border-bottom: 1px solid rgba(0,0,0,0.05);
-            min-height: 60px;
-            display: flex;
-            align-items: center;
+            position: fixed; top: 0; left: 0; right: 0;
+            background: rgba(255,255,255,.95); backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            z-index: 1000; padding: .6rem 0; border-bottom: 1px solid rgba(0,0,0,.06);
+            min-height: 52px; display: flex; align-items: center; transition: box-shadow .3s;
         }
-
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-            gap: 1rem;
-        }
-
-        .logo {
-            flex-shrink: 0;
-        }
-
+        header.scrolled { box-shadow: var(--shadow-md); }
+        .header-content { display: flex; justify-content: space-between; align-items: center; width: 100%; gap: .75rem; }
         .logo h1 {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-size: clamp(1.2rem, 5vw, 1.6rem);
-            margin: 0;
-            line-height: 1.2;
+            background: linear-gradient(135deg,var(--primary),var(--secondary));
+            -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+            font-size: clamp(1.1rem,5vw,1.5rem); line-height: 1.2;
         }
-        
-        .logo .tagline {
-            font-size: clamp(0.55rem, 2vw, 0.7rem);
-            color: var(--primary-dark);
-            font-weight: 600;
-            letter-spacing: 0.5px;
-        }
-
-        /* Navigation responsive */
-        .main-nav {
-            display: flex;
-            gap: 0.5rem;
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
-        
+        .logo .tagline { font-size: clamp(.45rem,2vw,.6rem); color: var(--primary-dark); font-weight: 600; letter-spacing: .4px; }
+        .main-nav { display: flex; gap: .2rem; list-style: none; align-items: center; }
         .main-nav a {
-            text-decoration: none;
-            color: var(--gray-700);
-            font-weight: 600;
-            padding: 0.5rem 1rem;
-            border-radius: var(--radius-full);
-            transition: var(--transition);
-            font-size: clamp(0.75rem, 2vw, 0.875rem);
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            white-space: nowrap;
+            text-decoration: none; color: var(--gray-700); font-weight: 600;
+            padding: .4rem .75rem; border-radius: var(--radius-full); transition: var(--transition);
+            font-size: clamp(.65rem,2vw,.8rem); display: inline-flex; align-items: center;
+            gap: .3rem; white-space: nowrap; min-height: 38px;
         }
-        
-        .main-nav a:hover,
-        .main-nav a.active {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            transform: translateY(-1px);
-        }
+        .main-nav a:hover, .main-nav a.active { background: linear-gradient(135deg,var(--primary),var(--secondary)); color: #fff; }
 
+        /* BURGER */
         .mobile-nav-toggle {
-            display: none;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            border: none;
-            width: 42px;
-            height: 42px;
-            border-radius: var(--radius-full);
-            cursor: pointer;
-            font-size: 1.25rem;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            transition: var(--transition);
-        }
-        
-        .mobile-nav-toggle:hover {
-            transform: scale(1.05);
+            display: none; background: linear-gradient(135deg,var(--primary),var(--secondary));
+            color: #fff; border: none; width: 40px; height: 40px; border-radius: var(--radius-full);
+            cursor: pointer; font-size: 1.2rem; align-items: center; justify-content: center;
+            flex-shrink: 0; min-width: 40px; touch-action: manipulation;
         }
 
-        /* Menu mobile */
         @media (max-width: 768px) {
-            .mobile-nav-toggle {
-                display: flex;
-            }
-            
+            .mobile-nav-toggle { display: flex; }
             .main-nav {
-                position: fixed;
-                top: 60px;
-                left: 0;
-                right: 0;
-                background: rgba(255,255,255,0.98);
-                backdrop-filter: blur(20px);
-                padding: 1rem;
-                flex-direction: column;
-                gap: 0.5rem;
-                transform: translateY(-100%);
-                opacity: 0;
-                visibility: hidden;
-                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-                z-index: 999;
-                border-top: 1px solid var(--gray-200);
-                box-shadow: var(--shadow-md);
-                max-height: calc(100vh - 60px);
-                overflow-y: auto;
+                position: fixed; top: 52px; left: 0; right: 0;
+                background: rgba(255,255,255,.98); backdrop-filter: blur(20px);
+                -webkit-backdrop-filter: blur(20px);
+                padding: .75rem; flex-direction: column; gap: .3rem;
+                transform: translateY(-100%); opacity: 0; visibility: hidden;
+                transition: all .3s cubic-bezier(.4,0,.2,1); z-index: 999;
+                border-top: 1px solid var(--gray-200); box-shadow: var(--shadow-md);
+                max-height: calc(100vh - 52px); overflow-y: auto;
             }
-            
-            .main-nav.active {
-                transform: translateY(0);
-                opacity: 1;
-                visibility: visible;
-            }
-            
-            .main-nav li {
-                width: 100%;
-            }
-            
-            .main-nav a {
-                width: 100%;
-                padding: 0.875rem 1rem;
-                justify-content: center;
-                font-size: 1rem;
-            }
+            .main-nav.active { transform: translateY(0); opacity: 1; visibility: visible; }
+            .main-nav li { width: 100%; }
+            .main-nav a { width: 100%; padding: .7rem 1rem; justify-content: center; font-size: .95rem; min-height: 44px; }
         }
 
-        /* Hero Section responsive */
+        /* HERO */
         .hero {
-            padding: calc(70px + 2rem) 0 3rem;
-            text-align: center;
-            background: linear-gradient(135deg, rgba(79,70,229,0.03), rgba(124,58,237,0.06));
-            position: relative;
-            overflow: hidden;
+            padding: calc(52px + 2rem) 0 1.5rem; text-align: center;
+            background: linear-gradient(135deg,rgba(79,70,229,.04),rgba(124,58,237,.08));
+            position: relative; overflow: hidden;
         }
-        
+        @media (max-width: 380px) { .hero { padding: calc(52px + 1.5rem) 0 1rem; } }
         .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+            background: linear-gradient(90deg,var(--edu),var(--housing),var(--commerce),var(--finance));
         }
-        
-        .hero h2 {
-            font-size: clamp(1.5rem, 6vw, 2.5rem);
-            margin-bottom: 1rem;
-            line-height: 1.2;
-            padding: 0 0.5rem;
+        .hero h2 { font-size: clamp(1.2rem,6vw,2.2rem); margin-bottom: .4rem; line-height: 1.2; }
+        @media (max-width: 380px) { .hero h2 { font-size: 1.1rem; } }
+        .hero p { max-width: 600px; margin: 0 auto .8rem; font-size: clamp(.78rem,3vw,.95rem); color: var(--gray-600); }
+        .hero-stats {
+            display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 12px;
+            margin: 0 auto 14px; max-width: 500px;
         }
-        
-        .hero p {
-            max-width: 650px;
-            margin: 0 auto 1.5rem;
-            font-size: clamp(0.875rem, 3vw, 1.1rem);
-            color: var(--gray-600);
-            padding: 0 1rem;
-        }
-
-        /* Boutons responsives - compacts et adaptés */
-        .cta-buttons {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 0.75rem;
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 0 0.5rem;
-        }
-
+        .hero-stat { font-size: clamp(.72rem,2.5vw,.8rem); display: flex; align-items: center; gap: 4px; }
+        .hero-stat.edu strong { color: var(--edu); }
+        .hero-stat.housing strong { color: var(--housing); }
+        .hero-stat.commerce strong { color: var(--commerce); }
+        .hero-stat.finance strong { color: var(--finance); }
+        .cta-buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: .45rem; max-width: 800px; margin: 0 auto; }
         .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            padding: 0.6rem 1.2rem;
-            font-size: 0.875rem;
-            font-weight: 600;
-            text-decoration: none;
-            border-radius: var(--radius-full);
-            transition: all var(--transition);
-            border: 2px solid transparent;
-            cursor: pointer;
-            white-space: nowrap;
-            background: white;
-            color: var(--gray-700);
-            box-shadow: var(--shadow-sm);
-            flex: 0 1 auto;
+            display: inline-flex; align-items: center; justify-content: center; gap: .4rem;
+            padding: .5rem .9rem; font-size: clamp(.75rem,2.5vw,.82rem); font-weight: 600;
+            text-decoration: none; border-radius: var(--radius-full); transition: all var(--transition);
+            border: 2px solid transparent; cursor: pointer; background: #fff; color: var(--gray-700);
+            box-shadow: 0 1px 3px rgba(0,0,0,.08); touch-action: manipulation; min-height: 42px;
+        }
+        .btn-primary { background: linear-gradient(135deg,var(--primary),var(--secondary)); color: #fff; box-shadow: 0 2px 8px rgba(79,70,229,.25); }
+        .btn-whatsapp { background: linear-gradient(135deg,var(--whatsapp),var(--whatsapp-dark)); color: #fff; }
+        .btn-donation { background: linear-gradient(135deg,var(--donation),#ea580c); color: #fff; }
+        .btn-youtube { background: linear-gradient(135deg,var(--youtube),#cc0000); color: #fff; }
+        .btn-outline { background: transparent; border-color: var(--primary); color: var(--primary); }
+        .btn-sm { padding: .25rem .65rem; font-size: .7rem; min-height: 34px; }
+        .btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+
+        @media (max-width: 576px) {
+            .cta-buttons { flex-direction: column; align-items: stretch; max-width: 280px; margin: 0 auto; }
+            .btn { width: 100%; padding: .6rem 1rem; font-size: .85rem; min-height: 44px; }
+        }
+        @media (min-width: 577px) and (max-width: 768px) {
+            .cta-buttons { max-width: 500px; }
+            .btn { padding: .45rem .8rem; font-size: .78rem; }
         }
 
-        .btn i {
-            font-size: 0.875rem;
-        }
+        /* TAB SECTION */
+        .tab-section { padding: 1.5rem 0 2rem; }
+        @media (max-width: 576px) { .tab-section { padding: 1rem 0 1.5rem; } }
+        @media (max-width: 380px) { .tab-section { padding: .75rem 0 1rem; } }
 
-        /* Responsive boutons */
-        @media (max-width: 768px) {
-            .cta-buttons {
-                flex-direction: column;
-                align-items: stretch;
-                gap: 0.6rem;
-                max-width: 350px;
-                margin: 0 auto;
-            }
-            .btn {
-                width: 100%;
-                padding: 0.7rem 1rem;
-                font-size: 0.85rem;
-                white-space: normal;
-                word-break: keep-all;
-            }
-            .btn i {
-                font-size: 1rem;
-            }
+        .tab-nav {
+            display: flex; flex-wrap: wrap; justify-content: center; gap: .4rem;
+            margin-bottom: 1.25rem; padding: 0 .25rem;
         }
+        .tab-btn {
+            padding: clamp(.4rem,.8vw,.55rem) clamp(.6rem,1.5vw,1.1rem);
+            border-radius: var(--radius-full); font-size: clamp(.72rem,2.5vw,.82rem);
+            font-weight: 600; border: 2px solid var(--gray-200); background: #fff; color: var(--gray-600);
+            cursor: pointer; transition: all .25s; display: inline-flex; align-items: center;
+            gap: .35rem; touch-action: manipulation; min-height: 40px;
+        }
+        @media (max-width: 380px) {
+            .tab-btn { font-size: .7rem; padding: .35rem .5rem; min-height: 36px; gap: .25rem; }
+        }
+        .tab-btn:hover { border-color: var(--primary); color: var(--primary); }
+        .tab-btn .badge {
+            background: var(--gray-200); color: var(--gray-600); font-size: clamp(.6rem,2vw,.65rem);
+            font-weight: 700; padding: 1px 6px; border-radius: var(--radius-full);
+            min-width: 18px; text-align: center; transition: all .25s;
+        }
+        .tab-btn.active { background: var(--primary); border-color: var(--primary); color: #fff; }
+        .tab-btn.active .badge { background: rgba(255,255,255,.2); color: #fff; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fadeUp .35s ease; }
+        @keyframes fadeUp { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:translateY(0)} }
+        .tab-header { text-align: center; margin-bottom: 1rem; }
+        .tab-header h2 { font-size: clamp(1rem,4vw,1.4rem); margin-bottom: .25rem; }
+        .tab-header p { font-size: clamp(.75rem,2.5vw,.82rem); color: var(--gray-600); max-width: 460px; margin: 0 auto; }
 
-        @media (min-width: 769px) and (max-width: 992px) {
-            .btn {
-                padding: 0.55rem 1rem;
-                font-size: 0.8rem;
-            }
+        /* SUB-TABS */
+        .sub-tabs {
+            display: flex; flex-wrap: wrap; justify-content: center; gap: .35rem;
+            margin-bottom: 1rem; padding: 0 .25rem;
         }
+        .sub-btn {
+            padding: clamp(.3rem,.6vw,.4rem) clamp(.5rem,1.2vw,.85rem);
+            border-radius: var(--radius-full); font-size: clamp(.68rem,2.2vw,.75rem);
+            font-weight: 600; border: 2px solid var(--gray-200); background: #fff; color: var(--gray-600);
+            cursor: pointer; transition: all .2s; display: inline-flex; align-items: center;
+            gap: .3rem; touch-action: manipulation; min-height: 36px;
+        }
+        @media (max-width: 380px) { .sub-btn { font-size: .62rem; padding: .25rem .4rem; min-height: 32px; gap: .2rem; } }
+        .sub-btn:hover { border-color: var(--primary); color: var(--primary); }
+        .sub-btn .count {
+            background: var(--gray-200); font-size: clamp(.58rem,2vw,.62rem); padding: 0 5px;
+            border-radius: var(--radius-full); min-width: 16px; text-align: center;
+        }
+        .sub-btn.active { color: #fff; border-color: transparent; }
+        .sub-btn.active.edu { background: var(--edu); } .sub-btn.active.housing { background: var(--housing); }
+        .sub-btn.active.commerce { background: var(--commerce); } .sub-btn.active.finance { background: var(--finance); }
+        .sub-btn.active .count { background: rgba(255,255,255,.2); color: #fff; }
+        .sub-grid { display: none; }
+        .sub-grid.active { display: grid; }
 
-        @media (min-width: 993px) {
-            .btn {
-                padding: 0.6rem 1.2rem;
-                font-size: 0.875rem;
-            }
+        /* APP CARDS */
+        .apps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: .85rem;
         }
+        @media (max-width: 520px) { .apps-grid { grid-template-columns: 1fr; gap: .7rem; } }
+        @media (min-width: 521px) and (max-width: 768px) { .apps-grid { grid-template-columns: repeat(2,1fr); } }
+        @media (min-width: 769px) and (max-width: 1100px) { .apps-grid { grid-template-columns: repeat(3,1fr); } }
 
-        /* Styles des boutons */
-        .btn-primary {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            box-shadow: 0 2px 8px rgba(79,70,229,0.25);
+        .app-card {
+            background: #fff; border-radius: var(--radius-lg); overflow: hidden;
+            box-shadow: var(--shadow); border: 1px solid var(--gray-200);
+            display: flex; flex-direction: column; height: 100%; transition: all .3s; position: relative;
         }
-        .btn-whatsapp {
-            background: linear-gradient(135deg, var(--whatsapp), var(--whatsapp-dark));
-            color: white;
+        @media (hover: hover) { .app-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); } }
+        @media (hover: none) { .app-card:active { transform: scale(.98); } }
+        .app-card .card-accent { height: 4px; flex-shrink: 0; }
+        .app-card.edu .card-accent { background: linear-gradient(90deg,var(--edu),#34d399); }
+        .app-card.housing .card-accent { background: linear-gradient(90deg,var(--housing),#a78bfa); }
+        .app-card.commerce .card-accent { background: linear-gradient(90deg,var(--commerce),#fb923c); }
+        .app-card.finance .card-accent { background: linear-gradient(90deg,var(--finance),#38bdf8); }
+        .app-body { padding: .9rem; flex: 1; display: flex; flex-direction: column; }
+        @media (max-width: 380px) { .app-body { padding: .7rem; } }
+        .app-icon {
+            width: 36px; height: 36px; border-radius: var(--radius); display: flex;
+            align-items: center; justify-content: center; font-size: .95rem; margin-bottom: .5rem;
         }
-        .btn-donation {
-            background: linear-gradient(135deg, var(--donation), #ea580c);
-            color: white;
+        .app-card.edu .app-icon { background: rgba(16,185,129,.12); color: var(--edu); }
+        .app-card.housing .app-icon { background: rgba(139,92,246,.12); color: var(--housing); }
+        .app-card.commerce .app-icon { background: rgba(249,115,22,.12); color: var(--commerce); }
+        .app-card.finance .app-icon { background: rgba(14,165,233,.12); color: var(--finance); }
+        .app-body h3 { font-size: clamp(.82rem,2.5vw,.88rem); margin-bottom: .25rem; }
+        .app-body p { font-size: clamp(.7rem,2vw,.73rem); color: var(--gray-600); margin-bottom: .65rem; flex: 1; }
+        .app-body .app-link {
+            display: inline-flex; align-items: center; gap: .3rem;
+            font-size: clamp(.7rem,2vw,.73rem); font-weight: 600; text-decoration: none;
+            transition: var(--transition); min-height: 36px;
         }
-        .btn-youtube {
-            background: linear-gradient(135deg, var(--youtube), #cc0000);
-            color: white;
-        }
-        .btn-products {
-            background: linear-gradient(135deg, var(--primary), #ec4899);
-            color: white;
-        }
-        .btn-outline {
-            background: transparent;
-            border-color: var(--primary);
-            color: var(--primary);
-        }
-        .btn-sm {
-            padding: 0.4rem 0.9rem;
-            font-size: 0.75rem;
-        }
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-md);
-        }
-        .btn:active {
-            transform: translateY(0);
-        }
+        .app-card.edu .app-link { color: var(--edu); } .app-card.housing .app-link { color: var(--housing); }
+        .app-card.commerce .app-link { color: var(--commerce); } .app-card.finance .app-link { color: var(--finance); }
+        .app-link:hover { gap: .5rem; }
 
-        /* Sections générales */
-        section {
-            padding: 3rem 0;
-        }
-        
-        @media (max-width: 768px) {
-            section {
-                padding: 2rem 0;
-            }
-        }
-        
-        .section-header {
-            text-align: center;
-            margin-bottom: 2rem;
-            padding: 0 1rem;
-        }
-        
-        .section-header h2 {
-            font-size: clamp(1.3rem, 5vw, 2rem);
-            margin-bottom: 0.75rem;
-        }
-        
-        .section-header p {
-            max-width: 600px;
-            margin: 0 auto;
-            font-size: clamp(0.875rem, 2.5vw, 1rem);
-            color: var(--gray-600);
-        }
-
-        /* Grille vidéos responsive */
+        /* VIDEOS */
         .videos-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-            padding: 0 0.5rem;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: .85rem; margin-bottom: .75rem;
         }
-        
-        @media (max-width: 640px) {
-            .videos-grid {
-                grid-template-columns: 1fr;
-                gap: 1rem;
-                padding: 0;
-            }
-        }
-        
-        @media (min-width: 641px) and (max-width: 992px) {
-            .videos-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
+        @media (max-width: 520px) { .videos-grid { grid-template-columns: 1fr; gap: .7rem; } }
+        @media (min-width: 521px) and (max-width: 768px) { .videos-grid { grid-template-columns: repeat(2,1fr); } }
         .video-card {
-            background: white;
-            border-radius: var(--radius-lg);
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-            border: 1px solid var(--gray-200);
-            height: 100%;
-            display: flex;
-            flex-direction: column;
+            background: #fff; border-radius: var(--radius-lg); overflow: hidden;
+            box-shadow: var(--shadow); border: 1px solid var(--gray-200);
+            display: flex; flex-direction: column; height: 100%; transition: var(--transition);
         }
-        
-        .video-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-md);
+        @media (hover: hover) { .video-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); } }
+        .video-thumbnail { position: relative; padding-top: 56.25%; background: var(--gray-900); overflow: hidden; }
+        .video-thumbnail img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .3s; }
+        @media (hover: hover) { .video-card:hover .video-thumbnail img { transform: scale(1.05); } }
+        .play-overlay { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,.12); transition: var(--transition); cursor: pointer; }
+        .play-overlay i {
+            width: 44px; height: 44px; border-radius: 50%; background: rgba(255,0,0,.85);
+            color: #fff; display: flex; align-items: center; justify-content: center; font-size: 1rem;
         }
+        @media (hover: hover) { .video-card:hover .play-overlay i { transform: scale(1.1); } }
+        .video-content { padding: .8rem; flex: 1; display: flex; flex-direction: column; }
+        @media (max-width: 380px) { .video-content { padding: .6rem; } }
+        .video-meta { display: flex; justify-content: space-between; font-size: .65rem; color: var(--gray-500); margin-bottom: .25rem; flex-wrap: wrap; gap: .2rem; }
+        .video-content h3 { font-size: clamp(.8rem,2.5vw,.85rem); margin-bottom: .25rem; line-height: 1.3; }
+        .video-desc { font-size: clamp(.68rem,2vw,.72rem); color: var(--gray-600); margin-bottom: .6rem; flex: 1; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+        .video-footer { display: flex; justify-content: space-between; align-items: center; gap: .35rem; flex-wrap: wrap; }
 
-        .video-thumbnail {
-            position: relative;
-            padding-top: 56.25%;
-            background: var(--gray-900);
-            overflow: hidden;
-        }
-        
-        .video-thumbnail img {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform var(--transition);
-        }
-        
-        .video-card:hover .video-thumbnail img {
-            transform: scale(1.05);
-        }
-        
-        .video-play-button {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(255,0,0,0.8);
-            color: white;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            opacity: 0;
-            transition: var(--transition);
-        }
-        
-        .video-card:hover .video-play-button {
-            opacity: 1;
-        }
-
-        .video-content {
-            padding: 1rem;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .video-meta {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.75rem;
-            color: var(--gray-500);
-            margin-bottom: 0.5rem;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
-        
-        .video-content h3 {
-            font-size: 1rem;
-            margin-bottom: 0.5rem;
-            line-height: 1.4;
-        }
-        
-        .video-description {
-            font-size: 0.8125rem;
-            color: var(--gray-600);
-            margin-bottom: 0.75rem;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            flex: 1;
-        }
-        
-        .video-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-        }
-        
-        .video-duration {
-            background: rgba(0,0,0,0.7);
-            color: white;
-            padding: 0.25rem 0.5rem;
-            border-radius: var(--radius-sm);
-            font-size: 0.7rem;
-        }
-        
-        .tutorials-controls {
-            text-align: center;
-            margin-top: 1rem;
-        }
-
-        /* Formulaire commentaires responsive */
+        /* FORM */
         .comment-card {
-            background: white;
-            border-radius: var(--radius-lg);
-            padding: 1.5rem;
-            max-width: 700px;
-            margin: 0 auto;
-            box-shadow: var(--shadow);
-            border: 1px solid rgba(37,211,102,0.1);
+            background: #fff; border-radius: var(--radius-lg); padding: clamp(.8rem,3vw,1.25rem);
+            max-width: 600px; margin: 0 auto; box-shadow: var(--shadow);
+            border: 1px solid rgba(37,211,102,.12);
         }
-        
-        @media (max-width: 640px) {
-            .comment-card {
-                padding: 1rem;
-                margin: 0 0.5rem;
-            }
-        }
-        
-        .comment-form {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-        
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 0.35rem;
-        }
-        
-        .form-group label {
-            font-weight: 600;
-            font-size: 0.875rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        
+        .comment-form { display: flex; flex-direction: column; gap: .6rem; }
+        .form-group { display: flex; flex-direction: column; gap: .15rem; }
+        .form-group label { font-weight: 600; font-size: clamp(.75rem,2.2vw,.8rem); display: flex; align-items: center; gap: .3rem; }
         .form-control {
-            padding: 0.7rem 1rem;
-            border: 2px solid var(--gray-200);
-            border-radius: var(--radius);
-            font-size: 0.875rem;
-            transition: var(--transition);
-            font-family: inherit;
-            width: 100%;
+            padding: .5rem .75rem; border: 2px solid var(--gray-200); border-radius: var(--radius);
+            font-size: clamp(.78rem,2.2vw,.82rem); transition: var(--transition); font-family: inherit; width: 100%;
         }
-        
-        .form-control:focus {
-            outline: none;
-            border-color: var(--whatsapp);
-            box-shadow: 0 0 0 3px rgba(37,211,102,0.1);
-        }
-        
-        textarea.form-control {
-            min-height: 100px;
-            resize: vertical;
-        }
-        
-        select.form-control {
-            cursor: pointer;
-            appearance: none;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%236b7280' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 1rem center;
-            padding-right: 2.5rem;
-        }
-        
-        .form-footer {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            align-items: center;
-            gap: 1rem;
-            margin-top: 0.5rem;
-        }
-        
-        @media (max-width: 480px) {
-            .form-footer {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            .form-footer .btn {
-                width: 100%;
-            }
-        }
-        
-        .privacy-note {
-            font-size: 0.75rem;
-            color: var(--gray-500);
-            display: flex;
-            align-items: center;
-            gap: 0.35rem;
-        }
+        .form-control:focus { outline: none; border-color: var(--whatsapp); box-shadow: 0 0 0 3px rgba(37,211,102,.1); }
+        textarea.form-control { min-height: 70px; resize: vertical; }
+        select.form-control { cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' fill='%236b7280' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right .75rem center; padding-right: 2rem; }
+        .form-footer { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: .5rem; }
+        @media (max-width: 480px) { .form-footer { flex-direction: column; align-items: stretch; } .form-footer .btn { width: 100%; } }
 
-        /* Section Dons responsive */
+        /* DONATION */
+        .donation-section { padding: 1.5rem 0; background: var(--gray-50); }
+        @media (max-width: 380px) { .donation-section { padding: 1rem 0; } }
         .donation-card {
-            background: white;
-            border-radius: var(--radius-lg);
-            padding: 1.5rem;
-            max-width: 700px;
-            margin: 0 auto;
-            box-shadow: var(--shadow);
-            text-align: center;
+            background: #fff; border-radius: var(--radius-lg);
+            padding: clamp(.8rem,3vw,1.2rem); max-width: 560px; margin: 0 auto;
+            box-shadow: var(--shadow); text-align: center;
         }
-        
-        @media (max-width: 640px) {
-            .donation-card {
-                padding: 1rem;
-                margin: 0 0.5rem;
-            }
-        }
-        
-        .donation-icon {
-            font-size: 2.5rem;
-            color: var(--donation);
-            margin-bottom: 1rem;
-        }
-        
-        .donation-features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 1rem;
-            margin: 1.5rem 0;
-        }
-        
-        @media (max-width: 560px) {
-            .donation-features {
-                grid-template-columns: 1fr;
-                gap: 0.75rem;
-            }
-        }
-        
-        .donation-feature {
-            padding: 1rem;
-            background: var(--gray-50);
-            border-radius: var(--radius);
-            text-align: center;
-            transition: var(--transition);
-        }
-        
-        .donation-feature:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow);
-        }
-        
-        .donation-feature i {
-            font-size: 1.5rem;
-            color: var(--donation);
-            margin-bottom: 0.5rem;
-        }
-        
-        .donation-feature h4 {
-            font-size: 0.875rem;
-            margin-bottom: 0.25rem;
-        }
-        
-        .donation-feature p {
-            font-size: 0.75rem;
-            color: var(--gray-600);
-        }
-        
-        .security-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: rgba(16,185,129,0.1);
-            color: var(--success);
-            padding: 0.35rem 0.85rem;
-            border-radius: var(--radius-full);
-            font-size: 0.75rem;
-            margin-top: 1rem;
-        }
-        
-        .mt-3 {
-            margin-top: 1rem;
-        }
+        .donation-icon { font-size: 1.6rem; color: var(--donation); margin-bottom: .4rem; }
+        .donation-features { display: grid; grid-template-columns: repeat(auto-fit,minmax(130px,1fr)); gap: .45rem; margin: .75rem 0; }
+        @media (max-width: 420px) { .donation-features { grid-template-columns: 1fr; gap: .35rem; } }
+        .donation-feature { padding: .6rem; background: var(--gray-50); border-radius: var(--radius); text-align: center; }
+        .donation-feature i { font-size: 1rem; color: var(--donation); margin-bottom: .2rem; }
+        .donation-feature h4 { font-size: .78rem; margin-bottom: .1rem; }
+        .donation-feature p { font-size: .65rem; color: var(--gray-600); }
+        .security-badge { display: inline-flex; align-items: center; gap: .3rem; background: rgba(16,185,129,.1); color: var(--success); padding: .2rem .6rem; border-radius: var(--radius-full); font-size: .65rem; margin-top: .4rem; }
 
-        /* Stats section responsive */
-        .stats-section {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-        }
-        
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 1.5rem;
-            text-align: center;
-            padding: 0 0.5rem;
-        }
-        
-        @media (max-width: 640px) {
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 1rem;
-            }
-        }
-        
-        @media (max-width: 380px) {
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-        
-        .stat-number {
-            font-size: clamp(1.5rem, 5vw, 2.2rem);
-            font-weight: 800;
-        }
-        
-        .stat-label {
-            font-size: 0.75rem;
-            opacity: 0.9;
-        }
+        /* STATS */
+        .stats-strip { background: linear-gradient(135deg,var(--primary),var(--secondary)); color: #fff; }
+        .stats-strip .stat-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(110px,1fr)); gap: .75rem; text-align: center; padding: 1.5rem 0; }
+        @media (max-width: 480px) { .stats-strip .stat-grid { grid-template-columns: repeat(2,1fr); gap: .5rem; padding: 1rem 0; } }
+        @media (max-width: 380px) { .stats-strip .stat-grid { grid-template-columns: 1fr 1fr; gap: .4rem; padding: .75rem 0; } }
+        .stat-num { font-size: clamp(1.2rem,5vw,1.7rem); font-weight: 800; }
+        .stat-lbl { font-size: .65rem; opacity: .9; }
+        @media (max-width: 380px) { .stat-lbl { font-size: .6rem; } }
 
-        /* Footer responsive */
-        footer {
-            background: var(--gray-900);
-            color: white;
-            padding: 2rem 0 1.5rem;
-        }
-        
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 1.5rem;
-        }
-        
-        @media (max-width: 768px) {
-            .footer-content {
-                grid-template-columns: 1fr;
-                text-align: center;
-                gap: 1.5rem;
-            }
-        }
-        
-        .footer-section h3 {
-            font-size: 1rem;
-            margin-bottom: 0.75rem;
-            color: white;
-        }
-        
-        .footer-section p, .footer-section ul li a {
-            font-size: 0.8125rem;
-            color: var(--gray-400);
-        }
-        
-        .footer-section ul {
-            list-style: none;
-        }
-        
-        .footer-section ul li {
-            margin: 0.5rem 0;
-        }
-        
-        .footer-section ul li a {
-            text-decoration: none;
-            display: inline-block;
-            transition: var(--transition);
-        }
-        
-        .footer-section ul li a:hover {
-            color: white;
-            transform: translateX(3px);
-        }
-        
-        .social-links {
-            display: flex;
-            gap: 0.75rem;
-            margin-top: 0.75rem;
-            justify-content: center;
-        }
-        
-        .social-links a {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            transition: var(--transition);
-            text-decoration: none;
-        }
-        
-        .social-links a:hover {
-            background: var(--primary);
-            transform: translateY(-2px);
-        }
-        
-        .copyright {
-            text-align: center;
-            padding-top: 1.5rem;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            font-size: 0.7rem;
-            color: var(--gray-500);
-        }
+        /* FOOTER */
+        footer { background: var(--gray-900); color: #fff; padding: 1.5rem 0 1rem; }
+        .footer-content { display: grid; grid-template-columns: repeat(auto-fit,minmax(180px,1fr)); gap: 1rem; margin-bottom: 1rem; }
+        @media (max-width: 640px) { .footer-content { grid-template-columns: 1fr; text-align: center; gap: 1.25rem; } }
+        .footer-section h3 { font-size: .85rem; margin-bottom: .5rem; }
+        .footer-section p, .footer-section li a { font-size: .72rem; color: var(--gray-400); }
+        .footer-section ul { list-style: none; }
+        .footer-section li { margin: .25rem 0; }
+        .footer-section li a { text-decoration: none; display: inline-block; transition: var(--transition); padding: .2rem 0; }
+        .footer-section li a:hover { color: #fff; transform: translateX(3px); }
+        .social-links { display: flex; gap: .4rem; margin-top: .5rem; }
+        @media (max-width: 640px) { .social-links { justify-content: center; } }
+        .social-links a { width: 30px; height: 30px; border-radius: 50%; background: rgba(255,255,255,.1); display: flex; align-items: center; justify-content: center; color: #fff; transition: var(--transition); text-decoration: none; }
+        .social-links a:hover { background: var(--primary); transform: translateY(-2px); }
+        .copyright { text-align: center; padding-top: .75rem; border-top: 1px solid rgba(255,255,255,.08); font-size: clamp(.55rem,2vw,.62rem); color: var(--gray-500); }
 
-        /* Notification responsive */
+        /* NOTIFICATION */
         .notification {
-            position: fixed;
-            bottom: 1rem;
-            right: 1rem;
-            left: auto;
-            background: white;
-            padding: 0.75rem 1.25rem;
-            border-radius: var(--radius);
-            box-shadow: var(--shadow-md);
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            z-index: 1001;
-            border-left: 4px solid var(--whatsapp);
-            max-width: 350px;
-            animation: slideIn 0.3s ease;
+            position: fixed; bottom: 1rem; right: 1rem; background: #fff;
+            padding: .55rem .9rem; border-radius: var(--radius); box-shadow: var(--shadow-lg);
+            display: flex; align-items: center; gap: .45rem; z-index: 1001;
+            border-left: 4px solid var(--whatsapp); max-width: 300px;
+            transform: translateX(120%); opacity: 0; transition: all .35s ease;
+            font-size: clamp(.72rem,2.2vw,.82rem);
         }
-        
-        @media (max-width: 480px) {
-            .notification {
-                left: 1rem;
-                right: 1rem;
-                max-width: none;
-            }
-        }
-        
-        @keyframes slideIn {
-            from { transform: translateX(100%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-        
+        .notification.show { transform: translateX(0); opacity: 1; }
         .notification.success { border-left-color: var(--success); }
         .notification.error { border-left-color: var(--donation); }
+        @media (max-width: 480px) { .notification { left: 1rem; right: 1rem; max-width: none; bottom: max(1rem, var(--safe-b)); } }
 
-        /* Dark mode support */
+        /* LANDSCAPE MOBILE */
+        @media (max-height: 500px) and (orientation: landscape) {
+            header { padding: .35rem 0; min-height: 44px; }
+            .hero { padding: calc(44px + .75rem) 0 .75rem; }
+            .hero h2 { font-size: 1.1rem; margin-bottom: .2rem; }
+            .hero p { font-size: .72rem; margin-bottom: .4rem; }
+            .hero-stats { gap: 3px 8px; margin-bottom: .5rem; }
+            .hero-stat { font-size: .65rem; }
+            .cta-buttons { flex-direction: row; gap: .3rem; margin-bottom: .25rem; }
+            .btn { font-size: .68rem; padding: .3rem .6rem; min-height: 32px; }
+            .tab-section { padding: .5rem 0 .75rem; }
+            .tab-nav { margin-bottom: .5rem; }
+            .tab-btn { font-size: .65rem; padding: .25rem .5rem; min-height: 30px; }
+            .sub-tabs { margin-bottom: .5rem; }
+            .sub-btn { font-size: .6rem; padding: .2rem .4rem; min-height: 28px; }
+            .apps-grid { gap: .4rem; grid-template-columns: repeat(3,1fr); }
+            .app-body { padding: .5rem; }
+            .app-body h3 { font-size: .7rem; }
+            .app-body p { font-size: .62rem; }
+            .app-icon { width: 28px; height: 28px; font-size: .7rem; margin-bottom: .3rem; }
+            .tab-header { margin-bottom: .5rem; }
+            .tab-header h2 { font-size: .9rem; }
+            .stats-strip .stat-grid { padding: .5rem 0; }
+            .stat-num { font-size: 1rem; }
+        }
+
+        /* DARK */
         @media (prefers-color-scheme: dark) {
             :root {
-                --light: #0f172a;
-                --gray-50: #1e293b;
-                --gray-100: #334155;
-                --gray-200: #475569;
-                --gray-300: #64748b;
-                --gray-400: #94a3b8;
-                --gray-500: #cbd5e1;
-                --gray-600: #e2e8f0;
-                --gray-700: #f1f5f9;
-                --gray-800: #f8fafc;
+                --light: #0f172a; --gray-50: #1e293b; --gray-100: #334155;
+                --gray-200: #475569; --gray-300: #64748b; --gray-400: #94a3b8;
+                --gray-500: #cbd5e1; --gray-600: #e2e8f0; --gray-700: #f1f5f9; --gray-800: #f8fafc;
             }
             body { background: var(--light); }
-            .video-card, .comment-card, .donation-card { background: var(--gray-50); border-color: var(--gray-300); }
-            .form-control { background: var(--gray-100); border-color: var(--gray-400); color: white; }
+            .app-card, .video-card, .comment-card, .donation-card { background: var(--gray-50); border-color: var(--gray-300); }
+            .tab-btn, .sub-btn { background: var(--gray-50); border-color: var(--gray-300); }
+            .tab-btn .badge, .sub-btn .count { background: var(--gray-300); }
+            .form-control { background: var(--gray-100); border-color: var(--gray-400); color: #fff; }
             .form-control::placeholder { color: var(--gray-500); }
             .donation-feature { background: var(--gray-100); }
         }
 
-        /* Utilitaires */
-        .text-center { text-align: center; }
-        .w-100 { width: 100%; }
+        /* PRINT */
+        @media print {
+            header, .tab-nav, .sub-tabs, .notification, .cta-buttons, .donation-section, .stats-strip { display: none !important; }
+            .hero { background: none !important; padding-top: 0; }
+            .app-card, .video-card { break-inside: avoid; box-shadow: none !important; border: 1px solid #ddd !important; }
+            body { color: #000; background: #fff; }
+            .container { max-width: 100%; }
+        }
     </style>
 </head>
 <body>
-    <header>
+    <header id="siteHeader">
         <div class="container">
             <div class="header-content">
                 <div class="logo">
                     <h1>ESODI</h1>
-                    <div class="tagline">Solutions Digitales Innovantes</div>
+                    <div class="tagline">Solutions &amp; Applications Digitales</div>
                 </div>
-                <button class="mobile-nav-toggle" id="mobileNavToggle" aria-label="Menu">☰</button>
+                <button class="mobile-nav-toggle" id="mobileToggle" aria-label="Menu">☰</button>
                 <nav>
                     <ul class="main-nav" id="mainNav">
-                        <li><a href="#hero" class="active"><i class="fas fa-home"></i> <span>Accueil</span></a></li>
-                        <li><a href="#tutorials"><i class="fas fa-play-circle"></i> <span>Tutoriels</span></a></li>
-                        <li><a href="#comments"><i class="fas fa-comments"></i> <span>Commentaires</span></a></li>
-                        <li><a href="#donation"><i class="fas fa-heart"></i> <span>Soutenir</span></a></li>
-                        <li><a href="#contact"><i class="fas fa-phone"></i> <span>Contact</span></a></li>
+                        <li><a href="#hero" class="active"><i class="fas fa-home"></i> Accueil</a></li>
+                        <li><a href="#explorer"><i class="fas fa-th-large"></i> Explorer</a></li>
+                        <li><a href="#donation"><i class="fas fa-heart"></i> Soutenir</a></li>
+                        <li><a href="#contact"><i class="fas fa-phone"></i> Contact</a></li>
                     </ul>
                 </nav>
             </div>
         </div>
     </header>
 
+    <!-- HERO -->
     <section id="hero" class="hero">
         <div class="container">
             <h2>Transformez vos idées en solutions digitales</h2>
-            <p>ESODI développe des applications innovantes pour l'éducation, la finance, le commerce et le transport. Des solutions sur mesure qui répondent aux besoins réels.</p>
+            <p>ESODI développe des applications innovantes pour l'éducation, le logement, le commerce et la finance.</p>
+            <div class="hero-stats">
+                <span class="hero-stat edu"><strong>15+</strong> Applications</span>
+                <span class="hero-stat housing"><strong>4</strong> Domaines</span>
+                <span class="hero-stat commerce"><strong>24</strong> Projets</span>
+                <span class="hero-stat finance"><strong>100%</strong> Accessible</span>
+            </div>
             <div class="cta-buttons">
-                <a href="ESO.html" class="btn btn-products"><i class="fas fa-rocket"></i> Nos produits</a>
-                <a href="#tutorials" class="btn btn-youtube"><i class="fab fa-youtube"></i> Tutoriels</a>
-                <a href="#comments" class="btn btn-whatsapp"><i class="fab fa-whatsapp"></i> Commenter</a>
+                <a href="#explorer" class="btn btn-primary"><i class="fas fa-th-large"></i> Explorer les applis</a>
+                <a href="ESO.html" class="btn btn-outline"><i class="fas fa-rocket"></i> Portfolio complet</a>
                 <a href="#donation" class="btn btn-donation"><i class="fas fa-heart"></i> Soutenir</a>
             </div>
         </div>
     </section>
 
-    <section id="tutorials" class="tutorials-section">
+    <!-- TABBED CONTENT -->
+    <section id="explorer" class="tab-section">
         <div class="container">
-            <div class="section-header">
-                <h2>Tutoriels YouTube ESODI</h2>
-                <p>Découvrez nos tutoriels vidéo pour apprendre à utiliser nos solutions digitales.</p>
+            <div class="tab-nav">
+                <button class="tab-btn active" data-tab="apps"><i class="fas fa-th-large"></i> Applications <span class="badge">13</span></button>
+                <button class="tab-btn" data-tab="videos"><i class="fab fa-youtube"></i> Tutoriels <span class="badge">3</span></button>
+                <button class="tab-btn" data-tab="contact"><i class="fab fa-whatsapp"></i> Contact <span class="badge">1</span></button>
             </div>
-            <div class="videos-grid" id="videosGrid"></div>
-            <div class="tutorials-controls">
-                <a href="https://youtube.com/@esodi" target="_blank" class="btn btn-youtube"><i class="fab fa-youtube"></i> Voir la chaîne</a>
+
+            <!-- TAB 1 : APPLICATIONS -->
+            <div class="tab-content active" id="tab-apps">
+                <div class="tab-header">
+                    <h2>Applications ESODI</h2>
+                    <p>Explorez nos solutions par domaine.</p>
+                </div>
+                <div class="sub-tabs">
+                    <button class="sub-btn active edu" data-sub="all"><i class="fas fa-th"></i> Toutes <span class="count">13</span></button>
+                    <button class="sub-btn edu" data-sub="edu"><i class="fas fa-graduation-cap"></i> Éducation <span class="count">4</span></button>
+                    <button class="sub-btn housing" data-sub="housing"><i class="fas fa-home"></i> Logement <span class="count">1</span></button>
+                    <button class="sub-btn commerce" data-sub="commerce"><i class="fas fa-shopping-cart"></i> Commerce <span class="count">6</span></button>
+                    <button class="sub-btn finance" data-sub="finance"><i class="fas fa-chart-line"></i> Finance <span class="count">2</span></button>
+                </div>
+                <div class="apps-grid" id="appsGrid"></div>
+                <div class="text-center" style="margin-top:.75rem">
+                    <a href="ESO.html" class="btn btn-outline"><i class="fas fa-external-link-alt"></i> Portfolio complet</a>
+                </div>
+            </div>
+
+            <!-- TAB 2 : TUTORIELS -->
+            <div class="tab-content" id="tab-videos">
+                <div class="tab-header">
+                    <h2>Tutoriels YouTube</h2>
+                    <p>Apprenez à utiliser nos solutions pas à pas.</p>
+                </div>
+                <div class="videos-grid" id="videosGrid"></div>
+                <div class="text-center">
+                    <a href="https://youtube.com/@esodi" target="_blank" class="btn btn-youtube"><i class="fab fa-youtube"></i> Voir la chaîne</a>
+                </div>
+            </div>
+
+            <!-- TAB 3 : CONTACT -->
+            <div class="tab-content" id="tab-contact">
+                <div class="tab-header">
+                    <h2>Contact &amp; Commentaires</h2>
+                    <p>Une question, un avis ? Écrivez-nous sur WhatsApp.</p>
+                </div>
+                <div class="comment-card">
+                    <form id="commentForm">
+                        <div class="form-group">
+                            <label><i class="fas fa-user"></i> Nom <span style="color:var(--donation)">*</span></label>
+                            <input type="text" id="fName" class="form-control" required placeholder="Jean Dupont">
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-envelope"></i> Email</label>
+                            <input type="email" id="fEmail" class="form-control" placeholder="votre@email.com">
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-box"></i> Application</label>
+                            <select id="fProduct" class="form-control">
+                                <option value="">Sélectionnez...</option>
+                                <option>COURS DIFFUSÉ</option><option>COURS DIFFUSÉ PRO</option><option>École 21ᵉ Siècle</option>
+                                <option>Gestion Examens</option><option>Gestion Immobilière</option>
+                                <option>Gestion de Boutique</option><option>Boutique en Ligne</option>
+                                <option>Caisse Enregistreuse</option><option>Facturation Digitale</option>
+                                <option>Facturier</option><option>Transport-Commande</option>
+                                <option>Gestion Financière</option><option>Carte Virtuelle</option><option>Autre</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-tag"></i> Type</label>
+                            <select id="fType" class="form-control">
+                                <option>📝 Retour</option><option>❓ Question</option>
+                                <option>💡 Suggestion</option><option>🐛 Bug</option><option>⭐ Félicitations</option><option>📞 Partenariat</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-comment"></i> Message <span style="color:var(--donation)">*</span></label>
+                            <textarea id="fMessage" class="form-control" required placeholder="Votre message..." maxlength="1000"></textarea>
+                        </div>
+                        <div class="form-footer">
+                            <span style="font-size:.68rem;color:var(--gray-500)"><i class="fas fa-lock"></i> Confidentiel</span>
+                            <button type="submit" class="btn btn-whatsapp"><i class="fab fa-whatsapp"></i> Envoyer</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </section>
 
-    <section id="comments" class="comments-section">
-        <div class="container">
-            <div class="section-header">
-                <h2>Vos Commentaires</h2>
-                <p>Partagez votre avis, posez vos questions. Envoyé directement par WhatsApp au +228 92 87 16 05.</p>
-            </div>
-            <div class="comment-card">
-                <form id="commentForm" class="comment-form">
-                    <div class="form-group">
-                        <label><i class="fas fa-user"></i> Votre nom <span style="color: var(--donation);">*</span></label>
-                        <input type="text" id="commentName" class="form-control" required placeholder="Jean Dupont">
-                    </div>
-                    <div class="form-group">
-                        <label><i class="fas fa-envelope"></i> Email</label>
-                        <input type="email" id="commentEmail" class="form-control" placeholder="votre@email.com">
-                    </div>
-                    <div class="form-group">
-                        <label><i class="fas fa-box"></i> Produit concerné</label>
-                        <select id="commentProduct" class="form-control">
-                            <option value="">Sélectionnez un produit</option>
-                            <option value="VISIO-EDUC">VISIO-EDUC</option>
-                            <option value="EDS">EDS-🏫</option>
-                            <option value="TONTINE DIGITALE">TONTINE DIGITALE</option>
-                            <option value="GESTION DE BOUTIQUE">GESTION DE BOUTIQUE</option>
-                            <option value="TRANSTOGO">TRANSTOGO</option>
-                            <option value="ÉVEIL INTELLECTUEL">ÉVEIL INTELLECTUEL</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label><i class="fas fa-tag"></i> Type de commentaire</label>
-                        <select id="commentType" class="form-control">
-                            <option value="Retour d'expérience">📝 Retour d'expérience</option>
-                            <option value="Question">❓ Question</option>
-                            <option value="Suggestion">💡 Suggestion</option>
-                            <option value="Signalement de bug">🐛 Signalement de bug</option>
-                            <option value="Félicitations">⭐ Félicitations</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label><i class="fas fa-comment"></i> Votre message <span style="color: var(--donation);">*</span></label>
-                        <textarea id="commentMessage" class="form-control" required placeholder="Votre message..." maxlength="1000"></textarea>
-                    </div>
-                    <div class="form-footer">
-                        <div class="privacy-note"><i class="fas fa-lock"></i> Vos informations sont confidentielles</div>
-                        <button type="submit" class="btn btn-whatsapp"><i class="fab fa-whatsapp"></i> Envoyer</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </section>
-
+    <!-- DONATION -->
     <section id="donation" class="donation-section">
         <div class="container">
-            <div class="section-header">
-                <h2>Soutenez le Projet ESODI</h2>
-                <p>Votre contribution nous aide à continuer de développer des solutions digitales innovantes et accessibles à tous.</p>
+            <div class="text-center" style="margin-bottom:.75rem">
+                <h2 style="font-size:clamp(1rem,4vw,1.4rem);margin-bottom:.2rem">Soutenez le Projet</h2>
+                <p style="font-size:clamp(.75rem,2.5vw,.82rem);color:var(--gray-600);max-width:460px;margin:0 auto">Contribuez au développement de solutions digitales innovantes.</p>
             </div>
             <div class="donation-card">
                 <div class="donation-icon"><i class="fas fa-heart"></i></div>
                 <div class="donation-features">
-                    <div class="donation-feature"><i class="fas fa-code"></i><h4>Développement continu</h4><p>Nouvelles fonctionnalités</p></div>
+                    <div class="donation-feature"><i class="fas fa-code"></i><h4>Développement</h4><p>Nouvelles fonctionnalités</p></div>
                     <div class="donation-feature"><i class="fas fa-users"></i><h4>Accès gratuit</h4><p>Pour tous</p></div>
                     <div class="donation-feature"><i class="fas fa-server"></i><h4>Hébergement</h4><p>Maintenance</p></div>
                 </div>
-                <a href="https://me.fedapay.com/lmuOo1Nv" target="_blank" class="btn btn-donation" style="min-width: 180px;"><i class="fas fa-gift"></i> Faire un don</a>
-                <div class="mt-3"><button id="copyDonationLink" class="btn btn-outline btn-sm"><i class="fas fa-copy"></i> Copier le lien</button></div>
-                <div class="security-badge"><i class="fas fa-shield-alt"></i> Paiement sécurisé via FedaPay</div>
+                <a href="https://me.fedapay.com/lmuOo1Nv" target="_blank" class="btn btn-donation" style="min-width:140px"><i class="fas fa-gift"></i> Faire un don</a>
+                <div style="margin-top:.4rem"><button id="copyDonationLink" class="btn btn-outline btn-sm"><i class="fas fa-copy"></i> Copier le lien</button></div>
+                <div class="security-badge"><i class="fas fa-shield-alt"></i> Paiement sécurisé FedaPay</div>
             </div>
         </div>
     </section>
 
-    <section id="stats" class="stats-section">
+    <!-- STATS -->
+    <section class="stats-strip">
         <div class="container">
-            <div class="stats-grid">
-                <div class="stat-card"><div class="stat-number">15+</div><div class="stat-label">Produits développés</div></div>
-                <div class="stat-card"><div class="stat-number">100%</div><div class="stat-label">Disponibles en ligne</div></div>
-                <div class="stat-card"><div class="stat-number">4</div><div class="stat-label">Catégories</div></div>
-                <div class="stat-card"><div class="stat-number">24/7</div><div class="stat-label">Accessibilité</div></div>
+            <div class="stat-grid">
+                <div><div class="stat-num">15+</div><div class="stat-lbl">Applications</div></div>
+                <div><div class="stat-num">4</div><div class="stat-lbl">Domaines</div></div>
+                <div><div class="stat-num">24/7</div><div class="stat-lbl">Accessibilité</div></div>
+                <div><div class="stat-num">100%</div><div class="stat-lbl">En ligne</div></div>
             </div>
         </div>
     </section>
 
+    <!-- FOOTER -->
     <footer id="contact">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
                     <h3>ESODI</h3>
-                    <p>Solutions Digitales Innovantes développées par Jeanskodoc pour transformer les idées en réalité.</p>
+                    <p>Solutions Digitales Innovantes — Développé par Jeanskodoc au Togo.</p>
                     <div class="social-links">
                         <a href="https://wa.me/22892871605" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
                         <a href="mailto:esodi22@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
@@ -1038,292 +590,93 @@
                     </div>
                 </div>
                 <div class="footer-section">
-                    <h3>Navigation rapide</h3>
+                    <h3>Explorer</h3>
                     <ul>
-                        <li><a href="ESO.html"><i class="fas fa-rocket"></i> Nos produits</a></li>
-                        <li><a href="#tutorials"><i class="fas fa-play-circle"></i> Tutoriels</a></li>
-                        <li><a href="#comments"><i class="fas fa-comments"></i> Commentaires</a></li>
+                        <li><a href="#explorer"><i class="fas fa-th-large"></i> Applications</a></li>
+                        <li><a href="ESO.html"><i class="fas fa-rocket"></i> Portfolio complet</a></li>
                         <li><a href="#donation"><i class="fas fa-heart"></i> Soutenir</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
-                    <h3>Contact Direct</h3>
+                    <h3>Contact</h3>
                     <p><i class="fab fa-whatsapp"></i> +228 92 87 16 05</p>
                     <p><i class="fas fa-envelope"></i> esodi22@gmail.com</p>
-                    <button id="quickContact" class="btn btn-whatsapp btn-sm" style="margin-top: 0.75rem;"><i class="fab fa-whatsapp"></i> Message rapide</button>
+                    <button id="quickContact" class="btn btn-whatsapp btn-sm" style="margin-top:.3rem"><i class="fab fa-whatsapp"></i> Message rapide</button>
                 </div>
             </div>
-            <div class="copyright">© 2026 ESODI - Jeanskodoc. Tous droits réservés.</div>
+            <div class="copyright">© 2026 ESODI – Jeanskodoc. Tous droits réservés.</div>
         </div>
     </footer>
 
-    <div id="notification" class="notification" style="display: none;"><i class="fas fa-check-circle"></i><span id="notificationText"></span></div>
+    <div id="notification" class="notification"><i class="fas fa-check-circle"></i><span id="notifText"></span></div>
 
     <script>
-        // Configuration
-        const WHATSAPP_NUMBER = '22892871605';
-
-        // Initialisation au chargement
-        document.addEventListener('DOMContentLoaded', function() {
-            initMobileNavigation();
-            initYouTubeVideos();
-            initCommentForm();
-            initDonationCopy();
-            initQuickContact();
-            initSmoothScroll();
-            handleResize();
-            window.addEventListener('resize', handleResize);
+        const WHATSAPP = '22892871605';
+        document.addEventListener('DOMContentLoaded', () => {
+            mobileNav(); scrollNav(); initTabs(); initSubTabs(); loadApps(); loadVideos();
+            commentForm(); copyDonation(); quickMsg();
         });
 
-        function handleResize() {
-            const width = window.innerWidth;
-            const body = document.body;
-            
-            if (width < 576) body.classList.add('screen-xs');
-            else body.classList.remove('screen-xs');
-            
-            if (width < 768) body.classList.add('screen-sm');
-            else body.classList.remove('screen-sm');
-            
-            if (width < 992) body.classList.add('screen-md');
-            else body.classList.remove('screen-md');
+        function mobileNav() {
+            const t = document.getElementById('mobileToggle'), n = document.getElementById('mainNav');
+            if (!t||!n) return;
+            t.addEventListener('click', e => { e.stopPropagation(); n.classList.toggle('active'); t.textContent = n.classList.contains('active')?'✕':'☰'; document.body.style.overflow = n.classList.contains('active')?'hidden':''; });
+            n.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { n.classList.remove('active'); t.textContent = '☰'; document.body.style.overflow = ''; }));
+            document.addEventListener('click', e => { if (!n.contains(e.target)&&!t.contains(e.target)&&n.classList.contains('active')) { n.classList.remove('active'); t.textContent = '☰'; document.body.style.overflow = ''; }});
+        }
+        function scrollNav() { const h = document.getElementById('siteHeader'); window.addEventListener('scroll', () => h.classList.toggle('scrolled', window.scrollY > 60), { passive: true }); }
+
+        function initTabs() {
+            document.querySelectorAll('.tab-btn').forEach(btn => { btn.addEventListener('click', () => { if (btn.classList.contains('active')) return; document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active')); document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active')); btn.classList.add('active'); document.getElementById('tab-'+btn.dataset.tab).classList.add('active'); }); });
+        }
+        function initSubTabs() {
+            document.querySelectorAll('.sub-btn').forEach(btn => { btn.addEventListener('click', () => { document.querySelectorAll('.sub-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); const cat = btn.dataset.sub; document.querySelectorAll('#appsGrid .sub-grid').forEach(g => g.classList.remove('active')); if (cat === 'all') document.querySelectorAll('#appsGrid .sub-grid').forEach(g => g.classList.add('active')); else document.getElementById('grid-'+cat).classList.add('active'); }); });
         }
 
-        // Navigation mobile
-        function initMobileNavigation() {
-            const toggle = document.getElementById('mobileNavToggle');
-            const nav = document.getElementById('mainNav');
-            
-            if (toggle && nav) {
-                toggle.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    nav.classList.toggle('active');
-                    toggle.textContent = nav.classList.contains('active') ? '✕' : '☰';
-                    document.body.style.overflow = nav.classList.contains('active') ? 'hidden' : '';
-                });
-
-                // Fermer le menu en cliquant sur un lien
-                document.querySelectorAll('.main-nav a').forEach(link => {
-                    link.addEventListener('click', function() {
-                        nav.classList.remove('active');
-                        if (toggle) toggle.textContent = '☰';
-                        document.body.style.overflow = '';
-                    });
-                });
-
-                // Fermer en cliquant à l'extérieur
-                document.addEventListener('click', function(e) {
-                    if (!nav.contains(e.target) && !toggle.contains(e.target) && nav.classList.contains('active')) {
-                        nav.classList.remove('active');
-                        toggle.textContent = '☰';
-                        document.body.style.overflow = '';
-                    }
-                });
-            }
+        const APPS = [
+            { n:'COURS DIFFUSÉ', d:'Présentez vos leçons de manière professionnelle et interactive.', cat:'edu', ic:'fa-chalkboard-teacher', lnk:'https://cours2visuel.netlify.app/' },
+            { n:'COURS DIFFUSÉ PRO', d:'Version professionnelle avec outils avancés.', cat:'edu', ic:'fa-chalkboard', lnk:'https://enspro.netlify.app/' },
+            { n:'École du 21ᵉ Siècle', d:'Gestion et administration des écoles modernes.', cat:'edu', ic:'fa-school', lnk:'https://lyniamtoutou.netlify.app/' },
+            { n:'Gestion des Examens', d:'BEPC, BAC1 et BAC2.', cat:'edu', ic:'fa-file-alt', lnk:'https://exam2blc.netlify.app/' },
+            { n:'Gestion Immobilière', d:'Suivi des loyers, contrats et rapports.', cat:'housing', ic:'fa-building', lnk:'https://loyer2facture.netlify.app/' },
+            { n:'Gestion de Boutique', d:'Inventaire, ventes et clientèle.', cat:'commerce', ic:'fa-store', lnk:'https://boutik2mod.netlify.app/' },
+            { n:'Boutique en Ligne', d:'E-commerce avec paiement sécurisé.', cat:'commerce', ic:'fa-shopping-bag', lnk:'https://boutik2particulier.netlify.app/' },
+            { n:'Caisse Enregistreuse', d:'Point de vente (POS) moderne.', cat:'commerce', ic:'fa-cash-register', lnk:'https://caisse2enrgistreuse.netlify.app/' },
+            { n:'Facturation Digitale', d:'Factures et reçus numériques.', cat:'commerce', ic:'fa-file-invoice', lnk:'https://facture2boutique.netlify.app/' },
+            { n:'Facturier', d:'Facturation particuliers & sociétés.', cat:'commerce', ic:'fa-receipt', lnk:'https://fac2e.netlify.app/' },
+            { n:'Transport-Commande', d:'Commandes et livraisons.', cat:'commerce', ic:'fa-truck', lnk:'https://transp2tg.netlify.app/' },
+            { n:'Gestion Financière', d:'Budget, dépenses et épargne.', cat:'finance', ic:'fa-wallet', lnk:'https://cvl2togo.netlify.app/' },
+            { n:'Carte Virtuelle Togolaise', d:'Paiement virtuel sécurisé.', cat:'finance', ic:'fa-credit-card', lnk:'https://gestion2cvl.netlify.app/' },
+        ];
+        const CATS = ['edu','housing','commerce','finance'];
+        function loadApps() {
+            const g = document.getElementById('appsGrid'); if (!g) return; let html = '';
+            CATS.forEach(cat => { const items = APPS.filter(a => a.cat === cat); html += `<div class="sub-grid ${cat==='edu'?'active':''}" id="grid-${cat}"><div class="apps-grid">`; items.forEach(a => { html += `<div class="app-card ${a.cat}"><div class="card-accent"></div><div class="app-body"><div class="app-icon"><i class="fas ${a.ic}"></i></div><h3>${a.n}</h3><p>${a.d}</p><a href="${a.lnk}" target="_blank" rel="noopener" class="app-link">Ouvrir <i class="fas fa-arrow-right"></i></a></div></div>`; }); html += `</div></div>`; });
+            g.innerHTML = html;
         }
-
-        // Vidéos YouTube
-        function initYouTubeVideos() {
-            const videosGrid = document.getElementById('videosGrid');
-            if (!videosGrid) return;
-
-            const videos = [
-                { title: 'Présentation ESODI - Solutions Digitales', description: 'Découvrez tous les projets et solutions digitales ESODI. Des applications innovantes pour l\'éducation, la finance, le commerce et le transport.', views: '1.2k', date: '15/03/2024', duration: '15:30' },
-                { title: 'Tutoriel VISIO-EDUC - Guide complet', description: 'Apprenez à utiliser la plateforme de projection interactive VISIO-EDUC pour transformer votre enseignement.', views: '856', date: '10/03/2024', duration: '12:45' },
-                { title: 'Gérer sa tontine avec TONTINE DIGITALE', description: 'Tutoriel complet pour utiliser la solution de gestion de tontine et d\'épargne.', views: '2.1k', date: '05/03/2024', duration: '18:20' }
-            ];
-
-            videosGrid.innerHTML = videos.map(video => `
-                <div class="video-card">
-                    <div class="video-thumbnail">
-                        <img src="https://img.youtube.com/vi/dQw4w9WgXcQ/mqdefault.jpg" alt="${video.title}" loading="lazy">
-                        <div class="video-play-button" onclick="window.open('https://youtube.com/@esodi', '_blank')">
-                            <i class="fas fa-play"></i>
-                        </div>
-                    </div>
-                    <div class="video-content">
-                        <div class="video-meta">
-                            <span><i class="fas fa-eye"></i> ${video.views} vues</span>
-                            <span><i class="far fa-calendar"></i> ${video.date}</span>
-                        </div>
-                        <h3>${video.title}</h3>
-                        <p class="video-description">${video.description}</p>
-                        <div class="video-footer">
-                            <span class="video-duration"><i class="fas fa-clock"></i> ${video.duration}</span>
-                            <button class="btn btn-youtube btn-sm" onclick="window.open('https://youtube.com/@esodi', '_blank')">
-                                <i class="fab fa-youtube"></i> Regarder
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            `).join('');
+        function loadVideos() {
+            const g = document.getElementById('videosGrid'); if (!g) return;
+            const v = [{ t:'Présentation ESODI', d:'Découvrez tous les projets et solutions ESODI.', vues:'1.2k', date:'15/03/2024', dur:'15:30' },{ t:'Tutoriel VISIO-EDUC', d:'Utilisez la plateforme de projection interactive.', vues:'856', date:'10/03/2024', dur:'12:45' },{ t:'Gérer sa tontine', d:'Solution de gestion de tontine et d\'épargne.', vues:'2.1k', date:'05/03/2024', dur:'18:20' }];
+            g.innerHTML = v.map(v => `<div class="video-card"><div class="video-thumbnail"><img src="https://img.youtube.com/vi/dQw4w9WgXcQ/mqdefault.jpg" alt="${v.t}" loading="lazy"><div class="play-overlay" onclick="window.open('https://youtube.com/@esodi','_blank')"><i class="fas fa-play"></i></div></div><div class="video-content"><div class="video-meta"><span><i class="fas fa-eye"></i> ${v.vues}</span><span><i class="far fa-calendar"></i> ${v.date}</span></div><h3>${v.t}</h3><p class="video-desc">${v.d}</p><div class="video-footer"><span style="background:rgba(0,0,0,.7);color:#fff;padding:.12rem .4rem;border-radius:4px;font-size:.6rem"><i class="fas fa-clock"></i> ${v.dur}</span><button class="btn btn-youtube btn-sm" onclick="window.open('https://youtube.com/@esodi','_blank')"><i class="fab fa-youtube"></i> Voir</button></div></div></div>`).join('');
         }
+        function commentForm() {
+            const f = document.getElementById('commentForm'); if (!f) return;
+            f.addEventListener('submit', e => { e.preventDefault(); const n = document.getElementById('fName')?.value.trim(), m = document.getElementById('fMessage')?.value.trim(); if (!n) return notify('Entrez votre nom','error'); if (!m||m.length<5) return notify('Message trop court','error'); const em = document.getElementById('fEmail')?.value.trim()||'', p = document.getElementById('fProduct')?.options[document.getElementById('fProduct').selectedIndex]?.text||'', tp = document.getElementById('fType')?.options[document.getElementById('fType').selectedIndex]?.text||''; const waMsg = `*NOUVEAU COMMENTAIRE - ESODI*
 
-        // Formulaire de commentaires
-        function initCommentForm() {
-            const form = document.getElementById('commentForm');
-            if (!form) return;
+*Nom:* ${n}
+*Email:* ${em||'Non'}
+*App:* ${p}
+*Type:* ${tp}
 
-            // Validation en temps réel
-            const nameInput = document.getElementById('commentName');
-            const messageInput = document.getElementById('commentMessage');
-            
-            if (nameInput) {
-                nameInput.addEventListener('input', function() {
-                    this.style.borderColor = this.value.trim() ? 'var(--success)' : 'var(--gray-200)';
-                });
-            }
-            
-            if (messageInput) {
-                messageInput.addEventListener('input', function() {
-                    this.style.borderColor = this.value.trim().length >= 5 ? 'var(--success)' : 'var(--gray-200)';
-                });
-            }
-
-            form.addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                const name = nameInput?.value.trim() || '';
-                const message = messageInput?.value.trim() || '';
-                
-                if (!name) {
-                    showNotification('Veuillez entrer votre nom', 'error');
-                    nameInput?.focus();
-                    return;
-                }
-                
-                if (!message) {
-                    showNotification('Veuillez entrer votre message', 'error');
-                    messageInput?.focus();
-                    return;
-                }
-                
-                if (message.length < 5) {
-                    showNotification('Le message est trop court (minimum 5 caractères)', 'error');
-                    messageInput?.focus();
-                    return;
-                }
-                
-                const email = document.getElementById('commentEmail')?.value.trim() || '';
-                const productSelect = document.getElementById('commentProduct');
-                const product = productSelect?.options[productSelect.selectedIndex]?.text || 'Non spécifié';
-                const typeSelect = document.getElementById('commentType');
-                const type = typeSelect?.options[typeSelect.selectedIndex]?.text || 'Non spécifié';
-                
-                // Construction du message WhatsApp
-                const whatsappMsg = `*NOUVEAU COMMENTAIRE - ESODI*%0A%0A` +
-                    `*Nom :* ${encodeURIComponent(name)}%0A` +
-                    `*Email :* ${encodeURIComponent(email || 'Non fourni')}%0A` +
-                    `*Produit :* ${encodeURIComponent(product)}%0A` +
-                    `*Type :* ${encodeURIComponent(type)}%0A%0A` +
-                    `*Message :*%0A${encodeURIComponent(message)}%0A%0A` +
-                    `---%0AEnvoyé depuis esodi-portfolio.com`;
-                
-                // Ouvrir WhatsApp
-                window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${whatsappMsg}`, '_blank');
-                
-                // Réinitialiser le formulaire
-                form.reset();
-                if (nameInput) nameInput.style.borderColor = '';
-                if (messageInput) messageInput.style.borderColor = '';
-                
-                // Afficher notification
-                showNotification('Commentaire envoyé ! Ouverture de WhatsApp...', 'success');
-            });
+*Message:*
+${m}`; window.open(`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(waMsg)}`,'_blank'); f.reset(); notify('Commentaire envoyé ! WhatsApp s\'ouvre...','success'); });
         }
-
-        // Bouton contact rapide
-        function initQuickContact() {
-            const quickContact = document.getElementById('quickContact');
-            if (quickContact) {
-                quickContact.addEventListener('click', function() {
-                    const msg = encodeURIComponent("Bonjour ESODI ! Je souhaite prendre contact concernant vos solutions digitales.");
-                    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`, '_blank');
-                    showNotification('Ouverture de WhatsApp...', 'success');
-                });
-            }
+        function copyDonation() {
+            const b = document.getElementById('copyDonationLink'); if (!b) return;
+            b.addEventListener('click', () => { navigator.clipboard.writeText('https://me.fedapay.com/lmuOo1Nv').then(() => { b.innerHTML = '<i class="fas fa-check"></i> Copié !'; notify('Lien copié !','success'); setTimeout(()=>{b.innerHTML='<i class="fas fa-copy"></i> Copier le lien';},2000); }).catch(()=>notify('Erreur','error')); });
         }
-
-        // Copie lien don
-        function initDonationCopy() {
-            const copyBtn = document.getElementById('copyDonationLink');
-            if (copyBtn) {
-                copyBtn.addEventListener('click', function() {
-                    const donationLink = 'https://me.fedapay.com/lmuOo1Nv';
-                    navigator.clipboard.writeText(donationLink).then(() => {
-                        const originalText = this.innerHTML;
-                        this.innerHTML = '<i class="fas fa-check"></i> Copié !';
-                        showNotification('Lien de don copié dans le presse-papier !', 'success');
-                        setTimeout(() => {
-                            this.innerHTML = originalText;
-                        }, 2000);
-                    }).catch(() => {
-                        showNotification('Erreur lors de la copie', 'error');
-                    });
-                });
-            }
-        }
-
-        // Notification système
-        function showNotification(message, type) {
-            const notification = document.getElementById('notification');
-            const notificationText = document.getElementById('notificationText');
-            
-            if (notification && notificationText) {
-                notificationText.textContent = message;
-                notification.className = `notification ${type}`;
-                notification.style.display = 'flex';
-                
-                setTimeout(() => {
-                    notification.style.opacity = '0';
-                    setTimeout(() => {
-                        notification.style.display = 'none';
-                        notification.style.opacity = '1';
-                    }, 300);
-                }, 4000);
-            }
-        }
-
-        // Scroll smooth
-        function initSmoothScroll() {
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
-                    const href = this.getAttribute('href');
-                    if (href && href !== '#' && href !== '#hero' && href.startsWith('#')) {
-                        e.preventDefault();
-                        const target = document.querySelector(href);
-                        if (target) {
-                            const headerHeight = 70;
-                            const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - headerHeight;
-                            window.scrollTo({ top: targetPosition, behavior: 'smooth' });
-                            
-                            // Mettre à jour l'URL sans recharger
-                            history.pushState(null, null, href);
-                        }
-                    }
-                });
-            });
-        }
-
-        // API publique
-        window.ESODI = {
-            sendWhatsApp: function(message) {
-                const msg = encodeURIComponent(message || "Bonjour ESODI !");
-                window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`, '_blank');
-            },
-            makeDonation: function() {
-                window.open('https://me.fedapay.com/lmuOo1Nv', '_blank');
-            },
-            getDeviceInfo: function() {
-                return {
-                    width: window.innerWidth,
-                    height: window.innerHeight,
-                    isMobile: window.innerWidth < 768,
-                    isTablet: window.innerWidth >= 768 && window.innerWidth < 992,
-                    isDesktop: window.innerWidth >= 992
-                };
-            }
-        };
+        function quickMsg() { document.getElementById('quickContact')?.addEventListener('click', () => { window.open(`https://wa.me/${WHATSAPP}?text=${encodeURIComponent('Bonjour ESODI ! Je souhaite en savoir plus sur vos applications.')}`,'_blank'); notify('Ouverture WhatsApp...','success'); }); }
+        function notify(t, ty='success') { const e = document.getElementById('notification'), x = document.getElementById('notifText'); if (!e||!x) return; x.textContent = t; e.className = `notification ${ty}`; e.classList.add('show'); clearTimeout(e._t); e._t = setTimeout(() => e.classList.remove('show'), 4000); }
     </script>
 </body>
 </html>
