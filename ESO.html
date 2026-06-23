@@ -10,13 +10,12 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="format-detection" content="telephone=no">
     <meta name="description" content="Portefeuille ESODI - Solutions digitales innovantes pour l'éducation, le logement, le commerce et la finance en Afrique">
-    <meta name="keywords" content="ESODI, solutions digitales, Afrique, développement web, applications, innovation">
+    <meta name="keywords" content="ESODI, solutions digitales, Afrique, développement web, applications, innovation, Togo">
     <meta name="author" content="KOLA Maniwah Essohouna">
     <meta property="og:title" content="Portefeuille ESODI - Solutions Digitales Innovantes">
     <meta property="og:description" content="Découvrez nos projets conçus pour transformer les défis en opportunités">
     <meta property="og:type" content="website">
     <title>Portefeuille ESODI - Solutions Digitales Innovantes</title>
-    <link rel="icon" type="image/x-icon" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap">
     <style>
@@ -41,6 +40,9 @@
             --finance-dark: #0284c7;
             --finance-light: #38bdf8;
             --finance-50: #f0f9ff;
+            --togo-green: #009B3A;
+            --togo-red: #FF0000;
+            --togo-yellow: #F6CD31;
             --bg: #ffffff;
             --bg-secondary: #f8fafc;
             --bg-tertiary: #f1f5f9;
@@ -65,6 +67,14 @@
             scroll-behavior: smooth;
             overflow-x: hidden;
         }
+        @media (max-width: 1400px) { html { font-size: 15.75px; } }
+        @media (max-width: 1200px) { html { font-size: 15.5px; } }
+        @media (max-width: 992px) { html { font-size: 15px; } }
+        @media (max-width: 768px) { html { font-size: 14.5px; } }
+        @media (max-width: 576px) { html { font-size: 14px; } }
+        @media (max-width: 420px) { html { font-size: 13.5px; } }
+        @media (max-width: 360px) { html { font-size: 13px; } }
+        @media (max-width: 280px) { html { font-size: 12px; } }
 
         body {
             font-family: 'Inter',system-ui,-apple-system,sans-serif;
@@ -78,14 +88,37 @@
             padding-bottom: var(--safe-bottom);
         }
 
+        img, video, iframe { max-width: 100%; height: auto; }
         .container { width: 100%; margin: 0 auto; padding: 0 max(16px,var(--safe-left)); }
+        @media (min-width: 576px) { .container { max-width: 540px; padding: 0 max(20px,var(--safe-left)); } }
+        @media (min-width: 768px) { .container { max-width: 720px; } }
+        @media (min-width: 992px) { .container { max-width: 960px; } }
+        @media (min-width: 1200px) { .container { max-width: 1140px; padding: 0 24px; } }
+        @media (min-width: 1400px) { .container { max-width: 1280px; padding: 0 32px; } }
+        @media (min-width: 1800px) { .container { max-width: 1600px; } }
+
+        /* TOGO FLAG CSS */
+        .flag-icon {
+            width: 24px; height: 16px; border-radius: 2px; overflow: hidden;
+            position: relative; display: inline-block; flex-shrink: 0;
+            box-shadow: 0 1px 2px rgba(0,0,0,.2);
+        }
+        .flag-icon .stripe { position: absolute; height: 20%; width: 100%; left: 0; }
+        .flag-icon .stripe:nth-child(1) { background: var(--togo-green); top: 0; }
+        .flag-icon .stripe:nth-child(2) { background: var(--togo-yellow); top: 20%; }
+        .flag-icon .stripe:nth-child(3) { background: var(--togo-green); top: 40%; }
+        .flag-icon .stripe:nth-child(4) { background: var(--togo-yellow); top: 60%; }
+        .flag-icon .stripe:nth-child(5) { background: var(--togo-green); top: 80%; }
+        .flag-canton { position: absolute; top: 0; left: 0; width: 40%; height: 60%; background: var(--togo-red); z-index: 1; }
+        .flag-star { position: absolute; top: 30%; left: 20%; z-index: 2; color: #fff; font-size: 7px; text-shadow: 0 0 2px rgba(0,0,0,.3); transform: translate(-50%,-50%); }
 
         /* ===== BACK BUTTON ===== */
         .back-button {
             position: fixed; top: max(12px,var(--safe-top)); left: max(12px,var(--safe-left));
             z-index: 300; background: linear-gradient(135deg,var(--primary),var(--primary-dark));
             color: #fff; border: none; border-radius: var(--radius-full);
-            width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;
+            width: clamp(38px,5vw,44px); height: clamp(38px,5vw,44px);
+            display: flex; align-items: center; justify-content: center;
             cursor: pointer; box-shadow: var(--shadow-lg); font-size: 1rem;
             text-decoration: none; backdrop-filter: blur(10px);
             border: 2px solid rgba(255,255,255,0.15);
@@ -97,52 +130,65 @@
         header {
             background: linear-gradient(135deg,var(--primary),var(--primary-dark));
             color: #fff; text-align: center; position: relative; overflow: hidden;
-            padding: calc(40px + var(--safe-top)) 0 50px;
+            padding: clamp(30px,6vw,40px) 0 clamp(36px,7vw,50px);
+            padding-top: calc(clamp(30px,6vw,40px) + var(--safe-top));
         }
         header::before {
             content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
-            background: linear-gradient(90deg,var(--edu),var(--housing),var(--commerce),var(--finance));
+            background: linear-gradient(90deg,var(--togo-green),var(--togo-yellow),var(--togo-red),var(--edu),var(--housing),var(--commerce),var(--finance));
         }
-        .logo { font-size: 2.8rem; margin-bottom: 16px; display: inline-block; animation: float 6s ease-in-out infinite; }
+        .header-badge {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: rgba(255,255,255,.12); backdrop-filter: blur(10px);
+            padding: 6px 16px; border-radius: var(--radius-full);
+            margin-bottom: 16px; font-size: clamp(.65rem,2vw,.8rem);
+            border: 1px solid rgba(255,255,255,.2);
+        }
+        .logo { font-size: clamp(2rem,8vw,2.8rem); margin-bottom: clamp(10px,2vw,16px); display: inline-block; animation: float 6s ease-in-out infinite; }
         @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
         .header-content h1 {
-            font-size: clamp(1.8rem,5vw,3rem); margin-bottom: 12px; font-weight: 900;
+            font-size: clamp(1.4rem,7vw,3rem); margin-bottom: clamp(8px,2vw,12px); font-weight: 900;
             background: linear-gradient(135deg,#fff,#e0f2fe); -webkit-background-clip: text; background-clip: text; color: transparent;
         }
-        .subtitle { font-size: 1.05rem; opacity: .92; max-width: 720px; margin: 0 auto; color: rgba(255,255,255,.9); line-height: 1.5; }
+        .subtitle { font-size: clamp(.85rem,2.5vw,1.05rem); opacity: .92; max-width: 720px; margin: 0 auto; color: rgba(255,255,255,.9); line-height: 1.5; padding: 0 .5rem; }
 
         /* ===== STATS BAR ===== */
         .stats-bar {
-            display: flex; flex-wrap: wrap; justify-content: center; gap: 12px 24px;
-            padding: 20px 16px; margin: -26px auto 32px; max-width: 700px;
+            display: flex; flex-wrap: wrap; justify-content: center; gap: clamp(6px,1.5vw,12px) clamp(12px,3vw,24px);
+            padding: clamp(14px,2.5vw,20px) clamp(12px,2vw,16px);
+            margin: calc(-1 * clamp(20px,4vw,26px)) auto clamp(24px,4vw,32px);
+            max-width: 700px;
             background: var(--bg); border-radius: 16px; box-shadow: var(--shadow-lg);
             position: relative; z-index: 2;
         }
-        .stat-item { display: flex; align-items: center; gap: 8px; font-size: .9rem; color: var(--text-secondary); }
-        .stat-item strong { font-size: 1.2rem; color: var(--primary); }
+        .stat-item { display: flex; align-items: center; gap: 8px; font-size: clamp(.75rem,2vw,.9rem); color: var(--text-secondary); }
+        .stat-item strong { font-size: clamp(1rem,2.5vw,1.2rem); color: var(--primary); }
 
         /* ===== CATEGORY NAV ===== */
         .category-nav-wrapper {
             position: sticky; top: 0; z-index: 100; background: var(--bg);
-            border-bottom: 1px solid var(--border); padding: 10px 0; margin-bottom: 32px;
+            border-bottom: 1px solid var(--border); padding: clamp(6px,1.5vw,10px) 0;
+            margin-bottom: clamp(20px,4vw,32px);
             transition: box-shadow 0.3s;
         }
         .category-nav-wrapper.scrolled { box-shadow: var(--shadow-md); }
         .category-nav {
-            display: flex; flex-wrap: wrap; justify-content: center; gap: 8px;
+            display: flex; flex-wrap: wrap; justify-content: center; gap: clamp(4px,1vw,8px);
             padding: 0 max(8px,var(--safe-left));
         }
         .category-btn {
-            background: var(--bg); border: 2px solid var(--border); padding: 10px 16px;
-            border-radius: var(--radius-full); font-weight: 600; font-size: .85rem;
+            background: var(--bg); border: 2px solid var(--border); padding: clamp(6px,1.2vw,10px) clamp(10px,2vw,16px);
+            border-radius: var(--radius-full); font-weight: 600; font-size: clamp(.72rem,2.2vw,.85rem);
             cursor: pointer; transition: all 0.25s; display: flex; align-items: center;
-            gap: 8px; min-height: 44px; position: relative;
+            gap: 8px; min-height: clamp(38px,5.5vw,44px); position: relative;
         }
+        @media (max-width: 420px) { .category-btn { font-size: .68rem; gap: 4px; min-height: 34px; } }
+        @media (max-width: 320px) { .category-btn { font-size: .6rem; gap: 3px; min-height: 30px; padding: 4px 8px; } }
         .category-btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); border-color: transparent; }
         .category-btn .badge {
             background: var(--bg-tertiary); color: var(--text-secondary);
-            font-size: .7rem; font-weight: 700; padding: 1px 8px; border-radius: var(--radius-full);
-            min-width: 22px; text-align: center; transition: all 0.25s;
+            font-size: clamp(.6rem,1.8vw,.7rem); font-weight: 700; padding: 1px 6px;
+            border-radius: var(--radius-full); min-width: clamp(18px,3vw,22px); text-align: center; transition: all 0.25s;
         }
         .category-btn.active .badge { background: rgba(255,255,255,.25); color: #fff; }
         .category-btn.edu.active { background: linear-gradient(135deg,var(--edu),var(--edu-dark)); color: #fff; border-color: transparent; }
@@ -158,12 +204,12 @@
         @keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
 
         .category-title {
-            display: flex; align-items: center; gap: 16px; margin-bottom: 24px;
-            padding-bottom: 12px; border-bottom: 3px solid; font-size: 1.35rem;
+            display: flex; align-items: center; gap: 16px; margin-bottom: clamp(16px,3vw,24px);
+            padding-bottom: 12px; border-bottom: 3px solid; font-size: clamp(1.1rem,3.5vw,1.35rem);
             justify-content: space-between; flex-wrap: wrap;
         }
         .category-title-left { display: flex; align-items: center; gap: 12px; }
-        .category-title .count { font-size: .85rem; font-weight: 600; opacity: .6; }
+        .category-title .count { font-size: clamp(.7rem,2vw,.85rem); font-weight: 600; opacity: .6; }
         .category-title.edu { color: var(--edu); border-color: var(--edu); }
         .category-title.housing { color: var(--housing); border-color: var(--housing); }
         .category-title.commerce { color: var(--commerce); border-color: var(--commerce); }
@@ -174,8 +220,12 @@
         .projects-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 20px;
+            gap: clamp(14px,2.5vw,24px);
         }
+        @media (max-width: 520px) { .projects-grid { grid-template-columns: 1fr; } }
+        @media (min-width: 521px) and (max-width: 768px) { .projects-grid { grid-template-columns: repeat(2,1fr); } }
+        @media (min-width: 769px) and (max-width: 1100px) { .projects-grid { grid-template-columns: repeat(3,1fr); } }
+        @media (min-width: 1400px) { .projects-grid { grid-template-columns: repeat(4,1fr); } }
 
         .project-card {
             background: var(--bg); border-radius: 14px; overflow: hidden;
@@ -187,10 +237,8 @@
 
         .project-card { transform: translateY(12px); }
 
-        .project-card:hover {
-            transform: translateY(-6px); box-shadow: var(--shadow-xl);
-            border-color: transparent;
-        }
+        @media (hover: hover) { .project-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-xl); border-color: transparent; } }
+        @media (hover: none) { .project-card:active { transform: scale(.98); } }
 
         .project-card .card-top {
             height: 4px; flex-shrink: 0;
@@ -202,31 +250,32 @@
 
         .project-number {
             position: absolute; top: 14px; left: 14px; z-index: 2;
-            background: var(--bg); color: var(--text); width: 30px; height: 30px;
+            background: var(--bg); color: var(--text); width: clamp(26px,3vw,30px); height: clamp(26px,3vw,30px);
             border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            font-weight: 700; font-size: .8rem; border: 2px solid var(--border);
+            font-weight: 700; font-size: clamp(.7rem,1.5vw,.8rem); border: 2px solid var(--border);
         }
 
-        .project-content { padding: 20px; flex: 1; display: flex; flex-direction: column; }
+        .project-content { padding: clamp(14px,2.5vw,20px); flex: 1; display: flex; flex-direction: column; }
 
         .project-title {
-            font-size: 1.1rem; margin-bottom: 10px; font-weight: 800;
+            font-size: clamp(.95rem,2.5vw,1.1rem); margin-bottom: 10px; font-weight: 800;
             line-height: 1.3; padding-right: 36px;
         }
 
         .project-description {
             color: var(--text-secondary); margin-bottom: 20px; flex: 1;
-            font-size: .9rem; line-height: 1.55;
+            font-size: clamp(.8rem,2vw,.9rem); line-height: 1.55;
         }
 
         .project-link {
             display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-            padding: 12px 20px; border-radius: 10px; text-decoration: none;
-            font-weight: 600; font-size: .9rem; min-height: 44px; width: 100%;
+            padding: clamp(10px,1.8vw,12px) clamp(16px,2.5vw,20px);
+            border-radius: 10px; text-decoration: none;
+            font-weight: 600; font-size: clamp(.8rem,2vw,.9rem); min-height: 44px; width: 100%;
             color: #fff; border: none; cursor: pointer; transition: all 0.25s;
             background: linear-gradient(135deg,var(--primary),var(--primary-dark));
         }
-        .project-link:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+        @media (hover: hover) { .project-link:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); } }
 
         .exam-types, .features-tags {
             display: flex; flex-wrap: wrap; gap: 5px; margin-top: 8px;
@@ -252,18 +301,19 @@
             padding: 48px 0 calc(48px + var(--safe-bottom)); margin-top: auto;
             position: relative;
         }
+        @media (max-width: 480px) { footer { padding: 32px 0 calc(32px + var(--safe-bottom)); } }
         footer::before {
             content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
-            background: linear-gradient(90deg,var(--edu),var(--housing),var(--commerce),var(--finance));
+            background: linear-gradient(90deg,var(--togo-green),var(--togo-yellow),var(--togo-red),var(--edu),var(--housing),var(--commerce),var(--finance));
         }
         .footer-content { text-align: center; }
         .footer-content h3 {
-            font-size: 1.8rem; margin-bottom: 12px; font-weight: 900;
+            font-size: clamp(1.3rem,5vw,1.8rem); margin-bottom: 12px; font-weight: 900;
             background: linear-gradient(135deg,#fff,#e0f2fe); -webkit-background-clip: text; background-clip: text; color: transparent;
         }
         .developer-info {
             background: rgba(255,255,255,.1); backdrop-filter: blur(10px); border-radius: 16px;
-            padding: 28px; margin: 24px auto; max-width: 520px;
+            padding: clamp(20px,4vw,28px); margin: 24px auto; max-width: 520px;
             border: 1px solid rgba(255,255,255,.2);
         }
         .contact-details { display: flex; flex-direction: column; gap: 12px; text-align: left; }
@@ -277,7 +327,17 @@
             border-radius: var(--radius-full); display: flex; align-items: center; gap: 8px;
             transition: all 0.25s; text-decoration: none;
         }
-        .footer-links a:hover { background: rgba(255,255,255,.2); transform: translateY(-2px); }
+        @media (max-width: 480px) { .footer-links { flex-direction: column; align-items: center; } .footer-links a { width: 100%; max-width: 260px; justify-content: center; } }
+        @media (hover: hover) { .footer-links a:hover { background: rgba(255,255,255,.2); transform: translateY(-2px); } }
+
+        .footer-flag {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: rgba(255,255,255,.08); padding: 8px 16px;
+            border-radius: var(--radius-full); margin: 16px 0; font-size: clamp(.6rem,2vw,.7rem);
+            border: 1px solid rgba(255,255,255,.12);
+        }
+        .footer-flag .flag-icon { width: clamp(26px,4vw,28px); height: clamp(16px,2.5vw,17px); }
+        .footer-flag .flag-star { font-size: clamp(7px,1.2vw,8px); }
 
         .status-message {
             position: fixed; top: calc(var(--safe-top) + 70px); left: 50%;
@@ -285,31 +345,38 @@
             background: linear-gradient(135deg,var(--primary),var(--primary-dark)); color: #fff;
             padding: 10px 24px; border-radius: var(--radius-full); box-shadow: var(--shadow-xl);
             z-index: 800; opacity: 0; transition: all 0.3s; max-width: 90%;
-            text-align: center; font-weight: 600; font-size: .9rem;
+            text-align: center; font-weight: 600; font-size: clamp(.8rem,2vw,.9rem);
         }
         .status-message.show { transform: translateX(-50%) translateY(0); opacity: 1; }
 
-        /* ===== RESPONSIVE ===== */
-        @media (max-width: 480px) {
-            .projects-grid { grid-template-columns: 1fr; gap: 14px; }
-            .stats-bar { gap: 8px 16px; padding: 14px 12px; }
-            .category-btn { font-size: .78rem; padding: 8px 12px; }
-            .category-btn .badge { font-size: .65rem; min-width: 18px; padding: 1px 6px; }
-            .category-nav-wrapper { padding: 8px 0; }
-            .footer-links { flex-direction: column; align-items: center; }
-            .footer-links a { width: 100%; max-width: 260px; justify-content: center; }
-            .developer-info { padding: 20px; }
+        /* LANDSCAPE MOBILE */
+        @media (max-height: 520px) and (orientation: landscape) {
+            header { padding: 12px 0 16px; padding-top: calc(12px + var(--safe-top)); }
+            .logo { font-size: 1.5rem; margin-bottom: 6px; }
+            .header-content h1 { font-size: 1.2rem; }
+            .subtitle { font-size: .7rem; }
+            .stats-bar { padding: 8px 12px; margin-bottom: 12px; gap: 4px 8px; }
+            .stat-item { font-size: .65rem; }
+            .category-nav-wrapper { padding: 4px 0; margin-bottom: 12px; }
+            .category-btn { font-size: .6rem; padding: 4px 8px; min-height: 28px; }
+            .projects-grid { grid-template-columns: repeat(2,1fr); gap: 8px; }
+            .project-content { padding: 10px; }
+            .project-title { font-size: .8rem; padding-right: 24px; }
+            .project-description { font-size: .7rem; margin-bottom: 10px; }
+            .project-link { font-size: .75rem; padding: 8px 12px; min-height: 34px; }
+            footer { padding: 20px 0; }
+            .developer-info { padding: 14px; margin: 12px auto; }
+            .footer-links { gap: 6px; }
+            .footer-links a { padding: 4px 12px; font-size: .7rem; }
         }
-        @media (min-width: 481px) and (max-width: 768px) {
-            .projects-grid { grid-template-columns: repeat(2,1fr); gap: 16px; }
+        @media (max-height: 400px) and (orientation: landscape) {
+            .header-content h1 { font-size: 1rem; }
+            .subtitle { font-size: .62rem; display: none; }
+            .logo { font-size: 1.2rem; }
+            .stats-bar { display: none; }
         }
-        @media (min-width: 769px) and (max-width: 1024px) {
-            .projects-grid { grid-template-columns: repeat(3,1fr); }
-        }
-        @media (min-width: 1025px) {
-            .container { max-width: 1280px; padding: 0 32px; }
-            .projects-grid { grid-template-columns: repeat(4,1fr); gap: 24px; }
-        }
+
+        /* DARK */
         @media (prefers-color-scheme: dark) {
             :root {
                 --bg: #0f172a; --bg-secondary: #1e293b; --bg-tertiary: #334155;
@@ -324,17 +391,37 @@
             .project-card:hover, .category-btn:hover, .project-link:hover, .back-button:hover { transform: none; }
             .category-btn:active, .project-link:active, .back-button:active { transform: scale(0.97); }
         }
+
+        /* PRINT */
+        @media print {
+            .back-button, .category-nav-wrapper, .status-message { display: none !important; }
+            header { background: #4f46e5 !important; }
+            .project-card { break-inside: avoid; box-shadow: none; border: 1px solid #ddd; }
+            body { color: #000; background: #fff; }
+            .container { max-width: 100%; }
+        }
+
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: var(--bg-secondary); }
         ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: var(--radius-full); }
     </style>
 </head>
 <body>
-    <a href="https://jeanskodoc.github.io/BLOG/" class="back-button" aria-label="Retour"><i class="fas fa-arrow-left"></i></a>
+    <a href="javascript:history.back()" class="back-button" aria-label="Retour"><i class="fas fa-arrow-left"></i></a>
     <div id="statusMessage" class="status-message" aria-live="polite"></div>
 
     <header>
-        <div class="container">
+        <div class="container header-content">
+            <div class="header-badge">
+                <span class="flag-icon">
+                    <span class="stripe"></span><span class="stripe"></span>
+                    <span class="stripe"></span><span class="stripe"></span>
+                    <span class="stripe"></span>
+                    <span class="flag-canton"></span>
+                    <i class="fas fa-star flag-star"></i>
+                </span>
+                Développé au Togo 🇹🇬
+            </div>
             <div class="logo"><i class="fas fa-layer-group"></i></div>
             <h1>Portefeuille ESODI</h1>
             <p class="subtitle">Solutions digitales innovantes — 4 domaines, <strong id="totalProjets">24</strong> projets conçus pour transformer les défis en opportunités.</p>
@@ -352,6 +439,7 @@
                 <div class="stat-item"><i class="fas fa-home" style="color:var(--housing)"></i> <strong>1</strong> Logement</div>
                 <div class="stat-item"><i class="fas fa-shopping-cart" style="color:var(--commerce)"></i> <strong>6</strong> Commerce</div>
                 <div class="stat-item"><i class="fas fa-chart-line" style="color:var(--finance)"></i> <strong>2</strong> Finance</div>
+                <div class="stat-item"><i class="fas fa-download" style="color:var(--primary)"></i> <a href="portfolio.html" download style="color:inherit;text-decoration:none"><strong>Télécharger</strong></a></div>
             </div>
 
             <!-- NAV -->
@@ -440,6 +528,16 @@
 
     <footer>
         <div class="container footer-content">
+            <div class="footer-flag">
+                <span class="flag-icon">
+                    <span class="stripe"></span><span class="stripe"></span>
+                    <span class="stripe"></span><span class="stripe"></span>
+                    <span class="stripe"></span>
+                    <span class="flag-canton"></span>
+                    <i class="fas fa-star flag-star"></i>
+                </span>
+                République Togolaise 🇹🇬
+            </div>
             <h3>Portefeuille Digital ESODI</h3>
             <p>Une collection exclusive de solutions digitales innovantes conçues pour transformer les secteurs de l'éducation, du logement, du commerce et de la finance en Afrique.</p>
             <div class="developer-info">
@@ -454,9 +552,10 @@
             <div class="footer-links">
                 <a href="mailto:jeanskodoc22@gmail.com"><i class="fas fa-envelope"></i> Contact</a>
                 <a href="https://github.com/jeanskodoc" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i> GitHub</a>
+                <a href="portfolio.html" download><i class="fas fa-download"></i> Télécharger</a>
                 <a href="#" id="scrollTop"><i class="fas fa-arrow-up"></i> Haut de page</a>
             </div>
-            <p>&copy; 2023-2024 ESODI – Tous droits réservés | Conçu avec ❤️ au Togo</p>
+            <p>&copy; 2023-2024 ESODI – Tous droits réservés | Conçu avec ❤️ au Togo 🇹🇬</p>
         </div>
     </footer>
 
